@@ -1,0 +1,41 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+
+// Debug: Get all blog entries
+const blogEntries = await getCollection("blog");
+console.log("Blog entries found:", blogEntries.length);
+console.log("Blog entries:", blogEntries.map(post => ({ 
+  id: post.id, 
+  title: post.data.title, 
+  draft: post.data.draft 
+})));
+---
+
+<Layout title='Blog Debug'>
+    <div>
+		<h1 class='text-3xl font-bold mb-8'>Blog Debug</h1>
+		<p>Total blog entries found: <strong>{blogEntries.length}</strong></p>
+		
+		<div class='mt-8'>
+			<h2 class='text-2xl font-bold mb-4'>Blog Posts:</h2>
+			{blogEntries.length === 0 ? (
+				<p class='text-red-500'>No blog posts found!</p>
+			) : (
+				<div class='space-y-4'>
+					{blogEntries.map(post => (
+						<div class='border p-4 rounded'>
+							<h3 class='font-bold'>{post.data.title}</h3>
+							<p class='text-sm text-gray-600'>ID: {post.id}</p>
+							<p class='text-sm text-gray-600'>Date: {post.data.date.toISOString()}</p>
+							<p class='text-sm text-gray-600'>Draft: {post.data.draft ? 'Yes' : 'No'}</p>
+							<p class='text-sm text-gray-600'>Tags: {post.data.tags.join(', ')}</p>
+							<p class='mt-2'>{post.data.excerpt}</p>
+							<a href={`/blog/${post.id}`} class='text-blue-500 underline'>View Post</a>
+						</div>
+					))}
+				</div>
+			)}
+		</div>
+    </div>
+</Layout>

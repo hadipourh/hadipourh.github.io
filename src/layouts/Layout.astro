@@ -8,7 +8,10 @@ import Navbar from '../components/ui/Navbar.astro'
 import Head from '../components/Head.astro'
 
 import { seo, profile, template } from '../settings'
-import Footer from '../components/ui/Footer.astro'
+
+// Import hacker-style fonts and theme CSS
+import '../styles/hacker-fonts.css'
+import '../styles/hacker-theme.css'
 
 type Props = {
 	title?: string
@@ -30,7 +33,65 @@ const {
 
 		<Head title={title} description={description} image={image} />
 
-
+		<!-- FORCE HACKER THEME IN DARK MODE -->
+		<style>
+			/* Target both system dark mode AND data-theme="dark" attribute */
+			@media (prefers-color-scheme: dark), [data-theme="dark"] {
+				/* ULTIMATE OVERRIDE - Force hacker theme */
+				html, body, main, section, article, div, header, nav, aside, footer,
+				.drawer, .drawer-content, .drawer-side, .drawer-open,
+				.bg-base-100, .bg-base-200, .bg-base-300,
+				[data-theme="synthwave"], [data-theme],
+				.navbar, .card, .btn, .badge, .menu,
+				* {
+					background-color: #000000 !important;
+					background: #000000 !important;
+					color: #00ff00 !important;
+					font-family: 'Courier New', 'Monaco', 'Menlo', monospace !important;
+				}
+				
+				/* Headers with glow */
+				h1, h2, h3, h4, h5, h6 {
+					color: #00ff00 !important;
+					text-shadow: 0 0 15px #00ff00 !important;
+					text-transform: uppercase !important;
+				}
+				
+				/* Links */
+				a {
+					color: #00ffff !important;
+					text-decoration: underline !important;
+				}
+				
+				a:hover {
+					color: #ffff00 !important;
+					text-shadow: 0 0 8px #ffff00 !important;
+				}
+				
+				/* Borders and containers */
+				.card, .navbar, .btn, .drawer-side {
+					border: 2px solid #00ff00 !important;
+					box-shadow: 0 0 20px rgba(0, 255, 0, 0.3) !important;
+				}
+			}
+			
+			/* Alternative: Force dark theme attribute when system is dark */
+			[data-theme="dark"] html, [data-theme="dark"] body, [data-theme="dark"] main, 
+			[data-theme="dark"] section, [data-theme="dark"] article, [data-theme="dark"] div, 
+			[data-theme="dark"] header, [data-theme="dark"] nav, [data-theme="dark"] aside, 
+			[data-theme="dark"] footer, [data-theme="dark"] .drawer, [data-theme="dark"] .drawer-content, 
+			[data-theme="dark"] .drawer-side, [data-theme="dark"] .drawer-open,
+			[data-theme="dark"] .bg-base-100, [data-theme="dark"] .bg-base-200, 
+			[data-theme="dark"] .bg-base-300, [data-theme="dark"] .navbar, 
+			[data-theme="dark"] .card, [data-theme="dark"] .btn, 
+			[data-theme="dark"] .badge, [data-theme="dark"] .menu,
+			[data-theme="dark"] * {
+				background-color: #000000 !important;
+				background: #000000 !important;
+				color: #00ff00 !important;
+				font-family: 'Courier New', 'Monaco', 'Menlo', monospace !important;
+			}
+		</style>
 
 	</head>
 	<body>
@@ -77,7 +138,6 @@ const {
                 <main class='p-8 pt-10 lg:pt-16 lg:max-w-5xl max-w-full mx-auto min-h-screen flex flex-col justify-between'>
 					<!-- Page content -->
 					<slot />
-				<Footer />
 				</main>
 			</div>
 			<!-- Drawer side -->

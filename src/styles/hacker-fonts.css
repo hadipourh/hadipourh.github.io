@@ -1,0 +1,59 @@
+/* Hacker-style monospace fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Override default fonts with hacker-style monospace fonts */
+  --font-mono: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+  --font-sans: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+  --font-serif: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Apply monospace font to all text elements */
+* {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+}
+
+/* Specific overrides for different text elements */
+body, html {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures for coding fonts */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+p, span, div, a, li, td, th {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+}
+
+/* Code blocks should definitely use monospace */
+code, pre, .code {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/* Navigation and buttons */
+nav, button, .btn {
+  font-family: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace !important;
+  font-weight: 500;
+}
+
+/* Give a slight glow effect for that hacker aesthetic */
+.glow-text {
+  text-shadow: 0 0 5px currentColor;
+}
+
+/* Add hacker-style cursor effect */
+.cursor::after {
+  content: '█';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}

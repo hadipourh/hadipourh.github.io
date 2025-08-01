@@ -1,0 +1,60 @@
+/* EMERGENCY LIGHT MODE OVERRIDE - Force White Background */
+
+/* Override EVERYTHING to be white in light mode */
+@media (prefers-color-scheme: light) {
+  /* Force white on ALL elements */
+  html, body, main, section, article, div, header, nav, aside, footer,
+  .drawer, .drawer-content, .drawer-side, .drawer-open,
+  .bg-base-100, .bg-base-200, .bg-base-300,
+  [data-theme="synthwave"], [data-theme],
+  * {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+  }
+
+  /* Force black text on everything */
+  html, body, main, section, article, div, p, span, h1, h2, h3, h4, h5, h6,
+  .text-base-content, * {
+    color: #000000 !important;
+  }
+
+  /* Only specific elements get colors */
+  h1, h2, h3, h4, h5, h6 {
+    color: #0066cc !important;
+  }
+
+  a {
+    color: #cc0066 !important;
+  }
+
+  .navbar {
+    background-color: #f0f0f0 !important;
+  }
+
+  .btn {
+    background-color: #0066cc !important;
+    color: #ffffff !important;
+  }
+}
+
+/* Backup override - if media query doesn't work */
+body[data-theme="synthwave"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+html[data-theme="synthwave"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* DISABLED - Reverting to dark hacker theme */
+/*
+html, body, main, section, article, div,
+.drawer, .drawer-content, .drawer-side,
+.bg-base-100, .bg-base-200, .bg-base-300 {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+*/

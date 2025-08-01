@@ -18,6 +18,28 @@ const { title, description, image } = Astro.props
 	type='image/svg+xml'
 	href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>'
 />
+
+<!-- KaTeX CSS for math rendering -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+
+<!-- KaTeX JavaScript -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
+
+<!-- KaTeX auto-render extension -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+
+<!-- Auto-render KaTeX -->
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
 <meta name='generator' content={Astro.generator} />
 
 <!-- Sitemap -->
@@ -47,9 +69,14 @@ const { title, description, image } = Astro.props
 
 <!-- Theme selector scripts -->
 <script is:inline>
-  // Get stored theme or default to light
+  // Get stored theme or auto-detect from system preference
   const getStoredTheme = () => {
-    return localStorage.getItem('theme') || 'light';
+    const stored = localStorage.getItem('theme');
+    // If no stored theme, detect system preference
+    if (!stored) {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return stored;
   }
 
   // Apply theme immediately to prevent flash
