@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { profile } from '@/settings'
+
+const { fullName } = profile
+---
+
+<Layout>
+	<section class='py-12'>
+		<h1 class='text-4xl font-bold mb-8'>Talks & Presentations</h1>
+		<p class='text-lg text-gray-600 mb-8'>
+			Conference presentations, invited talks, and seminars on cryptography and information security.
+		</p>
+		
+		<div class='space-y-8'>
+			<div class='timeline timeline-vertical'>
+				<div class='timeline-start timeline-box bg-base-100 shadow-xl'>
+					<h3 class='font-bold text-lg'>Cryptanalysis of Symmetric-Key Primitives</h3>
+					<p class='text-gray-600'>CRYPTO 2024, Santa Barbara, CA</p>
+					<p class='text-sm text-gray-500 mt-2'>
+						Presented novel approaches to analyzing modern block ciphers and their resistance to differential attacks.
+					</p>
+					<div class='flex gap-2 mt-3'>
+						<div class='badge badge-primary'>Conference</div>
+						<div class='badge badge-outline'>Cryptanalysis</div>
+					</div>
+				</div>
+				<div class='timeline-middle'>
+					<div class='w-2 h-2 bg-primary rounded-full'></div>
+				</div>
+				<div class='timeline-end'></div>
+				
+				<div class='timeline-start'></div>
+				<div class='timeline-middle'>
+					<div class='w-2 h-2 bg-primary rounded-full'></div>
+				</div>
+				<div class='timeline-end timeline-box bg-base-100 shadow-xl'>
+					<h3 class='font-bold text-lg'>Side-Channel Security in Practice</h3>
+					<p class='text-gray-600'>CHES 2024, Leuven, Belgium</p>
+					<p class='text-sm text-gray-500 mt-2'>
+						Invited talk on practical implementation aspects of side-channel resistant cryptographic systems.
+					</p>
+					<div class='flex gap-2 mt-3'>
+						<div class='badge badge-secondary'>Invited Talk</div>
+						<div class='badge badge-outline'>Hardware Security</div>
+					</div>
+				</div>
+				
+				<div class='timeline-start timeline-box bg-base-100 shadow-xl'>
+					<h3 class='font-bold text-lg'>Advanced Cryptographic Techniques</h3>
+					<p class='text-gray-600'>Ruhr University Bochum Seminar</p>
+					<p class='text-sm text-gray-500 mt-2'>
+						Internal seminar presenting recent research findings on post-quantum cryptography vulnerabilities.
+					</p>
+					<div class='flex gap-2 mt-3'>
+						<div class='badge badge-accent'>Seminar</div>
+						<div class='badge badge-outline'>Post-Quantum</div>
+					</div>
+				</div>
+				<div class='timeline-middle'>
+					<div class='w-2 h-2 bg-primary rounded-full'></div>
+				</div>
+				<div class='timeline-end'></div>
+				
+				<div class='timeline-start'></div>
+				<div class='timeline-middle'>
+					<div class='w-2 h-2 bg-primary rounded-full'></div>
+				</div>
+				<div class='timeline-end timeline-box bg-base-100 shadow-xl'>
+					<h3 class='font-bold text-lg'>Fault Attacks on Embedded Systems</h3>
+					<p class='text-gray-600'>FDTC 2023, Workshop at CHES</p>
+					<p class='text-sm text-gray-500 mt-2'>
+						Workshop presentation on novel fault injection techniques targeting secure embedded implementations.
+					</p>
+					<div class='flex gap-2 mt-3'>
+						<div class='badge badge-info'>Workshop</div>
+						<div class='badge badge-outline'>Fault Attacks</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class='mt-12'>
+			<h2 class='text-2xl font-bold mb-4'>Upcoming Talks</h2>
+			<div class='card bg-base-100 shadow-xl'>
+				<div class='card-body'>
+					<h3 class='card-title'>Future Directions in Cryptanalysis</h3>
+					<p class='text-gray-600'>ASIACRYPT 2025, Submission Pending</p>
+					<p class='text-sm text-gray-500 mt-2'>
+						Invited presentation on emerging trends and challenges in symmetric-key cryptanalysis.
+					</p>
+					<div class='card-actions justify-start mt-4'>
+						<div class='badge badge-warning'>Upcoming</div>
+						<div class='badge badge-outline'>Trends</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class='mt-12'>
+			<h2 class='text-2xl font-bold mb-4'>Resources</h2>
+			<p class='text-gray-600 mb-4'>
+				Slides and supplementary materials from talks will be automatically pulled from 
+				<a href="https://github.com/hadipourh/talks" class='text-primary hover:underline' target="_blank">hadipourh/talks</a> 
+				repository in the future implementation.
+			</p>
+		</div>
+	</section>
+</Layout>

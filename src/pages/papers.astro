@@ -4,7 +4,8 @@ import { publications } from "@/data/cv";
 import { highlightAuthor } from "@/lib/utils";
 import {template} from "@/settings";
 
-const ALL_PAPERS = publications; // This will be replaced with dynamic data later
+// Filter out empty publications
+const ALL_PAPERS = publications.filter(pub => pub.title && pub.title.trim() !== '');
 ---
 
 <Layout title="Papers">

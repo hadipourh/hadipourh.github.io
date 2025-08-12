@@ -3,22 +3,37 @@ interface Props {
   listTitle: string;
   listItems: {
     title: string;
+    authors: string;
     journal: string;
     time: string;
+    link?: string;
+    abstract?: string;
   }[];
 }
 const {listTitle, listItems} = Astro.props
+
+// Take only the first few publications for the home page
+const displayItems = listItems ? listItems.slice(0, 3) : []
 ---
 
-<h2 class='text-3xl font-bold mb-8'>Recent Publications</h2>
+<h2 class='text-3xl font-bold mb-8'>{listTitle}</h2>
 		<div class='space-y-6'>
 			{
-				listItems.map(item => (
+				displayItems.map(item => (
 					<div class='p-6 rounded-lg text-base-content bg-base-200'>
 						<h3 class='text-xl font-semibold mb-2'>{item.title}</h3>
-						<p >
+						<p class='text-sm text-gray-600 mb-1'>{item.authors}</p>
+						<p class='font-medium'>
 							{item.journal} • {item.time}
 						</p>
+						{item.abstract && (
+							<p class='text-sm text-gray-600 mt-2'>{item.abstract}</p>
+						)}
+						{item.link && (
+							<a href={item.link} target="_blank" class='text-primary hover:underline mt-2 inline-block'>
+								View Publication →
+							</a>
+						)}
 					</div>
 				))
 			}

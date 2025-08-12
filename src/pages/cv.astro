@@ -46,6 +46,27 @@ if (publications.length > 0) {
 ---
 
 <Layout>
+	<!-- CV Header with Download Link -->
+	<section class='mb-12'>
+		<div class='flex justify-between items-center mb-8'>
+			<h1 class='text-4xl font-bold'>Curriculum Vitae</h1>
+			<a 
+				href='/cv/CV.pdf' 
+				download='Hosein_Hadipour_CV.pdf'
+				class='btn btn-primary gap-2'
+				target='_blank'
+			>
+				<svg class='w-4 h-4' fill='currentColor' viewBox='0 0 20 20'>
+					<path fill-rule='evenodd' d='M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z' clip-rule='evenodd'></path>
+				</svg>
+				Download PDF
+			</a>
+		</div>
+		<p class='text-lg text-gray-600'>
+			Postdoctoral Researcher specializing in cryptanalysis of symmetric-key primitives and information security.
+		</p>
+	</section>
+
 	{
 		orderdEducations.length > 0 && (
 			<section class='mb-12'>

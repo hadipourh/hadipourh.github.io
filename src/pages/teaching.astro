@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { profile } from '@/settings'
+
+const { fullName } = profile
+---
+
+<Layout>
+	<section class='py-12'>
+		<h1 class='text-4xl font-bold mb-8'>Teaching</h1>
+		<p class='text-lg text-gray-600 mb-8'>
+			Teaching materials, resources, and courses related to cryptography and information security.
+		</p>
+		
+		<div class='space-y-8'>
+			<div class='card bg-base-100 shadow-xl'>
+				<div class='card-body'>
+					<h2 class='card-title text-2xl'>Cryptography Fundamentals</h2>
+					<p class='text-gray-600 mb-4'>
+						Introduction to symmetric and asymmetric cryptography, including practical implementations and security analysis.
+					</p>
+					<div class='space-y-2'>
+						<h3 class='font-semibold'>Topics Covered:</h3>
+						<ul class='list-disc list-inside space-y-1 text-gray-600'>
+							<li>Symmetric-key cryptography (AES, DES, block ciphers)</li>
+							<li>Public-key cryptography (RSA, ECC)</li>
+							<li>Hash functions and digital signatures</li>
+							<li>Cryptanalysis techniques</li>
+						</ul>
+					</div>
+					<div class='card-actions justify-start mt-4'>
+						<div class='badge badge-primary'>Cryptography</div>
+						<div class='badge badge-outline'>Mathematics</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class='card bg-base-100 shadow-xl'>
+				<div class='card-body'>
+					<h2 class='card-title text-2xl'>Information Security</h2>
+					<p class='text-gray-600 mb-4'>
+						Comprehensive course covering theoretical foundations and practical aspects of information security.
+					</p>
+					<div class='space-y-2'>
+						<h3 class='font-semibold'>Topics Covered:</h3>
+						<ul class='list-disc list-inside space-y-1 text-gray-600'>
+							<li>Security protocols and network security</li>
+							<li>Side-channel attacks and countermeasures</li>
+							<li>Hardware security and fault attacks</li>
+							<li>Security evaluation and testing</li>
+						</ul>
+					</div>
+					<div class='card-actions justify-start mt-4'>
+						<div class='badge badge-primary'>Security</div>
+						<div class='badge badge-outline'>Hardware</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class='card bg-base-100 shadow-xl'>
+				<div class='card-body'>
+					<h2 class='card-title text-2xl'>Research Methods in Cryptography</h2>
+					<p class='text-gray-600 mb-4'>
+						Advanced course for graduate students focusing on research methodologies in cryptographic analysis.
+					</p>
+					<div class='space-y-2'>
+						<h3 class='font-semibold'>Topics Covered:</h3>
+						<ul class='list-disc list-inside space-y-1 text-gray-600'>
+							<li>Literature review and state-of-the-art analysis</li>
+							<li>Experimental design for cryptanalysis</li>
+							<li>Statistical analysis of cryptographic properties</li>
+							<li>Academic writing and publication strategies</li>
+						</ul>
+					</div>
+					<div class='card-actions justify-start mt-4'>
+						<div class='badge badge-primary'>Research</div>
+						<div class='badge badge-outline'>Methodology</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class='mt-12'>
+			<h2 class='text-2xl font-bold mb-4'>Resources</h2>
+			<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+				<div class='card bg-base-200'>
+					<div class='card-body'>
+						<h3 class='card-title'>Lecture Notes</h3>
+						<p>Comprehensive lecture notes and slides for all courses.</p>
+						<div class='card-actions justify-end'>
+							<button class='btn btn-primary btn-sm'>Access Materials</button>
+						</div>
+					</div>
+				</div>
+				<div class='card bg-base-200'>
+					<div class='card-body'>
+						<h3 class='card-title'>Programming Exercises</h3>
+						<p>Hands-on programming assignments and implementations.</p>
+						<div class='card-actions justify-end'>
+							<button class='btn btn-primary btn-sm'>View Exercises</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

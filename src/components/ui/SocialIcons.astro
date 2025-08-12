@@ -7,6 +7,10 @@ import Scholar from '@/assets/social-icons/google-scholar.svg'
 import X from '@/assets/social-icons/x-twitter.svg'
 import Inspire from '@/assets/social-icons/inspire.svg'
 import Arxiv from '@/assets/social-icons/arxiv.svg'
+import DBLP from '@/assets/social-icons/dblp.svg'
+import IACR from '@/assets/social-icons/iacr.svg'
+import ORCID from '@/assets/social-icons/orcid.svg'
+import ResearchGate from '@/assets/social-icons/researchgate.svg'
 
 import { social } from '@/settings'
 
@@ -32,11 +36,39 @@ const calculatedContainerSize = activeSocial.length <= 5 ? 'size-12' : activeSoc
 		</a>
 	}
 
-	<!-- GitLab -->
-	{social.gitlab !== '' &&
-		<a href={social.gitlab} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
-			<GitLab class={calculatedIconSize} fill="currentColor" />
-	</a>
+	<!-- DBLP -->
+	{social.dblp !== '' &&
+		<a href={social.dblp} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
+			<DBLP class={calculatedIconSize} fill="currentColor" />
+		</a>
+	}
+
+	<!-- Google Scholar -->
+	{social.scholar !== '' &&
+		<a href={social.scholar} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
+			<Scholar class={calculatedIconSize} fill="currentColor" />
+		</a>
+	}
+
+	<!-- IACR -->
+	{social.iacr !== '' &&
+		<a href={social.iacr} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
+			<IACR class={calculatedIconSize} fill="currentColor" />
+		</a>
+	}
+
+	<!-- ORCID -->
+	{social.orcid !== '' &&
+		<a href={social.orcid} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
+			<ORCID class={calculatedIconSize} fill="currentColor" />
+		</a>
+	}
+
+	<!-- LinkedIn -->
+	{social.linkedin !== '' &&
+		<a href={social.linkedin} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
+			<LinkedIn class={calculatedIconSize} fill="currentColor" />
+		</a>
 	}
 
 	<!-- X -->
@@ -46,18 +78,18 @@ const calculatedContainerSize = activeSocial.length <= 5 ? 'size-12' : activeSoc
 		</a>
 	}
 
-	<!-- Linkedin -->
-	{social.linkedin !== '' &&
-		<a href={social.linkedin} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
-			<LinkedIn class={calculatedIconSize} fill="currentColor" />
+	<!-- ResearchGate -->
+	{social.researchgate !== '' &&
+		<a href={social.researchgate} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
+			<ResearchGate class={calculatedIconSize} fill="currentColor" />
 		</a>
 	}
 
-	<!-- Google Scholar -->
-	{social.scholar !== '' &&
-		<a href={social.scholar} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
-			<Scholar class={calculatedIconSize} fill="currentColor" />
-		</a>
+	<!-- GitLab -->
+	{social.gitlab !== '' &&
+		<a href={social.gitlab} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl hover:bg-primary/20 transition-all duration-300`}>
+			<GitLab class={calculatedIconSize} fill="currentColor" />
+	</a>
 	}
 
 <!-- Inspire -->

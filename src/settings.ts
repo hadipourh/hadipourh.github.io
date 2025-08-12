@@ -1,21 +1,28 @@
 export const profile = {
-	fullName: 'Your Name',
-	title: '',
-	institute: '',
-	author_name: '', // Author name to be highlighted in the papers section
+	fullName: 'Hosein Hadipour',
+	title: 'Postdoctoral Researcher',
+	institute: 'Ruhr University Bochum',
+	author_name: 'Hosein Hadipour', // Author name to be highlighted in the papers section
 	research_areas: [
-		// { title: 'Physics', description: 'Brief description of the research interest', field: 'physics' },
+		{ title: 'Cryptanalysis', description: 'Cryptanalysis of symmetric-key primitives', field: 'cryptography' },
+		{ title: 'Cryptography', description: 'Theory and practice of cryptographic systems', field: 'cryptography' },
+		{ title: 'Information Security', description: 'From theoretical foundations to practical implementations', field: 'security' },
+		{ title: 'Side-Channel Attacks', description: 'Hardware security and physical attacks on cryptographic implementations', field: 'hardware-security' },
 	],
 }
 
 // Set equal to an empty string to hide the icon that you don't want to display
 export const social = {
-	email: '',
-	linkedin: '',
-	x: 'https://www.x.com/',
-	github: '',
+	email: 'hosein.hadipour@rub.de',
+	github: 'https://github.com/hadipourh',
+	scholar: 'https://scholar.google.com/citations?user=3gNyYaAAAAAJ&hl=en',
+	dblp: 'https://dblp.org/pid/244/8979.html',
+	iacr: 'https://www.iacr.org/cryptodb/data/author.php?authorkey=11275',
+	orcid: 'https://orcid.org/0000-0002-3820-3765',
+	linkedin: 'https://www.linkedin.com/in/hosein-h-942499170/',
+	x: 'https://x.com/HoseinHadipour',
+	researchgate: 'https://www.researchgate.net/profile/Hosein-Hadipour?ev=hdr_xprf',
 	gitlab: '',
-	scholar: '',
 	inspire: '',
 	arxiv: '',
 }

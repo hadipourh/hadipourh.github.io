@@ -1,8 +1,5 @@
 ---
-import { Image } from 'astro:assets'
-
 import SocialIcons from './SocialIcons.astro'
-
 
 const {fullName, title, institute, profilePicture} = Astro.props
 ---
@@ -12,8 +9,9 @@ const {fullName, title, institute, profilePicture} = Astro.props
   </h1>
   <p class='text-xl text-gray-600 mb-4'>{title}{institute ? ` at ${institute}` : ''}</p>
   <p class='text-lg mb-6'>
-    Brief impactful description of your research focus and academic mission.
-    Highlight your key contributions and areas of expertise.
+    Postdoctoral researcher specializing in cryptanalysis of symmetric-key primitives at Ruhr University Bochum. 
+    My research focuses on advancing the theoretical foundations and practical applications of cryptography, 
+    with particular expertise in information security and side-channel attacks.
   </p>
   <div class='flex gap-4'>
     <SocialIcons />
@@ -21,7 +19,7 @@ const {fullName, title, institute, profilePicture} = Astro.props
 </div>
 <div class='size-72 lg:block hidden'>
   <!-- Add your profile image -->
-  <Image
+  <img
     src={profilePicture}
     alt={fullName}
     class='w-full h-full mask mask-circle size-44'
