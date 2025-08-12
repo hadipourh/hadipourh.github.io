@@ -6,7 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "update:publications": "node scripts/update-publications.js",
+    "update:talks": "node scripts/update-talks.js", 
+    "update:projects": "node scripts/update-projects.js",
+    "update:all": "npm run update:publications && npm run update:talks && npm run update:projects"
   },
   "dependencies": {
     "@astrojs/react": "^4.1.4",
