@@ -84,26 +84,35 @@ function parseTalksFromReadme(readmeContent, talkDirs) {
     
     // Extract information from section
     for (const line of lines) {
-      if (line.includes('• [Paper](')) {
+      if (line.includes('- [Paper](')) {
         paper = line.match(/\[Paper\]\((.*?)\)/)?.[1] || '';
       }
-      if (line.includes('• [Slides](')) {
-        slides = line.match(/\[Slides\]\((.*?)\)/)?.[1] || '';
+      if (line.includes('- [Slides](')) {
+        const slidesMatch = line.match(/\[Slides\]\((.*?)\)/)?.[1] || '';
+        // Convert relative path to full GitHub URL
+        if (slidesMatch && !slidesMatch.startsWith('http')) {
+          slides = `https://github.com/${TALKS_REPO}/tree/main/${slidesMatch}`;
+        } else {
+          slides = slidesMatch;
+        }
       }
-      if (line.includes('• [Video](')) {
+      if (line.includes('- [Video](')) {
         video = line.match(/\[Video\]\((.*?)\)/)?.[1] || '';
       }
-      if (line.includes('• [Code](')) {
+      if (line.includes('- [Code](')) {
         code = line.match(/\[Code\]\((.*?)\)/)?.[1] || '';
       }
-      if (line.includes('• Venue:') || line.includes('• Location:')) {
-        venue = line.replace(/• (Venue|Location): /, '').replace(/\[.*?\]\(.*?\)/, '').trim();
+      if (line.includes('- Venue:') || line.includes('- Location:')) {
+        venue = line.replace(/- (Venue|Location): /, '').replace(/\[.*?\]\(.*?\)/, '').trim();
       }
     }
     
     // Extract year from title or venue
     const yearMatch = title.match(/(\d{4})/) || venue.match(/(\d{4})/);
     year = yearMatch ? yearMatch[1] : '';
+    
+    // Clean up venue names - remove markdown links
+    venue = venue.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
     
     talks.push({
       title: title.replace(/ - \w+ \d{4}$/, ''), // Remove venue suffix
@@ -163,6 +172,7 @@ async function updateTalksPage(talks) {
     const timelineItems = talks.map((talk, index) => {
       const isLeft = index % 2 === 0; // Left side for even indices
       const badgeType = getBadgeType(talk.type);
+      const links = generateLinks(talk);
       
       if (isLeft) {
         // Left side item
@@ -174,11 +184,12 @@ async function updateTalksPage(talks) {
 						<p class='text-sm text-gray-500 mt-2'>
 							${generateDescription(talk)}
 						</p>
-						<div class='flex gap-2 mt-3'>
+						<div class='flex flex-wrap gap-2 mt-3'>
 							<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
 							<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
-							${generateLinks(talk)}
-						</div>
+						</div>${links ? `
+						<div class='flex flex-wrap gap-2 mt-2'>${links}
+						</div>` : ''}
 					</div>
 					<div class='timeline-middle'>
 						<div class='w-3 h-3 bg-primary rounded-full'></div>
@@ -199,11 +210,12 @@ async function updateTalksPage(talks) {
 						<p class='text-sm text-gray-500 mt-2'>
 							${generateDescription(talk)}
 						</p>
-						<div class='flex gap-2 mt-3'>
+						<div class='flex flex-wrap gap-2 mt-3'>
 							<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
 							<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
-							${generateLinks(talk)}
-						</div>
+						</div>${links ? `
+						<div class='flex flex-wrap gap-2 mt-2'>${links}
+						</div>` : ''}
 					</div>
 				</li>`;
       }
@@ -283,19 +295,20 @@ function generateLinks(talk) {
   let links = [];
   
   if (talk.paper) {
-    links.push(`<a href='${talk.paper}' target='_blank' class='btn btn-xs btn-outline'>Paper</a>`);
+    links.push(`<a href='${talk.paper}' target='_blank' class='btn btn-xs btn-outline btn-primary'>📄 Paper</a>`);
   }
   if (talk.slides) {
-    links.push(`<a href='${talk.slides}' target='_blank' class='btn btn-xs btn-outline'>Slides</a>`);
+    links.push(`<a href='${talk.slides}' target='_blank' class='btn btn-xs btn-outline btn-secondary'>📊 Slides</a>`);
   }
   if (talk.video) {
-    links.push(`<a href='${talk.video}' target='_blank' class='btn btn-xs btn-outline'>Video</a>`);
+    links.push(`<a href='${talk.video}' target='_blank' class='btn btn-xs btn-outline btn-accent'>🎥 Video</a>`);
   }
   if (talk.code) {
-    links.push(`<a href='${talk.code}' target='_blank' class='btn btn-xs btn-outline'>Code</a>`);
+    links.push(`<a href='${talk.code}' target='_blank' class='btn btn-xs btn-outline btn-info'>💻 Code</a>`);
   }
   
-  return links.join('\n\t\t\t\t\t\t');
+  return links.length > 0 ? `
+							${links.join('\n\t\t\t\t\t\t\t')}` : '';
 }
 
 async function main() {
