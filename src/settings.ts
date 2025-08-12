@@ -4,10 +4,10 @@ export const profile = {
 	institute: 'Ruhr University Bochum',
 	author_name: 'Hosein Hadipour', // Author name to be highlighted in the papers section
 	research_areas: [
-		{ title: 'Cryptanalysis', description: 'Cryptanalysis of symmetric-key primitives', field: 'cryptography' },
-		{ title: 'Cryptography', description: 'Theory and practice of cryptographic systems', field: 'cryptography' },
-		{ title: 'Information Security', description: 'From theoretical foundations to practical implementations', field: 'security' },
-		{ title: 'Side-Channel Attacks', description: 'Hardware security and physical attacks on cryptographic implementations', field: 'hardware-security' },
+		{ title: 'Cryptanalysis', description: 'Differential, linear, and integral cryptanalysis of symmetric-key primitives', field: 'cryptography' },
+		{ title: 'Automated Cryptanalysis', description: 'Tools and algorithms for automated security analysis of ciphers', field: 'automation' },
+		{ title: 'Side-Channel Analysis', description: 'Power analysis and fault attacks on cryptographic implementations', field: 'hardware-security' },
+		{ title: 'Block Cipher Security', description: 'Security analysis of modern lightweight and traditional block ciphers', field: 'cipher-analysis' },
 	],
 }
 
