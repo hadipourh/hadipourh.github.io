@@ -161,55 +161,71 @@ async function updateTalksPage(talks) {
     
     // Generate timeline HTML for talks
     const timelineItems = talks.map((talk, index) => {
-      const isEven = index % 2 === 0;
+      const isLeft = index % 2 === 0; // Left side for even indices
       const badgeType = getBadgeType(talk.type);
       
-      return `
-				<div class='timeline-start${isEven ? ' timeline-box bg-base-100 shadow-xl' : ''}'>
-					${isEven ? `<h3 class='font-bold text-lg'>${talk.title}</h3>
-					<p class='text-gray-600'>${talk.venue}</p>
-					<p class='text-sm text-gray-500 mt-2'>
-						${generateDescription(talk)}
-					</p>
-					<div class='flex gap-2 mt-3'>
-						<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
-						<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
-						${generateLinks(talk)}
-					</div>` : ''}
-				</div>
-				<div class='timeline-middle'>
-					<div class='w-2 h-2 bg-primary rounded-full'></div>
-				</div>
-				<div class='timeline-end${!isEven ? ' timeline-box bg-base-100 shadow-xl' : ''}'>
-					${!isEven ? `<h3 class='font-bold text-lg'>${talk.title}</h3>
-					<p class='text-gray-600'>${talk.venue}</p>
-					<p class='text-sm text-gray-500 mt-2'>
-						${generateDescription(talk)}
-					</p>
-					<div class='flex gap-2 mt-3'>
-						<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
-						<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
-						${generateLinks(talk)}
-					</div>` : ''}
-				</div>`;
-    }).join('\n');
+      if (isLeft) {
+        // Left side item
+        return `				<!-- Talk ${index + 1}: ${talk.title.substring(0, 30)}... (Left) -->
+				<li>
+					<div class='timeline-start timeline-box bg-base-100 shadow-xl'>
+						<h3 class='font-bold text-lg'>${talk.title}</h3>
+						<p class='text-gray-600'>${talk.venue}</p>
+						<p class='text-sm text-gray-500 mt-2'>
+							${generateDescription(talk)}
+						</p>
+						<div class='flex gap-2 mt-3'>
+							<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
+							<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
+							${generateLinks(talk)}
+						</div>
+					</div>
+					<div class='timeline-middle'>
+						<div class='w-3 h-3 bg-primary rounded-full'></div>
+					</div>
+					<div class='timeline-end'></div>
+				</li>`;
+      } else {
+        // Right side item
+        return `				<!-- Talk ${index + 1}: ${talk.title.substring(0, 30)}... (Right) -->
+				<li>
+					<div class='timeline-start'></div>
+					<div class='timeline-middle'>
+						<div class='w-3 h-3 bg-primary rounded-full'></div>
+					</div>
+					<div class='timeline-end timeline-box bg-base-100 shadow-xl'>
+						<h3 class='font-bold text-lg'>${talk.title}</h3>
+						<p class='text-gray-600'>${talk.venue}</p>
+						<p class='text-sm text-gray-500 mt-2'>
+							${generateDescription(talk)}
+						</p>
+						<div class='flex gap-2 mt-3'>
+							<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
+							<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
+							${generateLinks(talk)}
+						</div>
+					</div>
+				</li>`;
+      }
+    }).join('\n\n');
     
     // Replace the timeline section
-    const timelineStart = content.indexOf('<div class=\'timeline timeline-vertical\'>');
-    const timelineEnd = content.indexOf('</div>\n\t\t</div>', timelineStart) + 14;
+    const timelineStart = content.indexOf('<ul class=\'timeline timeline-vertical\'>');
+    const timelineEnd = content.indexOf('</ul>', timelineStart) + 5;
     
     if (timelineStart !== -1 && timelineEnd !== -1) {
-      const newTimelineSection = `<div class='timeline timeline-vertical'>${timelineItems}
-			</div>`;
+      const newTimelineSection = `<ul class='timeline timeline-vertical'>
+${timelineItems}
+			</ul>`;
       
       content = content.substring(0, timelineStart) + 
                 newTimelineSection + 
                 content.substring(timelineEnd);
       
       await fs.writeFile(talksPath, content, 'utf-8');
-      console.log('✅ Updated talks.astro');
+      console.log('✅ Updated talks.astro with proper timeline structure');
     } else {
-      console.log('⚠️ Could not find timeline section in talks.astro');
+      console.log('⚠️ Could not find <ul> timeline section in talks.astro');
     }
     
   } catch (error) {
