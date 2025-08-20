@@ -1,17 +1,22 @@
 ---
 import SocialIcons from './SocialIcons.astro'
 
-const {fullName, title, institute, profilePicture} = Astro.props
+const {fullName, title, institute} = Astro.props
+// Use profilepic1.jpg for the hero section
+const heroProfilePicture = '/images/profilepic1.jpg'
 ---
 <div class='flex-1'>
   <h1 class='text-4xl font-bold mb-4'>
-    Welcome! I'm <span class='text-secondary'>{fullName}</span>
+    {fullName}
   </h1>
   <p class='text-xl text-gray-600 mb-4'>{title}{institute ? ` at ${institute}` : ''}</p>
   <p class='text-lg mb-6'>
-    Postdoctoral researcher at Ruhr University Bochum, Faculty of Computer Science. 
-    My research focuses on cryptanalysis of symmetric-key primitives, with particular expertise in automated cryptanalysis, 
-    differential-linear attacks, and boomerang cryptanalysis.
+    I am interested in mathematics, logic, and computer science. 
+    I love finding connections between different mathematical problems and applying advances from one area to solve challenges in another. 
+    My academic background spans mathematics and electronic engineering from <a href="https://en.kntu.ac.ir/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">K. N. Toosi University</a>, followed by a master's degree in mathematics at the <a href="https://ut.ac.ir/en" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">University of Tehran</a>. 
+    I completed my Ph.D. in computer science with distinction at <a href="https://www.tugraz.at/en/home/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Graz University of Technology</a> in 2024, specializing in cryptography. 
+    I am now a postdoctoral researcher at <a href="https://www.ruhr-uni-bochum.de/en" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Ruhr University Bochum</a>, continuing my research in cryptanalysis of symmetric primitives. 
+    I have published papers in top conferences/journals including <a href="https://crypto.iacr.org/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">CRYPTO</a>, <a href="https://eurocrypt.iacr.org/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">EUROCRYPT</a>, <a href="https://fse.iacr.org/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">FSE</a>/<a href="https://tosc.iacr.org/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">ToSC</a>, and <a href="https://ches.iacr.org/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">CHES</a>.
   </p>
   <div class='flex gap-4'>
     <SocialIcons />
@@ -20,8 +25,8 @@ const {fullName, title, institute, profilePicture} = Astro.props
 <div class='size-72 lg:block hidden'>
   <!-- Add your profile image -->
   <img
-    src={profilePicture}
+    src={heroProfilePicture}
     alt={fullName}
-    class='w-full h-full mask mask-circle size-44'
+    class='mask mask-circle object-cover w-full h-full'
   />
 </div>

@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { experiences, education, skills, publications } from '../data/cv'
+import { experiences, education, skills, publications, teaching, presentations, reviews, honors, conferences, memberships, interests } from '../data/cv'
 import CvTimeline from '@/components/ui/CvTimeline.astro'
 
 import type { Experience, Education, Publication } from '../types/cv'
@@ -104,6 +104,151 @@ if (publications.length > 0) {
 		skills.length > 0 && (
 			<section class='mb-12'>
 				<List listTitle='Skills' listItems={skills}/>
+			</section>
+		)
+	}
+
+	{
+		teaching.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
+					Teaching Experience
+				</h2>
+				<div class='space-y-4'>
+					{teaching.map((item) => (
+						<div class='border-l-2 border-primary pl-4'>
+							<h3 class='text-lg font-semibold'>{item.course}</h3>
+							<p class='text-primary font-medium'>{item.role} at {item.institution}</p>
+							<p class='text-sm text-gray-600'>{item.time}</p>
+							{item.description && <p class='text-sm mt-2'>{item.description}</p>}
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		presentations.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
+					Presentations & Visits
+				</h2>
+				<div class='space-y-3'>
+					{presentations.map((item) => (
+						<div class='flex justify-between items-start'>
+							<div>
+								<h3 class='font-medium'>{item.title}</h3>
+								<p class='text-sm text-gray-600'>{item.location}</p>
+							</div>
+							<div class='text-right'>
+								<p class='text-sm text-primary'>{item.type}</p>
+								<p class='text-sm text-gray-500'>{item.time}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		reviews.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
+					Academic Reviews
+				</h2>
+				<div class='grid grid-cols-1 md:grid-cols-2 gap-3'>
+					{reviews.map((item) => (
+						<div class='flex justify-between items-center p-3 bg-base-200 rounded'>
+							<span class='font-medium'>{item.title}</span>
+							<div class='text-right'>
+								<p class='text-sm text-primary'>{item.description}</p>
+								<p class='text-xs text-gray-500'>{item.time}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		honors.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
+					Honors & Awards
+				</h2>
+				<div class='space-y-4'>
+					{honors.map((item) => (
+						<div class='border-l-2 border-secondary pl-4'>
+							<h3 class='text-lg font-semibold text-secondary'>{item.title}</h3>
+							<p class='text-sm text-gray-600'>{item.description}</p>
+							<p class='text-xs text-gray-500'>{item.time}</p>
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		conferences.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
+					Conference & Workshop Attendance
+				</h2>
+				<div class='space-y-3'>
+					{conferences.map((item) => (
+						<div class='flex justify-between items-start p-3 bg-base-100 border rounded'>
+							<div>
+								<h3 class='font-medium'>{item.title}</h3>
+								<p class='text-sm text-gray-600'>{item.location}</p>
+							</div>
+							<div class='text-right'>
+								<p class='text-sm text-primary font-medium'>{item.role}</p>
+								<p class='text-sm text-gray-500'>{item.time}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		memberships.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
+					Professional Memberships
+				</h2>
+				<div class='space-y-4'>
+					{memberships.map((item) => (
+						<div class='border-l-2 border-accent pl-4'>
+							<h3 class='text-lg font-semibold'>{item.title}</h3>
+							<p class='text-sm text-accent font-medium'>{item.time}</p>
+							<p class='text-sm text-gray-600 mt-1'>{item.description}</p>
+						</div>
+					))}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		interests.length > 0 && (
+			<section class='mb-12'>
+				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
+					Personal Interests
+				</h2>
+				<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
+					{interests.map((item) => (
+						<div class='p-4 bg-base-200 rounded-lg'>
+							<h3 class='font-semibold text-primary mb-2'>{item.title}</h3>
+							<p class='text-sm text-gray-600'>{item.description}</p>
+						</div>
+					))}
+				</div>
 			</section>
 		)
 	}

@@ -103,16 +103,17 @@ function parseTalksFromReadme(readmeContent, talkDirs) {
         code = line.match(/\[Code\]\((.*?)\)/)?.[1] || '';
       }
       if (line.includes('- Venue:') || line.includes('- Location:')) {
-        venue = line.replace(/- (Venue|Location): /, '').replace(/\[.*?\]\(.*?\)/, '').trim();
+        // Extract venue, handling both markdown links and plain text
+        let venueText = line.replace(/- (Venue|Location): /, '').trim();
+        // If it's a markdown link like [Santa Barbara, USA](url), extract just the text
+        const linkMatch = venueText.match(/\[([^\]]+)\]/);
+        venue = linkMatch ? linkMatch[1] : venueText;
       }
     }
     
     // Extract year from title or venue
     const yearMatch = title.match(/(\d{4})/) || venue.match(/(\d{4})/);
     year = yearMatch ? yearMatch[1] : '';
-    
-    // Clean up venue names - remove markdown links
-    venue = venue.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
     
     talks.push({
       title: title.replace(/ - \w+ \d{4}$/, ''), // Remove venue suffix
@@ -180,10 +181,7 @@ async function updateTalksPage(talks) {
 				<li>
 					<div class='timeline-start timeline-box bg-base-100 shadow-xl'>
 						<h3 class='font-bold text-lg'>${talk.title}</h3>
-						<p class='text-gray-600'>${talk.venue}</p>
-						<p class='text-sm text-gray-500 mt-2'>
-							${generateDescription(talk)}
-						</p>
+						<p class='text-gray-600'>${talk.venue || 'Conference Presentation'}</p>
 						<div class='flex flex-wrap gap-2 mt-3'>
 							<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
 							<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
@@ -206,10 +204,7 @@ async function updateTalksPage(talks) {
 					</div>
 					<div class='timeline-end timeline-box bg-base-100 shadow-xl'>
 						<h3 class='font-bold text-lg'>${talk.title}</h3>
-						<p class='text-gray-600'>${talk.venue}</p>
-						<p class='text-sm text-gray-500 mt-2'>
-							${generateDescription(talk)}
-						</p>
+						<p class='text-gray-600'>${talk.venue || 'Conference Presentation'}</p>
 						<div class='flex flex-wrap gap-2 mt-3'>
 							<div class='badge ${badgeType}'>${getTypeLabel(talk.type)}</div>
 							<div class='badge badge-outline'>${extractTopic(talk.title)}</div>
@@ -275,20 +270,6 @@ function extractTopic(title) {
   if (title.includes('Impossible')) return 'Impossible';
   if (title.includes('Fault')) return 'Fault Attacks';
   return 'Cryptanalysis';
-}
-
-function generateDescription(talk) {
-  // Generate a description based on the talk title and venue
-  if (talk.title.includes('Differential-Linear')) {
-    return 'Advanced techniques for differential-linear cryptanalysis using boomerang connectivity tables.';
-  }
-  if (talk.title.includes('Automated')) {
-    return 'Automated methods and tools for cryptanalytic attack discovery and verification.';
-  }
-  if (talk.title.includes('Defense')) {
-    return 'Doctoral dissertation defense on automated methods in cryptanalysis of symmetric-key primitives.';
-  }
-  return 'Research presentation on cryptanalytic techniques for symmetric cryptographic primitives.';
 }
 
 function generateLinks(talk) {

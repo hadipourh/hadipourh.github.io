@@ -4,16 +4,18 @@ export const profile = {
 	institute: 'Ruhr University Bochum',
 	author_name: 'Hosein Hadipour', // Author name to be highlighted in the papers section
 	research_areas: [
-		{ title: 'Cryptanalysis', description: 'Differential, linear, and integral cryptanalysis of symmetric-key primitives', field: 'cryptography' },
+		{ title: 'Cryptanalysis', description: 'Differential, linear, boomerang, integral, impossible-differential, zero-correlation, and differential-linear cryptanalysis of symmetric-key primitives', field: 'cryptography' },
 		{ title: 'Automated Cryptanalysis', description: 'Tools and algorithms for automated security analysis of ciphers', field: 'automation' },
-		{ title: 'Side-Channel Analysis', description: 'Power analysis and fault attacks on cryptographic implementations', field: 'hardware-security' },
-		{ title: 'Block Cipher Security', description: 'Security analysis of modern lightweight and traditional block ciphers', field: 'cipher-analysis' },
+		{ title: 'Side-Channel Analysis', description: 'Side-channel and fault attacks on cryptographic implementations', field: 'hardware-security' },
+		{ title: 'Information Security', description: 'General principles and practices for securing information systems', field: 'information-security' },
+		{ title: 'Constraint Programming', description: 'Constraint programming techniques for satisfiability and optimization problems', field: 'constraint-programming' },
+		{ title: 'Logic', description: 'Formal logic, proof theory, and their applications in computer science', field: 'logic' },
 	],
 }
 
 // Set equal to an empty string to hide the icon that you don't want to display
 export const social = {
-	email: 'hosein.hadipour@rub.de',
+	email: 'hsn.hadipour@gmail.com,hossein.hadipour@ruhr-uni-bochum.de',
 	github: 'https://github.com/hadipourh',
 	scholar: 'https://scholar.google.com/citations?user=3gNyYaAAAAAJ&hl=en',
 	dblp: 'https://dblp.org/pid/244/8979.html',
@@ -21,7 +23,7 @@ export const social = {
 	orcid: 'https://orcid.org/0000-0002-3820-3765',
 	linkedin: 'https://www.linkedin.com/in/hosein-h-942499170/',
 	x: 'https://x.com/HoseinHadipour',
-	researchgate: 'https://www.researchgate.net/profile/Hosein-Hadipour?ev=hdr_xprf',
+	researchgate: '',
 	gitlab: '',
 	inspire: '',
 	arxiv: '',

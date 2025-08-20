@@ -9,7 +9,7 @@ const isBlogPopulated = await getCollection('blog').then(collection => collectio
 
 const {fullName, title} = profile
 // Use the uploaded professional profile picture for navbar
-const profilePicture = '/images/profilepic1.png'
+const profilePicture = '/images/profilepic2.png'
 ---
 <aside
 	class='px-4 pt-4 h-screen w-[20rem] bg-base-200 text-base-content flex flex-col'
@@ -22,7 +22,7 @@ const profilePicture = '/images/profilepic1.png'
 					src={profilePicture}
 					alt={`Profile picture of ${fullName}`}
 				/>
-				<h1 class="text-lg font-black mt-8 hidden lg:block">{title} <span>{fullName}</span></h1>
+				<h1 class="text-lg font-black mt-8 hidden lg:block">{fullName}</h1>
 			</div>
 			<div class='mx-4 mt-16'>
 				<ul class='space-y-4 menu grow shrink menu-md overflow-y-auto'>

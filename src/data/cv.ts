@@ -1,65 +1,325 @@
 export const experiences = [
 	{
 		company: 'Ruhr University Bochum',
-		time: '2023 - Present',
+		time: '2024 - Present',
 		title: 'Postdoctoral Researcher',
 		location: 'Bochum, Germany',
-		description: 'Postdoctoral researcher at the Faculty of Computer Science, specializing in cryptanalysis of symmetric-key primitives and automated security analysis tools.',
+		description: 'Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder. Research focus on automated methods in design and analysis of symmetric-key primitives.',
 	},
 	{
 		company: 'Graz University of Technology',
-		time: '2022 - 2023',
-		title: 'Researcher',
+		time: '2022 - 2024',
+		title: 'Ph.D. Candidate',
 		location: 'Graz, Austria',
-		description: 'Researcher at the Institute of Applied Information Processing and Communications (IAIK), focusing on cryptanalysis and automated attack discovery.',
+		description: 'Ph.D. in Computer Science with thesis "Automated Methods in Design and Analysis of Symmetric-Key Primitives" under supervision of Dr. Maria Eichlseder.',
 	},
 	{
-		company: 'University of Tehran',
-		time: '2019 - 2022',
-		title: 'Ph.D. Candidate / Researcher',
-		location: 'Tehran, Iran',
-		description: 'Conducted research in cryptanalysis under the Department of Mathematics and Computer Science, focusing on differential cryptanalysis, boomerang attacks, and automated cryptanalysis tools.',
+		company: 'Graz University of Technology',
+		time: '2021 - 2022',
+		title: 'Ph.D. Student',
+		location: 'Graz, Austria',
+		description: 'Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder at the Institute of Applied Information Processing and Communications (IAIK).',
 	},
 ];
 
 export const education = [
 	{
-		school: 'University of Tehran',
-		time: '2019 - 2023',
+		school: 'Graz University of Technology',
+		time: '2021 - 2024',
 		degree: 'Ph.D. in Computer Science',
-		location: 'Tehran, Iran',
-		description: 'Specialized in cryptanalysis of symmetric-key cryptography with focus on differential cryptanalysis, boomerang attacks, and automated cryptanalysis methods.',
+		location: 'Graz, Austria',
+		description: 'Thesis: "Automated Methods in Design and Analysis of Symmetric-Key Primitives". Supervisor: Dr. Maria Eichlseder',
 	},
 	{
 		school: 'University of Tehran',
-		time: '2017 - 2019',
-		degree: 'M.Sc. in Computer Science',
+		time: '2014 - 2016',
+		degree: 'Master of Pure Mathematics',
 		location: 'Tehran, Iran',
-		description: 'Master\'s degree focusing on cryptography and information security with emphasis on symmetric-key cryptography and block cipher analysis.',
+		description: 'Thesis: "Topics in Algebraic Attacks on Cryptosystems". Supervisor: Dr. Hosein Sabzrou',
 	},
-	// Add undergraduate information if available
+	{
+		school: 'K. N. Toosi University of Technology',
+		time: '2012 - 2016',
+		degree: 'Bachelor of Electrical Engineering',
+		location: 'Tehran, Iran',
+		description: 'Projects: Evaluation of Algebraic Attacks on Cryptosystems, Implementation of RFID Access Control System via AVR Microcontrollers. Supervisor: Dr. Bahareh Akhbari',
+	},
+	{
+		school: 'K. N. Toosi University of Technology',
+		time: '2010 - 2014',
+		degree: 'Bachelor of Applied Mathematics',
+		location: 'Tehran, Iran',
+		description: 'Supervisor: Professor A. Reza Moghaddamfar',
+	},
 ];
 
 export const skills = [
 	{
-		title: 'Cryptanalysis Techniques',
-		description: 'Differential cryptanalysis, Linear cryptanalysis, Boomerang attacks, Rectangle attacks, Integral cryptanalysis, Impossible differential attacks',
+		title: 'Programming Languages',
+		description: 'Advanced: Python, C, C++, VHDL. Intermediate: Java, Assembly (AVR)',
 	},
 	{
-		title: 'Automated Tools',
-		description: 'Constraint programming (MiniZinc), SAT/SMT solvers, Automated cryptanalysis frameworks, MILP modeling',
+		title: 'Mathematical Software',
+		description: 'SageMath, Matlab, Maple, CoCoA',
 	},
 	{
-		title: 'Programming & Tools',
-		description: 'Python, C/C++, SageMath, MiniZinc, LaTeX, Git, Cryptographic libraries (OpenSSL, Crypto++)',
+		title: 'Cryptanalysis Tools',
+		description: 'SAT: PySAT, Cadical, Minisat, CryptoMinisat. SMT: PySMT, Z3, STP. MILP: Pulp, Gurobi. CP: Minizinc',
 	},
 	{
-		title: 'Research & Academic',
-		description: 'Peer review, Conference presentations, Academic writing, Collaboration with international teams',
+		title: 'Development & Office Tools',
+		description: 'LaTeX, Microsoft Office Tools, Texstudio, Visual Studio Code, Microsoft Visual Studio, Eclipse',
 	},
 	{
-		title: 'Cipher Analysis',
-		description: 'Lightweight ciphers (SKINNY, CRAFT, PRESENT), Standard ciphers (AES, CLEFIA), ARX designs, Feistel structures',
+		title: 'Operating Systems & Hardware',
+		description: 'Linux, Windows, Xilinx ISE, Altium Designer, PSpice, CodeVision, Atmelstudio, Arduino, Proteus',
+	},
+	{
+		title: 'Research Areas',
+		description: 'Design and Cryptanalysis of Symmetric and Asymmetric Primitives, Tools for Cryptanalysis, Side Channel and Fault Analyses, Cryptographic Protocols, Efficient and Secure Implementations',
+	},
+	{
+		title: 'Languages',
+		description: 'Persian (Mother tongue), English (Advanced), German (Learning)',
+	},
+];
+
+export const teaching = [
+	{
+		course: 'Cryptanalysis',
+		role: 'Guest Lecturer',
+		institution: 'Graz University of Technology',
+		time: 'Summer 2023 and 2024',
+		description: 'Guest lecturer for advanced cryptanalysis course',
+	},
+	{
+		course: 'A Course in Cryptography',
+		role: 'Teaching Assistant',
+		institution: 'University of Tehran',
+		time: 'Fall 2016',
+		description: 'Teaching assistant for undergraduate cryptography course',
+	},
+	{
+		course: 'Introduction to Cryptography',
+		role: 'Teaching Assistant',
+		institution: 'K. N. Toosi University',
+		time: 'Fall 2014',
+		description: 'Teaching assistant for introductory cryptography course',
+	},
+];
+
+export const presentations = [
+	{
+		title: 'Visiting Professor Maria Naya-Plasencia\'s Lab',
+		location: 'Inria - Paris, France',
+		time: 'May 2024',
+		type: 'Research Visit',
+	},
+	{
+		title: 'Visiting IRISA Lab',
+		location: 'IRISA - Rennes, France',
+		time: 'May 2024',
+		type: 'Research Visit',
+	},
+	{
+		title: 'Visiting LORIA Lab',
+		location: 'LORIA - Nancy, France',
+		time: 'May 2024',
+		type: 'Research Visit',
+	},
+	{
+		title: 'Paper Presentation',
+		location: 'FSE 2024 - Leuven, Belgium',
+		time: 'March 2024',
+		type: 'Conference Presentation',
+	},
+	{
+		title: 'Paper Presentation',
+		location: 'EUROCRYPT 2023 - Lyon, France',
+		time: 'April 2023',
+		type: 'Conference Presentation',
+	},
+	{
+		title: 'Paper Presentation',
+		location: 'FSE 2023 - Kobe, Japan',
+		time: 'March 2023',
+		type: 'Conference Presentation',
+	},
+	{
+		title: 'Paper Presentation',
+		location: 'ACNS 2022 - Rome, Italy',
+		time: 'June 2022',
+		type: 'Conference Presentation',
+	},
+	{
+		title: 'Paper Presentation',
+		location: 'CHES 2022 - Leuven, Belgium',
+		time: 'September 2022',
+		type: 'Conference Presentation',
+	},
+	{
+		title: 'Paper Presentation',
+		location: 'FSE 2022 - Athens, Greece',
+		time: 'March 2022',
+		type: 'Conference Presentation',
+	},
+];
+
+export const reviews = [
+	{
+		title: 'CRYPTO 2025',
+		description: 'Subreviewer',
+		time: '2025',
+	},
+	{
+		title: 'Selected Area in Cryptography (SAC) 2025',
+		description: 'Subreviewer',
+		time: '2025',
+	},
+	{
+		title: 'ASIACRYPT 2024',
+		description: 'Subreviewer',
+		time: '2024',
+	},
+	{
+		title: 'EUROCRYPT 2024',
+		description: 'Subreviewer',
+		time: '2024',
+	},
+	{
+		title: 'EUROCRYPT 2023',
+		description: 'Subreviewer',
+		time: '2023',
+	},
+	{
+		title: 'ASIACRYPT 2023',
+		description: 'Subreviewer',
+		time: '2023',
+	},
+	{
+		title: 'CRYPTO 2022',
+		description: 'Subreviewer',
+		time: '2022',
+	},
+	{
+		title: 'ASIACRYPT 2022',
+		description: 'Subreviewer',
+		time: '2022',
+	},
+	{
+		title: 'IET Information Security',
+		description: 'Reviewer',
+		time: '2022',
+	},
+	{
+		title: 'Designs, Codes and Cryptography (DCC)',
+		description: 'Reviewer',
+		time: '2022',
+	},
+];
+
+export const honors = [
+	{
+		title: 'Bronze Medal - 38th National Mathematical Competition',
+		description: 'National Mathematical Competition for University Students, Kerman, May 2014',
+		time: '2014',
+	},
+	{
+		title: 'Bronze Medal - 37th National Mathematical Competition',
+		description: 'National Mathematical Competition for University Students, Semnan, May 2013',
+		time: '2013',
+	},
+	{
+		title: 'NSUCRYPTO-2019 Winner',
+		description: 'Among the winners of NSUCRYPTO-2019 international cryptographic competition',
+		time: '2019',
+	},
+];
+
+export const conferences = [
+	{
+		title: 'Fast Software Encryption (FSE) 2025',
+		location: 'Italy, Rome',
+		time: 'March 17-21, 2025',
+		role: 'Attendee',
+	},
+	{
+		title: 'SKCAM 2025',
+		location: 'Italy, Rome',
+		time: 'March 2025',
+		role: 'Invited Speaker',
+	},
+	{
+		title: 'Beating Real-Time Crypto: Solutions and Analysis',
+		location: 'Lorentz Center, Leiden, Netherlands',
+		time: 'April 22-26, 2024',
+		role: 'Invited Attendee and Speaker',
+	},
+	{
+		title: 'Fast Software Encryption (FSE) 2024',
+		location: 'Leuven, Belgium',
+		time: 'March 25-29, 2024',
+		role: 'Speaker',
+	},
+	{
+		title: 'EUROCRYPT 2023',
+		location: 'Lyon, France',
+		time: 'April 23-27, 2023',
+		role: 'Speaker',
+	},
+	{
+		title: 'Fast Software Encryption (FSE) 2023',
+		location: 'Kobe, Japan',
+		time: 'March 20-24, 2023',
+		role: 'Speaker',
+	},
+	{
+		title: 'Applied Cryptography and Network Security 2022',
+		location: 'Rome, Italy',
+		time: 'June 20-23, 2022',
+		role: 'Speaker',
+	},
+	{
+		title: 'FRISIACRYPT 2022',
+		location: 'Terschelling, Netherlands',
+		time: 'September 25-28, 2022',
+		role: 'Invited Attendee',
+	},
+	{
+		title: 'Cryptographic Hardware and Embedded Systems 2022',
+		location: 'Leuven, Belgium',
+		time: 'September 18-21, 2022',
+		role: 'Speaker',
+	},
+	{
+		title: 'Fast Software Encryption (FSE) 2022',
+		location: 'Athens, Greece',
+		time: 'March 20-25, 2022',
+		role: 'Speaker',
+	},
+];
+
+export const memberships = [
+	{
+		title: 'International Association for Cryptologic Research',
+		time: '2021 - Present',
+		description: 'Member of the premier international organization for cryptologic research',
+	},
+	{
+		title: 'Iranian Mathematical Society',
+		time: '2012 - 2013',
+		description: 'Member of the national mathematical society during undergraduate studies',
+	},
+];
+
+export const interests = [
+	{
+		title: 'Sports & Outdoor Activities',
+		description: 'Swimming, Mountain climbing, Football, Biking',
+	},
+	{
+		title: 'Hobbies',
+		description: 'Traveling, Internet Surfing',
 	},
 ];
 
