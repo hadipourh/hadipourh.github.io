@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for better handling of conflicts
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -55,11 +57,21 @@ jobs:
 
       - name: Commit and push changes
         if: steps.check-changes.outputs.changes == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "🤖 Auto-update: publications, talks, and projects $(date +'%Y-%m-%d %H:%M:%S')"
+          
+          # Configure remote URL with token for authentication
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          
+          # Pull any new changes with rebase to avoid merge commits
+          git pull --rebase
+          
+          # Push changes
           git push
 
       - name: Build and deploy
