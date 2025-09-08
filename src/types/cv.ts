@@ -15,8 +15,9 @@ export interface Education {
 }
 
 export interface Skill {
-  title: string;
-  description: string;
+  category: string;
+  level: string;
+  skills: string;
 }
 
 export interface Publication {
@@ -40,6 +41,8 @@ export interface Honor {
   title: string;
   description: string;
   time: string;
+  icon?: string;
+  link?: string;
 }
 
 export interface Presentation {

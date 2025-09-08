@@ -8,9 +8,11 @@
     "preview": "astro preview",
     "astro": "astro",
     "update:publications": "node scripts/update-publications.js",
-    "update:talks": "node scripts/update-talks.js", 
+    "update:talks": "node scripts/update-talks.js",
     "update:projects": "node scripts/update-projects.js",
-    "update:all": "npm run update:publications && npm run update:talks && npm run update:projects"
+    "update:cv": "node scripts/update-cv-from-latex.js",
+    "encrypt:cv": "node scripts/encrypt-cv.js",
+    "update:all": "npm run update:publications && npm run update:talks && npm run update:projects && npm run update:cv"
   },
   "dependencies": {
     "@astrojs/react": "^4.1.4",
@@ -20,6 +22,9 @@
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "astro": "^5.7.1",
+    "crypto-js": "^4.2.0",
+    "natural": "^8.1.0",
+    "pdf-parse": "^1.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^3.4.17",
@@ -27,6 +32,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "daisyui": "^4.12.23"
+    "daisyui": "^4.12.23",
+    "read": "^4.1.0"
   }
 }

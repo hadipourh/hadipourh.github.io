@@ -15,7 +15,11 @@ async function fetchDBLPPublications() {
   try {
     console.log('🔍 Fetching publications from DBLP...');
     
-    const response = await fetch(`${DBLP_API}?q=author%3A${encodeURIComponent(AUTHOR_NAME)}&format=json&h=100`);
+    const response = await fetch(`${DBLP_API}?q=author%3A${encodeURIComponent(AUTHOR_NAME)}&format=json&h=100`, {
+      headers: {
+        'User-Agent': 'Academic-Website-Bot'
+      }
+    });
     
     if (!response.ok) {
       throw new Error(`DBLP API request failed: ${response.status}`);
@@ -62,14 +66,14 @@ async function updateCvFile(publications) {
       throw new Error('Could not find publications section in cv.ts');
     }
     
-    // Generate new publications array
-    const newPublications = publications.slice(0, 20).map(pub => `  {
+    // Generate new publications array with correct field mapping - include ALL publications
+    const newPublications = publications.map(pub => `  {
     title: ${JSON.stringify(pub.title)},
     authors: ${JSON.stringify(pub.authors)},
-    venue: ${JSON.stringify(pub.venue)},
-    year: ${JSON.stringify(pub.year)},
-    url: ${JSON.stringify(pub.url)},
-    type: ${JSON.stringify(pub.type)}
+    journal: ${JSON.stringify(pub.venue)},
+    time: ${JSON.stringify(pub.year)},
+    link: ${JSON.stringify(pub.url)},
+    abstract: ${JSON.stringify('')}
   }`).join(',\n');
     
     const newPublicationsSection = `export const publications: Publication[] = [

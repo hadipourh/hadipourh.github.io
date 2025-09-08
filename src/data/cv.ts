@@ -1,407 +1,738 @@
+import type { Publication } from '../types/cv';
+
 export const experiences = [
 	{
-		company: 'Ruhr University Bochum',
-		time: '2024 - Present',
-		title: 'Postdoctoral Researcher',
-		location: 'Bochum, Germany',
-		description: 'Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder. Research focus on automated methods in design and analysis of symmetric-key primitives.',
+		"time": "2024--Present",
+		"title": "Postdoctoral Researcher",
+		"company": "Ruhr University Bochum",
+		"location": "",
+		"description": "Working on symmetric-key cryptanalysis under the supervision of Prof. Gregor Leander. More info: https://informatik.rub.de/symcrypt/"
 	},
 	{
-		company: 'Graz University of Technology',
-		time: '2022 - 2024',
-		title: 'Ph.D. Candidate',
-		location: 'Graz, Austria',
-		description: 'Ph.D. in Computer Science with thesis "Automated Methods in Design and Analysis of Symmetric-Key Primitives" under supervision of Dr. Maria Eichlseder.',
+		"time": "2022--2024",
+		"title": "Ph.D. Candidate",
+		"company": "Graz Univeristy of Technology",
+		"location": "",
+		"description": "Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder. More info: https://www.isec.tugraz.at/people/?groupby=alumni"
 	},
 	{
-		company: 'Graz University of Technology',
-		time: '2021 - 2022',
-		title: 'Ph.D. Student',
-		location: 'Graz, Austria',
-		description: 'Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder at the Institute of Applied Information Processing and Communications (IAIK).',
-	},
+		"time": "2021--2022",
+		"title": "Ph.D. Student",
+		"company": "Graz Univeristy of Technology",
+		"location": "",
+		"description": "Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder. More info: https://www.iaik.tugraz.at/research-area/crypto/"
+	}
 ];
 
 export const education = [
 	{
-		school: 'Graz University of Technology',
-		time: '2021 - 2024',
-		degree: 'Ph.D. in Computer Science',
-		location: 'Graz, Austria',
-		description: 'Thesis: "Automated Methods in Design and Analysis of Symmetric-Key Primitives". Supervisor: Dr. Maria Eichlseder',
+		"time": "2025--Present",
+		"degree": "Postdoc in Computer Science",
+		"school": "Ruhr Univeristy Bochum",
+		"location": "Bochum, Germany",
+		"description": ""
 	},
 	{
-		school: 'University of Tehran',
-		time: '2014 - 2016',
-		degree: 'Master of Pure Mathematics',
-		location: 'Tehran, Iran',
-		description: 'Thesis: "Topics in Algebraic Attacks on Cryptosystems". Supervisor: Dr. Hosein Sabzrou',
+		"time": "2021--2024",
+		"degree": "Ph.D. in Computer Science",
+		"school": "Graz Univeristy of Technology",
+		"location": "Graz, Austria",
+		"description": ""
 	},
 	{
-		school: 'K. N. Toosi University of Technology',
-		time: '2012 - 2016',
-		degree: 'Bachelor of Electrical Engineering',
-		location: 'Tehran, Iran',
-		description: 'Projects: Evaluation of Algebraic Attacks on Cryptosystems, Implementation of RFID Access Control System via AVR Microcontrollers. Supervisor: Dr. Bahareh Akhbari',
+		"time": "2014--2016",
+		"degree": "Master of Pure Mathematics",
+		"school": "University of Tehran",
+		"location": "Tehran, Iran",
+		"description": ""
 	},
 	{
-		school: 'K. N. Toosi University of Technology',
-		time: '2010 - 2014',
-		degree: 'Bachelor of Applied Mathematics',
-		location: 'Tehran, Iran',
-		description: 'Supervisor: Professor A. Reza Moghaddamfar',
+		"time": "2012--2016",
+		"degree": "Bachelor of Electrical Engineering",
+		"school": "K. N. Toosi University of Technology",
+		"location": "Tehran, Iran",
+		"description": ""
 	},
+	{
+		"time": "2010--2014",
+		"degree": "Bachelor of Applied Mathematics",
+		"school": "K. N. Toosi University of Technology",
+		"location": "Tehran, Iran",
+		"description": ""
+	}
 ];
 
 export const skills = [
 	{
-		title: 'Programming Languages',
-		description: 'Advanced: Python, C, C++, VHDL. Intermediate: Java, Assembly (AVR)',
+		"category": "Programming Language",
+		"level": "Advanced",
+		"skills": "Python, C, C++, VHDL"
 	},
 	{
-		title: 'Mathematical Software',
-		description: 'SageMath, Matlab, Maple, CoCoA',
+		"category": "Programming Language",
+		"level": "Intermediate",
+		"skills": "Java, Assembly(AVR)"
 	},
 	{
-		title: 'Cryptanalysis Tools',
-		description: 'SAT: PySAT, Cadical, Minisat, CryptoMinisat. SMT: PySMT, Z3, STP. MILP: Pulp, Gurobi. CP: Minizinc',
+		"category": "Software, Tools \& Packages",
+		"level": "Math",
+		"skills": "SageMath, Matlab, Maple, CoCoA"
 	},
 	{
-		title: 'Development & Office Tools',
-		description: 'LaTeX, Microsoft Office Tools, Texstudio, Visual Studio Code, Microsoft Visual Studio, Eclipse',
+		"category": "Software, Tools \& Packages",
+		"level": "SAT",
+		"skills": "PySAT, Cadical, Minisat, CryptoMinisat"
 	},
 	{
-		title: 'Operating Systems & Hardware',
-		description: 'Linux, Windows, Xilinx ISE, Altium Designer, PSpice, CodeVision, Atmelstudio, Arduino, Proteus',
+		"category": "Software, Tools \& Packages",
+		"level": "SMT",
+		"skills": "PySMT, Z3, STP"
 	},
 	{
-		title: 'Research Areas',
-		description: 'Design and Cryptanalysis of Symmetric and Asymmetric Primitives, Tools for Cryptanalysis, Side Channel and Fault Analyses, Cryptographic Protocols, Efficient and Secure Implementations',
+		"category": "Software, Tools \& Packages",
+		"level": "MILP",
+		"skills": "Pulp, Gurobi"
 	},
 	{
-		title: 'Languages',
-		description: 'Persian (Mother tongue), English (Advanced), German (Learning)',
+		"category": "Software, Tools \& Packages",
+		"level": "CP",
+		"skills": "Minizinc"
 	},
+	{
+		"category": "Software, Tools \& Packages",
+		"level": "Office",
+		"skills": "LaTeX, Microsoft Office Tools, Texstudio"
+	},
+	{
+		"category": "Software, Tools \& Packages",
+		"level": "OS",
+		"skills": "Linux, Windows"
+	},
+	{
+		"category": "Software, Tools \& Packages",
+		"level": "IDE",
+		"skills": "Visual Studio Code, Microsoft Visual Studio, Eclipse"
+	},
+	{
+		"category": "Software, Tools \& Packages",
+		"level": "Electrical Engineering Softwares",
+		"skills": "Xilinx ISE, Altium Designer, PSpice, CodeVision, Atmelstudio, Arduino, Proteus"
+	}
+];
+
+export const publications: Publication[] = [
+  {
+    title: "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
+    authors: "Debasmita Chakraborty, Hosein Hadipour, Anup Kumar Kundu, Mostafizar Rahman, Prathamesh Ram, Yu Sasaki, Dilip Sau, Aman Sinha",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2025",
+    link: "https://dblp.org/rec/journals/iacr/ChakrabortyHKRRSSS25",
+    abstract: ""
+  },
+  {
+    title: "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
+    authors: "Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder",
+    journal: "IACR Trans. Symmetric Cryptol.",
+    time: "2024",
+    link: "https://dblp.org/rec/journals/tosc/ChakrabortyHNE24",
+    abstract: ""
+  },
+  {
+    title: "Improved Search for Integral, Impossible Differential and Zero-Correlation Attacks Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2.",
+    authors: "Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder",
+    journal: "IACR Trans. Symmetric Cryptol.",
+    time: "2024",
+    link: "https://dblp.org/rec/journals/tosc/HadipourGSE24",
+    abstract: ""
+  },
+  {
+    title: "Cryptanalysis of QARMAv2.",
+    authors: "Hosein Hadipour, Yosuke Todo",
+    journal: "IACR Trans. Symmetric Cryptol.",
+    time: "2024",
+    link: "https://dblp.org/rec/journals/tosc/HadipourT24",
+    abstract: ""
+  },
+  {
+    title: "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
+    authors: "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
+    journal: "CRYPTO",
+    time: "2024",
+    link: "https://dblp.org/rec/conf/crypto/HadipourDE24",
+    abstract: ""
+  },
+  {
+    title: "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
+    authors: "Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2024",
+    link: "https://dblp.org/rec/journals/iacr/ChakrabortyHNE24",
+    abstract: ""
+  },
+  {
+    title: "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
+    authors: "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2024",
+    link: "https://dblp.org/rec/journals/iacr/HadipourDE24",
+    abstract: ""
+  },
+  {
+    title: "Finding the Impossible: Automated Search for Full Impossible-Differential, Zero-Correlation, and Integral Attacks.",
+    authors: "Hosein Hadipour, Sadegh Sadeghi, Maria Eichlseder",
+    journal: "EUROCRYPT",
+    time: "2023",
+    link: "https://dblp.org/rec/conf/eurocrypt/HadipourSE23",
+    abstract: ""
+  },
+  {
+    title: "Improved Search for Integral, Impossible-Differential and Zero-Correlation Attacks: Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2.",
+    authors: "Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2023",
+    link: "https://dblp.org/rec/journals/iacr/HadipourGSE23",
+    abstract: ""
+  },
+  {
+    title: "Cryptanalysis of QARMAv2.",
+    authors: "Hosein Hadipour, Yosuke Todo",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2023",
+    link: "https://dblp.org/rec/journals/iacr/HadipourT23",
+    abstract: ""
+  },
+  {
+    title: "Practical Multiple Persistent Faults Analysis.",
+    authors: "Hadi Soleimany, Nasour Bagheri, Hosein Hadipour, Prasanna Ravi, Shivam Bhasin, Sara Mansouri",
+    journal: "IACR Trans. Cryptogr. Hardw. Embed. Syst.",
+    time: "2022",
+    link: "https://dblp.org/rec/journals/tches/SoleimanyBHRBM22",
+    abstract: ""
+  },
+  {
+    title: "Integral Cryptanalysis of WARP based on Monomial Prediction.",
+    authors: "Hosein Hadipour, Maria Eichlseder",
+    journal: "IACR Trans. Symmetric Cryptol.",
+    time: "2022",
+    link: "https://dblp.org/rec/journals/tosc/HadipourE22",
+    abstract: ""
+  },
+  {
+    title: "Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
+    authors: "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
+    journal: "IACR Trans. Symmetric Cryptol.",
+    time: "2022",
+    link: "https://dblp.org/rec/journals/tosc/HadipourNE22",
+    abstract: ""
+  },
+  {
+    title: "Autoguess: A Tool for Finding Guess-and-Determine Attacks and Key Bridges.",
+    authors: "Hosein Hadipour, Maria Eichlseder",
+    journal: "ACNS",
+    time: "2022",
+    link: "https://dblp.org/rec/conf/acns/HadipourE22",
+    abstract: ""
+  },
+  {
+    title: "Integral Cryptanalysis of WARP based on Monomial Prediction.",
+    authors: "Hosein Hadipour, Maria Eichlseder",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2022",
+    link: "https://dblp.org/rec/journals/iacr/HadipourE22",
+    abstract: ""
+  },
+  {
+    title: "Throwing Boomerangs into Feistel Structures: Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
+    authors: "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2022",
+    link: "https://dblp.org/rec/journals/iacr/HadipourNE22",
+    abstract: ""
+  },
+  {
+    title: "Finding the Impossible: Automated Search for Full Impossible Differential, Zero-Correlation, and Integral Attacks.",
+    authors: "Hosein Hadipour, Sadegh Sadeghi, Maria Eichlseder",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2022",
+    link: "https://dblp.org/rec/journals/iacr/HadipourSE22",
+    abstract: ""
+  },
+  {
+    title: "Improved Rectangle Attacks on SKINNY and CRAFT.",
+    authors: "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
+    journal: "IACR Trans. Symmetric Cryptol.",
+    time: "2021",
+    link: "https://dblp.org/rec/journals/tosc/HadipourBS21",
+    abstract: ""
+  },
+  {
+    title: "Autoguess: A Tool for Finding Guess-and-Determine Attacks and Key Bridges.",
+    authors: "Hosein Hadipour, Maria Eichlseder",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2021",
+    link: "https://dblp.org/rec/journals/iacr/HadipourE21",
+    abstract: ""
+  },
+  {
+    title: "Practical Multiple Persistent Faults Analysis.",
+    authors: "Hadi Soleimany, Nasour Bagheri, Hosein Hadipour, Prasanna Ravi, Shivam Bhasin, Sara Mansouri",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2021",
+    link: "https://dblp.org/rec/journals/iacr/SoleimanyBHRBM21",
+    abstract: ""
+  },
+  {
+    title: "Improved Rectangle Attacks on SKINNY and CRAFT.",
+    authors: "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2020",
+    link: "https://dblp.org/rec/journals/iacr/HadipourBS20",
+    abstract: ""
+  },
+  {
+    title: "Comprehensive security analysis of CRAFT.",
+    authors: "Hosein Hadipour, Sadegh Sadeghi, Majid M. Niknam, Ling Song 0001, Nasour Bagheri",
+    journal: "IACR Trans. Symmetric Cryptol.",
+    time: "2019",
+    link: "https://dblp.org/rec/journals/tosc/HadipourSNSB19",
+    abstract: ""
+  },
+  {
+    title: "Comprehensive security analysis of CRAFT.",
+    authors: "Hosein Hadipour, Sadegh Sadeghi, Majid M. Niknam, Nasour Bagheri",
+    journal: "IACR Cryptol. ePrint Arch.",
+    time: "2019",
+    link: "https://dblp.org/rec/journals/iacr/HadipourSNB19",
+    abstract: ""
+  }
 ];
 
 export const teaching = [
 	{
-		course: 'Cryptanalysis',
-		role: 'Guest Lecturer',
-		institution: 'Graz University of Technology',
-		time: 'Summer 2023 and 2024',
-		description: 'Guest lecturer for advanced cryptanalysis course',
+		"course": "Cryptanalysis",
+		"role": "1cm Guest Lecturer",
+		"institution": "Graz University of Technology",
+		"time": "Summer 2023 and 2024",
+		"description": "1cm Guest Lecturer, Graz University of Technology, Summer 2023 and 2024"
 	},
 	{
-		course: 'A Course in Cryptography',
-		role: 'Teaching Assistant',
-		institution: 'University of Tehran',
-		time: 'Fall 2016',
-		description: 'Teaching assistant for undergraduate cryptography course',
+		"course": "A Course in Cryptography",
+		"role": "1cm Teaching Assistant",
+		"institution": "University of Tehran",
+		"time": "Fall 2016",
+		"description": "1cm Teaching Assistant, University of Tehran, Fall 2016"
 	},
 	{
-		course: 'Introduction to Cryptography',
-		role: 'Teaching Assistant',
-		institution: 'K. N. Toosi University',
-		time: 'Fall 2014',
-		description: 'Teaching assistant for introductory cryptography course',
-	},
+		"course": "Introduction to Cryptography",
+		"role": "1cm Teaching Assistant",
+		"institution": "K. N. Toosi University",
+		"time": "Fall 2014",
+		"description": "1cm Teaching Assistant, K. N. Toosi University, Fall 2014"
+	}
 ];
 
 export const presentations = [
 	{
-		title: 'Visiting Professor Maria Naya-Plasencia\'s Lab',
-		location: 'Inria - Paris, France',
-		time: 'May 2024',
-		type: 'Research Visit',
+		"title": "FSE 2025",
+		"location": "Rome, Italy, March 2025",
+		"time": "2025",
+		"type": "Attendee with accepted paper",
+		"link": "https://fse.iacr.org/2025/",
+		"detailsLink": "https://ia.cr/2024/1359"
 	},
 	{
-		title: 'Visiting IRISA Lab',
-		location: 'IRISA - Rennes, France',
-		time: 'May 2024',
-		type: 'Research Visit',
+		"title": "SKCAM 2025",
+		"location": "Rome, Italy, March 2025",
+		"time": "2025",
+		"type": "Invited Speaker",
+		"link": "https://skcamworkshop.github.io/skcam2025/",
+		"detailsLink": "https://skcamworkshop.github.io/skcam2025/"
 	},
 	{
-		title: 'Visiting LORIA Lab',
-		location: 'LORIA - Nancy, France',
-		time: 'May 2024',
-		type: 'Research Visit',
+		"title": "CRYPTO 2024",
+		"location": "Santa Barbara, USA, August 2024",
+		"time": "2024",
+		"type": "Paper presentation",
+		"link": "https://crypto.iacr.org/2024/",
+		"detailsLink": "https://github.com/hadipourh/talks"
 	},
 	{
-		title: 'Paper Presentation',
-		location: 'FSE 2024 - Leuven, Belgium',
-		time: 'March 2024',
-		type: 'Conference Presentation',
+		"title": "Inria",
+		"location": "Paris, France, May 2024",
+		"time": "2024",
+		"type": "Visiting Professor Maria Naya-Plasencia's Lab",
+		"link": "https://www.inria.fr/en/inria-paris-centre",
+		"detailsLink": "http://naya.plasencia.free.fr/Maria/index.php?lg=fr&pg=index"
 	},
 	{
-		title: 'Paper Presentation',
-		location: 'EUROCRYPT 2023 - Lyon, France',
-		time: 'April 2023',
-		type: 'Conference Presentation',
+		"title": "IRISA",
+		"location": "Rennes, France, May 2024",
+		"time": "2024",
+		"type": "Visiting IRISA Lab",
+		"link": "https://www.irisa.fr/en",
+		"detailsLink": "https://www.irisa.fr/en"
 	},
 	{
-		title: 'Paper Presentation',
-		location: 'FSE 2023 - Kobe, Japan',
-		time: 'March 2023',
-		type: 'Conference Presentation',
+		"title": "LORIA",
+		"location": "Nancy, France, May 2024",
+		"time": "2024",
+		"type": "Visiting LORIA Lab",
+		"link": "https://www.loria.fr/en/",
+		"detailsLink": "https://www.loria.fr/en/"
 	},
 	{
-		title: 'Paper Presentation',
-		location: 'ACNS 2022 - Rome, Italy',
-		time: 'June 2022',
-		type: 'Conference Presentation',
+		"title": "Lorentz Center",
+		"location": "Leiden, Netherlands, April 2024",
+		"time": "2024",
+		"type": "Invited attendee",
+		"link": "https://www.lorentzcenter.nl/beating-real-time-crypto-solutions-and-analysis.html",
+		"detailsLink": "https://github.com/hadipourh/talks"
 	},
 	{
-		title: 'Paper Presentation',
-		location: 'CHES 2022 - Leuven, Belgium',
-		time: 'September 2022',
-		type: 'Conference Presentation',
+		"title": "FSE 2024",
+		"location": "Leuven, Belgium",
+		"time": "2024",
+		"type": "Paper presentation",
+		"link": "https://fse.iacr.org/2024/",
+		"detailsLink": "https://github.com/hadipourh/talks"
 	},
 	{
-		title: 'Paper Presentation',
-		location: 'FSE 2022 - Athens, Greece',
-		time: 'March 2022',
-		type: 'Conference Presentation',
+		"title": "EUROCRYPT 2023",
+		"location": "Lyon, France",
+		"time": "2024",
+		"type": "Paper presentation",
+		"link": "https://eurocrypt.iacr.org/2024/",
+		"detailsLink": "https://github.com/hadipourh/talks"
 	},
+	{
+		"title": "FSE 2023",
+		"location": "Kobe, Japan",
+		"time": "2023",
+		"type": "Paper presentation",
+		"link": "https://fse.iacr.org/2023/",
+		"detailsLink": "https://github.com/hadipourh/talks"
+	},
+	{
+		"title": "FSE 2023",
+		"location": "Kobe, Japan",
+		"time": "2023",
+		"type": "Paper presentation",
+		"link": "https://fse.iacr.org/2023/",
+		"detailsLink": "https://github.com/hadipourh/talks"
+	},
+	{
+		"title": "ACNS 2022",
+		"location": "Rome, Italy",
+		"time": "2022",
+		"type": "Paper presentation",
+		"link": "https://acns22.di.uniroma1.it/",
+		"detailsLink": "https://github.com/hadipourh/talks"
+	},
+	{
+		"title": "FRISIACRYPT 2022",
+		"location": "Netherlands",
+		"time": "2022",
+		"type": "Invited attendee",
+		"link": "https://frisiacrypt2022.cs.ru.nl/",
+		"detailsLink": "https://frisiacrypt2022.cs.ru.nl/"
+	},
+	{
+		"title": "CHES 2022",
+		"location": "Louven, Belgium",
+		"time": "2022",
+		"type": "Paper presnetation",
+		"link": "https://ches.iacr.org/2022/",
+		"detailsLink": "https://github.com/hadipourh/talks"
+	},
+	{
+		"title": "FSE 2022",
+		"location": "Atehns, Greece",
+		"time": "2022",
+		"type": "Paper presentation",
+		"link": "https://fse.iacr.org/2022/",
+		"detailsLink": "https://github.com/hadipourh/talks"
+	}
 ];
 
 export const reviews = [
 	{
-		title: 'CRYPTO 2025',
-		description: 'Subreviewer',
-		time: '2025',
+		"title": "Artifact Review Chair",
+		"venue": "FSE 2026/ToSC",
+		"time": "2026",
+		"link": "https://tosc.iacr.org/index.php/ToSC/artifact_evaluation"
 	},
 	{
-		title: 'Selected Area in Cryptography (SAC) 2025',
-		description: 'Subreviewer',
-		time: '2025',
+		"title": "Reviewer",
+		"venue": "CASCADE 2026",
+		"time": "2026",
+		"link": "http://cascade-conference.org/index.html"
 	},
 	{
-		title: 'ASIACRYPT 2024',
-		description: 'Subreviewer',
-		time: '2024',
+		"title": "Reviewer",
+		"venue": "Designs, Codes and Cryptography (DCC) 2025",
+		"time": "1062",
+		"link": "https://www.springer.com/journal/10623"
 	},
 	{
-		title: 'EUROCRYPT 2024',
-		description: 'Subreviewer',
-		time: '2024',
+		"title": "Subreviewer",
+		"venue": "ASIACRYPT 2025",
+		"time": "2025",
+		"link": "https://asiacrypt.iacr.org/2025/"
 	},
 	{
-		title: 'EUROCRYPT 2023',
-		description: 'Subreviewer',
-		time: '2023',
+		"title": "Subreviewer",
+		"venue": "CRYPTO 2025",
+		"time": "2025",
+		"link": "https://crypto.iacr.org/2025/"
 	},
 	{
-		title: 'ASIACRYPT 2023',
-		description: 'Subreviewer',
-		time: '2023',
+		"title": "Subreviewer",
+		"venue": "Selected Area in Cryptography (SAC) 2025",
+		"time": "2025",
+		"link": "https://sacworkshop.org"
 	},
 	{
-		title: 'CRYPTO 2022',
-		description: 'Subreviewer',
-		time: '2022',
+		"title": "Artifact review committee",
+		"venue": "ASIACRYPT 2024",
+		"time": "2024",
+		"link": "https://asiacrypt.iacr.org/2024/artifacts.php"
 	},
 	{
-		title: 'ASIACRYPT 2022',
-		description: 'Subreviewer',
-		time: '2022',
+		"title": "Subreviewer",
+		"venue": "ASIACRYPT 2024",
+		"time": "2024",
+		"link": "https://asiacrypt.iacr.org/2024/"
 	},
 	{
-		title: 'IET Information Security',
-		description: 'Reviewer',
-		time: '2022',
+		"title": "Subreviewer",
+		"venue": "EUROCRYPT 2024",
+		"time": "2024",
+		"link": "https://eurocrypt.iacr.org/2024/"
 	},
 	{
-		title: 'Designs, Codes and Cryptography (DCC)',
-		description: 'Reviewer',
-		time: '2022',
+		"title": "Subreviewer",
+		"venue": "EUROCRYPT 2023",
+		"time": "2023",
+		"link": "https://eurocrypt.iacr.org/2023/"
 	},
+	{
+		"title": "Subreviewer",
+		"venue": "ASIACRYPT 2023",
+		"time": "2023",
+		"link": "https://asiacrypt.iacr.org/2023/"
+	},
+	{
+		"title": "Subreviewer",
+		"venue": "EUROCRYPT 2023",
+		"time": "2023",
+		"link": "https://eurocrypt.iacr.org/2023/"
+	},
+	{
+		"title": "Subreviewer",
+		"venue": "CRYPTO 2022",
+		"time": "2022",
+		"link": "https://crypto.iacr.org/2022/"
+	},
+	{
+		"title": "Subreviewer",
+		"venue": "ASIACRYPT 2022",
+		"time": "2022",
+		"link": "https://asiacrypt.iacr.org/2022/"
+	},
+	{
+		"title": "Reviewer",
+		"venue": "IET Information Security 2022",
+		"time": "2022",
+		"link": "https://ietresearch.onlinelibrary.wiley.com"
+	},
+	{
+		"title": "Reviewer",
+		"venue": "Designs, Codes and Cryptography (DCC) 2022",
+		"time": "1062",
+		"link": "https://www.springer.com/journal/10623"
+	}
 ];
 
 export const honors = [
 	{
-		title: 'Bronze Medal - 38th National Mathematical Competition',
-		description: 'National Mathematical Competition for University Students, Kerman, May 2014',
-		time: '2014',
+		"title": "Bronze medal, 38th National Mathematical Competition for University Students, Kerman, Iran",
+		"description": "Bronze medal, 38th National Mathematical Competition for University Students, Kerman, Iran, May 2014.",
+		"time": "2014",
+		"link": "http://www.ims.ir",
+		"icon": "🥉"
 	},
 	{
-		title: 'Bronze Medal - 37th National Mathematical Competition',
-		description: 'National Mathematical Competition for University Students, Semnan, May 2013',
-		time: '2013',
+		"title": "Bronze medal, 37th National Mathematical Competition for University Students, Semnan, Iran",
+		"description": "Bronze medal, 37th National Mathematical Competition for University Students, Semnan, Iran, May 2013.",
+		"time": "2013",
+		"link": "http://www.ims.ir",
+		"icon": "🥉"
 	},
 	{
-		title: 'NSUCRYPTO-2019 Winner',
-		description: 'Among the winners of NSUCRYPTO-2019 international cryptographic competition',
-		time: '2019',
-	},
+		"title": "Among the winners of NSUCRYPTO-2019",
+		"description": "Among the winners of NSUCRYPTO-2019 (October 13-21, 2019).",
+		"time": "2019",
+		"link": "https://nsucrypto.nsu.ru/archive/2019/total\_results/round/1/section/2/\#data",
+		"icon": "🏆"
+	}
 ];
 
 export const conferences = [
 	{
-		title: 'Fast Software Encryption (FSE) 2025',
-		location: 'Italy, Rome',
-		time: 'March 17-21, 2025',
-		role: 'Attendee',
+		"title": "Fast Software Encryption (FSE) 2025",
+		"location": "Rome, March 17-21",
+		"time": "2025",
+		"role": "attendee"
 	},
 	{
-		title: 'SKCAM 2025',
-		location: 'Italy, Rome',
-		time: 'March 2025',
-		role: 'Invited Speaker',
+		"title": "SKCAM 2025",
+		"location": "Italy, Rome",
+		"time": "2025",
+		"role": "invited speaker"
 	},
 	{
-		title: 'Beating Real-Time Crypto: Solutions and Analysis',
-		location: 'Lorentz Center, Leiden, Netherlands',
-		time: 'April 22-26, 2024',
-		role: 'Invited Attendee and Speaker',
+		"title": "Beating Real-Time Crypto: Solutions and Analysis",
+		"location": "Netherlands, April 22-26",
+		"time": "2024",
+		"role": "invited speaker"
 	},
 	{
-		title: 'Fast Software Encryption (FSE) 2024',
-		location: 'Leuven, Belgium',
-		time: 'March 25-29, 2024',
-		role: 'Speaker',
+		"title": "Fast Software Encryption (FSE) 2024",
+		"location": "Belgium, March 25-29",
+		"time": "2024",
+		"role": "speaker"
 	},
 	{
-		title: 'EUROCRYPT 2023',
-		location: 'Lyon, France',
-		time: 'April 23-27, 2023',
-		role: 'Speaker',
+		"title": "EUROCRYPT 2023",
+		"location": "France, April 23-27",
+		"time": "2023",
+		"role": "speaker"
 	},
 	{
-		title: 'Fast Software Encryption (FSE) 2023',
-		location: 'Kobe, Japan',
-		time: 'March 20-24, 2023',
-		role: 'Speaker',
+		"title": "Fast Software Encryption (FSE) 2023",
+		"location": "Japan, March 20-24",
+		"time": "2023",
+		"role": "speaker"
 	},
 	{
-		title: 'Applied Cryptography and Network Security 2022',
-		location: 'Rome, Italy',
-		time: 'June 20-23, 2022',
-		role: 'Speaker',
+		"title": "Applied Cryptography and Network Security 2022",
+		"location": "Italy, June 20-23",
+		"time": "2022",
+		"role": "speaker"
 	},
 	{
-		title: 'FRISIACRYPT 2022',
-		location: 'Terschelling, Netherlands',
-		time: 'September 25-28, 2022',
-		role: 'Invited Attendee',
+		"title": "FRISIACRYPT 2022",
+		"location": "Netherlands, September 25-28",
+		"time": "2022",
+		"role": "invited attendee"
 	},
 	{
-		title: 'Cryptographic Hardware and Embedded Systems 2022',
-		location: 'Leuven, Belgium',
-		time: 'September 18-21, 2022',
-		role: 'Speaker',
+		"title": "Cryptographic Hardware and Embedded Systems 2022",
+		"location": "Belgium, September 18-21",
+		"time": "2022",
+		"role": "speaker"
 	},
 	{
-		title: 'Fast Software Encryption (FSE) 2022',
-		location: 'Athens, Greece',
-		time: 'March 20-25, 2022',
-		role: 'Speaker',
-	},
+		"title": "Fast Software Encryption (FSE) 2022",
+		"location": "Greece, March 20-25",
+		"time": "2022",
+		"role": "speaker"
+	}
 ];
 
 export const memberships = [
 	{
-		title: 'International Association for Cryptologic Research',
-		time: '2021 - Present',
-		description: 'Member of the premier international organization for cryptologic research',
+		"title": "International Association for Cryptologic Research",
+		"description": "Member since 2021-Present",
+		"time": "2021-Present"
 	},
 	{
-		title: 'Iranian Mathematical Society',
-		time: '2012 - 2013',
-		description: 'Member of the national mathematical society during undergraduate studies',
-	},
+		"title": "Iranian Mathematical Society",
+		"description": "Member since 2012-2013",
+		"time": "2012-2013"
+	}
 ];
 
 export const interests = [
 	{
-		title: 'Sports & Outdoor Activities',
-		description: 'Swimming, Mountain climbing, Football, Biking',
+		"title": "Tennis",
+		"description": "Playing tennis for recreation and sport",
+		"icon": "🎾"
 	},
 	{
-		title: 'Hobbies',
-		description: 'Traveling, Internet Surfing',
+		"title": "Swimming",
+		"description": "Regular swimming for fitness and relaxation",
+		"icon": "🏊‍♂️"
 	},
+	{
+		"title": "Hiking and Mountain Climbing",
+		"description": "Outdoor adventures and nature exploration",
+		"icon": "🏔️"
+	},
+	{
+		"title": "Biking",
+		"description": "Cycling for fitness and exploration",
+		"icon": "🚴‍♂️"
+	},
+	{
+		"title": "Traveling",
+		"description": "Exploring new cultures and destinations",
+		"icon": "✈️"
+	},
+	{
+		"title": "Movies and Documentaries",
+		"description": "Watching films and educational content",
+		"icon": "🎬"
+	},
+	{
+		"title": "Reading Books",
+		"description": "Reading literature and academic materials",
+		"icon": "📚"
+	},
+	{
+		"title": "Programming",
+		"description": "Software development and technical projects",
+		"icon": "💻"
+	},
+	{
+		"title": "Music (Guitar, Piano)",
+		"description": "Playing musical instruments and composition",
+		"icon": "🎵"
+	},
+	{
+		"title": "Puzzle-Solving and Chess",
+		"description": "Strategic games and mental challenges",
+		"icon": "♟️"
+	}
 ];
 
-export const publications = [
+export const languages: { language: string; level: string; proficiency: number; color: string; icon: string }[] = [
 	{
-		title: 'Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT',
-		authors: 'Hosein Hadipour, Patrick Derbez, Maria Eichlseder',
-		journal: 'CRYPTO 2024',
-		time: '2024',
-		link: 'https://doi.org/10.1007/978-3-031-68385-5_2',
-		abstract: 'We present a new perspective on differential-linear attacks through boomerang analysis, providing improved attacks on multiple symmetric-key primitives.',
+		language: "Persian",
+		level: "Mother tongue",
+		proficiency: 5,
+		color: "text-green-600",
+		icon: "🏠"
 	},
 	{
-		title: 'Cryptanalysis of QARMAv2',
-		authors: 'Hosein Hadipour, Yosuke Todo',
-		journal: 'IACR Transactions on Symmetric Cryptology',
-		time: '2024',
-		link: 'https://doi.org/10.46586/tosc.v2024.i1.188-213',
-		abstract: 'Comprehensive cryptanalysis of the QARMAv2 block cipher, demonstrating various attack vectors and security vulnerabilities.',
+		language: "English",
+		level: "Advanced",
+		proficiency: 4,
+		color: "text-blue-600",
+		icon: "🌍"
 	},
 	{
-		title: 'Improved Search for Integral, Impossible Differential and Zero-Correlation Attacks Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2',
-		authors: 'Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder',
-		journal: 'IACR Transactions on Symmetric Cryptology',
-		time: '2024',
-		link: 'https://doi.org/10.46586/tosc.v2024.i1.234-325',
-		abstract: 'Enhanced automated search techniques for finding cryptanalytic attacks on lightweight block ciphers.',
+		language: "German",
+		level: "Learning",
+		proficiency: 1,
+		color: "text-purple-600",
+		icon: "🌱"
 	},
 	{
-		title: 'Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs',
-		authors: 'Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder',
-		journal: 'IACR Transactions on Symmetric Cryptology',
-		time: '2024',
-		link: 'https://doi.org/10.46586/tosc.v2024.i3.84-176',
-		abstract: 'Novel methods for finding impossible differential attacks on ARX and AndRX cipher constructions.',
-	},
-	{
-		title: 'Finding the Impossible: Automated Search for Full Impossible-Differential, Zero-Correlation, and Integral Attacks',
-		authors: 'Hosein Hadipour, Sadegh Sadeghi, Maria Eichlseder',
-		journal: 'EUROCRYPT 2023',
-		time: '2023',
-		link: 'https://doi.org/10.1007/978-3-031-30634-1_5',
-		abstract: 'Comprehensive automated framework for finding various types of cryptanalytic attacks on block ciphers.',
-	},
-	{
-		title: 'Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE',
-		authors: 'Hosein Hadipour, Marcel Nageler, Maria Eichlseder',
-		journal: 'IACR Transactions on Symmetric Cryptology',
-		time: '2022',
-		link: 'https://doi.org/10.46586/tosc.v2022.i3.271-302',
-		abstract: 'Application of boomerang cryptanalysis to Feistel-based block ciphers with practical attack implementations.',
-	},
-	{
-		title: 'Integral Cryptanalysis of WARP based on Monomial Prediction',
-		authors: 'Hosein Hadipour, Maria Eichlseder',
-		journal: 'IACR Transactions on Symmetric Cryptology',
-		time: '2022',
-		link: 'https://doi.org/10.46586/tosc.v2022.i2.92-112',
-		abstract: 'Novel integral cryptanalysis technique using monomial prediction for the WARP block cipher.',
-	},
-	{
-		title: 'Autoguess: A Tool for Finding Guess-and-Determine Attacks and Key Bridges',
-		authors: 'Hosein Hadipour, Maria Eichlseder',
-		journal: 'ACNS 2022',
-		time: '2022',
-		link: 'https://doi.org/10.1007/978-3-031-09234-3_12',
-		abstract: 'Automated tool for discovering guess-and-determine attacks on cryptographic primitives.',
-	},
-	{
-		title: 'Improved Rectangle Attacks on SKINNY and CRAFT',
-		authors: 'Hosein Hadipour, Nasour Bagheri, Ling Song',
-		journal: 'IACR Transactions on Symmetric Cryptology',
-		time: '2021',
-		link: 'https://doi.org/10.46586/tosc.v2021.i2.140-198',
-		abstract: 'Enhanced rectangle attack methodology with applications to SKINNY and CRAFT lightweight ciphers.',
-	},
-	{
-		title: 'Comprehensive security analysis of CRAFT',
-		authors: 'Hosein Hadipour, Sadegh Sadeghi, Majid M. Niknam, Ling Song, Nasour Bagheri',
-		journal: 'IACR Transactions on Symmetric Cryptology',
-		time: '2019',
-		link: 'https://doi.org/10.13154/tosc.v2019.i4.290-317',
-		abstract: 'Complete security evaluation of the CRAFT lightweight block cipher against various cryptanalytic techniques.',
-	},
+		language: "Chinese",
+		level: "Learning",
+		proficiency: 1,
+		color: "text-purple-600",
+		icon: "🌱"
+	}
 ];

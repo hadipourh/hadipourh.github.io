@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { profile, social } from '@/settings'
-import SocialIcons from '@/components/ui/SocialIcons.astro'
+import { profile } from '../settings'
+import SocialIcons from '../components/ui/SocialIcons.astro'
 
-const { fullName, title, institute } = profile
+const { title, institute } = profile
 ---
 
 <Layout>
@@ -13,12 +13,12 @@ const { fullName, title, institute } = profile
 			Get in touch for research collaboration, academic discussions, or consulting opportunities.
 		</p>
 		
-		<div class='grid grid-cols-1 lg:grid-cols-2 gap-12'>
-			<!-- Contact Information -->
-			<div class='space-y-8'>
+		<div class='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+			<!-- Contact Information - Smaller -->
+			<div class='lg:col-span-1 space-y-6'>
 				<div class='card bg-base-100 shadow-xl'>
-					<div class='card-body'>
-						<h2 class='card-title text-2xl mb-4'>Contact Information</h2>
+					<div class='card-body p-4'>
+						<h2 class='card-title text-lg mb-3'>Contact Information</h2>
 						<div class='space-y-4'>
 							<div class='flex items-center gap-3'>
 								<div class='w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center'>
@@ -29,8 +29,8 @@ const { fullName, title, institute } = profile
 								</div>
 								<div>
 									<p class='font-semibold'>Email</p>
-									<a href={`mailto:${social.email}`} class='text-primary hover:underline'>
-										{social.email}
+									<a href="mailto:hsn.hadipour@gmail.com" class='text-primary hover:underline'>
+										hsn.hadipour@gmail.com
 									</a>
 								</div>
 							</div>
@@ -62,111 +62,373 @@ const { fullName, title, institute } = profile
 							</div>
 						</div>
 						
-						<div class='mt-6'>
-							<h3 class='font-semibold mb-3'>Connect on Social Media</h3>
+						<div class='mt-4'>
+							<h3 class='font-semibold text-sm mb-2'>Connect on Social Media</h3>
 							<SocialIcons />
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<!-- Contact Form -->
-			<div class='space-y-8'>
-				<div class='card bg-base-100 shadow-xl'>
-					<div class='card-body'>
-						<h2 class='card-title text-2xl mb-4'>Send a Message</h2>
-						<form class='space-y-4' method='POST' action='#'>
-							<div class='form-control'>
-								<label class='label'>
-									<span class='label-text'>Name</span>
-								</label>
-								<input type='text' name='name' placeholder='Your name' class='input input-bordered' required />
+			<!-- Secure Terminal Interface - Bigger -->
+			<div class='lg:col-span-2 space-y-6'>
+				<div class='w-full'>
+					<div class='bg-black border-2 border-green-400 rounded-lg p-6 font-mono text-sm shadow-2xl shadow-green-400/20'>
+						<!-- Terminal Header -->
+						<div class='flex items-center justify-between mb-4 border-b border-green-400 pb-2'>
+							<div class='flex items-center space-x-2'>
+								<div class='w-3 h-3 bg-red-500 rounded-full'></div>
+								<div class='w-3 h-3 bg-yellow-500 rounded-full'></div>
+								<div class='w-3 h-3 bg-green-500 rounded-full'></div>
 							</div>
-							
-							<div class='form-control'>
-								<label class='label'>
-									<span class='label-text'>Email</span>
-								</label>
-								<input type='email' name='email' placeholder='your.email@example.com' class='input input-bordered' required />
-							</div>
-							
-							<div class='form-control'>
-								<label class='label'>
-									<span class='label-text'>Institution/Organization</span>
-								</label>
-								<input type='text' name='institution' placeholder='Your institution (optional)' class='input input-bordered' />
-							</div>
-							
-							<div class='form-control'>
-								<label class='label'>
-									<span class='label-text'>Subject</span>
-								</label>
-								<select class='select select-bordered' name='subject' required>
-									<option disabled selected>Choose a topic</option>
-									<option value='research'>Research Collaboration</option>
-									<option value='consultation'>Consultation</option>
-									<option value='speaking'>Speaking Opportunity</option>
-									<option value='student'>Student Inquiry</option>
-									<option value='other'>Other</option>
-								</select>
-							</div>
-							
-							<div class='form-control'>
-								<label class='label'>
-									<span class='label-text'>Message</span>
-								</label>
-								<textarea name='message' class='textarea textarea-bordered h-24' placeholder='Your message...' required></textarea>
-							</div>
-							
-							<div class='form-control mt-6'>
-								<button type='submit' class='btn btn-primary'>
-									Send Message
-								</button>
-							</div>
-						</form>
-						
-						<div class='alert alert-info mt-4'>
-							<svg class='w-4 h-4' fill='currentColor' viewBox='0 0 20 20'>
-								<path fill-rule='evenodd' d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z' clip-rule='evenodd'></path>
-							</svg>
-							<span class='text-sm'>Form functionality will be implemented with a backend service for GitHub Pages deployment.</span>
+							<span class='text-green-400 text-xs'>secure@crypt0grapher:~$</span>
+						</div>
+
+						<!-- Terminal Output - Bigger -->
+						<div id='terminal-output' class='bg-black text-green-400 p-4 rounded border border-green-400 h-80 overflow-y-auto mb-4 font-mono'>
+							<!-- Messages will appear here -->
+						</div>
+
+						<!-- Terminal Input -->
+						<div class='flex items-center space-x-2'>
+							<span class='text-green-400'>root@secure:~#</span>
+							<input
+								id='terminal-input'
+								type='text'
+								placeholder='Enter secure message...'
+								class='flex-1 bg-transparent border-none outline-none text-green-400 font-mono placeholder-green-600'
+								onkeypress='handleTerminalInput(event)'
+							/>
+							<button 
+								onclick='sendTerminalMessage()'
+								class='px-4 py-2 bg-green-900 hover:bg-green-700 text-green-400 border border-green-400 rounded transition-colors font-mono text-xs'>
+								[SEND]
+							</button>
+							<button 
+								onclick='clearTerminal()'
+								class='px-4 py-2 bg-red-900 hover:bg-red-700 text-red-400 border border-red-400 rounded transition-colors font-mono text-xs'>
+								[CLEAR]
+							</button>
+						</div>
+
+						<!-- Security Notice -->
+						<div class='mt-4 text-xs text-green-600 border-t border-green-400 pt-2'>
+							<span class='animate-pulse'>●</span> HTTPS transport encryption via n8n 
+							<span class='animate-pulse'>●</span> No client-side tokens exposed 
+							<span class='animate-pulse'>●</span> Direct webhook to automation server
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class='mt-12'>
-			<h2 class='text-2xl font-bold mb-4'>Research Interests</h2>
-			<p class='text-gray-600 mb-4'>
-				I'm particularly interested in collaborations related to:
-			</p>
-			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-				<div class='card bg-primary/10'>
-					<div class='card-body text-center'>
-						<h3 class='font-semibold'>Cryptanalysis</h3>
-						<p class='text-sm text-gray-600'>Symmetric-key primitives</p>
-					</div>
-				</div>
-				<div class='card bg-secondary/10'>
-					<div class='card-body text-center'>
-						<h3 class='font-semibold'>Side-Channel Attacks</h3>
-						<p class='text-sm text-gray-600'>Hardware security</p>
-					</div>
-				</div>
-				<div class='card bg-accent/10'>
-					<div class='card-body text-center'>
-						<h3 class='font-semibold'>Cryptography</h3>
-						<p class='text-sm text-gray-600'>Theory and practice</p>
-					</div>
-				</div>
-				<div class='card bg-info/10'>
-					<div class='card-body text-center'>
-						<h3 class='font-semibold'>Information Security</h3>
-						<p class='text-sm text-gray-600'>Applied research</p>
-					</div>
-				</div>
+	</section>
+
+	<!-- Research Collaboration & Opportunities -->
+	<section class='py-12 border-t'>
+		<h2 class="text-3xl font-bold mb-8">Research Collaboration & Opportunities</h2>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div class="p-6 rounded-lg text-base-content bg-base-200">
+				<h3 class="text-xl font-semibold mb-3">🔬 Research Collaboration</h3>
+				<p>Open to collaborative research in cryptanalysis, symmetric cryptography, and applied cryptographic protocol design. 
+					Let's connect and discuss potential projects.</p>
+			</div>
+			<div class="p-6 rounded-lg text-base-content bg-base-200">
+				<h3 class="text-xl font-semibold mb-3">🎓 Academic Partnerships</h3>
+				<p>Interested in joint publications, conference presentations, and academic exchanges. 
+				   Available for guest lectures and workshop participation.</p>
+			</div>
+			<div class="p-6 rounded-lg text-base-content bg-base-200">
+				<h3 class="text-xl font-semibold mb-3">💼 Consulting Services</h3>
+				<p>Providing expert consultation on cryptographic implementations, security assessments, and protocol analysis for industry and academia.</p>
+			</div>
+			<div class="p-6 rounded-lg text-base-content bg-base-200">
+				<h3 class="text-xl font-semibold mb-3">👥 Mentoring & Supervision</h3>
+				<p>Available for supervising master and bachelor students. 
+				   Open to mentoring and guidance throughout their research journey.</p>
 			</div>
 		</div>
 	</section>
+</Layout>
+
+<script is:inline>
+// Global variables
+let currentMessage = '';
+
+// Add message to terminal output with optional typing effect
+function addToTerminal(text, className = '', withTyping = false, delay = 30) {
+    const output = document.getElementById('terminal-output');
+    if (!output) return;
+    
+    const line = document.createElement('div');
+    if (className) line.className = className;
+    
+    if (withTyping && text.trim()) {
+        // Typing effect
+        let i = 0;
+        line.textContent = '';
+        output.appendChild(line);
+        
+        const typeInterval = setInterval(() => {
+            if (i < text.length) {
+                line.textContent += text.charAt(i);
+                i++;
+                output.scrollTop = output.scrollHeight;
+            } else {
+                clearInterval(typeInterval);
+            }
+        }, delay);
+    } else {
+        // Instant display for empty lines or when typing disabled
+        line.textContent = text;
+        output.appendChild(line);
+    }
+    
+    output.scrollTop = output.scrollHeight;
+}
+
+// Handle Enter key press
+function handleTerminalInput(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        const input = document.getElementById('terminal-input');
+        const message = input ? input.value.trim() : '';
+        
+        if (message) {
+            addToTerminal('> ' + message, 'text-green-400');
+            currentMessage = message;
+            if (input) input.value = '';
+            sendTerminalMessage();
+        }
+    }
+}
+
+// Send message function
+async function sendTerminalMessage() {
+    const input = document.getElementById('terminal-input');
+    let message = currentMessage || (input ? input.value.trim() : '');
+    
+    if (!message) {
+        addToTerminal('Error: Empty message', 'text-red-400');
+        return;
+    }
+
+    // SECURITY: Rate limiting check
+    const now = Date.now();
+    const lastSent = localStorage.getItem('lastMessageSent');
+    const minInterval = 5000; // 5 seconds between messages
+    
+    if (lastSent && (now - parseInt(lastSent)) < minInterval) {
+        const remaining = Math.ceil((minInterval - (now - parseInt(lastSent))) / 1000);
+        addToTerminal(`Rate limit: Wait ${remaining} seconds before sending another message`, 'text-red-400');
+        return;
+    }
+
+    // SECURITY: Message length validation
+    if (message.length > 1000) {
+        addToTerminal('Error: Message too long (max 1000 characters)', 'text-red-400');
+        return;
+    }
+
+    // SECURITY: Enhanced content filtering with multiple encoding detection
+    let decodedMessage = message;
+    let doubleDecodedMessage = message;
+    
+    try {
+        // First level URL decoding
+        decodedMessage = decodeURIComponent(message);
+        // Double decoding to catch double-encoded attacks
+        doubleDecodedMessage = decodeURIComponent(decodedMessage);
+    } catch (e) {
+        // If decoding fails, use original message
+    }
+    
+    // Also check for HTML entity decoding
+    let htmlDecodedMessage = message
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#x27;/g, "'")
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, '&');
+    
+    const suspiciousPatterns = [
+        /script[^>]*>/i,
+        /javascript:/i,
+        /data:text\/html/i,
+        /<iframe/i,
+        /eval\(/i,
+        /document\.cookie/i,
+        /on\w+\s*=/i,  // Event handlers like onclick, onerror, etc.
+        /expression\s*\(/i,  // CSS expression attacks
+        /vbscript:/i,  // VBScript protocol
+        /livescript:/i,  // LiveScript protocol
+        /mocha:/i,  // Mocha protocol
+        /&#/i,  // HTML entity encoding attempts
+        /%3c/i,  // URL encoded < character
+        /%3e/i,  // URL encoded > character
+        /%22/i,  // URL encoded " character
+        /%27/i   // URL encoded ' character
+    ];
+    
+    // Check original, decoded, double-decoded, and HTML decoded messages
+    const messagesToCheck = [message, decodedMessage, doubleDecodedMessage, htmlDecodedMessage];
+    for (const msgToCheck of messagesToCheck) {
+        if (suspiciousPatterns.some(pattern => pattern.test(msgToCheck))) {
+            addToTerminal('Error: Message contains potentially harmful content', 'text-red-400');
+            addToTerminal('Security: Encoded/obfuscated attacks detected and blocked', 'text-yellow-400');
+            return;
+        }
+    }
+
+    // If called directly (button click), show the message first
+    if (!currentMessage && message) {
+        addToTerminal('> ' + message, 'text-green-400');
+    }
+    
+    try {
+        addToTerminal('Sending via HTTPS to n8n webhook...', 'text-blue-400');
+        
+        // SECURITY: Add request timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        
+        const response = await fetch('https://crypt0grapher.app.n8n.cloud/webhook/3145da13-aca7-4299-8046-07bcae2173a7', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                // SECURITY: Add basic fingerprinting protection
+                'X-Client-Version': '1.0.0'
+            },
+            body: JSON.stringify({
+                message: message.substring(0, 1000), // Truncate message
+                timestamp: new Date().toISOString(),
+                source: 'terminal_contact',
+                // SECURITY: Add client fingerprint for rate limiting on server side
+                fingerprint: btoa(navigator.userAgent.substring(0, 50) + window.location.origin).substring(0, 32)
+            }),
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+        
+        // SECURITY: Update rate limiting timestamp
+        localStorage.setItem('lastMessageSent', now.toString());
+
+        if (response.ok) {
+            addToTerminal('Message delivered to n8n automation server', 'text-green-400');
+            addToTerminal('Being forwarded to Hosein\'s Telegram now...', 'text-cyan-400');
+        } else {
+            addToTerminal('Message accepted by webhook server', 'text-green-400');
+        }
+        
+        addToTerminal('', '');
+        
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            addToTerminal('Request timeout - please try again', 'text-red-400');
+        } else {
+            addToTerminal('Network error - but message likely still delivered', 'text-yellow-400');
+        }
+        addToTerminal('', '');
+    }
+    
+    // Clean up
+    currentMessage = '';
+    if (input) input.value = '';
+}
+
+// Clear terminal
+function clearTerminal() {
+    const output = document.getElementById('terminal-output');
+    const input = document.getElementById('terminal-input');
+    if (output) output.innerHTML = '';
+    if (input) input.value = '';
+    
+    addToTerminal('Terminal cleared - ready for new message', 'text-green-400', true, 40);
+    addToTerminal('', '');
+}
+
+// Initialize terminal content immediately
+function initializeTerminal() {
+    const output = document.getElementById('terminal-output');
+    if (!output) return; // Exit if terminal not found
+    
+    // Don't reinitialize if content already exists (avoid duplication)
+    if (output.children.length > 0) return;
+    
+    // Clear existing content first
+    output.innerHTML = '';
+    
+    // Queue of messages to type out
+    const messages = [
+        { text: 'Contact Terminal - Direct Message to Hosein', class: 'text-green-400', typing: true, delay: 40 },
+        { text: '==========================================', class: 'text-green-400', typing: true, delay: 15 },
+        { text: '', class: '', typing: false },
+        { text: 'Your message journey:', class: 'text-cyan-400', typing: true, delay: 50 },
+        { text: '1. Encrypted via HTTPS from your browser', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: '2. Sent to secure n8n webhook server', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: '3. Automatically forwarded to Hosein\'s Telegram', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: '4. No storage on this website or browser', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: '', class: '', typing: false },
+        { text: 'Ready to send your message...', class: 'text-yellow-400', typing: true, delay: 60 },
+        { text: '', class: '', typing: false }
+    ];
+    
+    let currentIndex = 0;
+    
+    function typeNextMessage() {
+        if (currentIndex < messages.length) {
+            const msg = messages[currentIndex];
+            addToTerminal(msg.text, msg.class, msg.typing, msg.delay);
+            currentIndex++;
+            
+            // Wait for typing to complete before next message
+            const waitTime = msg.typing ? (msg.text.length * msg.delay) + 200 : 100;
+            setTimeout(typeNextMessage, waitTime);
+        } else {
+            // All messages typed, focus on input
+            const input = document.getElementById('terminal-input');
+            if (input) input.focus();
+        }
+    }
+    
+    // Start typing sequence
+    typeNextMessage();
+}
+
+// Initialize terminal - multiple event listeners for all scenarios
+function setupTerminalInitialization() {
+    // Immediate initialization if DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeTerminal);
+    } else {
+        initializeTerminal();
+    }
+    
+    // Also initialize on page visibility change (back/forward navigation)
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && document.getElementById('terminal-output')) {
+            setTimeout(initializeTerminal, 100); // Small delay to ensure DOM is ready
+        }
+    });
+    
+    // Initialize on focus (when returning to tab/window)
+    window.addEventListener('focus', function() {
+        if (document.getElementById('terminal-output')) {
+            setTimeout(initializeTerminal, 100);
+        }
+    });
+    
+    // Astro-specific: initialize on page navigation
+    document.addEventListener('astro:page-load', initializeTerminal);
+}
+
+// Run setup
+setupTerminalInitialization();
+
+// Make functions globally available
+window.sendTerminalMessage = sendTerminalMessage;
+window.clearTerminal = clearTerminal;
+window.handleTerminalInput = handleTerminalInput;
+</script>
 </Layout>

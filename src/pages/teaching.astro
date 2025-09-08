@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import { profile } from '@/settings'
+import { teaching } from '@/data/cv'
 
 const { fullName } = profile
 ---
@@ -9,95 +10,192 @@ const { fullName } = profile
 	<section class='py-12'>
 		<h1 class='text-4xl font-bold mb-8'>Teaching</h1>
 		<p class='text-lg text-gray-600 mb-8'>
-			Teaching materials, resources, and courses related to cryptography and information security.
+			My teaching experience in cryptography and mathematics, contributing to education at various academic levels.
 		</p>
 		
 		<div class='space-y-8'>
+			<!-- Teaching Experience -->
+			<div class='mb-12'>
+				<h2 class='text-3xl font-bold mb-6'>Teaching Experience</h2>
+				<div class='space-y-6'>
+					{teaching.map((item) => (
+						<div class='card bg-base-100 shadow-xl'>
+							<div class='card-body'>
+								<div class='flex flex-col md:flex-row md:justify-between md:items-start mb-4'>
+									<div>
+										<h3 class='card-title text-xl text-primary'>{item.course}</h3>
+										<p class='text-lg font-semibold text-gray-700'>{item.role}</p>
+										<p class='text-base text-gray-600'>{item.institution}</p>
+									</div>
+									<div class='badge badge-outline badge-lg mt-2 md:mt-0'>{item.time}</div>
+								</div>
+								<p class='text-gray-600'>{item.description}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+			
+			<!-- Teaching Philosophy & Approach -->
 			<div class='card bg-base-100 shadow-xl'>
 				<div class='card-body'>
-					<h2 class='card-title text-2xl'>Cryptography Fundamentals</h2>
-					<p class='text-gray-600 mb-4'>
-						Introduction to symmetric and asymmetric cryptography, including practical implementations and security analysis.
-					</p>
-					<div class='space-y-2'>
-						<h3 class='font-semibold'>Topics Covered:</h3>
-						<ul class='list-disc list-inside space-y-1 text-gray-600'>
-							<li>Symmetric-key cryptography (AES, DES, block ciphers)</li>
-							<li>Public-key cryptography (RSA, ECC)</li>
-							<li>Hash functions and digital signatures</li>
-							<li>Cryptanalysis techniques</li>
-						</ul>
-					</div>
-					<div class='card-actions justify-start mt-4'>
-						<div class='badge badge-primary'>Cryptography</div>
-						<div class='badge badge-outline'>Mathematics</div>
+					<h2 class='card-title text-2xl mb-4'>Teaching Philosophy</h2>
+					<div class='space-y-4 text-gray-600'>
+						<p>
+							My teaching approach focuses on building strong theoretical foundations while emphasizing practical applications in cryptography and security. I believe in making complex mathematical concepts accessible through clear explanations and hands-on examples.
+						</p>
+						<div class='space-y-2'>
+							<h3 class='font-semibold text-gray-800'>Key Teaching Areas:</h3>
+							<ul class='list-disc list-inside space-y-1'>
+								<li>Symmetric-key cryptography and cryptanalysis</li>
+								<li>Mathematical foundations of cryptography</li>
+								<li>Automated methods in security analysis</li>
+								<li>Practical implementation of cryptographic algorithms</li>
+								<li>Research methodology in cryptography</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 			
+			<!-- Guest Lectures & Workshops -->
 			<div class='card bg-base-100 shadow-xl'>
 				<div class='card-body'>
-					<h2 class='card-title text-2xl'>Information Security</h2>
-					<p class='text-gray-600 mb-4'>
-						Comprehensive course covering theoretical foundations and practical aspects of information security.
-					</p>
-					<div class='space-y-2'>
-						<h3 class='font-semibold'>Topics Covered:</h3>
-						<ul class='list-disc list-inside space-y-1 text-gray-600'>
-							<li>Security protocols and network security</li>
-							<li>Side-channel attacks and countermeasures</li>
-							<li>Hardware security and fault attacks</li>
-							<li>Security evaluation and testing</li>
-						</ul>
-					</div>
-					<div class='card-actions justify-start mt-4'>
-						<div class='badge badge-primary'>Security</div>
-						<div class='badge badge-outline'>Hardware</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class='card bg-base-100 shadow-xl'>
-				<div class='card-body'>
-					<h2 class='card-title text-2xl'>Research Methods in Cryptography</h2>
-					<p class='text-gray-600 mb-4'>
-						Advanced course for graduate students focusing on research methodologies in cryptographic analysis.
-					</p>
-					<div class='space-y-2'>
-						<h3 class='font-semibold'>Topics Covered:</h3>
-						<ul class='list-disc list-inside space-y-1 text-gray-600'>
-							<li>Literature review and state-of-the-art analysis</li>
-							<li>Experimental design for cryptanalysis</li>
-							<li>Statistical analysis of cryptographic properties</li>
-							<li>Academic writing and publication strategies</li>
-						</ul>
-					</div>
-					<div class='card-actions justify-start mt-4'>
-						<div class='badge badge-primary'>Research</div>
-						<div class='badge badge-outline'>Methodology</div>
+					<h2 class='card-title text-2xl mb-4'>Guest Lectures & Research Contributions</h2>
+					<div class='space-y-4 text-gray-600'>
+						<p>
+							As a guest lecturer for advanced cryptanalysis courses at Graz University of Technology, I have contributed to graduate-level education in cutting-edge cryptographic research topics.
+						</p>
+						<div class='space-y-2'>
+							<h3 class='font-semibold text-gray-800'>Specialized Topics:</h3>
+							<ul class='list-disc list-inside space-y-1'>
+								<li>Differential and linear cryptanalysis techniques</li>
+								<li>SAT/SMT-based cryptanalysis methods</li>
+								<li>Automated security evaluation tools</li>
+								<li>Advanced attack methodologies</li>
+								<li>Research trends in symmetric cryptography</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		
+		<!-- Resources Section -->
 		<div class='mt-12'>
-			<h2 class='text-2xl font-bold mb-4'>Resources</h2>
-			<div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
-				<div class='card bg-base-200'>
+			<h2 class='text-3xl font-bold mb-6'>Teaching Resources</h2>
+			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+				<div class='card bg-base-100 shadow-xl'>
 					<div class='card-body'>
-						<h3 class='card-title'>Lecture Notes</h3>
-						<p>Comprehensive lecture notes and slides for all courses.</p>
-						<div class='card-actions justify-end'>
-							<button class='btn btn-primary btn-sm'>Access Materials</button>
+						<h3 class='card-title text-primary'>📚 Course in Cryptanalysis</h3>
+						<p class='text-gray-600'>Comprehensive cryptanalysis course materials covering modern techniques and methodologies.</p>
+						<div class='flex items-center gap-2 text-sm text-gray-500 mt-2'>
+							<span>⭐ 145 stars</span>
+							<span>🍴 10 forks</span>
+						</div>
+						<div class='card-actions justify-end mt-4'>
+							<a href='https://github.com/hadipourh/course-cryptanalysis' target='_blank' rel='noopener noreferrer' class='btn btn-primary btn-sm'>
+								View Course
+							</a>
 						</div>
 					</div>
 				</div>
-				<div class='card bg-base-200'>
+				
+				<div class='card bg-base-100 shadow-xl'>
 					<div class='card-body'>
-						<h3 class='card-title'>Programming Exercises</h3>
-						<p>Hands-on programming assignments and implementations.</p>
-						<div class='card-actions justify-end'>
-							<button class='btn btn-primary btn-sm'>View Exercises</button>
+						<h3 class='card-title text-primary'>🎯 Conference Talks</h3>
+						<p class='text-gray-600'>LaTeX sources for my conference presentations and research talks.</p>
+						<div class='flex items-center gap-2 text-sm text-gray-500 mt-2'>
+							<span>⭐ 6 stars</span>
+							<span>🍴 3 forks</span>
+						</div>
+						<div class='card-actions justify-end mt-4'>
+							<a href='https://github.com/hadipourh/talks' target='_blank' rel='noopener noreferrer' class='btn btn-primary btn-sm'>
+								View Talks
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class='card bg-base-100 shadow-xl'>
+					<div class='card-body'>
+						<h3 class='card-title text-primary'>🔧 Cryptanalysis Tools</h3>
+						<p class='text-gray-600'>Collection of open-source tools for automated cryptanalysis and security analysis.</p>
+						<div class='flex flex-wrap gap-1 mt-2'>
+							<div class='badge badge-outline badge-xs'>AutoGuess</div>
+							<div class='badge badge-outline badge-xs'>ZeroPlus</div>
+							<div class='badge badge-outline badge-xs'>SBoxAnalyzer</div>
+						</div>
+						<div class='card-actions justify-end mt-4'>
+							<a href='https://github.com/hadipourh?tab=repositories&q=crypto&type=&language=&sort=' target='_blank' rel='noopener noreferrer' class='btn btn-primary btn-sm'>
+								View Projects
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Featured Tools -->
+			<div class='mt-8'>
+				<h3 class='text-xl font-bold mb-4'>Featured Cryptanalysis Tools</h3>
+				<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
+					<div class='card bg-base-200'>
+						<div class='card-body p-4'>
+							<div class='flex justify-between items-start'>
+								<div>
+									<h4 class='font-semibold text-primary'>AutoGuess</h4>
+									<p class='text-sm text-gray-600'>Solve guess-and-determine problems</p>
+									<span class='text-xs text-gray-500'>⭐ 28 stars</span>
+								</div>
+								<a href='https://github.com/hadipourh/autoguess' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
+									View →
+								</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class='card bg-base-200'>
+						<div class='card-body p-4'>
+							<div class='flex justify-between items-start'>
+								<div>
+									<h4 class='font-semibold text-primary'>SBoxAnalyzer</h4>
+									<p class='text-sm text-gray-600'>S-box analysis tool for cryptanalysis</p>
+									<span class='text-xs text-gray-500'>⭐ 31 stars</span>
+								</div>
+								<a href='https://github.com/hadipourh/sboxanalyzer' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
+									View →
+								</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class='card bg-base-200'>
+						<div class='card-body p-4'>
+							<div class='flex justify-between items-start'>
+								<div>
+									<h4 class='font-semibold text-primary'>ZeroPlus</h4>
+									<p class='text-sm text-gray-600'>Integral and impossible differential attacks</p>
+									<span class='text-xs text-gray-500'>⭐ 13 stars</span>
+								</div>
+								<a href='https://github.com/hadipourh/zeroplus' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
+									View →
+								</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class='card bg-base-200'>
+						<div class='card-body p-4'>
+							<div class='flex justify-between items-start'>
+								<div>
+									<h4 class='font-semibold text-primary'>Zero</h4>
+									<p class='text-sm text-gray-600'>Full impossible-differential attacks</p>
+									<span class='text-xs text-gray-500'>⭐ 11 stars</span>
+								</div>
+								<a href='https://github.com/hadipourh/zero' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
+									View →
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

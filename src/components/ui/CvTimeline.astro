@@ -8,6 +8,16 @@ interface Props {
 }
 
 const { elements, colored } = Astro.props
+
+// Helper function to convert URLs in text to clickable links
+function linkifyText(text: string) {
+	if (!text) return text;
+	
+	// Regular expression to match URLs
+	const urlRegex = /(https?:\/\/[^\s]+)/g;
+	
+	return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>');
+}
 ---
 
 <ul
@@ -35,7 +45,7 @@ const { elements, colored } = Astro.props
 				>
 					<time class='font-mono italic'>{element.time}</time>
 					<div class='text-lg font-black'>{isExperience(element) ? element.title : element.degree}</div>
-					<div>{element.description}</div>
+					<div set:html={linkifyText(element.description || '')} />
 					<div>{isExperience(element) ? element.company : element.school}</div>
 					<div>{element.location}</div>
 				</div>

@@ -1,102 +1,198 @@
-# Astro Academia Documentation
+# Academic Website
 
-## What is Astro Academia?
+A modern, secure academic website built with Astro, featuring automated content management, interactive terminals, and comprehensive security measures.
 
-Astro Academia is a personal academic website built using Astro, a modern static site generator. The website is designed to showcase academic achievements, research papers, blog posts, and a CV. It is fast, responsive, and easy to maintain, making it an ideal platform for academics and researchers to present their work.
+## Overview
 
-If you find Astro Academia useful or appreciate my work, consider supporting me! Your support helps keep this project maintained and encourages further development. 🚀✨
+This website serves as a professional academic platform designed for researchers, academics, and scientists. It provides a clean, responsive interface to showcase research, publications, CV, and professional activities while maintaining high security standards and automated content synchronization.
 
-<a href="https://buymeacoffee.com/maiobarbero" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+## Technology Stack
 
-## How to use it
+- **Framework**: Astro v5.13.3 (Static Site Generator)
+- **Styling**: TailwindCSS + DaisyUI (32 themes)
+- **Content**: Markdown with frontmatter validation
+- **Mathematics**: MathJax 3.x for equation rendering
+- **Security**: Multi-layer content filtering and rate limiting
+- **Automation**: GitHub Actions + n8n workflows
+- **Hosting**: Static deployment ready
 
-Fork this repository to create your new website starting from this template.
+## Quick Start
 
-## How to Create a CV Using the `cv.ts` File
+1. **Clone and Install**
+   ```bash
+   git clone <repository>
+   cd mywebsite
+   npm install
+   ```
 
-The `cv.ts` file located in the `src/data/` directory is used to define the structure and content of your CV. This file exports an object containing various sections of your CV, such as education, experience, publications, and more.
+2. **Development**
+   ```bash
+   npm run dev
+   ```
 
-### Example Structure of `cv.ts`
+3. **Build for Production**
+   ```bash
+   npm run build
+   ```
 
+## Configuration
+
+### Personal Information (src/settings.ts)
+Configure your personal details, research areas, and social media links:
 ```typescript
-export const cv = {
-  education: [
-    {
-      degree: "Ph.D. in Computer Science",
-      institution: "University of Example",
-      year: "2020",
-    },
-    {
-      degree: "M.Sc. in Computer Science",
-      institution: "University of Example",
-      year: "2016",
-    },
-  ],
-  experience: [
-    {
-      title: "Research Scientist",
-      company: "Example Research Lab",
-      year: "2021-Present",
-    },
-    {
-      title: "Software Engineer",
-      company: "Tech Company",
-      year: "2016-2021",
-    },
-  ],
-  // Add more sections as needed
+export const profile = {
+  fullName: "Your Name",
+  title: "Your Title",
+  institute: "Your Institution",
+  research_areas: ["Area 1", "Area 2"],
+  // ... additional settings
 };
 ```
 
-To create or update your CV, modify the `cv.ts` file with your personal information and achievements. The CV will be automatically rendered on the CV page of your website.
-
-## How to Use the `settings.ts` File
-
-The `settings.ts` file located in the `src/` directory is used to configure various settings for your Astro Academia website. This file exports an object containing settings such as site title, description, social media links, and more.
-
-### Example Structure of `settings.ts`
-
+### CV Data (src/data/cv.ts)
+Structure your academic CV with automated updates:
 ```typescript
-export const settings = {
-  siteTitle: "Astro Academia",
-  siteDescription: "A personal academic website built with Astro.",
-  socialLinks: {
-    twitter: "https://twitter.com/yourusername",
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-  },
-  // Add more settings as needed
-};
+export const publications = [
+  {
+    title: "Paper Title",
+    authors: ["Author 1", "Author 2"],
+    venue: "Conference/Journal",
+    year: "2024"
+  }
+];
 ```
 
-To customize your website settings, modify the `settings.ts` file with your desired values. These settings will be used throughout your website to display the appropriate information.
+## Content Management
 
-## Where to Find the Blog Collection and Where to Add New Blog Posts
+### Blog Posts
+- **Location**: `src/content/BlogPosts/`
+- **Format**: Markdown with frontmatter
+- **Required fields**: title, date, excerpt
+- **Optional fields**: tags (array)
 
-The blog collection is located in the `src/content/BlogPosts/` directory. Each blog post is a Markdown file with a `.md` extension. The blog posts are named sequentially (e.g., `post1.md`, `post2.md`, etc.).
-
-### Adding a New Blog Post
-
-1. Navigate to the `src/content/BlogPosts/` directory.
-2. Create a new Markdown file for your blog post (e.g., `post1.md`).
-3. Add the content of your blog post using Markdown syntax. Include frontmatter at the top of the file to define metadata such as title, date, and tags.
-
-### Example Blog Post (`post11.md`)
-
+**Example post structure:**
 ```markdown
 ---
-title: "New Blog Post"
-date: "2023-10-01"
-tags: ["research", "astro"]
-excerpt: "Some short paragraphs"
+title: "Research Update"
+date: "2024-09-08"
+excerpt: "Brief description of the post"
+tags: ["research", "cryptography"]
 ---
 
-# New Blog Post
-
-This is the content of the new blog post. Write your article here using Markdown syntax.
+Your markdown content here with MathJax support:
+$$E = mc^2$$
 ```
 
-Once you have added the new blog post, it will be automatically included in the blog collection and displayed on the blog page of your website.
+### Mathematical Content
+- **Engine**: MathJax 3.x
+- **Inline math**: `$equation$`
+- **Display math**: `$$equation$$`
+- **LaTeX support**: Full LaTeX mathematical notation
 
-## Deploy
-The template provides a workflow to deploy the website on Github pages as a static website.
+## Automation Features
+
+The website includes several automation scripts for content management:
+
+### Publications Update
+```bash
+npm run update:publications  # Updates from DBLP API
+```
+
+### Talks Management
+```bash
+npm run update:talks  # Syncs from GitHub repository
+```
+
+### Projects Sync
+```bash
+npm run update:projects  # Fetches from GitHub API
+```
+
+### CV Updates
+```bash
+npm run update:cv  # Parses encrypted CV file
+```
+
+### All Updates
+```bash
+npm run update:all  # Runs all update scripts
+```
+
+## Security Features
+
+### Terminal Contact System
+- **Rate limiting**: 5-second intervals between messages
+- **Content filtering**: Multi-layer XSS and injection protection
+- **Encoding detection**: URL and HTML entity decoding
+- **Message validation**: Length limits and pattern matching
+- **Request security**: Timeouts and fingerprinting
+
+### Security Measures
+- **Input sanitization**: Multiple encoding detection layers
+- **Rate limiting**: Client-side and server-side protection
+- **Content validation**: Suspicious pattern detection
+- **Error handling**: Secure error messages
+- **Monitoring**: Built-in abuse detection
+
+## Maintenance
+
+### Regular Updates
+1. **Content synchronization** (automated daily via GitHub Actions)
+2. **Security patches** (monitor for vulnerabilities)
+3. **Dependencies** (regular npm audit and updates)
+4. **Performance monitoring** (build times and site speed)
+
+### Manual Maintenance Tasks
+- **Blog posts**: Add new content in `src/content/BlogPosts/`
+- **CV updates**: Update `src/data/cv.ts` or run CV parser
+- **Settings**: Modify `src/settings.ts` for profile changes
+- **Theme**: Customize in `tailwind.config.mjs`
+
+### Deployment Preparation
+```bash
+npm run build  # Generate static files
+npm run preview  # Test production build locally
+```
+
+### File Structure
+```
+src/
+  components/     # Reusable UI components
+  content/        # Blog posts and content collections
+  data/          # CV and research data
+  layouts/       # Page layouts
+  pages/         # Route pages
+  lib/           # Utility functions
+  assets/        # Static assets
+public/
+  images/        # Public images
+  cv/           # CV files
+scripts/        # Automation scripts
+```
+
+## Troubleshooting
+
+### Common Issues
+- **Build errors**: Check content frontmatter validation
+- **MathJax not rendering**: Verify equation syntax
+- **Terminal not working**: Check network connectivity
+- **Automation failures**: Verify API keys and permissions
+
+### Debug Commands
+```bash
+npm run build  # Check for build errors
+grep -r "error" dist/  # Search for runtime errors
+```
+
+## Contributing
+
+When making changes:
+1. Test locally with `npm run dev`
+2. Verify build with `npm run build`
+3. Check security with terminal testing
+4. Update documentation as needed
+5. Follow commit message conventions
+
+## License
+
+Academic use and personal portfolios encouraged. Check specific license terms for commercial use.

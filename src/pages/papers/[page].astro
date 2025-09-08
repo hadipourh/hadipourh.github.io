@@ -1,0 +1,427 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { publications } from "@/data/cv";
+import { highlightAuthor } from "@/lib/utils";
+import { template } from "@/settings";
+
+export async function getStaticPaths() {
+  // Filter out empty publications
+  const allPapers = publications.filter(pub => pub.title && pub.title.trim() !== '');
+  
+  const postsPerPage = 8; // Publications per page
+  const totalPages = Math.ceil(allPapers.length / postsPerPage);
+  
+  return Array.from({ length: totalPages }, (_, i) => {
+    const page = i + 1;
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    
+    return {
+      params: { page: page.toString() },
+      props: {
+        papers: allPapers.slice(start, end),
+        currentPage: page,
+        totalPages: totalPages,
+        totalPapers: allPapers.length,
+        postsPerPage: postsPerPage,
+        allPapers: allPapers // Pass all papers for search functionality
+      }
+    };
+  });
+}
+
+const { papers, currentPage, totalPages, totalPapers, postsPerPage, allPapers } = Astro.props;
+
+// Calculate display range
+const startItem = (currentPage - 1) * postsPerPage + 1;
+const endItem = Math.min(currentPage * postsPerPage, totalPapers);
+
+// Generate visible page numbers (show current page and 2 pages around it)
+const visiblePages = [];
+const startPage = Math.max(1, currentPage - 2);
+const endPage = Math.min(totalPages, currentPage + 2);
+
+for (let i = startPage; i <= endPage; i++) {
+  visiblePages.push(i);
+}
+---
+
+<Layout title={`Publications - Page ${currentPage}`}>
+  <div class="prose max-w-none">
+    <div class="flex flex-col gap-6 mb-8">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Publications</h1>
+        <div class="text-sm text-base-content/70" id="results-info">
+          Showing {startItem}-{endItem} of {totalPapers} publications
+        </div>
+      </div>
+      
+      <!-- Search Bar -->
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+          <div class="form-control">
+            <div class="input-group">
+              <input 
+                type="text" 
+                placeholder="Search publications by title, authors, journal, or year..." 
+                class="input input-bordered flex-1" 
+                id="search-input"
+              />
+              <button class="btn btn-square" id="clear-search">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <select class="select select-bordered" id="year-filter">
+            <option value="">All Years</option>
+            <!-- Years will be populated by JavaScript -->
+          </select>
+          <select class="select select-bordered" id="type-filter">
+            <option value="">All Types</option>
+            <option value="journal">Journals</option>
+            <option value="conference">Conferences</option>
+            <option value="preprint">Preprints</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Publications Container -->
+    <div class="space-y-8" id="publications-container">
+      {
+        papers.map((paper) => (
+          <div class="card bg-base-200 publication-item" 
+               data-title={paper.title.toLowerCase()}
+               data-authors={paper.authors.toLowerCase()}
+               data-journal={paper.journal.toLowerCase()}
+               data-year={paper.time}
+               data-type={paper.journal.toLowerCase().includes('iacr') ? 'preprint' : 
+                         paper.journal.toLowerCase().includes('trans') || paper.journal.toLowerCase().includes('journal') ? 'journal' : 'conference'}>
+            <div class="card-body">
+              <h2 class="card-title text-xl">
+                <a href={paper.link} target="_blank" class="hover:text-accent">
+                  {paper.title}
+                </a>
+              </h2>
+              <p class="text-base mb-2">
+                <span class="font-medium">Authors:</span>{" "}
+                <span set:html={highlightAuthor(paper.authors)} />
+              </p>
+              <p class="text-sm mb-3">
+                <span class="italic">{paper.journal}</span> • {paper.time}
+              </p>
+              {paper.abstract && (
+                <p class="text-sm text-base-content/80">{paper.abstract}</p>
+              )}
+              <div class="card-actions justify-end mt-4">
+                <a href={paper.link} target="_blank" class="btn btn-sm btn-secondary text-secondary-content">
+                  Read Paper
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- No Results Message -->
+    <div id="no-results" class="text-center py-12 hidden">
+      <div class="text-6xl mb-4">📚</div>
+      <h3 class="text-2xl font-bold mb-2">No publications found</h3>
+      <p class="text-base-content/70">Try adjusting your search terms or filters</p>
+      <button class="btn btn-primary mt-4" onclick="clearAllFilters()">Clear Filters</button>
+    </div>
+
+    <!-- Pagination (hidden during search) -->
+    <div id="pagination-container">
+      {totalPages > 1 && (
+        <div class="flex justify-center mt-12">
+          <div class="join">
+            <!-- Previous button -->
+            {currentPage > 1 ? (
+              <a href={`${template.base}/papers/${currentPage - 1}`} class="join-item btn btn-sm">
+                «
+              </a>
+            ) : (
+              <button class="join-item btn btn-sm btn-disabled">«</button>
+            )}
+
+            <!-- First page if not visible -->
+            {startPage > 1 && (
+              <>
+                <a href={`${template.base}/papers/1`} class="join-item btn btn-sm">1</a>
+                {startPage > 2 && <span class="join-item btn btn-sm btn-disabled">...</span>}
+              </>
+            )}
+
+            <!-- Visible page numbers -->
+            {visiblePages.map((pageNum) => (
+              pageNum === currentPage ? (
+                <button class="join-item btn btn-sm btn-active">{pageNum}</button>
+              ) : (
+                <a href={`${template.base}/papers/${pageNum}`} class="join-item btn btn-sm">
+                  {pageNum}
+                </a>
+              )
+            ))}
+
+            <!-- Last page if not visible -->
+            {endPage < totalPages && (
+              <>
+                {endPage < totalPages - 1 && <span class="join-item btn btn-sm btn-disabled">...</span>}
+                <a href={`${template.base}/papers/${totalPages}`} class="join-item btn btn-sm">{totalPages}</a>
+              </>
+            )}
+
+            <!-- Next button -->
+            {currentPage < totalPages ? (
+              <a href={`${template.base}/papers/${currentPage + 1}`} class="join-item btn btn-sm">
+                »
+              </a>
+            ) : (
+              <button class="join-item btn btn-sm btn-disabled">»</button>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- Page info -->
+      {totalPages > 1 && (
+        <div class="text-center mt-6 text-sm text-base-content/70">
+          Page {currentPage} of {totalPages} • {totalPapers} total publications
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Pass all papers data to JavaScript for search functionality -->
+  <script define:vars={{ allPapers, currentPage, totalPapers, postsPerPage }}>
+    let originalPapers = allPapers;
+    let filteredPapers = [...originalPapers];
+
+    // Initialize search functionality - wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add a small delay to ensure all elements are rendered
+      setTimeout(() => {
+        initializeSearch();
+        populateYearFilter();
+      }, 100);
+    });
+
+    // Also try to initialize when the page loads (backup)
+    window.addEventListener('load', function() {
+      if (!document.getElementById('search-input')) {
+        setTimeout(() => {
+          initializeSearch();
+          populateYearFilter();
+        }, 200);
+      }
+    });
+
+    function initializeSearch() {
+      const searchInput = document.getElementById('search-input');
+      const clearButton = document.getElementById('clear-search');
+      const yearFilter = document.getElementById('year-filter');
+      const typeFilter = document.getElementById('type-filter');
+
+      // Check if elements exist before adding listeners
+      if (!searchInput || !clearButton || !yearFilter || !typeFilter) {
+        console.warn('Search elements not found, retrying...');
+        setTimeout(initializeSearch, 500);
+        return;
+      }
+
+      searchInput.addEventListener('input', performSearch);
+      clearButton.addEventListener('click', clearSearch);
+      yearFilter.addEventListener('change', performSearch);
+      typeFilter.addEventListener('change', performSearch);
+      
+      // Also listen for when search input is cleared manually (backspace/delete)
+      searchInput.addEventListener('keyup', performSearch);
+      
+      console.log('Search functionality initialized');
+    }
+
+    function populateYearFilter() {
+      const yearFilter = document.getElementById('year-filter');
+      
+      if (!yearFilter) {
+        console.warn('Year filter not found, retrying...');
+        setTimeout(populateYearFilter, 500);
+        return;
+      }
+      
+      const years = [...new Set(originalPapers.map(paper => paper.time))].sort((a, b) => b - a);
+      
+      // Clear existing options except the first one (All Years)
+      const firstOption = yearFilter.firstElementChild;
+      yearFilter.innerHTML = '';
+      yearFilter.appendChild(firstOption);
+      
+      years.forEach(year => {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearFilter.appendChild(option);
+      });
+      
+      console.log('Year filter populated with', years.length, 'years');
+    }
+
+    function isFilterActive() {
+      const searchInput = document.getElementById('search-input');
+      const yearFilter = document.getElementById('year-filter');
+      const typeFilter = document.getElementById('type-filter');
+      
+      if (!searchInput || !yearFilter || !typeFilter) {
+        return false;
+      }
+      
+      const searchTerm = searchInput.value.trim();
+      const selectedYear = yearFilter.value;
+      const selectedType = typeFilter.value;
+      
+      return searchTerm !== '' || selectedYear !== '' || selectedType !== '';
+    }
+
+    function performSearch() {
+      const searchInput = document.getElementById('search-input');
+      const yearFilter = document.getElementById('year-filter');
+      const typeFilter = document.getElementById('type-filter');
+      
+      if (!searchInput || !yearFilter || !typeFilter) {
+        console.warn('Search elements not available yet');
+        return;
+      }
+      
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const selectedYear = yearFilter.value;
+      const selectedType = typeFilter.value;
+
+      // If no filters are active, reset to original pagination view
+      if (!isFilterActive()) {
+        resetToOriginalView();
+        return;
+      }
+
+      // Filter the papers using the original data
+      filteredPapers = originalPapers.filter(paper => {
+        const matchesSearch = !searchTerm || 
+          paper.title.toLowerCase().includes(searchTerm) ||
+          paper.authors.toLowerCase().includes(searchTerm) ||
+          paper.journal.toLowerCase().includes(searchTerm) ||
+          paper.time.toString().toLowerCase().includes(searchTerm);
+
+        // Ensure both are strings for comparison
+        const paperYear = paper.time.toString().trim();
+        const filterYear = selectedYear.toString().trim();
+        const matchesYear = !selectedYear || paperYear === filterYear;
+        
+        const paperType = paper.journal.toLowerCase().includes('iacr') ? 'preprint' : 
+                         paper.journal.toLowerCase().includes('trans') || paper.journal.toLowerCase().includes('journal') ? 'journal' : 'conference';
+        const matchesType = !selectedType || paperType === selectedType;
+
+        return matchesSearch && matchesYear && matchesType;
+      });
+
+      displayFilteredResults();
+    }
+
+    function resetToOriginalView() {
+      const container = document.getElementById('publications-container');
+      const noResults = document.getElementById('no-results');
+      const paginationContainer = document.getElementById('pagination-container');
+      const resultsInfo = document.getElementById('results-info');
+
+      // Show pagination
+      paginationContainer.style.display = 'block';
+      
+      // Hide no results message
+      noResults.classList.add('hidden');
+      
+      // Show container
+      container.style.display = 'block';
+      
+      // Reset results info to original pagination info
+      const startItem = (currentPage - 1) * postsPerPage + 1;
+      const endItem = Math.min(currentPage * postsPerPage, totalPapers);
+      resultsInfo.textContent = `Showing ${startItem}-${endItem} of ${totalPapers} publications`;
+
+      // Show only the papers for the current page (reset to original pagination)
+      const allItems = document.querySelectorAll('.publication-item');
+      allItems.forEach((item, index) => {
+        // Show items that belong to the current page
+        const itemPage = Math.floor(index / postsPerPage) + 1;
+        if (itemPage === currentPage) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    function displayFilteredResults() {
+      const container = document.getElementById('publications-container');
+      const noResults = document.getElementById('no-results');
+      const paginationContainer = document.getElementById('pagination-container');
+      const resultsInfo = document.getElementById('results-info');
+
+      // Hide pagination during active search
+      paginationContainer.style.display = 'none';
+
+      if (filteredPapers.length === 0) {
+        container.style.display = 'none';
+        noResults.classList.remove('hidden');
+        resultsInfo.textContent = 'No publications found';
+      } else {
+        container.style.display = 'block';
+        noResults.classList.add('hidden');
+        
+        // Update results info
+        resultsInfo.textContent = `Found ${filteredPapers.length} publication${filteredPapers.length === 1 ? '' : 's'}`;
+
+        // Show/hide publications based on filter results
+        const allItems = document.querySelectorAll('.publication-item');
+        const filteredTitles = new Set(filteredPapers.map(paper => paper.title.toLowerCase()));
+        
+        allItems.forEach(item => {
+          const title = item.dataset.title;
+          if (filteredTitles.has(title)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+    }
+
+    function clearSearch() {
+      const searchInput = document.getElementById('search-input');
+      const yearFilter = document.getElementById('year-filter');
+      const typeFilter = document.getElementById('type-filter');
+      
+      if (!searchInput || !yearFilter || !typeFilter) {
+        console.warn('Clear search: elements not available yet');
+        return;
+      }
+      
+      searchInput.value = '';
+      yearFilter.value = '';
+      typeFilter.value = '';
+      
+      // Reset to original view immediately
+      resetToOriginalView();
+    }
+
+    function clearAllFilters() {
+      clearSearch();
+    }
+
+    // Global function for the no-results button
+    window.clearAllFilters = clearAllFilters;
+  </script>
+</Layout>

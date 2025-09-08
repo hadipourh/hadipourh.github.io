@@ -1,54 +1,238 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { publications } from "@/data/cv";
-import { highlightAuthor } from "@/lib/utils";
-import {template} from "@/settings";
+import Layout from '../layouts/Layout.astro';
+import { highlightAuthor } from '../lib/utils.ts';
+import { publications } from '../data/cv.ts';
 
-// Filter out empty publications
-const ALL_PAPERS = publications.filter(pub => pub.title && pub.title.trim() !== '');
+const allPapers = publications;
+const totalPapers = allPapers.length;
 ---
 
-<Layout title="Papers">
-  <div class="prose max-w-none">
-    <h1 class="text-3xl font-bold mb-8">Publications</h1>
+<Layout 
+  title="Publications"
+  description="Publications by Hosein Hadipour - Research papers in cryptography and related fields."
+>
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header with Search -->
+    <div class="mb-8">
+      <div class="mb-4">
+        <h1 class="text-3xl font-bold">Publications</h1>
+        <div class="text-sm text-base-content/70" id="results-info">
+          {totalPapers} publications
+        </div>
+      </div>
+      
+      <!-- Search Bar -->
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+          <div class="form-control">
+            <div class="input-group">
+              <input 
+                type="text" 
+                placeholder="Search publications by title, authors, journal, or year..." 
+                class="input input-bordered flex-1" 
+                id="search-input"
+              />
+              <button class="btn btn-square" id="clear-search">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <select class="select select-bordered" id="year-filter">
+            <option value="">All Years</option>
+            <!-- Years will be populated by JavaScript -->
+          </select>
+          <select class="select select-bordered" id="type-filter">
+            <option value="">All Types</option>
+            <option value="journal">Journals</option>
+            <option value="conference">Conferences</option>
+            <option value="preprint">Preprints</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-    <div class="space-y-8">
+    <!-- Publications Container -->
+    <div class="space-y-8" id="publications-container">
       {
-        ALL_PAPERS.map((paper) => (
-          <div class="card bg-base-200">
+        allPapers.map((paper) => (
+          <div class="card bg-base-200 publication-item" 
+               data-title={paper.title.toLowerCase()}
+               data-authors={paper.authors.toLowerCase()}
+               data-journal={paper.journal.toLowerCase()}
+               data-year={paper.time}
+               data-type={(() => {
+                 const journal = paper.journal.toLowerCase();
+                 if (journal.includes('iacr cryptol') || journal.includes('iacr eprint')) {
+                   return 'preprint';
+                 } else if (journal.includes('iacr trans. symmetric cryptol') || journal.includes('tosc')) {
+                   return 'hybrid'; // IACR ToSC is both journal and conference
+                 } else if (journal.includes('trans') || journal.includes('journal')) {
+                   return 'journal';
+                 } else {
+                   return 'conference';
+                 }
+               })()}>
             <div class="card-body">
               <h2 class="card-title text-xl">
-                <a href={template.base + paper.link} class="hover:text-accent">
+                <a href={paper.link} target="_blank" class="hover:text-accent">
                   {paper.title}
                 </a>
               </h2>
-              <p class="text-base mb-2">
-                <span class="font-medium">Authors:</span>{" "}
-                <span set:html={highlightAuthor(paper.authors)} />
+              <p class="text-base-content/80" set:html={highlightAuthor(paper.authors)} />
+              <p class="text-sm text-base-content/60">
+                <em>{paper.journal}</em>, {paper.time}
               </p>
-              <p class="text-sm mb-3">
-                <span class="italic">{paper.journal}</span> • {paper.time}
-              </p>
-              <p class="text-sm text-base-content/80">{paper.abstract}</p>
-              <div class="card-actions justify-end mt-4">
-                <a href={paper.link} class="btn btn-sm btn-secondary text-secondary-content">
-                  Read Paper
-                </a>
-              </div>
             </div>
           </div>
         ))
       }
     </div>
 
-    <div class="flex justify-center mt-8">
-      <div class="join">
-        <button class="join-item btn btn-sm">«</button>
-        <button class="join-item btn btn-sm">1</button>
-        <button class="join-item btn btn-sm btn-active">2</button>
-        <button class="join-item btn btn-sm">3</button>
-        <button class="join-item btn btn-sm">»</button>
-      </div>
+    <!-- No Results Message -->
+    <div class="text-center py-8 hidden" id="no-results">
+      <p class="text-lg text-base-content/60">No publications found matching your criteria.</p>
+      <button class="btn btn-outline mt-4" onclick="clearAllFilters()">Clear All Filters</button>
     </div>
   </div>
+
+  <script define:vars={{ allPapers, totalPapers }}>
+    // Initialize search functionality when DOM is ready
+    function initializeSearchSystem() {
+      console.log('Initializing search system...');
+      
+      // Get elements
+      const searchInput = document.getElementById('search-input');
+      const clearButton = document.getElementById('clear-search');
+      const yearFilter = document.getElementById('year-filter');
+      const typeFilter = document.getElementById('type-filter');
+      const resultsInfo = document.getElementById('results-info');
+
+      // Check if elements exist
+      if (!searchInput || !clearButton || !yearFilter || !typeFilter || !resultsInfo) {
+        console.error('Required elements not found:', {
+          searchInput: !!searchInput,
+          clearButton: !!clearButton,
+          yearFilter: !!yearFilter,
+          typeFilter: !!typeFilter,
+          resultsInfo: !!resultsInfo
+        });
+        return false;
+      }
+
+      // Populate year filter
+      try {
+        const years = [...new Set(allPapers.map(paper => paper.time))].sort((a, b) => b - a);
+        years.forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          yearFilter.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error populating year filter:', error);
+      }
+
+      // Add event listeners
+      searchInput.addEventListener('input', performSearch);
+      clearButton.addEventListener('click', clearSearch);
+      yearFilter.addEventListener('change', performSearch);
+      typeFilter.addEventListener('change', performSearch);
+
+      console.log('Search system initialized successfully');
+      return true;
+    }
+
+    function performSearch() {
+      const searchInput = document.getElementById('search-input');
+      const yearFilter = document.getElementById('year-filter');
+      const typeFilter = document.getElementById('type-filter');
+      const resultsInfo = document.getElementById('results-info');
+
+      if (!searchInput || !yearFilter || !typeFilter || !resultsInfo) {
+        return;
+      }
+
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const selectedYear = yearFilter.value;
+      const selectedType = typeFilter.value;
+
+      const allItems = document.querySelectorAll('.publication-item');
+      let visibleCount = 0;
+
+      allItems.forEach(item => {
+        const title = item.dataset.title || '';
+        const authors = item.dataset.authors || '';
+        const journal = item.dataset.journal || '';
+        const year = item.dataset.year || '';
+        const type = item.dataset.type || '';
+
+        const matchesSearch = !searchTerm || 
+          title.includes(searchTerm) ||
+          authors.includes(searchTerm) ||
+          journal.includes(searchTerm);
+
+        const matchesYear = !selectedYear || year === selectedYear;
+        
+        const matchesType = !selectedType || 
+          type === selectedType ||
+          (type === 'hybrid' && (selectedType === 'journal' || selectedType === 'conference'));
+
+        if (matchesSearch && matchesYear && matchesType) {
+          item.style.display = 'block';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Update results info
+      const container = document.getElementById('publications-container');
+      const noResults = document.getElementById('no-results');
+
+      if (visibleCount === 0) {
+        container.style.display = 'none';
+        noResults.classList.remove('hidden');
+        resultsInfo.textContent = 'No publications found';
+      } else {
+        container.style.display = 'block';
+        noResults.classList.add('hidden');
+        
+        if (searchTerm || selectedYear || selectedType) {
+          resultsInfo.textContent = `Found ${visibleCount} publication${visibleCount === 1 ? '' : 's'}`;
+        } else {
+          resultsInfo.textContent = `${totalPapers} publications`;
+        }
+      }
+    }
+
+    function clearSearch() {
+      const searchInput = document.getElementById('search-input');
+      const yearFilter = document.getElementById('year-filter');
+      const typeFilter = document.getElementById('type-filter');
+
+      if (searchInput) searchInput.value = '';
+      if (yearFilter) yearFilter.value = '';
+      if (typeFilter) typeFilter.value = '';
+
+      performSearch();
+    }
+
+    function clearAllFilters() {
+      clearSearch();
+    }
+
+    // Make clearAllFilters available globally
+    window.clearAllFilters = clearAllFilters;
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeSearchSystem);
+    } else {
+      initializeSearchSystem();
+    }
+  </script>
 </Layout>
