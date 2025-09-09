@@ -14,6 +14,7 @@ const profilePicture = '/images/profilepic1.png'
 ---
 
 <Layout>
+	<div data-page="home">
 	<!-- Hero Section -->
 	<section class='flex items-center gap-12 border-b pb-12'>
 		<Hero
@@ -29,7 +30,7 @@ const profilePicture = '/images/profilepic1.png'
 		<div class='w-full max-w-6xl mx-auto'>
 			<h2 class='text-3xl font-bold mb-8'>Quick Message Terminal</h2>
 			<p class='text-lg text-gray-600 mb-6'>
-				Send me a direct message through this terminal interface!
+				Send me a direct message through this terminal interface! Messages are delivered directly to my Telegram.
 			</p>
 			
 			<div class='w-full'>
@@ -96,11 +97,14 @@ const profilePicture = '/images/profilepic1.png'
 	<section class='py-12 border-t'>
 		<ArticleList listTitle='Recent Publications' listItems={publications} />
 	</section>
+	</div>
 </Layout>
 
 <script is:inline>
 // Home Terminal functionality - Enhanced with typing effects
 let homeCurrentMessage = '';
+let homeInitializationInProgress = false;  // Track if initialization is in progress
+let homeTypingIntervals = []; // Store all typing intervals for proper cleanup
 
 // Add message to home terminal output with typing effect
 function addToHomeTerminal(text, className = '', withTyping = false, delay = 30) {
@@ -122,9 +126,17 @@ function addToHomeTerminal(text, className = '', withTyping = false, delay = 30)
                 i++;
                 output.scrollTop = output.scrollHeight;
             } else {
+                // Clean up this interval once done
                 clearInterval(typeInterval);
+                const index = homeTypingIntervals.indexOf(typeInterval);
+                if (index > -1) {
+                    homeTypingIntervals.splice(index, 1);
+                }
             }
         }, delay);
+        
+        // Store interval reference for cleanup
+        homeTypingIntervals.push(typeInterval);
     } else {
         // Instant display for empty lines or when typing disabled
         line.textContent = text;
@@ -264,7 +276,7 @@ async function sendHomeTerminalMessage() {
 
         if (response.ok) {
             addToHomeTerminal('✓ Message delivered to automation server', 'text-green-400', true, 30);
-            addToHomeTerminal('✓ Forwarding to Hosein\'s secure channel...', 'text-cyan-400', true, 25);
+            addToHomeTerminal('✓ Forwarding directly to Hosein\'s Telegram...', 'text-cyan-400', true, 25);
         } else {
             addToHomeTerminal('✓ Message processed by webhook', 'text-green-400', true, 30);
         }
@@ -285,27 +297,57 @@ async function sendHomeTerminalMessage() {
     if (input) input.value = '';
 }
 
-// Clear home terminal
+// Clear home terminal with proper cleanup
 function clearHomeTerminal() {
+    // Stop all active typing intervals first
+    if (homeTypingIntervals && homeTypingIntervals.length) {
+        homeTypingIntervals.forEach(interval => clearInterval(interval));
+        homeTypingIntervals = [];
+    }
+
+    // Clear content
     const output = document.getElementById('home-terminal-output');
     const input = document.getElementById('home-terminal-input');
     if (output) output.innerHTML = '';
     if (input) input.value = '';
     
+    // Show confirmation message with typing effect
     addToHomeTerminal('Terminal cleared - ready for new message', 'text-green-400', true, 40);
     addToHomeTerminal('', '');
 }
 
+// Reset and properly clean up home terminal
+function resetHomeTerminal() {
+    // Stop all active typing intervals
+    if (homeTypingIntervals && homeTypingIntervals.length) {
+        homeTypingIntervals.forEach(interval => clearInterval(interval));
+        homeTypingIntervals = [];
+    }
+    
+    // Clear terminal content
+    const output = document.getElementById('home-terminal-output');
+    if (output) {
+        output.innerHTML = '';
+    }
+    
+    // Reset initialization flag
+    homeInitializationInProgress = false;
+}
+
 // Initialize home terminal content with enhanced typing
 function initializeHomeTerminal() {
+    // Prevent multiple simultaneous initializations
+    if (homeInitializationInProgress) return;
+    homeInitializationInProgress = true;
+    
     const output = document.getElementById('home-terminal-output');
-    if (!output) return; // Exit if terminal not found
+    if (!output) {
+        homeInitializationInProgress = false;
+        return; // Exit if terminal not found
+    }
     
-    // Don't reinitialize if content already exists (avoid duplication)
-    if (output.children.length > 0) return;
-    
-    // Clear existing content first
-    output.innerHTML = '';
+    // Full reset before initializing
+    resetHomeTerminal();
     
     // Queue of messages to type out - Home page specific
     const messages = [
@@ -315,7 +357,7 @@ function initializeHomeTerminal() {
         { text: 'Security breakdown of this messaging system:', class: 'text-cyan-400', typing: true, delay: 40 },
         { text: '1. HTTPS protects messages in transit from browser to website', class: 'text-gray-400', typing: true, delay: 25 },
         { text: '2. Messages sent to n8n over HTTPS but accessible within the n8n service', class: 'text-yellow-400', typing: true, delay: 25 },
-        { text: '3. Messages are then forwarded to Telegram via Telegram\'s API', class: 'text-gray-400', typing: true, delay: 25 },
+        { text: '3. Messages are then forwarded directly to my Telegram via Telegram\'s API', class: 'text-green-400', typing: true, delay: 25 },
         { text: '4. No persistent storage beyond rate limiting timestamps', class: 'text-gray-400', typing: true, delay: 25 },
         { text: '', class: '', typing: false },
         { text: 'This demonstrates the need for end-to-end encryption', class: 'text-amber-400', typing: true, delay: 30 },
@@ -324,8 +366,16 @@ function initializeHomeTerminal() {
     ];
     
     let currentIndex = 0;
+    let allTimeouts = []; // Track all timeouts for cleanup
     
     function typeNextMessage() {
+        if (!document.getElementById('home-terminal-output')) {
+            // Terminal no longer exists (navigated away), clean up
+            allTimeouts.forEach(timeout => clearTimeout(timeout));
+            homeInitializationInProgress = false;
+            return;
+        }
+        
         if (currentIndex < messages.length) {
             const msg = messages[currentIndex];
             addToHomeTerminal(msg.text, msg.class, msg.typing, msg.delay);
@@ -333,11 +383,13 @@ function initializeHomeTerminal() {
             
             // Wait for typing to complete before next message
             const waitTime = msg.typing ? (msg.text.length * msg.delay) + 150 : 80;
-            setTimeout(typeNextMessage, waitTime);
+            const timeout = setTimeout(typeNextMessage, waitTime);
+            allTimeouts.push(timeout);
         } else {
             // All messages typed, focus on input
             const input = document.getElementById('home-terminal-input');
             if (input) input.focus();
+            homeInitializationInProgress = false;
         }
     }
     
@@ -345,31 +397,67 @@ function initializeHomeTerminal() {
     typeNextMessage();
 }
 
-// Initialize home terminal - multiple event listeners for all scenarios
+// Initialize home terminal - strict single initialization approach
 function setupHomeTerminalInitialization() {
-    // Immediate initialization if DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeHomeTerminal);
-    } else {
-        initializeHomeTerminal();
+    // Store when the terminal was last initialized to strictly control timing
+    let lastHomeTerminalInit = 0;
+    const initDebounceTime = 1500; // Longer time to prevent multiple initializations
+    let initializationTimeout = null;
+    
+    // Clean, strict debounced initialization
+    function strictDebouncedInit() {
+        // Clear any pending initialization
+        if (initializationTimeout) {
+            clearTimeout(initializationTimeout);
+            initializationTimeout = null;
+        }
+        
+        const now = Date.now();
+        if (now - lastHomeTerminalInit > initDebounceTime) {
+            // Reset completely before setting new timeout
+            resetHomeTerminal();
+            
+            // Set a timeout for initialization
+            initializationTimeout = setTimeout(() => {
+                lastHomeTerminalInit = Date.now();
+                initializeHomeTerminal();
+                initializationTimeout = null;
+            }, 300); // Slight delay to ensure cleanup is complete
+        }
     }
     
-    // Also initialize on page visibility change (back/forward navigation)
-    document.addEventListener('visibilitychange', function() {
-        if (!document.hidden && document.getElementById('home-terminal-output')) {
-            setTimeout(initializeHomeTerminal, 100); // Small delay to ensure DOM is ready
-        }
-    });
-    
-    // Initialize on focus (when returning to tab/window)
-    window.addEventListener('focus', function() {
+    // Initial load handling - single point of initialization
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('home-terminal-output')) {
+                strictDebouncedInit();
+            }
+        });
+    } else {
         if (document.getElementById('home-terminal-output')) {
-            setTimeout(initializeHomeTerminal, 100);
+            strictDebouncedInit();
+        }
+    }
+    
+    // Page visibility (tab switching) handling
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && document.getElementById('home-terminal-output') && 
+            !homeInitializationInProgress && document.querySelector('[data-page="home"]')) {
+            strictDebouncedInit();
         }
     });
     
-    // Astro-specific: initialize on page navigation
-    document.addEventListener('astro:page-load', initializeHomeTerminal);
+    // Astro navigation event - most important for SPA navigation
+    document.addEventListener('astro:page-load', () => {
+        if (document.getElementById('home-terminal-output') && document.querySelector('[data-page="home"]')) {
+            strictDebouncedInit();
+        }
+    });
+    
+    // Cleanup on navigation away
+    document.addEventListener('astro:before-preparation', () => {
+        resetHomeTerminal();
+    });
 }
 
 // Run setup

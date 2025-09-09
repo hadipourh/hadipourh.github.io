@@ -7,6 +7,7 @@ const { title, institute } = profile
 ---
 
 <Layout>
+	<div data-page="contact">
 	<section class='py-12'>
 		<h1 class='text-4xl font-bold mb-8'>Contact</h1>
 		<p class='text-lg text-gray-600 mb-8'>
@@ -148,11 +149,14 @@ const { title, institute } = profile
 			</div>
 		</div>
 	</section>
+	</div>
 </Layout>
 
 <script is:inline>
 // Global variables
 let currentMessage = '';
+let contactInitializationInProgress = false;  // Track if initialization is in progress
+let contactTypingIntervals = []; // Store all typing intervals for proper cleanup
 
 // Add message to terminal output with optional typing effect
 function addToTerminal(text, className = '', withTyping = false, delay = 30) {
@@ -174,9 +178,17 @@ function addToTerminal(text, className = '', withTyping = false, delay = 30) {
                 i++;
                 output.scrollTop = output.scrollHeight;
             } else {
+                // Clean up this interval once done
                 clearInterval(typeInterval);
+                const index = contactTypingIntervals.indexOf(typeInterval);
+                if (index > -1) {
+                    contactTypingIntervals.splice(index, 1);
+                }
             }
         }, delay);
+        
+        // Store interval reference for cleanup
+        contactTypingIntervals.push(typeInterval);
     } else {
         // Instant display for empty lines or when typing disabled
         line.textContent = text;
@@ -316,7 +328,7 @@ async function sendTerminalMessage() {
 
         if (response.ok) {
             addToTerminal('Message delivered to n8n automation server', 'text-green-400');
-            addToTerminal('Being forwarded to Hosein\'s Telegram now...', 'text-cyan-400');
+            addToTerminal('Being forwarded directly to Hosein\'s Telegram now...', 'text-cyan-400');
         } else {
             addToTerminal('Message accepted by webhook server', 'text-green-400');
         }
@@ -337,27 +349,57 @@ async function sendTerminalMessage() {
     if (input) input.value = '';
 }
 
-// Clear terminal
+// Clear terminal with proper cleanup
 function clearTerminal() {
+    // Stop all active typing intervals first
+    if (contactTypingIntervals && contactTypingIntervals.length) {
+        contactTypingIntervals.forEach(interval => clearInterval(interval));
+        contactTypingIntervals = [];
+    }
+    
+    // Clear content
     const output = document.getElementById('terminal-output');
     const input = document.getElementById('terminal-input');
     if (output) output.innerHTML = '';
     if (input) input.value = '';
     
+    // Show confirmation message with typing effect
     addToTerminal('Terminal cleared - ready for new message', 'text-green-400', true, 40);
     addToTerminal('', '');
 }
 
+// Reset and properly clean up contact terminal
+function resetContactTerminal() {
+    // Stop all active typing intervals
+    if (contactTypingIntervals && contactTypingIntervals.length) {
+        contactTypingIntervals.forEach(interval => clearInterval(interval));
+        contactTypingIntervals = [];
+    }
+    
+    // Clear terminal content
+    const output = document.getElementById('terminal-output');
+    if (output) {
+        output.innerHTML = '';
+    }
+    
+    // Reset initialization flag
+    contactInitializationInProgress = false;
+}
+
 // Initialize terminal content immediately
 function initializeTerminal() {
+    // Prevent multiple simultaneous initializations
+    if (contactInitializationInProgress) return;
+    contactInitializationInProgress = true;
+    
     const output = document.getElementById('terminal-output');
-    if (!output) return; // Exit if terminal not found
+    if (!output) {
+        contactInitializationInProgress = false;
+        return; // Exit if terminal not found
+    }
     
-    // Don't reinitialize if content already exists (avoid duplication)
-    if (output.children.length > 0) return;
-    
-    // Clear existing content first
-    output.innerHTML = '';
+    // Full reset before initializing
+    resetContactTerminal();
     
     // Queue of messages to type out
     const messages = [
@@ -367,7 +409,7 @@ function initializeTerminal() {
         { text: 'Security analysis of your message path:', class: 'text-cyan-400', typing: true, delay: 50 },
         { text: '1. HTTPS encrypts browser-to-website connection', class: 'text-gray-400', typing: true, delay: 30 },
         { text: '2. Message sent to n8n over HTTPS but accessible within the n8n service', class: 'text-yellow-400', typing: true, delay: 30 },
-        { text: '3. Forwarded to Telegram via their API', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: '3. Forwarded directly to my Telegram via Telegram\'s API', class: 'text-green-400', typing: true, delay: 30 },
         { text: '4. Minimal data (timestamp) stored for rate limiting', class: 'text-gray-400', typing: true, delay: 30 },
         { text: '', class: '', typing: false },
         { text: 'This illustrates why end to end encryption is important for sensitive messages', class: 'text-amber-400', typing: true, delay: 30 },
@@ -376,8 +418,16 @@ function initializeTerminal() {
     ];
     
     let currentIndex = 0;
+    let allTimeouts = []; // Track all timeouts for cleanup
     
     function typeNextMessage() {
+        if (!document.getElementById('terminal-output')) {
+            // Terminal no longer exists (navigated away), clean up
+            allTimeouts.forEach(timeout => clearTimeout(timeout));
+            contactInitializationInProgress = false;
+            return;
+        }
+        
         if (currentIndex < messages.length) {
             const msg = messages[currentIndex];
             addToTerminal(msg.text, msg.class, msg.typing, msg.delay);
@@ -385,11 +435,13 @@ function initializeTerminal() {
             
             // Wait for typing to complete before next message
             const waitTime = msg.typing ? (msg.text.length * msg.delay) + 200 : 100;
-            setTimeout(typeNextMessage, waitTime);
+            const timeout = setTimeout(typeNextMessage, waitTime);
+            allTimeouts.push(timeout);
         } else {
             // All messages typed, focus on input
             const input = document.getElementById('terminal-input');
             if (input) input.focus();
+            contactInitializationInProgress = false;
         }
     }
     
@@ -397,31 +449,67 @@ function initializeTerminal() {
     typeNextMessage();
 }
 
-// Initialize terminal - multiple event listeners for all scenarios
+// Initialize terminal - strict single initialization approach
 function setupTerminalInitialization() {
-    // Immediate initialization if DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeTerminal);
-    } else {
-        initializeTerminal();
+    // Store when the terminal was last initialized to strictly control timing
+    let lastTerminalInit = 0;
+    const initDebounceTime = 1500; // Longer time to prevent multiple initializations
+    let initializationTimeout = null;
+    
+    // Clean, strict debounced initialization
+    function strictDebouncedInit() {
+        // Clear any pending initialization
+        if (initializationTimeout) {
+            clearTimeout(initializationTimeout);
+            initializationTimeout = null;
+        }
+        
+        const now = Date.now();
+        if (now - lastTerminalInit > initDebounceTime) {
+            // Reset completely before setting new timeout
+            resetContactTerminal();
+            
+            // Set a timeout for initialization
+            initializationTimeout = setTimeout(() => {
+                lastTerminalInit = Date.now();
+                initializeTerminal();
+                initializationTimeout = null;
+            }, 300); // Slight delay to ensure cleanup is complete
+        }
     }
     
-    // Also initialize on page visibility change (back/forward navigation)
-    document.addEventListener('visibilitychange', function() {
-        if (!document.hidden && document.getElementById('terminal-output')) {
-            setTimeout(initializeTerminal, 100); // Small delay to ensure DOM is ready
-        }
-    });
-    
-    // Initialize on focus (when returning to tab/window)
-    window.addEventListener('focus', function() {
+    // Initial load handling - single point of initialization
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('terminal-output')) {
+                strictDebouncedInit();
+            }
+        });
+    } else {
         if (document.getElementById('terminal-output')) {
-            setTimeout(initializeTerminal, 100);
+            strictDebouncedInit();
+        }
+    }
+    
+    // Page visibility (tab switching) handling
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && document.getElementById('terminal-output') && 
+            !contactInitializationInProgress && document.querySelector('[data-page="contact"]')) {
+            strictDebouncedInit();
         }
     });
     
-    // Astro-specific: initialize on page navigation
-    document.addEventListener('astro:page-load', initializeTerminal);
+    // Astro navigation event - most important for SPA navigation
+    document.addEventListener('astro:page-load', () => {
+        if (document.getElementById('terminal-output') && document.querySelector('[data-page="contact"]')) {
+            strictDebouncedInit();
+        }
+    });
+    
+    // Cleanup on navigation away
+    document.addEventListener('astro:before-preparation', () => {
+        resetContactTerminal();
+    });
 }
 
 // Run setup
