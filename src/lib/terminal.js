@@ -4,24 +4,8 @@
  * This file contains the shared functionality for terminal components
  * on both the home and contact pages.
  * 
- * Features    // Add message to the terminal
-    async function typeMessage(text, className = '', withTyping = true, delay = 12) {
-      if (!output) return;
-      
-      // Create line element
-      const line = document.createElement('div');
-      if (className) line.className = className;
-      output.appendChild(line);
-      
-      // For empty lines or no typing effect
-      if (!text.trim() || !withTyping) {
-        line.textContent = text          if (error.name === 'AbortError') {
-            queueMessage('⚠️ Request timeout - please try again later', 'text-red-400', true, 10);
-          } else {
-            queueMessage('⚠️ Network error - check your connection', 'text-red-400', true, 10);
-          }     output.scrollTop = output.scrollHeight;
-        return Promise.resolve();
-      }ffect with message queue
+ * Features:
+ * - Typing effect with message queue
  * - Security filtering of messages
  * - Rate limiting with device fingerprinting
  * - Request timeouts and error handling
@@ -173,7 +157,7 @@ export function initTerminal(config) {
     }
     
     // Add a message to the terminal
-    async function typeMessage(text, className = '', withTyping = true, delay = 30) {
+    async function typeMessage(text, className = '', withTyping = true, delay = 12) {
       if (!output) return;
       
       // Create line element
@@ -307,7 +291,9 @@ export function initTerminal(config) {
         } catch (clearErr) {}
         commandHistory = [];
       }
-    }    // Save command history to localStorage with security checks
+    }
+    
+    // Save command history to localStorage with security checks
     function saveCommandHistory() {
       try {
         // Skip saving if user has opted out
@@ -599,13 +585,13 @@ export function initTerminal(config) {
           stopLoadingIndicator(loadingIndicator);
           
           if (error.name === 'AbortError') {
-            queueMessage('⚠️ Request timeout - please try again later', 'text-red-400');
+            queueMessage('⚠️ Request timeout - please try again later', 'text-red-400', true, 10);
           } else {
-            queueMessage('⚠️ Network error - please try again', 'text-red-400');
+            queueMessage('⚠️ Network error - check your connection', 'text-red-400', true, 10);
           }
         }
       } catch (error) {
-        queueMessage('⚠️ Unexpected error - please try again', 'text-red-400');
+        queueMessage('⚠️ Unexpected error - please try again', 'text-red-400', true, 10);
         console.error('Terminal error:', error);
       } finally {
         queueMessage('', '');
@@ -718,8 +704,13 @@ export function initTerminal(config) {
           localStorage.removeItem(`${source}_state`);
           localStorage.removeItem(`${source}_history`);
           
+          // Also reset in-memory command history to be consistent
+          commandHistory = [];
+          historyIndex = -1;
+          
           queueMessage('✓ Terminal state saving has been disabled', 'text-green-400', true, 8);
           queueMessage('Your terminal activity will not be saved between sessions', 'text-gray-400', true, 8);
+          queueMessage('Previous command history has been cleared', 'text-gray-400', true, 8);
         }
         else if (cmd === '/save') {
           // Re-enable saving feature
@@ -738,7 +729,15 @@ export function initTerminal(config) {
               localStorage.removeItem(key);
             }
           }
+          
+          // Reset in-memory command history
+          commandHistory = [];
+          historyIndex = -1;
+          
+          // Reset the terminal completely, then show confirmation
+          resetTerminal();
           queueMessage('✓ All terminal storage has been cleared', 'text-green-400', true, 8);
+          queueMessage('Terminal state and command history have been reset', 'text-gray-400', true, 8);
         }
         else {
           queueMessage(`Unknown command: ${command}`, 'text-red-400', true, 8);
@@ -797,109 +796,111 @@ export function initTerminal(config) {
       setTimeout(() => input.focus(), 100);
     }
     
-  // Set up event listeners
-  function setupEventListeners() {
-    // Send button click
-    sendBtn.addEventListener('click', sendMessage);
-    
-    // Handle keyboard events for command history
-    input.addEventListener('keydown', (e) => {
-      switch (e.key) {
-        case 'Enter':
-          e.preventDefault();
-          sendMessage();
-          break;
-          
-        case 'ArrowUp':
-          e.preventDefault();
-          // Navigate up through command history
-          if (commandHistory.length > 0) {
-            historyIndex = Math.min(commandHistory.length - 1, historyIndex + 1);
-            input.value = commandHistory[historyIndex];
-            // Position cursor at end of input
-            setTimeout(() => {
-              input.selectionStart = input.selectionEnd = input.value.length;
-            }, 0);
-          }
-          break;
-          
-        case 'ArrowDown':
-          e.preventDefault();
-          // Navigate down through command history
-          if (historyIndex > 0) {
-            historyIndex--;
-            input.value = commandHistory[historyIndex];
-          } else if (historyIndex === 0) {
-            historyIndex = -1;
-            input.value = '';
-          }
-          break;
-          
-        case 'Escape':
-          // Clear input field
-          input.value = '';
-          historyIndex = -1;
-          break;
-      }
-    });
-    
-    // Clear button
-    clearBtn.addEventListener('click', () => {
-      resetTerminal();
-      queueMessage('Terminal cleared - ready for new message', 'text-green-400', true, 40);
-      queueMessage('', '');
-      input.value = '';
-      input.focus();
+    // Set up event listeners
+    function setupEventListeners() {
+      // Send button click
+      sendBtn.addEventListener('click', sendMessage);
       
-      // Save empty state
-      saveTerminalState();
-    });
+      // Handle keyboard events for command history
+      input.addEventListener('keydown', (e) => {
+        switch (e.key) {
+          case 'Enter':
+            e.preventDefault();
+            sendMessage();
+            break;
+            
+          case 'ArrowUp':
+            e.preventDefault();
+            // Navigate up through command history
+            if (commandHistory.length > 0) {
+              historyIndex = Math.min(commandHistory.length - 1, historyIndex + 1);
+              input.value = commandHistory[historyIndex];
+              // Position cursor at end of input
+              setTimeout(() => {
+                input.selectionStart = input.selectionEnd = input.value.length;
+              }, 0);
+            }
+            break;
+            
+          case 'ArrowDown':
+            e.preventDefault();
+            // Navigate down through command history
+            if (historyIndex > 0) {
+              historyIndex--;
+              input.value = commandHistory[historyIndex];
+            } else if (historyIndex === 0) {
+              historyIndex = -1;
+              input.value = '';
+            }
+            break;
+            
+          case 'Escape':
+            // Clear input field
+            input.value = '';
+            historyIndex = -1;
+            break;
+        }
+      });
+      
+      // Clear button
+      clearBtn.addEventListener('click', () => {
+        resetTerminal();
+        queueMessage('Terminal cleared - ready for new message', 'text-green-400', true, 8);
+        queueMessage('', '');
+        input.value = '';
+        input.focus();
+        
+        // Save empty state
+        saveTerminalState();
+      });
+      
+      // Add auto-saving functionality
+      const saveStateDebounced = debounce(() => {
+        saveTerminalState();
+      }, 1000);
+      
+      // Save terminal state when output changes
+      const outputObserver = new MutationObserver(saveStateDebounced);
+      outputObserver.observe(output, { childList: true });
+      
+      // Clean up when navigating away
+      document.addEventListener('astro:before-preparation', () => {
+        outputObserver.disconnect();
+        saveTerminalState(); // Save final state before navigating
+        resetTerminal();
+      });
+    }
     
-    // Add auto-saving functionality
-    const saveStateDebounced = debounce(() => {
-      saveTerminalState();
-    }, 1000);
+    // Utility: Debounce function to prevent excessive saving
+    function debounce(func, wait) {
+      let timeout;
+      return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+      };
+    }
     
-    // Save terminal state when output changes
-    const outputObserver = new MutationObserver(saveStateDebounced);
-    outputObserver.observe(output, { childList: true });
+    // Load command history
+    loadCommandHistory();
     
-    // Clean up when navigating away
-    document.addEventListener('astro:before-preparation', () => {
-      outputObserver.disconnect();
-      saveTerminalState(); // Save final state before navigating
-      resetTerminal();
-    });
-  }
-  
-  // Utility: Debounce function to prevent excessive saving
-  function debounce(func, wait) {
-    let timeout;
-    return function() {
-      const context = this;
-      const args = arguments;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), wait);
+    // Try to load saved state, if it fails, show welcome messages
+    if (!loadTerminalState()) {
+      initializeTerminal();
+    } else {
+      // If we loaded state, just focus the input
+      setTimeout(() => input.focus(), 100);
+    }
+    
+    // Set up all event listeners
+    setupEventListeners();
+    
+    // Return public API for potential external use
+    return {
+      queueMessage,
+      resetTerminal,
+      sendMessage
     };
-  }      // Load command history
-  loadCommandHistory();
-  
-  // Try to load saved state, if it fails, show welcome messages
-  if (!loadTerminalState()) {
-    initializeTerminal();
-  } else {
-    // If we loaded state, just focus the input
-    setTimeout(() => input.focus(), 100);
-  }
-  
-  // Set up all event listeners
-  setupEventListeners();
-  
-  // Return public API for potential external use
-  return {
-    queueMessage,
-    resetTerminal,
-    sendMessage
-  };
-});
+  });
 }
