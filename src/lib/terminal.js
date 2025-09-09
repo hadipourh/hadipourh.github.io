@@ -219,6 +219,31 @@ export function initTerminal(config) {
     // Add message to queue
     function queueMessage(text, className = '', withTyping = true, delay = 12) {
       messages.push({ text, className, withTyping, delay });
+      
+      // Also add system messages to history if they're not empty and not just formatting
+      if (text && text.trim() && className !== '' && 
+          !text.startsWith('>') && // Skip user inputs that are already tracked
+          localStorage.getItem('terminal_no_save') !== 'true') {
+        
+        // Don't add sensitive content to history
+        if (!/password|secret|key|token|login|pwd/i.test(text)) {
+          messageHistory.unshift({
+            text,
+            type: 'system',
+            className,
+            timestamp: Date.now()
+          });
+          
+          // Limit message history size
+          if (messageHistory.length > 20) {
+            messageHistory.pop();
+          }
+          
+          // Save to storage
+          saveCommandHistory();
+        }
+      }
+      
       processMessageQueue();
     }
     
@@ -243,57 +268,85 @@ export function initTerminal(config) {
       return SUSPICIOUS_PATTERNS.some(pattern => pattern.test(message));
     }
     
-    // Command history management
-    let commandHistory = [];
-    let historyIndex = -1;
-    
-    // Load command history from localStorage with security validation
-    function loadCommandHistory() {
-      // Skip loading if user has opted out
-      if (localStorage.getItem('terminal_no_save') === 'true') {
-        commandHistory = [];
-        return;
+// Command and message history management
+let commandHistory = [];
+let messageHistory = [];
+let historyIndex = -1;
+
+// Load command history from localStorage with security validation
+function loadCommandHistory() {
+  // Skip loading if user has opted out
+  if (localStorage.getItem('terminal_no_save') === 'true') {
+    commandHistory = [];
+    messageHistory = [];
+    return;
+  }
+  
+  try {
+    const history = localStorage.getItem(`${source}_history`);
+    if (history) {
+      // Validate it's proper JSON
+      const parsed = JSON.parse(history);
+      
+      // Ensure it's an array
+      if (!Array.isArray(parsed)) {
+        throw new Error('History is not an array');
       }
       
-      try {
-        const history = localStorage.getItem(`${source}_history`);
-        if (history) {
-          // Validate it's proper JSON
-          const parsed = JSON.parse(history);
-          
-          // Ensure it's an array
-          if (!Array.isArray(parsed)) {
-            throw new Error('History is not an array');
+      // Validate each entry is a string and not malicious
+      commandHistory = parsed.filter(cmd => {
+        // Must be a string of reasonable length
+        if (typeof cmd !== 'string' || cmd.length > 500) {
+          return false;
+        }
+        
+        // Skip any potentially malicious content
+        if (/<[^>]+>|javascript:|script|onerror=|onclick=|eval\(|document\./i.test(cmd)) {
+          return false;
+        }
+        
+        return true;
+      });
+    } else {
+      commandHistory = [];
+    }
+
+    // Load full message history if available
+    const msgHistory = localStorage.getItem(`${source}_msg_history`);
+    if (msgHistory) {
+      const parsed = JSON.parse(msgHistory);
+      
+      if (Array.isArray(parsed)) {
+        messageHistory = parsed.filter(entry => {
+          // Basic validation and security check
+          if (!entry || typeof entry !== 'object' || !entry.text || typeof entry.text !== 'string') {
+            return false;
           }
           
-          // Validate each entry is a string and not malicious
-          commandHistory = parsed.filter(cmd => {
-            // Must be a string of reasonable length
-            if (typeof cmd !== 'string' || cmd.length > 500) {
-              return false;
-            }
-            
-            // Skip any potentially malicious content
-            if (/<[^>]+>|javascript:|script|onerror=|onclick=|eval\(|document\./i.test(cmd)) {
-              return false;
-            }
-            
-            return true;
-          });
-        } else {
-          commandHistory = [];
-        }
-      } catch (e) {
-        console.error('Error loading command history:', e);
-        // If loading fails, clear history for safety
-        try {
-          localStorage.removeItem(`${source}_history`);
-        } catch (clearErr) {}
-        commandHistory = [];
+          // Skip any potentially malicious content
+          if (/<[^>]+>|javascript:|script|onerror=|onclick=|eval\(|document\./i.test(entry.text)) {
+            return false;
+          }
+          
+          return true;
+        });
+      } else {
+        messageHistory = [];
       }
+    } else {
+      messageHistory = [];
     }
-    
-    // Save command history to localStorage with security checks
+  } catch (e) {
+    console.error('Error loading history:', e);
+    // If loading fails, clear history for safety
+    try {
+      localStorage.removeItem(`${source}_history`);
+      localStorage.removeItem(`${source}_msg_history`);
+    } catch (clearErr) {}
+    commandHistory = [];
+    messageHistory = [];
+  }
+}    // Save command and message history to localStorage with security checks
     function saveCommandHistory() {
       try {
         // Skip saving if user has opted out
@@ -320,11 +373,32 @@ export function initTerminal(config) {
           .map(cmd => cmd.substring(0, 200));
           
         localStorage.setItem(`${source}_history`, JSON.stringify(filteredHistory.slice(0, MAX_HISTORY_ITEMS)));
+        
+        // Also save the full message history
+        const filteredMessageHistory = messageHistory
+          .filter(entry => {
+            // Skip sensitive messages using same criteria
+            return !(
+              /password|token|key|secret|credit|card|ssn|social|security/i.test(entry.text) ||
+              /@\w+\.\w+/i.test(entry.text) ||
+              /\d{3}[-\.\s]?\d{3}[-\.\s]?\d{4}/i.test(entry.text) ||
+              /<[^>]+>|javascript:|script/i.test(entry.text)
+            );
+          })
+          // Limit message length
+          .map(entry => ({
+            ...entry,
+            text: entry.text.substring(0, 200)
+          }));
+        
+        // Save up to 20 message history entries  
+        localStorage.setItem(`${source}_msg_history`, JSON.stringify(filteredMessageHistory.slice(0, 20)));
       } catch (e) {
-        console.error('Error saving command history:', e);
+        console.error('Error saving history:', e);
         // If saving fails, clear history for safety
         try {
           localStorage.removeItem(`${source}_history`);
+          localStorage.removeItem(`${source}_msg_history`);
         } catch (clearErr) {}
       }
     }
@@ -349,9 +423,21 @@ export function initTerminal(config) {
       // Add to front of array
       commandHistory.unshift(command);
       
+      // Also add to message history with timestamp
+      messageHistory.unshift({
+        text: command, 
+        type: 'command',
+        timestamp: Date.now()
+      });
+      
       // Limit size
       if (commandHistory.length > MAX_HISTORY_ITEMS) {
         commandHistory.pop();
+      }
+      
+      // Limit message history size
+      if (messageHistory.length > 20) {
+        messageHistory.pop();
       }
       
       // Reset index and save
@@ -683,6 +769,17 @@ export function initTerminal(config) {
                 const parsedHistory = JSON.parse(history);
                 if (Array.isArray(parsedHistory)) {
                   queueMessage(`Command history entries: ${parsedHistory.length}`, 'text-gray-400', true, 8);
+                  
+                  // List the recent commands
+                  if (parsedHistory.length > 0) {
+                    queueMessage(`Recent commands:`, 'text-blue-400', true, 8);
+                    parsedHistory.slice(0, 5).forEach(cmd => {
+                      queueMessage(`• ${cmd}`, 'text-cyan-400', true, 5);
+                    });
+                    if (parsedHistory.length > 5) {
+                      queueMessage(`... and ${parsedHistory.length - 5} more`, 'text-gray-400', true, 5);
+                    }
+                  }
                 } else {
                   queueMessage('Command history format is invalid', 'text-yellow-400', true, 8);
                 }
@@ -691,6 +788,40 @@ export function initTerminal(config) {
               }
             } else {
               queueMessage('No command history is saved', 'text-gray-400', true, 8);
+            }
+            
+            // Check message history
+            const msgHistory = localStorage.getItem(`${source}_msg_history`);
+            if (msgHistory) {
+              try {
+                const parsedMsgHistory = JSON.parse(msgHistory);
+                if (Array.isArray(parsedMsgHistory)) {
+                  queueMessage(`Message history entries: ${parsedMsgHistory.length}`, 'text-gray-400', true, 8);
+                  
+                  // List the recent messages with timestamps
+                  if (parsedMsgHistory.length > 0) {
+                    queueMessage(`Recent interactions:`, 'text-blue-400', true, 8);
+                    parsedMsgHistory.slice(0, 5).forEach(msg => {
+                      const date = new Date(msg.timestamp);
+                      const timeStr = date.toLocaleTimeString();
+                      const dateStr = date.toLocaleDateString();
+                      const typeIcon = msg.type === 'command' ? '💬' : '🖥️';
+                      queueMessage(`${typeIcon} [${dateStr} ${timeStr}] ${msg.text.substring(0, 50)}${msg.text.length > 50 ? '...' : ''}`, 
+                                 msg.type === 'command' ? 'text-green-400' : 'text-cyan-400', true, 5);
+                    });
+                    
+                    if (parsedMsgHistory.length > 5) {
+                      queueMessage(`... and ${parsedMsgHistory.length - 5} more interactions`, 'text-gray-400', true, 5);
+                    }
+                  }
+                } else {
+                  queueMessage('Message history format is invalid', 'text-yellow-400', true, 8);
+                }
+              } catch (e) {
+                queueMessage('Message history data is corrupted', 'text-yellow-400', true, 8);
+              }
+            } else {
+              queueMessage('No message history is saved', 'text-gray-400', true, 8);
             }
           } catch (e) {
             queueMessage('Error checking saved data age', 'text-red-400', true, 8);
@@ -703,14 +834,16 @@ export function initTerminal(config) {
           // Clear any existing saved state
           localStorage.removeItem(`${source}_state`);
           localStorage.removeItem(`${source}_history`);
+          localStorage.removeItem(`${source}_msg_history`);
           
           // Also reset in-memory command history to be consistent
           commandHistory = [];
+          messageHistory = [];
           historyIndex = -1;
           
           queueMessage('✓ Terminal state saving has been disabled', 'text-green-400', true, 8);
           queueMessage('Your terminal activity will not be saved between sessions', 'text-gray-400', true, 8);
-          queueMessage('Previous command history has been cleared', 'text-gray-400', true, 8);
+          queueMessage('Previous command and message history has been cleared', 'text-gray-400', true, 8);
         }
         else if (cmd === '/save') {
           // Re-enable saving feature
@@ -725,19 +858,20 @@ export function initTerminal(config) {
           // Clear all terminal-related storage
           for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            if (key && (key.includes('terminal') || key.includes('_state') || key.includes('_history'))) {
+            if (key && (key.includes('terminal') || key.includes('_state') || key.includes('_history') || key.includes('_msg_history'))) {
               localStorage.removeItem(key);
             }
           }
           
           // Reset in-memory command history
           commandHistory = [];
+          messageHistory = [];
           historyIndex = -1;
           
           // Reset the terminal completely, then show confirmation
           resetTerminal();
           queueMessage('✓ All terminal storage has been cleared', 'text-green-400', true, 8);
-          queueMessage('Terminal state and command history have been reset', 'text-gray-400', true, 8);
+          queueMessage('Terminal state, command history, and message history have been reset', 'text-gray-400', true, 8);
         }
         else {
           queueMessage(`Unknown command: ${command}`, 'text-red-400', true, 8);
