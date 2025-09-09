@@ -34,6 +34,24 @@ const WEBHOOK_URL = 'https://crypt0grapher.app.n8n.cloud/webhook/3145da13-aca7-4
 // Version for cache busting and tracking
 const TERMINAL_VERSION = '1.1.0';
 
+// Default welcome messages - shared between home and contact pages
+export const DEFAULT_WELCOME_MESSAGES = [
+  { text: 'Secure Message Terminal - Security Analysis', className: 'text-green-400', withTyping: true, delay: 20 },
+  { text: '======================================', className: 'text-green-400', withTyping: true, delay: 8 },
+  { text: '', className: '', withTyping: false },
+  { text: 'Security breakdown of this messaging system:', className: 'text-cyan-400', withTyping: true, delay: 15 },
+  { text: '1. HTTPS protects messages in transit from browser to website', className: 'text-gray-400', withTyping: true, delay: 12 },
+  { text: '2. Messages sent to n8n over HTTPS but accessible within the n8n service', className: 'text-yellow-400', withTyping: true, delay: 12 },
+  { text: '3. Messages are then forwarded directly to my Telegram via Telegram\'s API', className: 'text-green-400', withTyping: true, delay: 12 },
+  { text: '4. Command and message history saved locally in your browser', className: 'text-gray-400', withTyping: true, delay: 12 },
+  { text: '', className: '', withTyping: false },
+  { text: 'This demonstrates the need for end-to-end encryption', className: 'text-amber-400', withTyping: true, delay: 15 },
+  { text: 'Type your message and press Enter... trust issues? a cryptographer would understand ;)', className: 'text-yellow-400', withTyping: true, delay: 20 },
+  { text: '', className: '', withTyping: false },
+  { text: 'Type /help to see available commands', className: 'text-blue-400', withTyping: true, delay: 12 },
+  { text: '', className: '', withTyping: false }
+];
+
 // Constants
 const MAX_MESSAGE_LENGTH = 1000;
 const RATE_LIMIT_MS = 5000;
@@ -73,7 +91,8 @@ export function initTerminal(config) {
     clearBtnId,
     source,
     storageKey,
-    welcomeMessages
+    welcomeMessages = DEFAULT_WELCOME_MESSAGES, // Use default messages if none provided
+    alwaysRefresh = false // Option to always refresh terminal on page load
   } = config;
   
   // Periodic cleanup of localStorage items
@@ -493,6 +512,11 @@ function loadCommandHistory() {
     // Load terminal state if available, with added security checks
     function loadTerminalState() {
       try {
+        // If alwaysRefresh is true, always show fresh welcome messages
+        if (alwaysRefresh) {
+          return false;
+        }
+        
         // Check if user has opted out of storage
         if (localStorage.getItem('terminal_no_save') === 'true') {
           return false;
