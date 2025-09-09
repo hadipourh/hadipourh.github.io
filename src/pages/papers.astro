@@ -125,6 +125,11 @@ const totalPapers = allPapers.length;
 
       // Populate year filter
       try {
+        // Clear existing options except the first "All Years" option
+        while (yearFilter.options.length > 1) {
+          yearFilter.remove(1);
+        }
+        
         const years = [...new Set(allPapers.map(paper => paper.time))].sort((a, b) => b - a);
         years.forEach(year => {
           const option = document.createElement('option');
@@ -228,11 +233,20 @@ const totalPapers = allPapers.length;
     // Make clearAllFilters available globally
     window.clearAllFilters = clearAllFilters;
 
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeSearchSystem);
-    } else {
+    // Handle initialization on Astro page transitions
+    function handlePageLoad() {
+      console.log('Page loaded, initializing search system');
       initializeSearchSystem();
     }
+    
+    // Initialize on first load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', handlePageLoad);
+    } else {
+      handlePageLoad();
+    }
+    
+    // Initialize on Astro page transitions
+    document.addEventListener('astro:page-load', handlePageLoad);
   </script>
 </Layout>
