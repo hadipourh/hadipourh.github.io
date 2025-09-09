@@ -164,17 +164,19 @@ initTerminal({
   source: 'terminal_contact',
   storageKey: 'lastContactMessageSent',
   welcomeMessages: [
-    { text: 'Contact Terminal - Message Security Analysis', className: 'text-green-400', withTyping: true, delay: 40 },
-    { text: '==========================================', className: 'text-green-400', withTyping: true, delay: 15 },
+    { text: 'Contact Terminal - Message Security Analysis', className: 'text-green-400', withTyping: true, delay: 20 },
+    { text: '==========================================', className: 'text-green-400', withTyping: true, delay: 8 },
     { text: '', className: '', withTyping: false },
-    { text: 'Security analysis of your message path:', className: 'text-cyan-400', withTyping: true, delay: 50 },
-    { text: '1. HTTPS encrypts browser-to-website connection', className: 'text-gray-400', withTyping: true, delay: 30 },
-    { text: '2. Message sent to n8n over HTTPS but accessible within the n8n service', className: 'text-yellow-400', withTyping: true, delay: 30 },
-    { text: '3. Forwarded to Telegram via their API', className: 'text-gray-400', withTyping: true, delay: 30 },
-    { text: '4. Minimal data (timestamp) stored for rate limiting', className: 'text-gray-400', withTyping: true, delay: 30 },
+    { text: 'Security analysis of your message path:', className: 'text-cyan-400', withTyping: true, delay: 15 },
+    { text: '1. HTTPS encrypts browser-to-website connection', className: 'text-gray-400', withTyping: true, delay: 12 },
+    { text: '2. Message sent to n8n over HTTPS but accessible within the n8n service', className: 'text-yellow-400', withTyping: true, delay: 12 },
+    { text: '3. Forwarded to Telegram via their API', className: 'text-gray-400', withTyping: true, delay: 12 },
+    { text: '4. Minimal data (timestamp) stored for rate limiting', className: 'text-gray-400', withTyping: true, delay: 12 },
     { text: '', className: '', withTyping: false },
-    { text: 'This illustrates why end to end encryption is important for sensitive messages', className: 'text-amber-400', withTyping: true, delay: 30 },
-    { text: 'Ready to send your message... (or not, if you\'re paranoid like a cryptographer 😉)', className: 'text-yellow-400', withTyping: true, delay: 60 },
+    { text: 'This illustrates why end to end encryption is important for sensitive messages', className: 'text-amber-400', withTyping: true, delay: 15 },
+    { text: 'Ready to send your message... (or not, if you\'re paranoid like a cryptographer 😉)', className: 'text-yellow-400', withTyping: true, delay: 20 },
+    { text: '', className: '', withTyping: false },
+    { text: 'Type /help to see available commands', className: 'text-blue-400', withTyping: true, delay: 12 },
     { text: '', className: '', withTyping: false }
   ]
 });

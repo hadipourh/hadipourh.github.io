@@ -4,6 +4,30 @@
  * This file contains the shared functionality for terminal components
  * on both the home and contact pages.
  * 
+ * Features    // Add message to the terminal
+    async function typeMessage(text, className = '', withTyping = true, delay = 12) {
+      if (!output) return;
+      
+      // Create line element
+      const line = document.createElement('div');
+      if (className) line.className = className;
+      output.appendChild(line);
+      
+      // For empty lines or no typing effect
+      if (!text.trim() || !withTyping) {
+        line.textContent = text          if (error.name === 'AbortError') {
+            queueMessage('⚠️ Request timeout - please try again later', 'text-red-400', true, 10);
+          } else {
+            queueMessage('⚠️ Network error - check your connection', 'text-red-400', true, 10);
+          }     output.scrollTop = output.scrollHeight;
+        return Promise.resolve();
+      }ffect with message queue
+ * - Security filtering of messages
+ * - Rate limiting with device fingerprinting
+ * - Request timeouts and error handling
+ * - Command history with arrow key navigation
+ * - Auto-saving terminal state
+ * 
  * Usage:
  * import { initTerminal } from '../lib/terminal.js';
  * 
@@ -23,6 +47,15 @@
 // Shared webhook URL
 const WEBHOOK_URL = 'https://crypt0grapher.app.n8n.cloud/webhook/3145da13-aca7-4299-8046-07bcae2173a7';
 
+// Version for cache busting and tracking
+const TERMINAL_VERSION = '1.1.0';
+
+// Constants
+const MAX_MESSAGE_LENGTH = 1000;
+const RATE_LIMIT_MS = 5000;
+const REQUEST_TIMEOUT_MS = 10000;
+const MAX_HISTORY_ITEMS = 10;
+
 // Suspicious content patterns
 const SUSPICIOUS_PATTERNS = [
   /script[^>]*>/i,
@@ -34,9 +67,13 @@ const SUSPICIOUS_PATTERNS = [
   /on\w+\s*=/i,  // Event handlers like onclick, onerror, etc.
   /expression\s*\(/i,  // CSS expression attacks
   /vbscript:/i,  // VBScript protocol
+  /livescript:/i,  // LiveScript protocol
+  /url\s*\(/i,  // CSS url injection
   /&#/i,  // HTML entity encoding attempts
   /%3c/i,  // URL encoded < character
   /%3e/i,  // URL encoded > character
+  /base64/i,  // Base64 encoded content
+  /String\.fromCharCode/i,  // Character code conversion
 ];
 
 /**
@@ -55,7 +92,55 @@ export function initTerminal(config) {
     welcomeMessages
   } = config;
   
+  // Periodic cleanup of localStorage items
+  function cleanupLocalStorage() {
+    try {
+      // Get all localStorage keys
+      const keys = Object.keys(localStorage);
+      const now = Date.now();
+      
+      // Scan for old terminal state and history entries
+      keys.forEach(key => {
+        // Process terminal state entries
+        if (key.endsWith('_state')) {
+          try {
+            const state = JSON.parse(localStorage.getItem(key));
+            // Remove if older than 7 days or invalid
+            if (!state || !state.timestamp || (now - state.timestamp > 7 * 86400000)) {
+              localStorage.removeItem(key);
+            }
+          } catch (e) {
+            // Invalid entry, remove it
+            localStorage.removeItem(key);
+          }
+        }
+        
+        // Process terminal history entries
+        if (key.endsWith('_history')) {
+          try {
+            const history = JSON.parse(localStorage.getItem(key));
+            // Remove if invalid or extremely large
+            if (!history || !Array.isArray(history) || history.length > 50) {
+              localStorage.removeItem(key);
+            }
+          } catch (e) {
+            // Invalid entry, remove it
+            localStorage.removeItem(key);
+          }
+        }
+      });
+    } catch (e) {
+      console.error('Error during localStorage cleanup:', e);
+    }
+  }
+
   document.addEventListener('astro:page-load', () => {
+    // Run storage cleanup on page load (once per session)
+    if (sessionStorage.getItem('terminal_cleanup_run') !== 'true') {
+      cleanupLocalStorage();
+      sessionStorage.setItem('terminal_cleanup_run', 'true');
+    }
+    
     // Only run this code when on the specified page
     if (!document.querySelector(pageSelector)) return;
     
@@ -148,7 +233,7 @@ export function initTerminal(config) {
     }
     
     // Add message to queue
-    function queueMessage(text, className = '', withTyping = true, delay = 30) {
+    function queueMessage(text, className = '', withTyping = true, delay = 12) {
       messages.push({ text, className, withTyping, delay });
       processMessageQueue();
     }
@@ -174,6 +259,257 @@ export function initTerminal(config) {
       return SUSPICIOUS_PATTERNS.some(pattern => pattern.test(message));
     }
     
+    // Command history management
+    let commandHistory = [];
+    let historyIndex = -1;
+    
+    // Load command history from localStorage with security validation
+    function loadCommandHistory() {
+      // Skip loading if user has opted out
+      if (localStorage.getItem('terminal_no_save') === 'true') {
+        commandHistory = [];
+        return;
+      }
+      
+      try {
+        const history = localStorage.getItem(`${source}_history`);
+        if (history) {
+          // Validate it's proper JSON
+          const parsed = JSON.parse(history);
+          
+          // Ensure it's an array
+          if (!Array.isArray(parsed)) {
+            throw new Error('History is not an array');
+          }
+          
+          // Validate each entry is a string and not malicious
+          commandHistory = parsed.filter(cmd => {
+            // Must be a string of reasonable length
+            if (typeof cmd !== 'string' || cmd.length > 500) {
+              return false;
+            }
+            
+            // Skip any potentially malicious content
+            if (/<[^>]+>|javascript:|script|onerror=|onclick=|eval\(|document\./i.test(cmd)) {
+              return false;
+            }
+            
+            return true;
+          });
+        } else {
+          commandHistory = [];
+        }
+      } catch (e) {
+        console.error('Error loading command history:', e);
+        // If loading fails, clear history for safety
+        try {
+          localStorage.removeItem(`${source}_history`);
+        } catch (clearErr) {}
+        commandHistory = [];
+      }
+    }    // Save command history to localStorage with security checks
+    function saveCommandHistory() {
+      try {
+        // Skip saving if user has opted out
+        if (localStorage.getItem('terminal_no_save') === 'true') {
+          return;
+        }
+        
+        // Don't save commands that contain sensitive patterns
+        const filteredHistory = commandHistory
+          .filter(cmd => {
+            // Skip any potentially sensitive commands
+            return !(
+              // Common sensitive information patterns
+              /password|token|key|secret|credit|card|ssn|social|security/i.test(cmd) ||
+              // Email addresses
+              /@\w+\.\w+/i.test(cmd) ||
+              // Phone numbers
+              /\d{3}[-\.\s]?\d{3}[-\.\s]?\d{4}/i.test(cmd) ||
+              // Any HTML or script content
+              /<[^>]+>|javascript:|script/i.test(cmd)
+            );
+          })
+          // Truncate any extremely long commands
+          .map(cmd => cmd.substring(0, 200));
+          
+        localStorage.setItem(`${source}_history`, JSON.stringify(filteredHistory.slice(0, MAX_HISTORY_ITEMS)));
+      } catch (e) {
+        console.error('Error saving command history:', e);
+        // If saving fails, clear history for safety
+        try {
+          localStorage.removeItem(`${source}_history`);
+        } catch (clearErr) {}
+      }
+    }
+    
+    // Add command to history with security check
+    function addToHistory(command) {
+      // Don't add commands to history if saving is disabled
+      if (localStorage.getItem('terminal_no_save') === 'true') {
+        return;
+      }
+      
+      // Don't add duplicates of the last command
+      if (commandHistory.length > 0 && commandHistory[0] === command) {
+        return;
+      }
+      
+      // Don't add potentially sensitive commands
+      if (/password|secret|key|token|login|pwd/i.test(command)) {
+        return;
+      }
+      
+      // Add to front of array
+      commandHistory.unshift(command);
+      
+      // Limit size
+      if (commandHistory.length > MAX_HISTORY_ITEMS) {
+        commandHistory.pop();
+      }
+      
+      // Reset index and save
+      historyIndex = -1;
+      saveCommandHistory();
+    }
+    
+    // Save terminal state for persistence between visits with security filtering
+    function saveTerminalState() {
+      try {
+        if (!output) return;
+        
+        // Filter and sanitize terminal lines before saving
+        const lines = Array.from(output.children)
+          // Skip any lines containing sensitive patterns
+          .filter(line => {
+            const content = line.textContent || '';
+            // Don't save any potentially sensitive information
+            return !(
+              // Skip lines with potential PII patterns
+              /password|token|key|secret|credit|card|ssn|social|security|phone|address|zipcode|email|@gmail|@yahoo/i.test(content) ||
+              // Skip any HTML content or scripts that might have been added
+              /<\/?[a-z][\s\S]*>/i.test(content)
+            );
+          })
+          // Sanitize the content that is saved
+          .map(line => ({
+            // Limit the length of saved lines
+            text: (line.textContent || '').substring(0, 200),
+            className: line.className
+          }));
+        
+        // Only save if user has explicitly interacted with terminal
+        // Don't save just the default welcome messages
+        const hasUserInteraction = commandHistory.length > 0;
+        
+        if (hasUserInteraction) {
+          localStorage.setItem(`${source}_state`, JSON.stringify({
+            lines: lines.slice(-20), // Save last 20 lines only
+            timestamp: Date.now(),
+            version: TERMINAL_VERSION
+          }));
+        }
+      } catch (e) {
+        console.error('Error saving terminal state:', e);
+        // If anything goes wrong, clear the saved state for safety
+        try {
+          localStorage.removeItem(`${source}_state`);
+        } catch (clearErr) {}
+      }
+    }
+    
+    // Load terminal state if available, with added security checks
+    function loadTerminalState() {
+      try {
+        // Check if user has opted out of storage
+        if (localStorage.getItem('terminal_no_save') === 'true') {
+          return false;
+        }
+        
+        const saved = localStorage.getItem(`${source}_state`);
+        if (!saved) return false;
+        
+        // Basic validation before parsing
+        if (saved.length > 50000) {
+          // State is suspiciously large, don't load it
+          localStorage.removeItem(`${source}_state`);
+          return false;
+        }
+        
+        let state;
+        try {
+          state = JSON.parse(saved);
+        } catch (parseError) {
+          // Invalid JSON, remove it
+          localStorage.removeItem(`${source}_state`);
+          return false;
+        }
+        
+        // Strict validation of the state object
+        if (!state || 
+            typeof state !== 'object' ||
+            !state.version ||
+            !state.timestamp ||
+            !Array.isArray(state.lines)) {
+          localStorage.removeItem(`${source}_state`);
+          return false;
+        }
+        
+        // Only restore if it's the current version and less than 24 hours old
+        const isCurrentVersion = state.version === TERMINAL_VERSION;
+        const isRecent = Date.now() - state.timestamp < 86400000;
+        const hasValidLines = state.lines.every(line => 
+          typeof line === 'object' && 
+          typeof line.text === 'string' &&
+          line.text.length < 500 // Additional length validation
+        );
+        
+        if (isCurrentVersion && isRecent && hasValidLines) {
+          // Clear default welcome messages
+          resetTerminal();
+          
+          // Add notice about restored session
+          const noticeElem = document.createElement('div');
+          noticeElem.className = 'text-blue-400 italic';
+          noticeElem.textContent = '(Restored previous session)';
+          output.appendChild(noticeElem);
+          
+          // Restore lines (with additional filtering)
+          state.lines.forEach(line => {
+            // Don't restore any suspicious content
+            if (!/javascript:|<\/?\w+>|script|onerror|eval/i.test(line.text)) {
+              const elem = document.createElement('div');
+              // Only allow specific safe classes
+              if (line.className && /^text-(\w+)-(\d+)$/.test(line.className)) {
+                elem.className = line.className;
+              }
+              elem.textContent = line.text; // Use textContent for sanitization
+              output.appendChild(elem);
+            }
+          });
+          
+          // Add option to clear saved data
+          const clearOption = document.createElement('div');
+          clearOption.className = 'text-gray-400 cursor-pointer hover:underline mt-2';
+          clearOption.textContent = 'Type /clear to reset terminal or /nosave to disable saving';
+          output.appendChild(clearOption);
+          
+          output.scrollTop = output.scrollHeight;
+          return true;
+        } else {
+          // Invalid or expired state, remove it
+          localStorage.removeItem(`${source}_state`);
+        }
+      } catch (e) {
+        console.error('Error loading terminal state:', e);
+        try {
+          // Clean up on any error
+          localStorage.removeItem(`${source}_state`);
+        } catch (cleanupError) {}
+      }
+      return false;
+    }
+    
     // Send message handler with enhanced security
     async function sendMessage() {
       const messageText = input.value.trim();
@@ -183,6 +519,9 @@ export function initTerminal(config) {
         return;
       }
       
+      // Add to command history
+      addToHistory(messageText);
+      
       // Display user message
       queueMessage('> ' + messageText, 'text-green-400');
       input.value = '';
@@ -190,10 +529,9 @@ export function initTerminal(config) {
       // Enhanced rate limiting with fingerprinting
       const now = Date.now();
       const lastSent = localStorage.getItem(storageKey);
-      const minInterval = 5000; // 5 seconds
       
-      if (lastSent && now - parseInt(lastSent) < minInterval) {
-        const remaining = Math.ceil((minInterval - (now - parseInt(lastSent))) / 1000);
+      if (lastSent && now - parseInt(lastSent) < RATE_LIMIT_MS) {
+        const remaining = Math.ceil((RATE_LIMIT_MS - (now - parseInt(lastSent))) / 1000);
         queueMessage(`Rate limit: Please wait ${remaining} seconds before sending another message`, 'text-red-400');
         return;
       }
@@ -204,42 +542,245 @@ export function initTerminal(config) {
         return;
       }
       
+      // Check for special commands
+      if (messageText.startsWith('/')) {
+        handleSpecialCommand(messageText);
+        return;
+      }
+      
       try {
         queueMessage('Establishing secure connection...', 'text-blue-400', true, 25);
         
         // Add request timeout
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
         
-        const response = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'X-Client-Version': '1.0.0'
-          },
-          body: JSON.stringify({
-            message: messageText.substring(0, 1000),
-            timestamp: new Date().toISOString(),
-            source: source,
-            fingerprint: generateFingerprint()
-          }),
-          signal: controller.signal
-        });
+        // Start a loading indicator
+        const loadingIndicator = startLoadingIndicator();
         
-        clearTimeout(timeoutId);
-        localStorage.setItem(storageKey, now.toString());
-        
-        queueMessage('Message delivered to automation server', 'text-green-400', true, 30);
-        queueMessage('Forwarding to Hosein\'s Telegram now...', 'text-cyan-400', true, 25);
-        queueMessage('', '');
-        
-      } catch (error) {
-        if (error.name === 'AbortError') {
-          queueMessage('Request timeout - please try again later', 'text-red-400');
-        } else {
-          queueMessage('Network error - please try again', 'text-red-400');
+        try {
+          const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'X-Client-Version': TERMINAL_VERSION,
+              'X-Client-Source': source
+            },
+            body: JSON.stringify({
+              message: messageText.substring(0, MAX_MESSAGE_LENGTH),
+              timestamp: new Date().toISOString(),
+              source: source,
+              fingerprint: generateFingerprint()
+            }),
+            signal: controller.signal
+          });
+          
+          // Stop loading indicator
+          stopLoadingIndicator(loadingIndicator);
+          clearTimeout(timeoutId);
+          localStorage.setItem(storageKey, now.toString());
+          
+          if (response.ok) {
+            queueMessage('✓ Message delivered to automation server', 'text-green-400', true, 10);
+            queueMessage('✓ Forwarding to Hosein\'s Telegram now...', 'text-cyan-400', true, 10);
+          } else {
+            // Handle HTTP error responses
+            const status = response.status;
+            if (status === 429) {
+              queueMessage('⚠️ Rate limit exceeded on server side', 'text-yellow-400', true, 10);
+            } else if (status >= 500) {
+              queueMessage('⚠️ Server error - message delivery uncertain', 'text-yellow-400', true, 10);
+            } else {
+              queueMessage(`⚠️ Error ${status} - message delivery failed`, 'text-yellow-400', true, 10);
+            }
+          }
+        } catch (error) {
+          // Stop loading indicator
+          stopLoadingIndicator(loadingIndicator);
+          
+          if (error.name === 'AbortError') {
+            queueMessage('⚠️ Request timeout - please try again later', 'text-red-400');
+          } else {
+            queueMessage('⚠️ Network error - please try again', 'text-red-400');
+          }
         }
+      } catch (error) {
+        queueMessage('⚠️ Unexpected error - please try again', 'text-red-400');
+        console.error('Terminal error:', error);
+      } finally {
         queueMessage('', '');
+        // Save terminal state after sending a message
+        saveTerminalState();
+      }
+      
+      // Handle special commands
+      function handleSpecialCommand(command) {
+        const cmd = command.toLowerCase();
+        
+        if (cmd === '/help') {
+          queueMessage('Available commands:', 'text-blue-400', true, 8);
+          queueMessage('/help - Show this help message', 'text-gray-400', true, 5);
+          queueMessage('/clear - Clear the terminal', 'text-gray-400', true, 5);
+          queueMessage('/about - Show information about this terminal', 'text-gray-400', true, 5);
+          queueMessage('/version - Show terminal version', 'text-gray-400', true, 5);
+          queueMessage('/privacy - Show privacy information', 'text-gray-400', true, 5);
+          queueMessage('/nosave - Disable terminal state saving', 'text-gray-400', true, 5);
+          queueMessage('/save - Re-enable terminal state saving', 'text-gray-400', true, 5);
+          queueMessage('/age - Check saved data age', 'text-gray-400', true, 5);
+          queueMessage('/clearstorage - Remove all saved terminal data', 'text-gray-400', true, 5);
+        } 
+        else if (cmd === '/clear') {
+          resetTerminal();
+          queueMessage('Terminal cleared', 'text-green-400', true, 8);
+        }
+        else if (cmd === '/about') {
+          queueMessage('Secure Terminal Interface', 'text-green-400', true, 8);
+          queueMessage('-------------------------', 'text-green-400', true, 5);
+          queueMessage('This terminal allows you to send secure messages directly to Hosein.', 'text-gray-400', true, 8);
+          queueMessage('Messages are transmitted via HTTPS and forwarded to Telegram.', 'text-gray-400', true, 8);
+          queueMessage('Features: Command history, message persistence, rate limiting.', 'text-gray-400', true, 8);
+        }
+        else if (cmd === '/version') {
+          queueMessage(`Terminal version: ${TERMINAL_VERSION}`, 'text-blue-400', true, 8);
+        }
+        else if (cmd === '/privacy') {
+          queueMessage('Privacy Information', 'text-green-400', true, 8);
+          queueMessage('-----------------', 'text-green-400', true, 5);
+          queueMessage('• Your terminal state is saved locally in your browser only', 'text-gray-400', true, 8);
+          queueMessage('• Command history is stored for convenience using localStorage', 'text-gray-400', true, 8);
+          queueMessage('• Messages you send are forwarded to Telegram via webhook', 'text-gray-400', true, 8);
+          queueMessage('• No analytics or tracking is used in this terminal', 'text-gray-400', true, 8);
+          queueMessage('• Use /nosave to disable all local storage features', 'text-gray-400', true, 8);
+          queueMessage('• Use /age to check saved data age', 'text-gray-400', true, 8);
+          queueMessage('• Use /clearstorage to remove all saved data', 'text-gray-400', true, 8);
+        }
+        else if (cmd === '/age') {
+          // Display information about the age of saved terminal state
+          try {
+            queueMessage('Saved Data Age Information', 'text-green-400', true, 8);
+            queueMessage('------------------------', 'text-green-400', true, 5);
+            
+            // Check if terminal state is saved
+            const state = localStorage.getItem(`${source}_state`);
+            if (state) {
+              try {
+                const parsedState = JSON.parse(state);
+                if (parsedState && parsedState.timestamp) {
+                  const ageMs = Date.now() - parsedState.timestamp;
+                  const ageMinutes = Math.floor(ageMs / 60000);
+                  const ageHours = Math.floor(ageMinutes / 60);
+                  const ageDays = Math.floor(ageHours / 24);
+                  
+                  if (ageDays > 0) {
+                    queueMessage(`Terminal state is ${ageDays} days, ${ageHours % 24} hours old`, 'text-blue-400', true, 8);
+                  } else if (ageHours > 0) {
+                    queueMessage(`Terminal state is ${ageHours} hours, ${ageMinutes % 60} minutes old`, 'text-blue-400', true, 8);
+                  } else {
+                    queueMessage(`Terminal state is ${ageMinutes} minutes old`, 'text-blue-400', true, 8);
+                  }
+                  
+                  queueMessage(`Saved lines: ${parsedState.lines ? parsedState.lines.length : 0}`, 'text-gray-400', true, 8);
+                } else {
+                  queueMessage('Terminal state format is invalid', 'text-yellow-400', true, 8);
+                }
+              } catch (e) {
+                queueMessage('Terminal state data is corrupted', 'text-yellow-400', true, 8);
+              }
+            } else {
+              queueMessage('No terminal state is saved', 'text-gray-400', true, 8);
+            }
+            
+            // Check command history
+            const history = localStorage.getItem(`${source}_history`);
+            if (history) {
+              try {
+                const parsedHistory = JSON.parse(history);
+                if (Array.isArray(parsedHistory)) {
+                  queueMessage(`Command history entries: ${parsedHistory.length}`, 'text-gray-400', true, 8);
+                } else {
+                  queueMessage('Command history format is invalid', 'text-yellow-400', true, 8);
+                }
+              } catch (e) {
+                queueMessage('Command history data is corrupted', 'text-yellow-400', true, 8);
+              }
+            } else {
+              queueMessage('No command history is saved', 'text-gray-400', true, 8);
+            }
+          } catch (e) {
+            queueMessage('Error checking saved data age', 'text-red-400', true, 8);
+          }
+        }
+        else if (cmd === '/nosave') {
+          // Disable saving feature
+          localStorage.setItem('terminal_no_save', 'true');
+          
+          // Clear any existing saved state
+          localStorage.removeItem(`${source}_state`);
+          localStorage.removeItem(`${source}_history`);
+          
+          queueMessage('✓ Terminal state saving has been disabled', 'text-green-400', true, 8);
+          queueMessage('Your terminal activity will not be saved between sessions', 'text-gray-400', true, 8);
+        }
+        else if (cmd === '/save') {
+          // Re-enable saving feature
+          localStorage.removeItem('terminal_no_save');
+          queueMessage('✓ Terminal state saving has been re-enabled', 'text-green-400', true, 8);
+          queueMessage('Your terminal activity will be saved for 24 hours', 'text-gray-400', true, 8);
+          
+          // Save current state
+          saveTerminalState();
+        }
+        else if (cmd === '/clearstorage') {
+          // Clear all terminal-related storage
+          for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && (key.includes('terminal') || key.includes('_state') || key.includes('_history'))) {
+              localStorage.removeItem(key);
+            }
+          }
+          queueMessage('✓ All terminal storage has been cleared', 'text-green-400', true, 8);
+        }
+        else {
+          queueMessage(`Unknown command: ${command}`, 'text-red-400', true, 8);
+          queueMessage('Type /help for available commands', 'text-gray-400', true, 8);
+        }
+        
+        queueMessage('', '');
+        
+        // Only save state if saving is enabled
+        if (localStorage.getItem('terminal_no_save') !== 'true') {
+          saveTerminalState();
+        }
+      }
+      
+      // Loading indicator functions
+      function startLoadingIndicator() {
+        const loadingLine = document.createElement('div');
+        loadingLine.className = 'text-blue-300';
+        loadingLine.id = 'loading-' + Date.now();
+        output.appendChild(loadingLine);
+        
+        const loadingChars = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+        let i = 0;
+        
+        const intervalId = setInterval(() => {
+          loadingLine.textContent = `${loadingChars[i]} Processing request...`;
+          i = (i + 1) % loadingChars.length;
+          output.scrollTop = output.scrollHeight;
+        }, 100);
+        
+        return { id: loadingLine.id, intervalId: intervalId };
+      }
+      
+      function stopLoadingIndicator(indicator) {
+        if (!indicator) return;
+        
+        clearInterval(indicator.intervalId);
+        
+        const loadingLine = document.getElementById(indicator.id);
+        if (loadingLine) {
+          loadingLine.remove();
+        }
       }
     }
     
@@ -256,34 +797,109 @@ export function initTerminal(config) {
       setTimeout(() => input.focus(), 100);
     }
     
-    // Set up event listeners
-    function setupEventListeners() {
-      // Send button click
-      sendBtn.addEventListener('click', sendMessage);
-      
-      // Enter key in input field
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
+  // Set up event listeners
+  function setupEventListeners() {
+    // Send button click
+    sendBtn.addEventListener('click', sendMessage);
+    
+    // Handle keyboard events for command history
+    input.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'Enter':
           e.preventDefault();
           sendMessage();
-        }
-      });
-      
-      // Clear button
-      clearBtn.addEventListener('click', () => {
-        resetTerminal();
-        queueMessage('Terminal cleared - ready for new message', 'text-green-400', true, 40);
-        queueMessage('', '');
-        input.value = '';
-        input.focus();
-      });
-      
-      // Clean up when navigating away
-      document.addEventListener('astro:before-preparation', resetTerminal);
-    }
+          break;
+          
+        case 'ArrowUp':
+          e.preventDefault();
+          // Navigate up through command history
+          if (commandHistory.length > 0) {
+            historyIndex = Math.min(commandHistory.length - 1, historyIndex + 1);
+            input.value = commandHistory[historyIndex];
+            // Position cursor at end of input
+            setTimeout(() => {
+              input.selectionStart = input.selectionEnd = input.value.length;
+            }, 0);
+          }
+          break;
+          
+        case 'ArrowDown':
+          e.preventDefault();
+          // Navigate down through command history
+          if (historyIndex > 0) {
+            historyIndex--;
+            input.value = commandHistory[historyIndex];
+          } else if (historyIndex === 0) {
+            historyIndex = -1;
+            input.value = '';
+          }
+          break;
+          
+        case 'Escape':
+          // Clear input field
+          input.value = '';
+          historyIndex = -1;
+          break;
+      }
+    });
     
-    // Initialize terminal on page load
+    // Clear button
+    clearBtn.addEventListener('click', () => {
+      resetTerminal();
+      queueMessage('Terminal cleared - ready for new message', 'text-green-400', true, 40);
+      queueMessage('', '');
+      input.value = '';
+      input.focus();
+      
+      // Save empty state
+      saveTerminalState();
+    });
+    
+    // Add auto-saving functionality
+    const saveStateDebounced = debounce(() => {
+      saveTerminalState();
+    }, 1000);
+    
+    // Save terminal state when output changes
+    const outputObserver = new MutationObserver(saveStateDebounced);
+    outputObserver.observe(output, { childList: true });
+    
+    // Clean up when navigating away
+    document.addEventListener('astro:before-preparation', () => {
+      outputObserver.disconnect();
+      saveTerminalState(); // Save final state before navigating
+      resetTerminal();
+    });
+  }
+  
+  // Utility: Debounce function to prevent excessive saving
+  function debounce(func, wait) {
+    let timeout;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }      // Load command history
+  loadCommandHistory();
+  
+  // Try to load saved state, if it fails, show welcome messages
+  if (!loadTerminalState()) {
     initializeTerminal();
-    setupEventListeners();
-  });
+  } else {
+    // If we loaded state, just focus the input
+    setTimeout(() => input.focus(), 100);
+  }
+  
+  // Set up all event listeners
+  setupEventListeners();
+  
+  // Return public API for potential external use
+  return {
+    queueMessage,
+    resetTerminal,
+    sendMessage
+  };
+});
 }
