@@ -27,6 +27,8 @@ function cleanLatexText(text) {
     .replace(/\\faGraduationCap\s*/g, '')
     .replace(/\\faStar\s*/g, '')
     .replace(/\\fa[A-Za-z]+\s*/g, '')
+    // Remove LaTeX measurement units like 1cm
+    .replace(/^\d+(?:cm|mm|in|pt)\s+/g, '')
     // Clean up LaTeX artifacts and special characters
     .replace(/‌/g, '') // Remove zero-width non-joiner
     .replace(/\\\\/g, ' ') // Replace double backslashes with space
@@ -54,6 +56,8 @@ function cleanDescriptionWithUrl(text) {
     .replace(/\\faGraduationCap\s*/g, '')
     .replace(/\\faStar\s*/g, '')
     .replace(/\\fa[A-Za-z]+\s*/g, '')
+    // Remove LaTeX measurement units like 1cm
+    .replace(/^\d+(?:cm|mm|in|pt)\s+/g, '')
     // Clean up LaTeX artifacts and special characters
     .replace(/‌/g, '') // Remove zero-width non-joiner
     .replace(/\\\\/g, ' ') // Replace double backslashes with space
@@ -170,11 +174,12 @@ function extractTeaching(latex) {
     let time = cleanLatexText(year);
     
     if (description) {
-      const desc = cleanLatexText(description);
+      // Clean LaTeX text and specifically remove 1cm prefixes
+      const desc = cleanLatexText(description).replace(/^1cm\s+/g, '');
       // Extract role and institution from description like "Guest Lecturer, Graz University of Technology, Summer 2023 and 2024"
       const parts = desc.split(',').map(p => p.trim());
       if (parts.length >= 2) {
-        role = parts[0];
+        role = parts[0].replace(/^1cm\s+/g, '');
         inst = parts[1];
         if (parts.length >= 3) {
           time = parts[2];
@@ -184,10 +189,10 @@ function extractTeaching(latex) {
     
     teaching.push({
       course: cleanLatexText(course) || 'Unknown Course',
-      role: role || 'Instructor',
+      role: (role || 'Instructor').replace(/^1cm\s+/g, ''),
       institution: inst || cleanLatexText(institution),
       time: time,
-      description: cleanLatexText(description)
+      description: cleanLatexText(description).replace(/^1cm\s+/g, '')
     });
   }
   

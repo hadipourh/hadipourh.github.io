@@ -310,24 +310,24 @@ export const publications: Publication[] = [
 export const teaching = [
 	{
 		"course": "Cryptanalysis",
-		"role": "1cm Guest Lecturer",
+		"role": "Guest Lecturer",
 		"institution": "Graz University of Technology",
 		"time": "Summer 2023 and 2024",
-		"description": "1cm Guest Lecturer, Graz University of Technology, Summer 2023 and 2024"
+		"description": "Guest Lecturer, Graz University of Technology, Summer 2023 and 2024"
 	},
 	{
 		"course": "A Course in Cryptography",
-		"role": "1cm Teaching Assistant",
+		"role": "Teaching Assistant",
 		"institution": "University of Tehran",
 		"time": "Fall 2016",
-		"description": "1cm Teaching Assistant, University of Tehran, Fall 2016"
+		"description": "Teaching Assistant, University of Tehran, Fall 2016"
 	},
 	{
 		"course": "Introduction to Cryptography",
-		"role": "1cm Teaching Assistant",
+		"role": "Teaching Assistant",
 		"institution": "K. N. Toosi University",
 		"time": "Fall 2014",
-		"description": "1cm Teaching Assistant, K. N. Toosi University, Fall 2014"
+		"description": "Teaching Assistant, K. N. Toosi University, Fall 2014"
 	}
 ];
 
