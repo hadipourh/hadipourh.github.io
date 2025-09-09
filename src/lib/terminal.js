@@ -719,11 +719,12 @@ function loadCommandHistory() {
           queueMessage('Privacy Information', 'text-green-400', true, 8);
           queueMessage('-----------------', 'text-green-400', true, 5);
           queueMessage('• Your terminal state is saved locally in your browser only', 'text-gray-400', true, 8);
-          queueMessage('• Command history is stored for convenience using localStorage', 'text-gray-400', true, 8);
+          queueMessage('• Command and message history are stored using localStorage', 'text-gray-400', true, 8);
+          queueMessage('• Terminal interactions are saved for 24 hours for convenience', 'text-gray-400', true, 8);
           queueMessage('• Messages you send are forwarded to Telegram via webhook', 'text-gray-400', true, 8);
           queueMessage('• No analytics or tracking is used in this terminal', 'text-gray-400', true, 8);
+          queueMessage('• Use /age to view your saved messages and commands', 'text-gray-400', true, 8);
           queueMessage('• Use /nosave to disable all local storage features', 'text-gray-400', true, 8);
-          queueMessage('• Use /age to check saved data age', 'text-gray-400', true, 8);
           queueMessage('• Use /clearstorage to remove all saved data', 'text-gray-400', true, 8);
         }
         else if (cmd === '/age') {
