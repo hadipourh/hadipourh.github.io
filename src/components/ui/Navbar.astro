@@ -12,19 +12,19 @@ const {fullName, title} = profile
 const profilePicture = '/images/profilepic2.png'
 ---
 <aside
-	class='px-4 pt-4 h-screen w-[20rem] bg-base-200 text-base-content flex flex-col'
+	class='px-4 pt-2 h-screen w-[20rem] bg-base-200 text-base-content flex flex-col'
 >
-	<div class='flex flex-col my-8 justify-between h-full'>
+	<div class='flex flex-col my-4 justify-between h-full'>
 		<div>
 			<div class='flex justify-center items-center flex-col'>
 				<img
-					class='mask mask-circle size-44'
+					class='mask mask-circle size-40'
 					src={profilePicture}
 					alt={`Profile picture of ${fullName}`}
 				/>
-				<h1 class="text-lg font-black mt-8 hidden lg:block">{fullName}</h1>
+				<h1 class="text-lg font-black mt-4 hidden lg:block">{fullName}</h1>
 			</div>
-			<div class='mx-4 mt-16'>
+			<div class='mx-4 mt-0.00'>
 				<ul class='space-y-4 menu grow shrink menu-md overflow-y-auto'>
 					<li>
                         <a href={`${template.base}/`} class='text-lg'>Home</a>
