@@ -1,0 +1,54 @@
+---
+---
+
+<div class="mt-8 p-4 bg-base-200 rounded-lg border border-primary/30">
+  <h3 class="text-lg font-semibold mb-2 flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    Security Analysis: How This Message System Works
+  </h3>
+  
+  <div class="space-y-3 text-sm">
+    <p>
+      <span class="font-semibold text-green-600">Protected by HTTPS:</span> 
+      Your messages are encrypted between your browser and this website using HTTPS, preventing network-level eavesdropping.
+    </p>
+    
+    <p>
+      <span class="font-semibold text-amber-600">Vulnerable at Processing:</span>
+      Once received by the website, messages are sent to n8n automation service over HTTPS (encrypted in transit) but are accessible in unencrypted form within the n8n service itself.
+    </p>
+    
+    <p>
+      <span class="font-semibold text-amber-600">Third-Party Transmission:</span>
+      After processing, messages are sent to Telegram through their API. Both n8n and Telegram servers can technically access the message content.
+    </p>
+    
+    <p>
+      <span class="font-semibold text-blue-600">Data Storage:</span>
+      Only timestamps are stored in your browser's local storage for rate limiting. No message content is persistently stored on the website.
+    </p>
+  </div>
+  
+  <div class="mt-4 pt-3 border-t border-primary/20">
+    <h4 class="font-semibold text-sm mb-2 text-primary">Cryptographic Perspective</h4>
+    <p class="text-sm">
+      This system illustrates a common security pattern: messages protected in transit but vulnerable at processing points. 
+      True end to end encryption would encrypt the message on your device in a way that only the recipient could decrypt it, 
+      preventing intermediaries from reading content.
+    </p>
+    <p class="text-sm mt-2">
+      My research focuses on analyzing and designing the fundamental building blocks of these cryptographic protocols. This includes 
+      block ciphers, hash functions, and cryptographic primitives that form the foundation of secure communications systems.
+    </p>
+  </div>
+  
+  <div class="mt-3 p-2 bg-amber-50 border border-amber-200 rounded-md">
+    <p class="text-xs text-amber-800">
+      <span class="font-bold">Educational Note:</span> This terminal showcases why cryptographers emphasize end to end encryption. 
+      Even with secure HTTPS connections between all parties, the message content becomes visible at each processing point. 
+      Advanced cryptographic protocols aim to solve this fundamental challenge.
+    </p>
+  </div>
+</div>

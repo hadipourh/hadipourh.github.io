@@ -112,10 +112,10 @@ const { title, institute } = profile
 						</div>
 
 						<!-- Security Notice -->
-						<div class='mt-4 text-xs text-green-600 border-t border-green-400 pt-2'>
-							<span class='animate-pulse'>●</span> HTTPS transport encryption via n8n 
-							<span class='animate-pulse'>●</span> No client-side tokens exposed 
-							<span class='animate-pulse'>●</span> Direct webhook to automation server
+						<div class='mt-4 text-xs text-amber-500 border-t border-amber-400 pt-2'>
+							<span class='animate-pulse'>●</span> HTTPS protects browser-to-website connection
+							<span class='animate-pulse'>●</span> n8n automation service can read message content 
+							<span class='animate-pulse'>●</span> Not end to end encrypted (intermediaries can access)
 						</div>
 					</div>
 				</div>
@@ -361,16 +361,17 @@ function initializeTerminal() {
     
     // Queue of messages to type out
     const messages = [
-        { text: 'Contact Terminal - Direct Message to Hosein', class: 'text-green-400', typing: true, delay: 40 },
+        { text: 'Contact Terminal - Message Security Analysis', class: 'text-green-400', typing: true, delay: 40 },
         { text: '==========================================', class: 'text-green-400', typing: true, delay: 15 },
         { text: '', class: '', typing: false },
-        { text: 'Your message journey:', class: 'text-cyan-400', typing: true, delay: 50 },
-        { text: '1. Encrypted via HTTPS from your browser', class: 'text-gray-400', typing: true, delay: 30 },
-        { text: '2. Sent to secure n8n webhook server', class: 'text-gray-400', typing: true, delay: 30 },
-        { text: '3. Automatically forwarded to Hosein\'s Telegram', class: 'text-gray-400', typing: true, delay: 30 },
-        { text: '4. No storage on this website or browser', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: 'Security analysis of your message path:', class: 'text-cyan-400', typing: true, delay: 50 },
+        { text: '1. HTTPS encrypts browser-to-website connection', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: '2. Message sent to n8n over HTTPS but accessible within the n8n service', class: 'text-yellow-400', typing: true, delay: 30 },
+        { text: '3. Forwarded to Telegram via their API', class: 'text-gray-400', typing: true, delay: 30 },
+        { text: '4. Minimal data (timestamp) stored for rate limiting', class: 'text-gray-400', typing: true, delay: 30 },
         { text: '', class: '', typing: false },
-        { text: 'Ready to send your message...', class: 'text-yellow-400', typing: true, delay: 60 },
+        { text: 'This illustrates why end to end encryption is important for sensitive messages', class: 'text-amber-400', typing: true, delay: 30 },
+        { text: 'Ready to send your message... (or not, if you\'re paranoid like a cryptographer 😉)', class: 'text-yellow-400', typing: true, delay: 60 },
         { text: '', class: '', typing: false }
     ];
     

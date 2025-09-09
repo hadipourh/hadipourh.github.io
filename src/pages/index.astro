@@ -1,19 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro'
-
 import { profile } from '@/settings'
 import { publications } from '@/data/cv'
 import Hero from '@/components/ui/Hero.astro'
 import Grid from '@/components/ui/Grid.astro'
 import ArticleList from '@/components/ui/ArticleList.astro'
+import SecurityInfo from '@/components/ui/SecurityInfo.astro'
 
 const { fullName, title, institute, research_areas } = profile
 
 // Use the uploaded professional profile picture
 const profilePicture = '/images/profilepic1.png'
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
@@ -32,7 +29,7 @@ const profilePicture = '/images/profilepic1.png'
 		<div class='w-full max-w-6xl mx-auto'>
 			<h2 class='text-3xl font-bold mb-8'>Quick Message Terminal</h2>
 			<p class='text-lg text-gray-600 mb-6'>
-				Send me a direct message through this secure terminal interface - it goes straight to my Telegram!
+				Send me a direct message through this terminal interface!
 			</p>
 			
 			<div class='w-full'>
@@ -75,12 +72,17 @@ const profilePicture = '/images/profilepic1.png'
 					</div>
 
 					<!-- Security Notice -->
-					<div class='mt-4 text-xs text-green-600 border-t border-green-400 pt-2'>
-						<span class='animate-pulse'>●</span> End-to-end encrypted messaging via n8n automation
-						<span class='animate-pulse'>●</span> Zero browser storage or tracking
-						<span class='animate-pulse'>●</span> Direct webhook to secure server
+					<div class='mt-4 text-xs text-amber-500 border-t border-amber-400 pt-2'>
+						<span class='animate-pulse'>●</span> HTTPS protects browser-to-website connection
+						<span class='animate-pulse'>●</span> n8n automation service can read message content
+						<span class='animate-pulse'>●</span> Not end to end encrypted (intermediaries can access)
 					</div>
 				</div>
+			</div>
+			
+			<!-- Import Security Info Component -->
+			<div class="mt-6">
+				<SecurityInfo />
 			</div>
 		</div>
 	</section>
@@ -307,16 +309,17 @@ function initializeHomeTerminal() {
     
     // Queue of messages to type out - Home page specific
     const messages = [
-        { text: 'Quick Message Terminal - Home Edition', class: 'text-green-400', typing: true, delay: 45 },
+        { text: 'Quick Message Terminal - Security Analysis', class: 'text-green-400', typing: true, delay: 45 },
         { text: '======================================', class: 'text-green-400', typing: true, delay: 15 },
         { text: '', class: '', typing: false },
-        { text: 'Welcome! This is a secure messaging interface:', class: 'text-cyan-400', typing: true, delay: 40 },
-        { text: '1. Messages sent via encrypted HTTPS', class: 'text-gray-400', typing: true, delay: 25 },
-        { text: '2. Processed by n8n automation server', class: 'text-gray-400', typing: true, delay: 25 },
-        { text: '3. Instantly forwarded to Hosein\'s Telegram', class: 'text-gray-400', typing: true, delay: 25 },
-        { text: '4. Zero data storage in your browser', class: 'text-gray-400', typing: true, delay: 25 },
+        { text: 'Security breakdown of this messaging system:', class: 'text-cyan-400', typing: true, delay: 40 },
+        { text: '1. HTTPS protects messages in transit from browser to website', class: 'text-gray-400', typing: true, delay: 25 },
+        { text: '2. Messages sent to n8n over HTTPS but accessible within the n8n service', class: 'text-yellow-400', typing: true, delay: 25 },
+        { text: '3. Messages are then forwarded to Telegram via Telegram\'s API', class: 'text-gray-400', typing: true, delay: 25 },
+        { text: '4. No persistent storage beyond rate limiting timestamps', class: 'text-gray-400', typing: true, delay: 25 },
         { text: '', class: '', typing: false },
-        { text: 'Type your message and press Enter...', class: 'text-yellow-400', typing: true, delay: 50 },
+        { text: 'This demonstrates the need for end-to-end encryption', class: 'text-amber-400', typing: true, delay: 30 },
+        { text: 'Type your message and press Enter... trust issues? a cryptographer would understand ;)', class: 'text-yellow-400', typing: true, delay: 50 },
         { text: '', class: '', typing: false }
     ];
     
