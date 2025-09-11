@@ -221,12 +221,12 @@ async function fetchProjectsFromGitHub() {
     const contributionRepos = extractRepositoriesFromPRs(pullRequests);
     const enrichedContributions = await enrichRepositoryData(contributionRepos);
     
-    // Sort contributions by stars and recency
+    // Sort contributions by number of pull requests (descending), then by stars
     enrichedContributions.sort((a, b) => {
-      if (a.stars !== b.stars) {
-        return b.stars - a.stars;
+      if (a.pullRequests.length !== b.pullRequests.length) {
+        return b.pullRequests.length - a.pullRequests.length;
       }
-      return new Date(b.updated) - new Date(a.updated);
+      return b.stars - a.stars;
     });
     
     console.log(`Summary: ${userRepos.length} original repos, ${enrichedContributions.length} contributions`);

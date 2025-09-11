@@ -43,7 +43,7 @@ In this blog, I plan to share:
 ## Looking Forward
 
 Cryptanalysis continues to evolve as new ciphers are proposed and new mathematical tools become available. 
-I find it fascinating how techniques from seemingly unrelated areas of mathematics and computer science can suddenly become relevant to breaking cryptographic systems.
+I find it fascinating how techniques from seemingly unrelated areas of mathematics and computer science can suddenly become relevant to analyzing cryptographic primitives.
 
 I hope this blog will be useful for fellow researchers, students getting started in cryptography, and anyone curious about how we analyze the security of the systems that protect our digital world.
 
