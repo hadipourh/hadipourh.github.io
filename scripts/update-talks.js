@@ -13,7 +13,7 @@ const TALKS_REPO = 'hadipourh/talks';
 
 async function fetchTalksFromGitHub() {
   try {
-    console.log('🔍 Fetching talks from GitHub repository...');
+    console.log('Fetching talks from GitHub repository...');
     
     // Get repository contents
     const response = await fetch(`${GITHUB_API}/repos/${TALKS_REPO}/contents`, {
@@ -60,7 +60,7 @@ async function fetchTalksFromGitHub() {
     return talks;
     
   } catch (error) {
-    console.error('❌ Error fetching talks from GitHub:', error.message);
+    console.error('ERROR: Error fetching talks from GitHub:', error.message);
     return [];
   }
 }
@@ -230,13 +230,13 @@ ${timelineItems}
                 content.substring(timelineEnd);
       
       await fs.writeFile(talksPath, content, 'utf-8');
-      console.log('✅ Updated talks.astro with proper timeline structure');
+      console.log('SUCCESS: Updated talks.astro with proper timeline structure');
     } else {
-      console.log('⚠️ Could not find <ul> timeline section in talks.astro');
+      console.log('WARNING: Could not find <ul> timeline section in talks.astro');
     }
     
   } catch (error) {
-    console.error('❌ Error updating talks.astro:', error.message);
+    console.error('ERROR: Error updating talks.astro:', error.message);
   }
 }
 
@@ -293,15 +293,15 @@ function generateLinks(talk) {
 }
 
 async function main() {
-  console.log('🚀 Starting talks update process...');
+  console.log('Starting talks update process...');
   
   const talks = await fetchTalksFromGitHub();
   
   if (talks.length > 0) {
     await updateTalksPage(talks);
-    console.log('🎉 Talks update completed!');
+    console.log('Talks update completed!');
   } else {
-    console.log('⚠️ No talks found, skipping update');
+    console.log('WARNING: No talks found, skipping update');
   }
 }
 

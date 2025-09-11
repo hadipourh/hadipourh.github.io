@@ -85,7 +85,7 @@ function extractEducation(latex) {
   const match = latex.match(educationRegex);
   
   if (!match) {
-    console.log('⚠️ No Education section found');
+    console.log('WARNING: No Education section found');
     return [];
   }
   
@@ -109,7 +109,7 @@ function extractEducation(latex) {
     });
   }
   
-  console.log(`✅ Found ${education.length} education entries`);
+  console.log(`SUCCESS: Found ${education.length} education entries`);
   return education;
 }
 
@@ -120,7 +120,7 @@ function extractExperience(latex) {
   const match = latex.match(experienceRegex);
   
   if (!match) {
-    console.log('⚠️ No Experience section found');
+    console.log('WARNING: No Experience section found');
     return [];
   }
   
@@ -143,7 +143,7 @@ function extractExperience(latex) {
     });
   }
   
-  console.log(`✅ Found ${experiences.length} experience entries`);
+  console.log(`SUCCESS: Found ${experiences.length} experience entries`);
   return experiences;
 }
 
@@ -154,7 +154,7 @@ function extractTeaching(latex) {
   const match = latex.match(teachingRegex);
   
   if (!match) {
-    console.log('⚠️ No Teaching section found');
+    console.log('WARNING: No Teaching section found');
     return [];
   }
   
@@ -196,7 +196,7 @@ function extractTeaching(latex) {
     });
   }
   
-  console.log(`✅ Found ${teaching.length} teaching entries`);
+  console.log(`SUCCESS: Found ${teaching.length} teaching entries`);
   return teaching;
 }
 
@@ -207,7 +207,7 @@ function extractSkills(latex) {
   const match = latex.match(skillsRegex);
   
   if (!match) {
-    console.log('⚠️ No Computer Skills section found');
+    console.log('WARNING: No Computer Skills section found');
     return [];
   }
   
@@ -240,7 +240,7 @@ function extractSkills(latex) {
     }
   }
   
-  console.log(`✅ Found ${skills.length} skills`);
+  console.log(`SUCCESS: Found ${skills.length} skills`);
   return skills;
 }
 
@@ -251,7 +251,7 @@ function extractReviews(latex) {
   const match = latex.match(reviewsRegex);
   
   if (!match) {
-    console.log('⚠️ No Reviews section found');
+    console.log('WARNING: No Reviews section found');
     return [];
   }
   
@@ -313,7 +313,7 @@ function extractReviews(latex) {
     }
   }
   
-  console.log(`✅ Found ${reviews.length} reviews`);
+  console.log(`SUCCESS: Found ${reviews.length} reviews`);
   return reviews;
 }
 
@@ -324,7 +324,7 @@ function extractHonors(latex) {
   const match = latex.match(honorsRegex);
   
   if (!match) {
-    console.log('⚠️ No Honors section found');
+    console.log('WARNING: No Honors section found');
     return [];
   }
   
@@ -404,7 +404,7 @@ function extractHonors(latex) {
     }
   }
   
-  console.log(`✅ Found ${honors.length} honors`);
+  console.log(`SUCCESS: Found ${honors.length} honors`);
   return honors;
 }
 
@@ -416,7 +416,7 @@ function extractInterests(latex) {
   const match = latex.match(otherInfoRegex);
   
   if (!match) {
-    console.log('⚠️ No Other Information section found');
+    console.log('WARNING: No Other Information section found');
     return [];
   }
   
@@ -469,7 +469,7 @@ function extractInterests(latex) {
     }
   }
   
-  console.log(`✅ Found ${interests.length} interests`);
+  console.log(`SUCCESS: Found ${interests.length} interests`);
   return interests;
 }
 
@@ -514,7 +514,7 @@ function extractPresentations(latex) {
   const match = latex.match(presentationsRegex);
   
   if (!match) {
-    console.log('⚠️ No Visits and Presentations section found');
+    console.log('WARNING: No Visits and Presentations section found');
     return [];
   }
   
@@ -568,7 +568,7 @@ function extractPresentations(latex) {
     }
   }
   
-  console.log(`✅ Found ${presentations.length} presentations`);
+  console.log(`SUCCESS: Found ${presentations.length} presentations`);
   return presentations;
 }
 
@@ -579,7 +579,7 @@ function extractLanguages(latex) {
   const match = latex.match(languagesRegex);
   
   if (!match) {
-    console.log('⚠️ No Languages section found');
+    console.log('WARNING: No Languages section found');
     return [];
   }
   
@@ -630,7 +630,7 @@ function extractLanguages(latex) {
           break;
         default:
           // Log unmatched levels for debugging
-          console.log(`⚠️ Unmatched language level: "${level}" for ${language}`);
+          console.log(`WARNING: Unmatched language level: "${level}" for ${language}`);
           proficiency = 1;
           break;
       }
@@ -645,7 +645,7 @@ function extractLanguages(latex) {
     }
   }
   
-  console.log(`✅ Found ${languages.length} languages`);
+  console.log(`SUCCESS: Found ${languages.length} languages`);
   return languages;
 }
 
@@ -657,7 +657,7 @@ function extractMemberships(latex) {
   const match = latex.match(otherInfoRegex);
   
   if (!match) {
-    console.log('⚠️ No Other Information section found');
+    console.log('WARNING: No Other Information section found');
     return [];
   }
   
@@ -689,7 +689,7 @@ function extractMemberships(latex) {
     }
   }
   
-  console.log(`✅ Found ${memberships.length} memberships`);
+  console.log(`SUCCESS: Found ${memberships.length} memberships`);
   return memberships;
 }
 
@@ -800,18 +800,18 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Write updated content
   fs.writeFileSync(cvPath, cvContent);
-  console.log('✅ CV data updated successfully!');
+  console.log('SUCCESS: CV data updated successfully!');
 }
 
 async function main() {
   try {
-    console.log('🚀 Starting comprehensive CV update from LaTeX...');
+    console.log(' Starting comprehensive CV update from LaTeX...');
     
     // Read CV.tex directly
     const cvPath = path.join(__dirname, '..', 'public', 'cv', 'CV.tex');
     
     if (!fs.existsSync(cvPath)) {
-      console.error('❌ CV.tex not found at:', cvPath);
+      console.error('ERROR: CV.tex not found at:', cvPath);
       process.exit(1);
     }
     
@@ -833,7 +833,7 @@ async function main() {
     // Update cv.ts file
     updateCvData(education, experiences, teaching, skills, reviews, honors, interests, languages, presentations, memberships);
     
-    console.log('🎉 CV update completed successfully!');
+    console.log(' CV update completed successfully!');
     console.log('📊 Summary:');
     console.log(`   Education: ${education.length} entries`);
     console.log(`   Experience: ${experiences.length} entries`);
@@ -847,7 +847,7 @@ async function main() {
     console.log(`   Memberships: ${memberships.length} entries`);
     
   } catch (error) {
-    console.error('❌ Error updating CV:', error);
+    console.error('ERROR: Error updating CV:', error);
     process.exit(1);
   }
 }

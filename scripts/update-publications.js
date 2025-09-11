@@ -13,7 +13,7 @@ const AUTHOR_NAME = 'Hosein Hadipour';
 
 async function fetchDBLPPublications() {
   try {
-    console.log('🔍 Fetching publications from DBLP...');
+    console.log('Fetching publications from DBLP...');
     
     const response = await fetch(`${DBLP_API}?q=author%3A${encodeURIComponent(AUTHOR_NAME)}&format=json&h=100`, {
       headers: {
@@ -48,7 +48,7 @@ async function fetchDBLPPublications() {
     });
     
   } catch (error) {
-    console.error('❌ Error fetching DBLP publications:', error.message);
+    console.error('ERROR: Error fetching DBLP publications:', error.message);
     return [];
   }
 }
@@ -86,23 +86,23 @@ ${newPublications}
                         cvContent.substring(publicationsEnd);
     
     await fs.writeFile(cvPath, newCvContent, 'utf-8');
-    console.log('✅ Updated publications in cv.ts');
+    console.log('SUCCESS: Updated publications in cv.ts');
     
   } catch (error) {
-    console.error('❌ Error updating cv.ts:', error.message);
+    console.error('ERROR: Error updating cv.ts:', error.message);
   }
 }
 
 async function main() {
-  console.log('🚀 Starting publication update process...');
+  console.log('Starting publication update process...');
   
   const publications = await fetchDBLPPublications();
   
   if (publications.length > 0) {
     await updateCvFile(publications);
-    console.log('🎉 Publication update completed!');
+    console.log('Publication update completed!');
   } else {
-    console.log('⚠️ No publications found, skipping update');
+    console.log('WARNING: No publications found, skipping update');
   }
 }
 
