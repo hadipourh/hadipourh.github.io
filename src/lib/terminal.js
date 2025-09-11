@@ -37,7 +37,7 @@ const TERMINAL_VERSION = '1.1.0';
 // Default welcome messages - shared between home and contact pages
 export const DEFAULT_WELCOME_MESSAGES = [
   { text: 'Secure Message Terminal - Security Analysis', className: 'text-green-400', withTyping: true, delay: 20 },
-  { text: '======================================', className: 'text-green-400', withTyping: true, delay: 8 },
+  { text: '===========================================', className: 'text-green-400', withTyping: true, delay: 8 },
   { text: '', className: '', withTyping: false },
   { text: 'Security breakdown of this messaging system:', className: 'text-cyan-400', withTyping: true, delay: 15 },
   { text: '1. HTTPS protects messages in transit from browser to website', className: 'text-gray-400', withTyping: true, delay: 12 },
