@@ -29,6 +29,9 @@ public/cv/CV.pdf
 .password*
 .secret*
 
+# N8n workflow files (contains sensitive webhook URLs)
+workflown8n.json
+
 # macOS-specific files
 .DS_Store
 
