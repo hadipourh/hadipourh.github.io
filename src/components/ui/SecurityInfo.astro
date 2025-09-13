@@ -11,17 +11,17 @@
   
   <div class="space-y-3 text-sm">
     <p>
-      <span class="font-semibold text-green-600">Protected by HTTPS:</span> 
-      Your messages are encrypted between your browser and this website using HTTPS, preventing network-level eavesdropping.
+      <span class="font-semibold text-green-600">Static Website Protection:</span> 
+      This website is served by GitHub Pages over HTTPS. The website files themselves are protected in transit, but GitHub Pages only serves static content.
     </p>
     
     <p>
-      <span class="font-semibold text-amber-600">Vulnerable at Processing:</span>
-      Once received by the website, messages are sent to n8n automation service over HTTPS (encrypted in transit) but are accessible in unencrypted form within the n8n service itself.
+      <span class="font-semibold text-amber-600">Message Transmission:</span>
+      Your messages are sent directly from your browser to n8n automation service over HTTPS (encrypted in transit) but are accessible in unencrypted form within the n8n service itself.
     </p>
     
     <p>
-      <span class="font-semibold text-amber-600">Third-Party Transmission:</span>
+      <span class="font-semibold text-amber-600">Third-Party Processing:</span>
       After processing, messages are sent to Telegram through their API. Both n8n and Telegram servers can technically access the message content.
     </p>
     
@@ -29,32 +29,28 @@
       <span class="font-semibold text-blue-600">Data Storage:</span>
       Command history and message interactions are saved in your browser's local storage for convenience. 
       You can view this data with the <code>/age</code> command, disable storage with <code>/nosave</code>, or clear everything with <code>/clearstorage</code>.
-      No message content is stored on the server.
+      No message content is stored on the GitHub Pages server (it only serves static files).
     </p>
   </div>
   
   <div class="mt-4 pt-3 border-t border-primary/20">
-    <h4 class="font-semibold text-sm mb-2 text-primary">Cryptographic Perspective</h4>
+    <h4 class="font-semibold text-sm mb-2 text-primary">Cryptographic Learning: From Problem to Solution</h4>
     <p class="text-sm">
-      This system illustrates a common security pattern: messages protected in transit but vulnerable at processing points. 
-      True end to end encryption would encrypt the message on your device in a way that only the recipient could decrypt it, 
-      preventing intermediaries from reading content.
+      This system shows why cryptography matters: even with HTTPS protection, your messages are readable by intermediaries (n8n, Telegram). 
+      The solution? <strong>Encrypt messages before sending them.</strong>
     </p>
     <p class="text-sm mt-2">
-      My research focuses on analyzing and designing the fundamental building blocks of these cryptographic protocols. This includes 
-      block ciphers, hash functions, and cryptographic primitives that form the foundation of secure communications systems.
+      My research focuses on building the mathematical foundations that make secure encryption possible: designing and analyzing 
+      block ciphers, hash functions, and cryptographic primitives.
     </p>
-  </div>
-  
-  <div class="mt-3 p-2 bg-amber-50 border border-amber-200 rounded-md">
-    <p class="text-xs text-amber-800">
-      <span class="font-bold">Educational Note:</span> This terminal example illustrates the importance of cryptography. 
-      Even when cryptography is employed (e.g., through secure HTTPS connections), message content is exposed at each processing point. 
-      Thus, beyond using cryptography, the correct design and implementation of cryptographic primitives and protocols are essential to preserve confidentiality and integrity.
+    <p class="text-sm mt-2 text-green-600">
+      <strong>Try it yourself:</strong> Use <code>/encrypt &lt;your message&gt;</code> in the terminal above to encrypt with age encryption and my public key. 
+      This demonstrates asymmetric cryptography in action - you use my public key to encrypt, I use my private key to decrypt. 
+      Even if someone intercepts the encrypted message, they cannot read it without my private key.
     </p>
-    <p class="text-xs text-amber-800 mt-2">
-      <span class="font-bold">Want to send encrypted messages?</span> You can use my public key for end-to-end encryption:
-      <span class="font-mono bg-amber-100 p-1 mt-1 block overflow-x-auto">age17x6fu4na8hvxuh7hgs7ec62g7ddhsdlasqrqe6u7pzx0z86fpsxsgfpwdp</span>
+    <p class="text-sm mt-2">
+      <strong>My public key:</strong> 
+      <code class="bg-gray-100 px-2 py-1 rounded text-xs break-all font-mono">age17x6fu4na8hvxuh7hgs7ec62g7ddhsdlasqrqe6u7pzx0z86fpsxsgfpwdp</code>
     </p>
   </div>
 </div>

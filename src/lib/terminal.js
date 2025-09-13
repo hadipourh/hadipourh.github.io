@@ -40,15 +40,14 @@ export const DEFAULT_WELCOME_MESSAGES = [
   { text: '===========================================', className: 'text-green-400', withTyping: true, delay: 8 },
   { text: '', className: '', withTyping: false },
   { text: 'Security breakdown of this messaging system:', className: 'text-cyan-400', withTyping: true, delay: 15 },
-  { text: '1. HTTPS protects messages in transit from browser to website', className: 'text-gray-400', withTyping: true, delay: 12 },
-  { text: '2. Messages sent to n8n over HTTPS but accessible within the n8n service', className: 'text-yellow-400', withTyping: true, delay: 12 },
-  { text: '3. Messages are then forwarded directly to my Telegram via Telegram\'s API', className: 'text-green-400', withTyping: true, delay: 12 },
+  { text: '1. GitHub Pages serves static website files to your browser via HTTPS', className: 'text-gray-400', withTyping: true, delay: 12 },
+  { text: '2. Messages sent directly from browser to n8n over HTTPS', className: 'text-yellow-400', withTyping: true, delay: 12 },
+  { text: '3. Messages forwarded to Telegram via API (readable by intermediaries)', className: 'text-amber-400', withTyping: true, delay: 12 },
   { text: '4. Command and message history saved locally in your browser', className: 'text-gray-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false },
-  { text: 'This demonstrates the need for end-to-end encryption', className: 'text-amber-400', withTyping: true, delay: 15 },
-  { text: 'Type your message and press Enter... trust issues? a cryptographer would understand ;)', className: 'text-yellow-400', withTyping: true, delay: 20 },
+  { text: 'Trust issues? Want to hide from n8n and Telegram servers? ;-) Use /encrypt to encrypt with my public key before sending!', className: 'text-yellow-400', withTyping: true, delay: 16 },
   { text: '', className: '', withTyping: false },
-  { text: 'Type /help to see available commands', className: 'text-blue-400', withTyping: true, delay: 12 },
+  { text: 'Type /help for commands | /encrypt encrypts & sends | /history shows past commands', className: 'text-blue-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false }
 ];
 
@@ -77,6 +76,31 @@ const SUSPICIOUS_PATTERNS = [
   /base64/i,  // Base64 encoded content
   /String\.fromCharCode/i,  // Character code conversion
 ];
+
+/**
+ * Age encryption using the age-encryption library
+ * This produces genuine age-encrypted messages compatible with the age command-line tool
+ */
+async function encryptWithAge(message, agePublicKey) {
+  try {
+    // Import the age-encryption library dynamically (for browser compatibility)
+    const age = await import('age-encryption');
+    
+    // Create encrypter and add the recipient
+    const encrypter = new age.Encrypter();
+    encrypter.addRecipient(agePublicKey);
+    
+    // Encrypt the message (returns Uint8Array)
+    const encrypted = await encrypter.encrypt(message);
+    
+    // Convert to base64 string for display and transmission
+    const base64Encrypted = btoa(String.fromCharCode(...encrypted));
+    
+    return base64Encrypted;
+  } catch (error) {
+    throw new Error('Failed to encrypt message: ' + error.message);
+  }
+}
 
 /**
  * Initialize a terminal component with all functionality
@@ -677,17 +701,17 @@ function loadCommandHistory() {
           localStorage.setItem(storageKey, now.toString());
           
           if (response.ok) {
-            queueMessage('✓ Message delivered to automation server', 'text-green-400', true, 10);
-            queueMessage('✓ Forwarding to Hosein\'s Telegram now...', 'text-cyan-400', true, 10);
+            queueMessage('Message delivered to automation server', 'text-green-400', true, 10);
+            queueMessage('Forwarding to Hosein\'s Telegram now...', 'text-cyan-400', true, 10);
           } else {
             // Handle HTTP error responses
             const status = response.status;
             if (status === 429) {
-              queueMessage('⚠️ Rate limit exceeded on server side', 'text-yellow-400', true, 10);
+              queueMessage('Rate limit exceeded on server side', 'text-yellow-400', true, 10);
             } else if (status >= 500) {
-              queueMessage('⚠️ Server error - message delivery uncertain', 'text-yellow-400', true, 10);
+              queueMessage('Server error - message delivery uncertain', 'text-yellow-400', true, 10);
             } else {
-              queueMessage(`⚠️ Error ${status} - message delivery failed`, 'text-yellow-400', true, 10);
+              queueMessage(`Error ${status} - message delivery failed`, 'text-yellow-400', true, 10);
             }
           }
         } catch (error) {
@@ -695,13 +719,13 @@ function loadCommandHistory() {
           stopLoadingIndicator(loadingIndicator);
           
           if (error.name === 'AbortError') {
-            queueMessage('⚠️ Request timeout - please try again later', 'text-red-400', true, 10);
+            queueMessage('Request timeout - please try again later', 'text-red-400', true, 10);
           } else {
-            queueMessage('⚠️ Network error - check your connection', 'text-red-400', true, 10);
+            queueMessage('Network error - check your connection', 'text-red-400', true, 10);
           }
         }
       } catch (error) {
-        queueMessage('⚠️ Unexpected error - please try again', 'text-red-400', true, 10);
+        queueMessage('Unexpected error - please try again', 'text-red-400', true, 10);
         console.error('Terminal error:', error);
       } finally {
         queueMessage('', '');
@@ -720,10 +744,11 @@ function loadCommandHistory() {
           queueMessage('/about - Show information about this terminal', 'text-gray-400', true, 5);
           queueMessage('/version - Show terminal version', 'text-gray-400', true, 5);
           queueMessage('/privacy - Show privacy information', 'text-gray-400', true, 5);
+          queueMessage('/history - Show command history', 'text-gray-400', true, 5);
           queueMessage('/nosave - Disable terminal state saving', 'text-gray-400', true, 5);
           queueMessage('/save - Re-enable terminal state saving', 'text-gray-400', true, 5);
-          queueMessage('/age - Check saved data age', 'text-gray-400', true, 5);
           queueMessage('/clearstorage - Remove all saved terminal data', 'text-gray-400', true, 5);
+          queueMessage('/encrypt <message> - Age encryption (CLI compatible)', 'text-gray-400', true, 5);
         } 
         else if (cmd === '/clear') {
           resetTerminal();
@@ -747,110 +772,9 @@ function loadCommandHistory() {
           queueMessage('• Terminal interactions are saved for 24 hours for convenience', 'text-gray-400', true, 8);
           queueMessage('• Messages you send are forwarded to Telegram via webhook', 'text-gray-400', true, 8);
           queueMessage('• No analytics or tracking is used in this terminal', 'text-gray-400', true, 8);
-          queueMessage('• Use /age to view your saved messages and commands', 'text-gray-400', true, 8);
+          queueMessage('• Use /history to view your command history', 'text-gray-400', true, 8);
           queueMessage('• Use /nosave to disable all local storage features', 'text-gray-400', true, 8);
           queueMessage('• Use /clearstorage to remove all saved data', 'text-gray-400', true, 8);
-        }
-        else if (cmd === '/age') {
-          // Display information about the age of saved terminal state
-          try {
-            queueMessage('Saved Data Age Information', 'text-green-400', true, 8);
-            queueMessage('------------------------', 'text-green-400', true, 5);
-            
-            // Check if terminal state is saved
-            const state = localStorage.getItem(`${source}_state`);
-            if (state) {
-              try {
-                const parsedState = JSON.parse(state);
-                if (parsedState && parsedState.timestamp) {
-                  const ageMs = Date.now() - parsedState.timestamp;
-                  const ageMinutes = Math.floor(ageMs / 60000);
-                  const ageHours = Math.floor(ageMinutes / 60);
-                  const ageDays = Math.floor(ageHours / 24);
-                  
-                  if (ageDays > 0) {
-                    queueMessage(`Terminal state is ${ageDays} days, ${ageHours % 24} hours old`, 'text-blue-400', true, 8);
-                  } else if (ageHours > 0) {
-                    queueMessage(`Terminal state is ${ageHours} hours, ${ageMinutes % 60} minutes old`, 'text-blue-400', true, 8);
-                  } else {
-                    queueMessage(`Terminal state is ${ageMinutes} minutes old`, 'text-blue-400', true, 8);
-                  }
-                  
-                  queueMessage(`Saved lines: ${parsedState.lines ? parsedState.lines.length : 0}`, 'text-gray-400', true, 8);
-                } else {
-                  queueMessage('Terminal state format is invalid', 'text-yellow-400', true, 8);
-                }
-              } catch (e) {
-                queueMessage('Terminal state data is corrupted', 'text-yellow-400', true, 8);
-              }
-            } else {
-              queueMessage('No terminal state is saved', 'text-gray-400', true, 8);
-            }
-            
-            // Check command history
-            const history = localStorage.getItem(`${source}_history`);
-            if (history) {
-              try {
-                const parsedHistory = JSON.parse(history);
-                if (Array.isArray(parsedHistory)) {
-                  queueMessage(`Command history entries: ${parsedHistory.length}`, 'text-gray-400', true, 8);
-                  
-                  // List the recent commands
-                  if (parsedHistory.length > 0) {
-                    queueMessage(`Recent commands:`, 'text-blue-400', true, 8);
-                    parsedHistory.slice(0, 5).forEach(cmd => {
-                      queueMessage(`• ${cmd}`, 'text-cyan-400', true, 5);
-                    });
-                    if (parsedHistory.length > 5) {
-                      queueMessage(`... and ${parsedHistory.length - 5} more`, 'text-gray-400', true, 5);
-                    }
-                  }
-                } else {
-                  queueMessage('Command history format is invalid', 'text-yellow-400', true, 8);
-                }
-              } catch (e) {
-                queueMessage('Command history data is corrupted', 'text-yellow-400', true, 8);
-              }
-            } else {
-              queueMessage('No command history is saved', 'text-gray-400', true, 8);
-            }
-            
-            // Check message history
-            const msgHistory = localStorage.getItem(`${source}_msg_history`);
-            if (msgHistory) {
-              try {
-                const parsedMsgHistory = JSON.parse(msgHistory);
-                if (Array.isArray(parsedMsgHistory)) {
-                  queueMessage(`Message history entries: ${parsedMsgHistory.length}`, 'text-gray-400', true, 8);
-                  
-                  // List the recent messages with timestamps
-                  if (parsedMsgHistory.length > 0) {
-                    queueMessage(`Recent interactions:`, 'text-blue-400', true, 8);
-                    parsedMsgHistory.slice(0, 5).forEach(msg => {
-                      const date = new Date(msg.timestamp);
-                      const timeStr = date.toLocaleTimeString();
-                      const dateStr = date.toLocaleDateString();
-                      const typeIcon = msg.type === 'command' ? '💬' : '🖥️';
-                      queueMessage(`${typeIcon} [${dateStr} ${timeStr}] ${msg.text.substring(0, 50)}${msg.text.length > 50 ? '...' : ''}`, 
-                                 msg.type === 'command' ? 'text-green-400' : 'text-cyan-400', true, 5);
-                    });
-                    
-                    if (parsedMsgHistory.length > 5) {
-                      queueMessage(`... and ${parsedMsgHistory.length - 5} more interactions`, 'text-gray-400', true, 5);
-                    }
-                  }
-                } else {
-                  queueMessage('Message history format is invalid', 'text-yellow-400', true, 8);
-                }
-              } catch (e) {
-                queueMessage('Message history data is corrupted', 'text-yellow-400', true, 8);
-              }
-            } else {
-              queueMessage('No message history is saved', 'text-gray-400', true, 8);
-            }
-          } catch (e) {
-            queueMessage('Error checking saved data age', 'text-red-400', true, 8);
-          }
         }
         else if (cmd === '/nosave') {
           // Disable saving feature
@@ -866,14 +790,14 @@ function loadCommandHistory() {
           messageHistory = [];
           historyIndex = -1;
           
-          queueMessage('✓ Terminal state saving has been disabled', 'text-green-400', true, 8);
+          queueMessage('Terminal state saving has been disabled', 'text-green-400', true, 8);
           queueMessage('Your terminal activity will not be saved between sessions', 'text-gray-400', true, 8);
           queueMessage('Previous command and message history has been cleared', 'text-gray-400', true, 8);
         }
         else if (cmd === '/save') {
           // Re-enable saving feature
           localStorage.removeItem('terminal_no_save');
-          queueMessage('✓ Terminal state saving has been re-enabled', 'text-green-400', true, 8);
+          queueMessage('Terminal state saving has been re-enabled', 'text-green-400', true, 8);
           queueMessage('Your terminal activity will be saved for 24 hours', 'text-gray-400', true, 8);
           
           // Save current state
@@ -895,8 +819,97 @@ function loadCommandHistory() {
           
           // Reset the terminal completely, then show confirmation
           resetTerminal();
-          queueMessage('✓ All terminal storage has been cleared', 'text-green-400', true, 8);
+          queueMessage('All terminal storage has been cleared', 'text-green-400', true, 8);
           queueMessage('Terminal state, command history, and message history have been reset', 'text-gray-400', true, 8);
+        }
+        else if (cmd === '/history') {
+          queueMessage('Command History', 'text-blue-400', true, 8);
+          queueMessage('---------------', 'text-blue-400', true, 5);
+          
+          if (commandHistory.length === 0) {
+            queueMessage('No command history available', 'text-gray-400', true, 8);
+            queueMessage('Commands you type will be saved for easy recall with ↑/↓ arrows', 'text-gray-400', true, 8);
+          } else {
+            queueMessage(`Showing last ${commandHistory.length} commands:`, 'text-gray-400', true, 8);
+            queueMessage('', '');
+            
+            commandHistory.forEach((cmd, index) => {
+              const number = (commandHistory.length - index).toString().padStart(2, ' ');
+              queueMessage(`${number}. ${cmd}`, 'text-cyan-400', true, 5);
+            });
+            
+            queueMessage('', '');
+            queueMessage('Tip: Use ↑/↓ arrow keys to navigate through history', 'text-yellow-400', true, 8);
+          }
+        }
+        else if (cmd.startsWith('/encrypt')) {
+          const message = command.substring(8).trim(); // Remove '/encrypt' and get the message
+          if (!message) {
+            queueMessage('Usage: /encrypt <message>', 'text-yellow-400', true, 8);
+            queueMessage('Example: /encrypt Hello, this is a secret message!', 'text-gray-400', true, 8);
+            queueMessage('This will demo-encrypt your message (NOT real age)', 'text-gray-400', true, 8);
+            return;
+          }
+          
+          queueMessage('🔐 Encrypting message with age encryption...', 'text-blue-400', true, 8);
+          
+          try {
+            // Your age public key from the homepage
+            const agePublicKey = 'age17x6fu4na8hvxuh7hgs7ec62g7ddhsdlasqrqe6u7pzx0z86fpsxsgfpwdp';
+            
+            // Age encryption using age-encryption library
+            encryptWithAge(message, agePublicKey).then(async encrypted => {
+              queueMessage('Message encrypted successfully with age!', 'text-green-400', true, 8);
+              queueMessage('Compatible with age command-line tool', 'text-green-400', true, 8);
+              queueMessage('', '');
+              queueMessage('Age-Encrypted Message (Base64):', 'text-cyan-400', true, 5);
+              queueMessage('-----BEGIN BASE64 ENCODED AGE FILE-----', 'text-cyan-400', true, 5);
+              
+              // Display encrypted message in chunks for readability
+              const lines = encrypted.match(/.{1,64}/g) || [encrypted];
+              lines.forEach(line => {
+                queueMessage(line, 'text-gray-300', true, 2);
+              });
+              
+              queueMessage('-----END BASE64 ENCODED AGE FILE-----', 'text-cyan-400', true, 5);
+              queueMessage('', '');
+              queueMessage('Now sending the encrypted message...', 'text-blue-400', true, 8);
+              
+              // Send the encrypted message
+              try {
+                const response = await fetch(WEBHOOK_URL, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    message: `🔐 Age-encrypted message:\n\n${encrypted}`,
+                    source: source,
+                    timestamp: new Date().toISOString(),
+                    encrypted: true,
+                    encryption_type: 'age'
+                  })
+                });
+                
+                if (response.ok) {
+                  queueMessage('Encrypted message sent successfully!', 'text-green-400', true, 8);
+                  queueMessage('Decrypt with: echo "BASE64_TEXT" | base64 -d | age -d -i your_private_key.txt', 'text-yellow-400', true, 8);
+                } else {
+                  queueMessage('Failed to send encrypted message', 'text-red-400', true, 8);
+                  queueMessage('But your encryption worked! You can copy the encrypted text above.', 'text-gray-400', true, 8);
+                }
+              } catch (sendError) {
+                queueMessage('Network error sending encrypted message', 'text-red-400', true, 8);
+                queueMessage('But your encryption worked! You can copy the encrypted text above.', 'text-gray-400', true, 8);
+              }
+              
+            }).catch(error => {
+              queueMessage('Age encryption failed: ' + error.message, 'text-red-400', true, 8);
+              queueMessage('Please check if age-encryption library is properly loaded.', 'text-gray-400', true, 8);
+            });
+          } catch (error) {
+            queueMessage('Demo encryption error: ' + error.message, 'text-red-400', true, 8);
+          }
         }
         else {
           queueMessage(`Unknown command: ${command}`, 'text-red-400', true, 8);
