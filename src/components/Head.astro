@@ -84,25 +84,39 @@ window.MathJax = {
     document.documentElement.setAttribute('data-theme', currentTheme);
   });
 </script>
-<script>
-	import { themeChange } from 'theme-change'
-	
-	// Initialize with fallback for Safari compatibility
-	try {
-		themeChange()
-	} catch (error) {
-		// Fallback for browsers that need delayed initialization
-		setTimeout(() => {
+<!-- Load theme-change library -->
+<script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+<script is:inline>
+	// Initialize theme-change after library loads (production-safe)
+	function initThemeChange() {
+		if (typeof themeChange !== 'undefined') {
 			try {
 				themeChange()
-			} catch (error2) {
-				console.error('Theme initialization failed:', error2);
+			} catch (error) {
+				// Fallback for browsers that need delayed initialization
+				setTimeout(() => {
+					try {
+						themeChange()
+					} catch (error2) {
+						console.error('Theme initialization failed:', error2);
+					}
+				}, 0);
 			}
-		}, 0);
+		} else {
+			// Wait for library to load
+			setTimeout(initThemeChange, 50);
+		}
+	}
+	
+	// Initialize when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initThemeChange);
+	} else {
+		initThemeChange();
 	}
 
   // Re-initialize after Astro view transitions
   document.addEventListener('astro:after-swap', () => {
-    themeChange(false); // false = don't persist to localStorage
+    initThemeChange();
   });
 </script>
