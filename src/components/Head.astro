@@ -86,7 +86,20 @@ window.MathJax = {
 </script>
 <script>
 	import { themeChange } from 'theme-change'
-	themeChange()
+	
+	// Initialize with fallback for Safari compatibility
+	try {
+		themeChange()
+	} catch (error) {
+		// Fallback for browsers that need delayed initialization
+		setTimeout(() => {
+			try {
+				themeChange()
+			} catch (error2) {
+				console.error('Theme initialization failed:', error2);
+			}
+		}, 0);
+	}
 
   // Re-initialize after Astro view transitions
   document.addEventListener('astro:after-swap', () => {
