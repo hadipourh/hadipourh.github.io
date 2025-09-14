@@ -69,9 +69,9 @@ window.MathJax = {
 
 <!-- Theme selector scripts -->
 <script is:inline>
-  // Get stored theme or default to dark
+  // Get stored theme or default to light (Note: theme-change library overrides this with toggle state)
   const getStoredTheme = () => {
-    return localStorage.getItem('theme') || 'dark';
+    return localStorage.getItem('theme') || 'light';
   }
 
   // Apply theme immediately to prevent flash
