@@ -22,19 +22,19 @@ const { Content } = await render(post);
 ---
 
 <Layout title={title}>
-	<div class='max-w-4xl mx-auto'>
+	<div class='w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
 		<article
-			class='prose max-w-none prose-headings:text-base-content prose-p:text-base-content/80'
+			class='prose w-full max-w-full prose-headings:text-base-content prose-p:text-base-content/80 prose-sm sm:prose-base lg:prose-lg overflow-hidden'
 		>
 			<!-- Header section -->
-			<div class='mb-8 border-b pb-8'>
-				<h1 class='text-4xl font-bold mb-4 text-base-content'>{title}</h1>
-				<div class='flex flex-wrap items-center gap-4 text-base-content/70'>
+			<div class='mb-6 sm:mb-8 border-b pb-6 sm:pb-8'>
+				<h1 class='text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-base-content'>{title}</h1>
+				<div class='flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 sm:gap-4 text-base-content/70'>
 					<!-- Date -->
-					<time datetime={date} class='flex items-center'>
+					<time datetime={date} class='flex items-center text-xs sm:text-sm'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
-							class='h-4 w-4 mr-2'
+							class='h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2'
 							fill='none'
 							viewBox='0 0 24 24'
 							stroke='currentColor'
@@ -58,9 +58,9 @@ const { Content } = await render(post);
 					<!-- Tags -->
 					{
 						tags && (
-							<div class='flex flex-wrap gap-2'>
+							<div class='flex flex-wrap gap-1 sm:gap-2'>
 								{tags.map(tag => (
-									<span class='badge badge-accent badge-outline'>{tag}</span>
+									<span class='badge badge-accent badge-outline text-xs'>{tag}</span>
 								))}
 							</div>
 						)
@@ -70,18 +70,19 @@ const { Content } = await render(post);
 
 			<!-- Post content -->
 			<div
-				class='prose mt-8 prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-4
-         prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3
-         prose-p:mb-4 prose-p:leading-relaxed
+				class='prose mt-6 sm:mt-8 prose-sm sm:prose-base lg:prose-lg
+         prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-3 sm:prose-h2:mb-4
+         prose-h3:text-lg sm:prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-2 sm:prose-h3:mb-3
+         prose-p:mb-3 sm:prose-p:mb-4 prose-p:leading-relaxed
          prose-strong:text-base-content prose-strong:font-bold
          prose-em:italic
          prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-         prose-code:text-accent prose-code:bg-base-200 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-         prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic
-         prose-ul:list-disc prose-ul:pl-6
-         prose-ol:list-decimal prose-ol:pl-6
-         prose-li:mb-2
-         prose-img:rounded-lg prose-img:my-8'
+         prose-code:text-accent prose-code:bg-base-200 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-xs sm:prose-code:text-sm
+         prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-3 sm:prose-blockquote:pl-4 prose-blockquote:italic
+         prose-ul:list-disc prose-ul:pl-4 sm:prose-ul:pl-6
+         prose-ol:list-decimal prose-ol:pl-4 sm:prose-ol:pl-6
+         prose-li:mb-1 sm:prose-li:mb-2
+         prose-img:rounded-lg prose-img:my-4 sm:prose-img:my-8 prose-img:w-full'
         >
                 <Content />
 			</div>
