@@ -87,13 +87,17 @@ window.MathJax = {
 
 <!-- Theme selector scripts -->
 <script is:inline>
-  // Get stored theme or default to light (Note: theme-change library overrides this with toggle state)
+  // Get stored theme or default to dark (Note: theme-change library overrides this with toggle state)
   const getStoredTheme = () => {
-    return localStorage.getItem('theme') || 'light';
+    return localStorage.getItem('theme') || 'dark';
   }
 
   // Apply theme immediately to prevent flash
   const theme = getStoredTheme();
+  // Persist default on first visit so subsequent navigations keep dark by default
+  if (!localStorage.getItem('theme')) {
+    try { localStorage.setItem('theme', 'dark'); } catch {}
+  }
   document.documentElement.setAttribute('data-theme', theme);
 
   // Re-apply theme after navigation

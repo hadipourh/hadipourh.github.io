@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets'
 import {profile} from '../../settings'
-import SocialIcons from './SocialIcons.astro'
 import { getCollection } from 'astro:content'
 import { template } from '@/settings'
 
@@ -30,8 +29,8 @@ const navigationItems = [
 	<div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 animate-pulse"></div>
 	<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent"></div>
 	
-	<div class='flex flex-col my-4 justify-between h-full relative z-10'>
-		<div>
+	<div class='flex flex-col my-4 h-full relative z-10'>
+		<div class="flex-1 min-h-0 flex flex-col">
 			<!-- Profile Section -->
 			<div class='flex justify-center items-center flex-col mb-8'>
 				<div class="group relative w-40 h-40">
@@ -52,8 +51,8 @@ const navigationItems = [
 			</div>
 
 			<!-- Navigation Menu -->
-			<div class='mx-2'>
-				<ul class='space-y-3 menu grow shrink menu-md overflow-y-auto'>
+			<div class='mx-2 h-full'>
+				<ul class='space-y-3 menu menu-md h-full overflow-y-auto'>
 					{navigationItems.map((item, index) => (
 						<li>
 							<a href={item.href} class={`group relative overflow-hidden rounded-xl bg-gradient-to-r from-transparent via-transparent to-transparent p-3 text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:from-primary/10 hover:via-secondary/10 hover:to-accent/10 active:scale-95`}>
@@ -73,12 +72,6 @@ const navigationItems = [
 				</ul>
 			</div>
 		</div>
-		
-		<!-- Social Icons Section -->
-		<div class='mx-4 mt-8'>
-			<div class="bg-base-300/50 backdrop-blur-sm rounded-2xl p-4 border border-base-300/50 transition-all duration-300 hover:bg-base-300/70 hover:border-base-300/80">
-				<SocialIcons/>
-			</div>
-		</div>
+        
 	</div>
 </aside>
