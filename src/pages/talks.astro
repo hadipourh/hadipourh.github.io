@@ -4,1201 +4,1321 @@
 // Real statistics: 16 talks, 9 countries, 2020-2025
 // Shows ALL talks - no limits applied!
 import Layout from "../layouts/Layout.astro";
+
+// Function to get a gradient class based on index
+const getGradientClass = (index: number) => {
+  const gradients = [
+    'from-primary via-secondary to-accent',
+    'from-success via-info to-warning',
+    'from-error via-primary to-success',
+    'from-accent via-warning to-error',
+    'from-info via-accent to-primary',
+    'from-warning via-success to-info'
+  ]
+  return gradients[index % gradients.length]
+}
 ---
 <Layout 
   title="Talks & Presentations | Hosein Hadipour" 
   description="Academic talks, conference presentations, and invited lectures by Hosein Hadipour"
 >
-  <main class="container mx-auto px-4 py-12 max-w-6xl">
-    <!-- Hero Section with Real Statistics - Optimized -->
-    <div class="text-center mb-12 relative">
-      <!-- Lighter background effect -->
-      <div class="absolute inset-0 bg-base-200/50 rounded-xl -z-10"></div>
-      
-      <h1 class="text-4xl lg:text-6xl font-bold mb-4">
-        <span class="text-primary">
+  <main class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header Section -->
+    <section class="text-center mb-16">
+      <div class="relative mb-8">
+        <h1 class={`text-4xl md:text-6xl font-bold bg-gradient-to-r ${getGradientClass(0)} bg-clip-text text-transparent mb-6`}>
           Talks & Presentations
-        </span>
-      </h1>
-      <p class="text-lg text-base-content/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-        A complete collection of my academic talks, conference presentations, and invited lectures 
-        on cryptanalysis, automated reasoning, and security research.
-      </p>
-      
-      <!-- Real-time Statistics from GitHub - Optimized -->
-      <div class="stats shadow-lg bg-base-200 mb-8">
-        <div class="stat">
-          <div class="stat-figure text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
+        </h1>
+        <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed">
+          A complete collection of my academic talks, conference presentations, and invited lectures 
+          on cryptanalysis, automated reasoning, and security research.
+        </p>
+      </div>
+
+      <!-- Statistics Section -->
+      <div class="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto mb-12">
+        <div class="bg-base-200 rounded-2xl p-4 md:p-6">
+          <div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(1)} bg-clip-text text-transparent`}>
+            16
           </div>
-          <div class="stat-title font-semibold">Total Talks</div>
-          <div class="stat-value text-primary">16</div>
-          <div class="stat-desc text-base-content/60">All presentations</div>
+          <div class="text-sm md:text-base text-base-content/70">Talks</div>
         </div>
-        
-        <div class="stat">
-          <div class="stat-figure text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+        <div class="bg-base-200 rounded-2xl p-4 md:p-6">
+          <div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(2)} bg-clip-text text-transparent`}>
+            9
           </div>
-          <div class="stat-title font-semibold">Countries</div>
-          <div class="stat-value text-secondary">9</div>
-          <div class="stat-desc text-base-content/60">International venues</div>
+          <div class="text-sm md:text-base text-base-content/70">Countries</div>
         </div>
-        
-        <div class="stat">
-          <div class="stat-figure text-accent">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
+        <div class="bg-base-200 rounded-2xl p-4 md:p-6">
+          <div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(3)} bg-clip-text text-transparent`}>
+            2020-2025
           </div>
-          <div class="stat-title font-semibold">Time Span</div>
-          <div class="stat-value text-accent">2020-2025</div>
-          <div class="stat-desc text-base-content/60">Years active</div>
+          <div class="text-sm md:text-base text-base-content/70">Years</div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Talks Collection Section - Optimized -->
-    <section class="relative">
-      <!-- Simplified section background -->
-      <div class="absolute inset-0 bg-base-200/30 rounded-xl -z-10"></div>
-      
-      <div class="text-center mb-8">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-primary">
+    <!-- Talks Collection Section -->
+    <section class="mb-16">
+      <div class="text-center mb-12">
+        <h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(4)} bg-clip-text text-transparent`}>
           Complete Collection
         </h2>
-        <p class="text-base-content/70 max-w-xl mx-auto">
+        <p class="text-base-content/70 text-lg">
           Explore all my academic presentations with direct links to slides, videos, papers, and code
         </p>
       </div>
 
-      <!-- Complete Talks Grid - ALL talks from GitHub -->
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+      <!-- Talks Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2025</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Automating Cryptanalysis: Automated Reasoning and Structural Links Between Attacks - SKCAM 2025
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">SKCAM 2025</span>
+            <span class="text-base-content/80 break-words">SKCAM 2025</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Rome, Italy</span>
+            <span class="text-base-content/80 break-words">Rome, Italy</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20250315-SKCAM2025" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20250315-SKCAM2025" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             
             
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20250113-PhD-Defense" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20250113-PhD-Defense
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20250113-PhD-Defense</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20250113-PhD-Defense" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2024</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Revisiting Differential-Linear Attacks via a Boomerang Perspective - ASK 2024
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">ASK 2024</span>
+            <span class="text-base-content/80 break-words">ASK 2024</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Kolkata, India</span>
+            <span class="text-base-content/80 break-words">Kolkata, India</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://ia.cr/2024/255" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20241214-ASK2024" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20241214-ASK2024" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             
             <a href="https://github.com/hadipourh/DL" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20240127-SpyCode-2024
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20240127-SpyCode-2024</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2024</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Revisiting Differential-Linear Attacks via a Boomerang Perspective - CRYPTO 2024
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">CRYPTO 2024</span>
+            <span class="text-base-content/80 break-words">CRYPTO 2024</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Santa Barbara, USA</span>
+            <span class="text-base-content/80 break-words">Santa Barbara, USA</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://ia.cr/2024/255" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20240822-CRYPTO-2024" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20240822-CRYPTO-2024" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://youtu.be/ga2xUa8ArbM?t=13" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/DL" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20240127-SpyCode-2024
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20240127-SpyCode-2024</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">lecture</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2024</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Algebraic Attacks - Cryptanalysis Lecture Series 2024
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">Cryptanalysis Lecture Series 2024</span>
+            <span class="text-base-content/80 break-words">Cryptanalysis Lecture Series 2024</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">TU Graz, Austria</span>
+            <span class="text-base-content/80 break-words">TU Graz, Austria</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20240523-CryptoLecture-2024" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20240523-CryptoLecture-2024" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             
             
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20240127-SpyCode-2024
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20240127-SpyCode-2024</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2024</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Revisiting Differential-Linear Attacks via a Boomerang Perspective - Lorentz Center 2024
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">Lorentz Center 2024</span>
+            <span class="text-base-content/80 break-words">Lorentz Center 2024</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Leiden, Netherlands</span>
+            <span class="text-base-content/80 break-words">Leiden, Netherlands</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://ia.cr/2024/255" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20240422-LorenzCenter-2024" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20240422-LorenzCenter-2024" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             
             
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20240127-SpyCode-2024
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20240127-SpyCode-2024</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2024</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Cryptanalysis of QARMAv2 - FSE 2024
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">FSE 2024</span>
+            <span class="text-base-content/80 break-words">FSE 2024</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Leuven, Belgium</span>
+            <span class="text-base-content/80 break-words">Leuven, Belgium</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://ia.cr/2023/1833" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20240328-FSE-2024" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20240328-FSE-2024" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://youtu.be/ik-jy0r2NHA?t=1379" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/QARMAnalysis" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20240127-SpyCode-2024
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20240127-SpyCode-2024</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2024</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Improved Search for Integral, Impossible-Differential and Zero-Correlation Attacks - FSE 2024
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">FSE 2024</span>
+            <span class="text-base-content/80 break-words">FSE 2024</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Leuven, Belgium</span>
+            <span class="text-base-content/80 break-words">Leuven, Belgium</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://ia.cr/2023/1701" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20240326-FSE-2024" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20240326-FSE-2024" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://youtu.be/xzKnzFDCMes?t=2590" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/zeroplus" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20240127-SpyCode-2024
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20240127-SpyCode-2024</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2024</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Cryptanaysis Using Constraint Programming - SpyCode 2024
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">SpyCode 2024</span>
+            <span class="text-base-content/80 break-words">SpyCode 2024</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">TU Wien, Vienna, Austria</span>
+            <span class="text-base-content/80 break-words">TU Wien, Vienna, Austria</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20240127-SpyCode-2024" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             
             
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20240127-SpyCode-2024
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20240127-SpyCode-2024</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20240127-SpyCode-2024" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2023</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Finding the Impossible - EUROCRYPT 2023
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">EUROCRYPT 2023</span>
+            <span class="text-base-content/80 break-words">EUROCRYPT 2023</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Lyon, France</span>
+            <span class="text-base-content/80 break-words">Lyon, France</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://ia.cr/2022/1147" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20230424-EUROCRYPT-2023" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20230424-EUROCRYPT-2023" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://youtu.be/_DajyWvK_qU?list=PLeeS-3Ml-rpoPvbe9Kwmtubt-d7bQrl_c&t=1351" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/zero" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20230321-FSE-2023" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20230321-FSE-2023
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20230321-FSE-2023</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20230321-FSE-2023" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2023</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Throwing Boomerangs into Feistel Structures - FSE 2023
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">FSE 2023</span>
+            <span class="text-base-content/80 break-words">FSE 2023</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Kobe, Japan</span>
+            <span class="text-base-content/80 break-words">Kobe, Japan</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://eprint.iacr.org/2022/745" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20230321-FSE-2023" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20230321-FSE-2023" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://youtu.be/7ABCANs2dMM?t=1084" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/comeback" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20230321-FSE-2023" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20230321-FSE-2023
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20230321-FSE-2023</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20230321-FSE-2023" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2023</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Integral Cryptanalysis of WARP based on Monomial Prediction - FSE 2023
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">FSE 2023</span>
+            <span class="text-base-content/80 break-words">FSE 2023</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Kobe, Japan</span>
+            <span class="text-base-content/80 break-words">Kobe, Japan</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://ia.cr/2022/729" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20230323-FSE-2023" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20230323-FSE-2023" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://www.youtube.com/watch?v=dhLCiznBa-s&list=PLeeS-3Ml-rpod9ZTUNxz-zc2vF-JdTjXr&index=19" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/mpt" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20230321-FSE-2023" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20230321-FSE-2023
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20230321-FSE-2023</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20230321-FSE-2023" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2022</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Feeding Three Dragons With One Scone - ISC 2022
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">ISC 2022</span>
+            <span class="text-base-content/80 break-words">ISC 2022</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Virtual</span>
+            <span class="text-base-content/80 break-words">Virtual</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://eprint.iacr.org/2022/1147" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20221024-ISC-2022" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20221024-ISC-2022" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://www.aparat.com/v/ofAxe" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20220323-FSE-2022
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20220323-FSE-2022</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2022</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Practical Multiple Persistent Fault Attacks - CHES 2022
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">CHES 2022</span>
+            <span class="text-base-content/80 break-words">CHES 2022</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Leuven, Belgium</span>
+            <span class="text-base-content/80 break-words">Leuven, Belgium</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://tches.iacr.org/index.php/TCHES/article/view/9301" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20220920-CHES-2022" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20220920-CHES-2022" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://youtu.be/2WC2YsNNx4k?list=PLeeS-3Ml-rpqHXup_CobppLo634caX_-s" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/faultyaes" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20220323-FSE-2022
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20220323-FSE-2022</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2022</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Autoguess - ACNS 2022
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">ACNS 2022</span>
+            <span class="text-base-content/80 break-words">ACNS 2022</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Rome, Italy</span>
+            <span class="text-base-content/80 break-words">Rome, Italy</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://link.springer.com/chapter/10.1007/978-3-031-09234-3_12" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
-            <a href="https://eprint.iacr.org/2021/1529" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Full Paper
-            </a>
-            <a href="https://github.com/hadipourh/talks/tree/main/20220622-ACNS-2022" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            
+            <a href="20220622-ACNS-2022" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             
             <a href="https://github.com/hadipourh/autoguess" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20220323-FSE-2022
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20220323-FSE-2022</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2022</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Improved Rectangle Attacks - FSE 2022
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">FSE 2022</span>
+            <span class="text-base-content/80 break-words">FSE 2022</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Athens, Greece</span>
+            <span class="text-base-content/80 break-words">Athens, Greece</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://tosc.iacr.org/index.php/ToSC/article/view/8908" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20220323-FSE-2022" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://www.youtube.com/watch?v=h5hYzFtaFEw" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/Boomerang" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20220323-FSE-2022
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20220323-FSE-2022</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20220323-FSE-2022" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-primary text-xs font-mono">conference</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">2020</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           Comprehensive Security Analysis of CRAFT - FSE 2020
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">FSE 2020</span>
+            <span class="text-base-content/80 break-words">FSE 2020</span>
           </div>
-          <div class="flex items-center gap-2 text-sm">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">Virtual</span>
+            <span class="text-base-content/80 break-words">Virtual</span>
           </div>
         </div>
         
-        <!-- Talk Links - Optimized -->
-        <div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        <div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             <a href="https://tosc.iacr.org/index.php/ToSC/article/view/8466" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>
             
-            <a href="https://github.com/hadipourh/talks/tree/main/20201113-FSE-2020" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+            <a href="20201113-FSE-2020" target="_blank" 
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>
             <a href="https://www.youtube.com/watch?v=GgmIaPiTgVg" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>
             <a href="https://github.com/hadipourh/craftanalysis" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>
           </div>
         </div>
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/20201113-FSE-2020" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/20201113-FSE-2020
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">20201113-FSE-2020</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/20201113-FSE-2020" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
     </div>
-    </div>
-
+      </div>
     </section>
     
-    <!-- GitHub Repository Link - Optimized -->
+    <!-- GitHub Repository Link -->
     <div class="text-center mt-12 pb-4">
-      <div class="inline-flex items-center gap-2 bg-base-200 rounded-lg px-5 py-2 text-sm">
-        <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
-        </svg>
-        <span>All presentations available on</span>
-        <a href="https://github.com/hadipourh/talks" 
-           class="link link-primary font-semibold hover:underline" 
-           target="_blank">
-          GitHub/hadipourh/talks
-        </a>
+      <div class="bg-base-200 rounded-xl p-4 md:p-6 inline-block">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-lg">All presentations available on</span>
+          <a href="https://github.com/hadipourh/talks" 
+             class="font-semibold text-primary hover:underline" 
+             target="_blank">
+            GitHub/hadipourh/talks
+          </a>
+        </div>
       </div>
     </div>
   </main>

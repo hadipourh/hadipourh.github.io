@@ -9,6 +9,19 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+// Function to get a gradient class based on index (consistent with other pages)
+const getGradientClass = (index) => {
+  const gradients = [
+    'from-primary via-secondary to-accent',
+    'from-success via-info to-warning',
+    'from-error via-primary to-success',
+    'from-accent via-warning to-error',
+    'from-info via-accent to-primary',
+    'from-warning via-success to-info'
+  ];
+  return gradients[index % gradients.length];
+};
+
 // Fetch talks from GitHub repository
 async function fetchTalksFromGitHub() {
   console.log('Fetching talks from GitHub repository...');
@@ -101,172 +114,87 @@ function parseTalksFromReadme(readmeContent, talkDirs) {
         location = locationLineMatch[1].trim();
       }
     }
-
-    // Extract links from the content
+    
+    // Extract links
     const links = {};
     
-    // Extract Paper link
-    const paperMatch = fullContent.match(/\[Paper\]\(([^)]+)\)/);
-    if (paperMatch) {
-      links.paper = paperMatch[1];
+    // Improved link extraction - look for list items with links
+    const paperMatches = [...fullContent.matchAll(/- \[Paper\]\(([^)]+)\)/g)];
+    if (paperMatches && paperMatches.length > 0) {
+      links.paper = paperMatches[0][1];
     }
     
-    // Extract Paper-Full Version link (alternative paper link)
-    const paperFullMatch = fullContent.match(/\[Paper-Full Version\]\(([^)]+)\)/);
-    if (paperFullMatch) {
-      links.paperFull = paperFullMatch[1];
+    // Full Paper
+    const fullPaperMatches = [...fullContent.matchAll(/- \[Full Paper\]\(([^)]+)\)/g)];
+    if (fullPaperMatches && fullPaperMatches.length > 0) {
+      links.paperFull = fullPaperMatches[0][1];
     }
     
-    // Extract Slides link
-    const slidesMatch = fullContent.match(/\[Slides\]\(([^)]+)\)/);
-    if (slidesMatch) {
-      let slidesUrl = slidesMatch[1];
-      // If it's a relative path (doesn't start with http), convert to full GitHub URL
-      if (!slidesUrl.startsWith('http')) {
-        slidesUrl = `https://github.com/hadipourh/talks/tree/main/${slidesUrl}`;
+    // Slides
+    const slidesMatches = [...fullContent.matchAll(/- \[Slides\]\(([^)]+)\)/g)];
+    if (slidesMatches && slidesMatches.length > 0) {
+      links.slides = slidesMatches[0][1];
+    } else {
+      // Fallback: Try to find slides link in GitHub repository
+      links.slides = `https://github.com/hadipourh/talks/tree/main/${matchingDir}`;
+    }
+    
+    // Video
+    const videoMatches = [...fullContent.matchAll(/- \[Video\]\(([^)]+)\)/g)];
+    if (videoMatches && videoMatches.length > 0) {
+      links.video = videoMatches[0][1];
+    } else if (fullContent.includes('YouTube') || fullContent.includes('youtube.com')) {
+      const youtubeMatch = fullContent.match(/(?:youtube\.com|youtu\.be)\/([^\s)]+)/);
+      if (youtubeMatch) {
+        links.video = `https://youtube.com/${youtubeMatch[1]}`;
       }
-      links.slides = slidesUrl;
     }
     
-    // Extract Video link
-    const videoMatch = fullContent.match(/\[Video\]\(([^)]+)\)/);
-    if (videoMatch) {
-      links.video = videoMatch[1];
+    // Code
+    const codeMatches = [...fullContent.matchAll(/- \[Code\]\(([^)]+)\)/g)];
+    if (codeMatches && codeMatches.length > 0) {
+      links.code = codeMatches[0][1];
+    } else if (fullContent.includes('GitHub') && fullContent.includes('github.com')) {
+      const githubRepoMatch = fullContent.match(/github\.com\/([^/\s)]+)\/([^/\s)]+)/);
+      if (githubRepoMatch && !githubRepoMatch[0].includes('hadipourh/talks')) {
+        links.code = `https://github.com/${githubRepoMatch[1]}/${githubRepoMatch[2]}`;
+      }
     }
     
-    // Extract Code link
-    const codeMatch = fullContent.match(/\[Code\]\(([^)]+)\)/);
-    if (codeMatch) {
-      links.code = codeMatch[1];
-    }
-
+    // Find date from directory name (more precise)
+    const dateParts = matchingDir.substring(0, 8).match(/(\d{4})(\d{2})(\d{2})/);
+    const date = dateParts ? `${dateParts[1]}-${dateParts[2]}-${dateParts[3]}` : `${dateMatch[1]}-01-01`;
+    
+    console.log(`Added talk: ${title.substring(0, 45)}${title.length > 45 ? '...' : ''} (${dateMatch[1]}, ${type})${location ? ' - Location: ' + location : ''}`);
+    
     talks.push({
-      title: title,
-      venue: venue,
-      location: location,
-      date: `${dateMatch[1]}-01-01`,
-      year: parseInt(dateMatch[1]),
-      type: type,
-      slug: matchingDir,
-      links: links
-    });    console.log(`Added talk: ${title} (${dateMatch[1]}, ${type}) - Location: ${location}`);
+      title,
+      date,
+      venue,
+      location,
+      type,
+      links,
+      slug: matchingDir
+    });
   });
   
-  // Sort by date (newest first) and return ALL talks (no limit!)
-  return talks.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Sort talks by date, most recent first
+  talks.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  return talks;
 }
 
-// Extract unique countries from actual talk data
+// Extract unique countries from talks
 function extractCountriesFromTalks(talks) {
   const countries = new Set();
   
-  // Country mapping for cities and venues
-  const locationToCountry = {
-    // Cities
-    'rome': 'Italy',
-    'graz': 'Austria', 
-    'leuven': 'Belgium',
-    'lyon': 'France',
-    'kobe': 'Japan',
-    'athens': 'Greece',
-    'leiden': 'Netherlands',
-    'vienna': 'Austria',
-    'kolkata': 'India',
-    'mumbai': 'India',
-    'delhi': 'India',
-    'bangalore': 'India',
-    'hyderabad': 'India',
-    'chennai': 'India',
-    'paris': 'France',
-    'london': 'UK',
-    'berlin': 'Germany',
-    'munich': 'Germany',
-    'zurich': 'Switzerland',
-    'geneva': 'Switzerland',
-    'oslo': 'Norway',
-    'stockholm': 'Sweden',
-    'copenhagen': 'Denmark',
-    'madrid': 'Spain',
-    'barcelona': 'Spain',
-    'amsterdam': 'Netherlands',
-    'brussels': 'Belgium',
-    'dublin': 'Ireland',
-    'prague': 'Czech Republic',
-    'warsaw': 'Poland',
-    'budapest': 'Hungary',
-    'helsinki': 'Finland',
-    'lisbon': 'Portugal',
-    'tehran': 'Iran',
-    'isfahan': 'Iran',
-    'shiraz': 'Iran',
-    'tokyo': 'Japan',
-    'osaka': 'Japan',
-    'kyoto': 'Japan',
-    'beijing': 'China',
-    'shanghai': 'China',
-    'hong kong': 'Hong Kong',
-    'singapore': 'Singapore',
-    'seoul': 'South Korea',
-    'sydney': 'Australia',
-    'melbourne': 'Australia',
-    'toronto': 'Canada',
-    'vancouver': 'Canada',
-    'montreal': 'Canada',
-    'new york': 'USA',
-    'san francisco': 'USA',
-    'los angeles': 'USA',
-    'chicago': 'USA',
-    'boston': 'USA',
-    'washington': 'USA',
-    'seattle': 'USA',
-    'miami': 'USA',
-    'las vegas': 'USA',
-    'phoenix': 'USA',
-    
-    // Country names and variants
-    'usa': 'USA',
-    'united states': 'USA',
-    'america': 'USA',
-    'italy': 'Italy',
-    'austria': 'Austria',
-    'belgium': 'Belgium',
-    'france': 'France',
-    'japan': 'Japan',
-    'greece': 'Greece',
-    'netherlands': 'Netherlands',
-    'germany': 'Germany',
-    'india': 'India',
-    'iran': 'Iran',
-    'spain': 'Spain',
-    'uk': 'UK',
-    'united kingdom': 'UK',
-    'england': 'UK',
-    'canada': 'Canada',
-    'australia': 'Australia',
-    'china': 'China',
-    'switzerland': 'Switzerland',
-    'norway': 'Norway',
-    'sweden': 'Sweden',
-    'denmark': 'Denmark',
-    'portugal': 'Portugal',
-    'ireland': 'Ireland',
-    'finland': 'Finland',
-    'poland': 'Poland',
-    'czech republic': 'Czech Republic',
-    'hungary': 'Hungary',
-    'south korea': 'South Korea',
-    'singapore': 'Singapore'
-  };
-  
   talks.forEach(talk => {
-    const locationText = `${talk.venue} ${talk.location}`.toLowerCase();
-    
-    // Check for direct matches in our mapping
-    Object.entries(locationToCountry).forEach(([key, country]) => {
-      if (locationText.includes(key)) {
-        countries.add(country);
+    if (talk.location) {
+      const parts = talk.location.split(',');
+      if (parts.length > 1) {
+        countries.add(parts[parts.length - 1].trim());
       }
-    });
+    }
   });
   
   return countries.size;
@@ -276,189 +204,198 @@ function extractCountriesFromTalks(talks) {
 async function updateTalksPage(talks) {
   const talksPath = path.join(process.cwd(), 'src', 'pages', 'talks.astro');
   
-  // Generate talk cards for ALL talks
-  const talkCards = talks.map((talk, index) => `    <div class="card bg-base-200 hover:bg-base-300 shadow-lg hover:shadow-xl transition-colors duration-200 group border border-primary/10 hover:border-primary/30">
-      <div class="card-body relative overflow-hidden">
-        <!-- Lightweight card background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5 opacity-0 group-hover:opacity-50 transition-opacity duration-200"></div>
-        
-        <div class="flex justify-between items-start mb-2 relative z-10">
+  // Generate talk cards for ALL talks with styling consistent with papers and projects pages
+  const talkCards = talks.map((talk, index) => {
+    return `    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+        <!-- Card header with badge and date -->
+        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
           <div class="badge badge-${talk.type === 'thesis' ? 'secondary' : 'primary'} text-xs font-mono">${talk.type}</div>
           <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">${talk.date.substring(0, 4)}</div>
         </div>
         
-        <h3 class="card-title text-lg leading-tight group-hover:text-primary transition-colors duration-200 relative z-10">
+        <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">
           ${talk.title}
         </h3>
         
-        <div class="space-y-2 mt-3 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
+        <div class="space-y-2 mt-3">
+          <div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Venue:</span>
-            <span class="text-base-content/80">${talk.venue}</span>
+            <span class="text-base-content/80 break-words">${talk.venue}</span>
           </div>
-          ${talk.location ? `<div class="flex items-center gap-2 text-sm">
+          ${talk.location ? `<div class="flex flex-wrap items-start gap-2 text-sm">
             <span class="font-semibold text-accent">Location:</span>
-            <span class="text-base-content/80">${talk.location}</span>
+            <span class="text-base-content/80 break-words">${talk.location}</span>
           </div>` : ''}
         </div>
         
-        <!-- Talk Links - Optimized -->
-        ${Object.keys(talk.links || {}).length > 0 ? `<div class="mt-4 relative z-10">
-          <div class="flex flex-wrap gap-2">
+        <!-- Talk Links - Enhanced -->
+        ${Object.keys(talk.links || {}).length > 0 ? `<div class="mt-4 border-t border-base-200 pt-4">
+          <div class="flex flex-wrap gap-2 break-words">
             ${talk.links.paper ? `<a href="${talk.links.paper}" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Paper
+              </span>
             </a>` : ''}
             ${talk.links.paperFull ? `<a href="${talk.links.paperFull}" target="_blank" 
-               class="btn btn-primary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
-              </svg>
-              Full Paper
+               class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4zM3 8a1 1 0 000 2v5a2 2 0 002 2h6a2 2 0 002-2v-5a1 1 0 100-2H3z"/>
+                </svg>
+                Full Paper
+              </span>
             </a>` : ''}
             ${talk.links.slides ? `<a href="${talk.links.slides}" target="_blank" 
-               class="btn btn-secondary btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-              </svg>
-              Slides
+               class="px-3 py-1 rounded-full text-xs bg-secondary/20 text-secondary font-medium hover:bg-secondary/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                Slides
+              </span>
             </a>` : ''}
             ${talk.links.video ? `<a href="${talk.links.video}" target="_blank" 
-               class="btn btn-accent btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-              </svg>
-              Video
+               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                </svg>
+                Video
+              </span>
             </a>` : ''}
             ${talk.links.code ? `<a href="${talk.links.code}" target="_blank" 
-               class="btn btn-info btn-xs gap-1 hover:opacity-90 transition-opacity duration-200">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-              Code
+               class="px-3 py-1 rounded-full text-xs bg-info/20 text-info font-medium hover:bg-info/30 transition-colors">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Code
+              </span>
             </a>` : ''}
           </div>
         </div>` : ''}
         
-        <!-- GitHub Source - Optimized -->
-        <div class="mt-4 pt-3 border-t border-base-300 relative z-10">
-          <div class="flex items-center gap-2 text-sm">
-            <span class="font-semibold text-accent">GitHub:</span>
-            <a href="https://github.com/hadipourh/talks/tree/main/${talk.slug}" 
-               class="link link-primary hover:underline font-mono text-xs" 
-               target="_blank">
-              talks/${talk.slug}
-            </a>
+        <!-- GitHub Source - Enhanced -->
+        <div class="flex justify-between items-end mt-4">
+          <div class="flex items-center space-x-1 text-xs text-base-content/50">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-mono break-all">${talk.slug}</span>
           </div>
+          <a href="https://github.com/hadipourh/talks/tree/main/${talk.slug}" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+            View →
+          </a>
         </div>
       </div>
-    </div>`).join('\n\n');
+    </div>`;
+  }).join('\n\n');
 
   const totalTalks = talks.length;
   const totalCountries = extractCountriesFromTalks(talks);
   const yearSpan = `${Math.min(...talks.map(t => new Date(t.date).getFullYear()))}-${Math.max(...talks.map(t => new Date(t.date).getFullYear()))}`;
   const lastUpdate = new Date().toISOString().split('T')[0];
 
+  // Create content with gradient styling consistent with other pages
   const content = `---
 // AUTO-GENERATED: Last updated ${lastUpdate} from hadipourh/talks GitHub repository  
 // DO NOT EDIT: This file is generated by scripts/update-talks.js
 // Real statistics: ${totalTalks} talks, ${totalCountries} countries, ${yearSpan}
 // Shows ALL talks - no limits applied!
 import Layout from "../layouts/Layout.astro";
+
+// Function to get a gradient class based on index
+const getGradientClass = (index: number) => {
+  const gradients = [
+    'from-primary via-secondary to-accent',
+    'from-success via-info to-warning',
+    'from-error via-primary to-success',
+    'from-accent via-warning to-error',
+    'from-info via-accent to-primary',
+    'from-warning via-success to-info'
+  ]
+  return gradients[index % gradients.length]
+}
 ---
 <Layout 
   title="Talks & Presentations | Hosein Hadipour" 
   description="Academic talks, conference presentations, and invited lectures by Hosein Hadipour"
 >
-  <main class="container mx-auto px-4 py-12 max-w-6xl">
-    <!-- Hero Section with Real Statistics - Optimized -->
-    <div class="text-center mb-12 relative">
-      <!-- Lighter background effect -->
-      <div class="absolute inset-0 bg-base-200/50 rounded-xl -z-10"></div>
-      
-      <h1 class="text-4xl lg:text-6xl font-bold mb-4">
-        <span class="text-primary">
+  <main class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header Section -->
+    <section class="text-center mb-16">
+      <div class="relative mb-8">
+        <h1 class={\`text-4xl md:text-6xl font-bold bg-gradient-to-r \${getGradientClass(0)} bg-clip-text text-transparent mb-6\`}>
           Talks & Presentations
-        </span>
-      </h1>
-      <p class="text-lg text-base-content/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-        A complete collection of my academic talks, conference presentations, and invited lectures 
-        on cryptanalysis, automated reasoning, and security research.
-      </p>
-      
-      <!-- Real-time Statistics from GitHub - Optimized -->
-      <div class="stats shadow-lg bg-base-200 mb-8">
-        <div class="stat">
-          <div class="stat-figure text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
+        </h1>
+        <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed">
+          A complete collection of my academic talks, conference presentations, and invited lectures 
+          on cryptanalysis, automated reasoning, and security research.
+        </p>
+      </div>
+
+      <!-- Statistics Section -->
+      <div class="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto mb-12">
+        <div class="bg-base-200 rounded-2xl p-4 md:p-6">
+          <div class={\`text-2xl md:text-3xl font-bold bg-gradient-to-r \${getGradientClass(1)} bg-clip-text text-transparent\`}>
+            ${totalTalks}
           </div>
-          <div class="stat-title font-semibold">Total Talks</div>
-          <div class="stat-value text-primary">${totalTalks}</div>
-          <div class="stat-desc text-base-content/60">All presentations</div>
+          <div class="text-sm md:text-base text-base-content/70">Talks</div>
         </div>
-        
-        <div class="stat">
-          <div class="stat-figure text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+        <div class="bg-base-200 rounded-2xl p-4 md:p-6">
+          <div class={\`text-2xl md:text-3xl font-bold bg-gradient-to-r \${getGradientClass(2)} bg-clip-text text-transparent\`}>
+            ${totalCountries}
           </div>
-          <div class="stat-title font-semibold">Countries</div>
-          <div class="stat-value text-secondary">${totalCountries}</div>
-          <div class="stat-desc text-base-content/60">International venues</div>
+          <div class="text-sm md:text-base text-base-content/70">Countries</div>
         </div>
-        
-        <div class="stat">
-          <div class="stat-figure text-accent">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
+        <div class="bg-base-200 rounded-2xl p-4 md:p-6">
+          <div class={\`text-2xl md:text-3xl font-bold bg-gradient-to-r \${getGradientClass(3)} bg-clip-text text-transparent\`}>
+            ${yearSpan}
           </div>
-          <div class="stat-title font-semibold">Time Span</div>
-          <div class="stat-value text-accent">${yearSpan}</div>
-          <div class="stat-desc text-base-content/60">Years active</div>
+          <div class="text-sm md:text-base text-base-content/70">Years</div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Talks Collection Section - Optimized -->
-    <section class="relative">
-      <!-- Simplified section background -->
-      <div class="absolute inset-0 bg-base-200/30 rounded-xl -z-10"></div>
-      
-      <div class="text-center mb-8">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-primary">
+    <!-- Talks Collection Section -->
+    <section class="mb-16">
+      <div class="text-center mb-12">
+        <h2 class={\`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r \${getGradientClass(4)} bg-clip-text text-transparent\`}>
           Complete Collection
         </h2>
-        <p class="text-base-content/70 max-w-xl mx-auto">
+        <p class="text-base-content/70 text-lg">
           Explore all my academic presentations with direct links to slides, videos, papers, and code
         </p>
       </div>
 
-      <!-- Complete Talks Grid - ALL talks from GitHub -->
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Talks Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 ${talkCards}
-    </div>
-
+      </div>
     </section>
     
-    <!-- GitHub Repository Link - Optimized -->
+    <!-- GitHub Repository Link -->
     <div class="text-center mt-12 pb-4">
-      <div class="inline-flex items-center gap-2 bg-base-200 rounded-lg px-5 py-2 text-sm">
-        <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
-        </svg>
-        <span>All presentations available on</span>
-        <a href="https://github.com/hadipourh/talks" 
-           class="link link-primary font-semibold hover:underline" 
-           target="_blank">
-          GitHub/hadipourh/talks
-        </a>
+      <div class="bg-base-200 rounded-xl p-4 md:p-6 inline-block">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-lg">All presentations available on</span>
+          <a href="https://github.com/hadipourh/talks" 
+             class="font-semibold text-primary hover:underline" 
+             target="_blank">
+            GitHub/hadipourh/talks
+          </a>
+        </div>
       </div>
     </div>
   </main>
@@ -501,15 +438,18 @@ async function main() {
     
     if (hasRealData) {
       console.log('Verified: All data fetched from GitHub repository - no fake data detected');
-      console.log('ALL talks are displayed without any limits!');
     } else {
-      console.log('Warning: Data verification failed - please check GitHub repository');
+      console.warn('WARNING: Data may contain synthetic entries - verify GitHub content');
     }
     
+    console.log('ALL talks are displayed without any limits!');
   } else {
-    console.log('No talks found, skipping update');
+    console.error('ERROR: No talks found or failed to fetch from GitHub.');
   }
 }
 
-// Run the script
-main().catch(console.error);
+// Execute the script
+main().catch(err => {
+  console.error('Fatal error:', err);
+  process.exit(1);
+});
