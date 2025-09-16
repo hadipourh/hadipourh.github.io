@@ -8,28 +8,34 @@ const { fullName } = profile
 
 <Layout>
 	<section class='py-12'>
-		<h1 class='text-4xl font-bold mb-8'>Teaching</h1>
-		<p class='text-lg text-gray-600 mb-8'>
-			My teaching experience in cryptography and mathematics, contributing to education at various academic levels.
-		</p>
+		<div class="text-center mb-12">
+			<h1 class='text-4xl lg:text-6xl font-bold mb-4'>
+				<span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+					Teaching
+				</span>
+			</h1>
+			<p class='text-lg text-base-content/70 mb-8 max-w-3xl mx-auto'>
+				My teaching experience in cryptography and mathematics, contributing to education at various academic levels.
+			</p>
+		</div>
 		
 		<div class='space-y-8'>
 			<!-- Teaching Experience -->
 			<div class='mb-12'>
-				<h2 class='text-3xl font-bold mb-6'>Teaching Experience</h2>
+				<h2 class='text-3xl font-bold mb-6 bg-gradient-to-r from-success via-info to-primary bg-clip-text text-transparent'>Teaching Experience</h2>
 				<div class='space-y-6'>
 					{teaching.map((item) => (
-						<div class='card bg-base-100 shadow-xl'>
+						<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 border border-primary/20'>
 							<div class='card-body'>
 								<div class='flex flex-col md:flex-row md:justify-between md:items-start mb-4'>
 									<div>
-										<h3 class='card-title text-xl text-primary'>{item.course}</h3>
-										<p class='text-lg font-semibold text-gray-700'>{item.role}</p>
-										<p class='text-base text-gray-600'>{item.institution}</p>
+										<h3 class='card-title text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent'>{item.course}</h3>
+										<p class='text-lg font-semibold text-base-content/90'>{item.role}</p>
+										<p class='text-base text-base-content/70'>{item.institution}</p>
 									</div>
-									<div class='badge badge-outline badge-lg mt-2 md:mt-0'>{item.time}</div>
+									<div class='badge badge-primary badge-outline badge-lg mt-2 md:mt-0'>{item.time}</div>
 								</div>
-								<p class='text-gray-600'>{item.description}</p>
+								<p class='text-base-content/70'>{item.description}</p>
 							</div>
 						</div>
 					))}
@@ -37,16 +43,16 @@ const { fullName } = profile
 			</div>
 			
 			<!-- Teaching Philosophy & Approach -->
-			<div class='card bg-base-100 shadow-xl'>
+			<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 border border-secondary/20'>
 				<div class='card-body'>
-					<h2 class='card-title text-2xl mb-4'>Teaching Philosophy</h2>
-					<div class='space-y-4 text-gray-600'>
+					<h2 class='card-title text-2xl mb-4 bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent'>Teaching Philosophy</h2>
+					<div class='space-y-4 text-base-content/70'>
 						<p>
 							My teaching approach focuses on building strong theoretical foundations while emphasizing practical applications in cryptography and security. 
 							I believe in making complex mathematical concepts accessible through clear explanations and hands-on examples.
 						</p>
 						<div class='space-y-2'>
-							<h3 class='font-semibold text-gray-800'>Key Teaching Areas:</h3>
+							<h3 class='font-semibold text-base-content/90'>Key Teaching Areas:</h3>
 							<ul class='list-disc list-inside space-y-1'>
 								<li>Symmetric-key cryptography and cryptanalysis</li>
 								<li>Mathematical foundations of cryptography</li>
@@ -60,15 +66,15 @@ const { fullName } = profile
 			</div>
 			
 			<!-- Guest Lectures & Workshops -->
-			<div class='card bg-base-100 shadow-xl'>
+			<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 border border-accent/20'>
 				<div class='card-body'>
-					<h2 class='card-title text-2xl mb-4'>Guest Lectures & Research Contributions</h2>
-					<div class='space-y-4 text-gray-600'>
+					<h2 class='card-title text-2xl mb-4 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent'>Guest Lectures & Research Contributions</h2>
+					<div class='space-y-4 text-base-content/70'>
 						<p>
 							As a guest lecturer for advanced cryptanalysis courses at Graz University of Technology, I have contributed to graduate-level education in cryptography.
 						</p>
 						<div class='space-y-2'>
-							<h3 class='font-semibold text-gray-800'>Specialized Topics:</h3>
+							<h3 class='font-semibold text-base-content/90'>Specialized Topics:</h3>
 							<ul class='list-disc list-inside space-y-1'>
 								<li>Algebraic Analysis and Integral Attacks</li>
 								<li>SAT/SMT-based cryptanalysis methods</li>
@@ -83,15 +89,15 @@ const { fullName } = profile
 		
 		<!-- Resources Section -->
 		<div class='mt-12'>
-			<h2 class='text-3xl font-bold mb-6'>Teaching Resources</h2>
+			<h2 class='text-3xl font-bold mb-6 bg-gradient-to-r from-info via-accent to-warning bg-clip-text text-transparent'>Teaching Resources</h2>
 			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-				<div class='card bg-base-100 shadow-xl'>
+				<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 border border-primary/20'>
 					<div class='card-body'>
-						<h3 class='card-title text-primary'>📚 Course in Cryptanalysis</h3>
-						<p class='text-gray-600'>Comprehensive cryptanalysis course materials covering modern techniques and methodologies.</p>
-						<div class='flex items-center gap-2 text-sm text-gray-500 mt-2'>
-							<span>⭐ 145 stars</span>
-							<span>🍴 10 forks</span>
+						<h3 class='card-title bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent'>Course in Cryptanalysis</h3>
+						<p class='text-base-content/70'>Comprehensive cryptanalysis course materials covering modern techniques and methodologies.</p>
+						<div class='flex items-center gap-2 text-sm text-base-content/50 mt-2'>
+							<span class="flex items-center gap-1"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 145 stars</span>
+							<span class="flex items-center gap-1"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg> 10 forks</span>
 						</div>
 						<div class='card-actions justify-end mt-4'>
 							<a href='https://github.com/hadipourh/course-cryptanalysis' target='_blank' rel='noopener noreferrer' class='btn btn-primary btn-sm'>
@@ -101,13 +107,13 @@ const { fullName } = profile
 					</div>
 				</div>
 				
-				<div class='card bg-base-100 shadow-xl'>
+				<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 border border-secondary/20'>
 					<div class='card-body'>
-						<h3 class='card-title text-primary'>🎯 Conference Talks</h3>
-						<p class='text-gray-600'>LaTeX sources for my conference presentations and research talks.</p>
-						<div class='flex items-center gap-2 text-sm text-gray-500 mt-2'>
-							<span>⭐ 6 stars</span>
-							<span>🍴 3 forks</span>
+						<h3 class='card-title bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent'>Conference Talks</h3>
+						<p class='text-base-content/70'>LaTeX sources for my conference presentations and research talks.</p>
+						<div class='flex items-center gap-2 text-sm text-base-content/50 mt-2'>
+							<span class="flex items-center gap-1"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 6 stars</span>
+							<span class="flex items-center gap-1"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg> 3 forks</span>
 						</div>
 						<div class='card-actions justify-end mt-4'>
 							<a href='https://github.com/hadipourh/talks' target='_blank' rel='noopener noreferrer' class='btn btn-primary btn-sm'>
@@ -117,14 +123,14 @@ const { fullName } = profile
 					</div>
 				</div>
 				
-				<div class='card bg-base-100 shadow-xl'>
+				<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 border border-accent/20'>
 					<div class='card-body'>
-						<h3 class='card-title text-primary'>🔧 Cryptanalysis Tools</h3>
-						<p class='text-gray-600'>Collection of open-source tools for automated cryptanalysis and security analysis.</p>
+						<h3 class='card-title bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent'>Cryptanalysis Tools</h3>
+						<p class='text-base-content/70'>Collection of open-source tools for automated cryptanalysis and security analysis.</p>
 						<div class='flex flex-wrap gap-1 mt-2'>
-							<div class='badge badge-outline badge-xs'>AutoGuess</div>
-							<div class='badge badge-outline badge-xs'>ZeroPlus</div>
-							<div class='badge badge-outline badge-xs'>SBoxAnalyzer</div>
+							<div class='badge badge-primary badge-outline badge-xs'>AutoGuess</div>
+							<div class='badge badge-secondary badge-outline badge-xs'>ZeroPlus</div>
+							<div class='badge badge-accent badge-outline badge-xs'>SBoxAnalyzer</div>
 						</div>
 						<div class='card-actions justify-end mt-4'>
 							<a href='https://github.com/hadipourh?tab=repositories&q=crypto&type=&language=&sort=' target='_blank' rel='noopener noreferrer' class='btn btn-primary btn-sm'>
@@ -137,15 +143,15 @@ const { fullName } = profile
 			
 			<!-- Featured Tools -->
 			<div class='mt-8'>
-				<h3 class='text-xl font-bold mb-4'>Featured Cryptanalysis Tools</h3>
+				<h3 class='text-xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent'>Featured Cryptanalysis Tools</h3>
 				<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-					<div class='card bg-base-200'>
+					<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-md hover:shadow-lg transition-all duration-300 border border-primary/10'>
 						<div class='card-body p-4'>
 							<div class='flex justify-between items-start'>
 								<div>
-									<h4 class='font-semibold text-primary'>AutoGuess</h4>
-									<p class='text-sm text-gray-600'>Solve guess-and-determine problems</p>
-									<span class='text-xs text-gray-500'>⭐ 28 stars</span>
+									<h4 class='font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent'>AutoGuess</h4>
+									<p class='text-sm text-base-content/70'>Solve guess-and-determine problems</p>
+									<span class='text-xs text-base-content/50 flex items-center gap-1'><svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 28 stars</span>
 								</div>
 								<a href='https://github.com/hadipourh/autoguess' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
 									View →
@@ -154,13 +160,13 @@ const { fullName } = profile
 						</div>
 					</div>
 					
-					<div class='card bg-base-200'>
+					<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-md hover:shadow-lg transition-all duration-300 border border-secondary/10'>
 						<div class='card-body p-4'>
 							<div class='flex justify-between items-start'>
 								<div>
-									<h4 class='font-semibold text-primary'>SBoxAnalyzer</h4>
-									<p class='text-sm text-gray-600'>S-box analysis tool for cryptanalysis</p>
-									<span class='text-xs text-gray-500'>⭐ 31 stars</span>
+									<h4 class='font-semibold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent'>SBoxAnalyzer</h4>
+									<p class='text-sm text-base-content/70'>S-box analysis tool for cryptanalysis</p>
+									<span class='text-xs text-base-content/50 flex items-center gap-1'><svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 31 stars</span>
 								</div>
 								<a href='https://github.com/hadipourh/sboxanalyzer' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
 									View →
@@ -169,13 +175,13 @@ const { fullName } = profile
 						</div>
 					</div>
 					
-					<div class='card bg-base-200'>
+					<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-md hover:shadow-lg transition-all duration-300 border border-accent/10'>
 						<div class='card-body p-4'>
 							<div class='flex justify-between items-start'>
 								<div>
-									<h4 class='font-semibold text-primary'>ZeroPlus</h4>
-									<p class='text-sm text-gray-600'>Integral and impossible differential attacks</p>
-									<span class='text-xs text-gray-500'>⭐ 13 stars</span>
+									<h4 class='font-semibold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent'>ZeroPlus</h4>
+									<p class='text-sm text-base-content/70'>Integral and impossible differential attacks</p>
+									<span class='text-xs text-base-content/50 flex items-center gap-1'><svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 13 stars</span>
 								</div>
 								<a href='https://github.com/hadipourh/zeroplus' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
 									View →
@@ -184,13 +190,13 @@ const { fullName } = profile
 						</div>
 					</div>
 					
-					<div class='card bg-base-200'>
+					<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-md hover:shadow-lg transition-all duration-300 border border-primary/10'>
 						<div class='card-body p-4'>
 							<div class='flex justify-between items-start'>
 								<div>
-									<h4 class='font-semibold text-primary'>Zero</h4>
-									<p class='text-sm text-gray-600'>Full impossible-differential attacks</p>
-									<span class='text-xs text-gray-500'>⭐ 11 stars</span>
+									<h4 class='font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent'>Zero</h4>
+									<p class='text-sm text-base-content/70'>Full impossible-differential attacks</p>
+									<span class='text-xs text-base-content/50 flex items-center gap-1'><svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> 11 stars</span>
 								</div>
 								<a href='https://github.com/hadipourh/zero' target='_blank' rel='noopener noreferrer' class='btn btn-ghost btn-xs'>
 									View →

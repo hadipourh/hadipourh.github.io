@@ -1382,8 +1382,8 @@ const getGradientClass = (index: number) => {
 		let currentFilter = 'all';
 		let currentSort = 'year-desc';
 		
-		// Update filter button counts
-		function updateFilterCounts() {
+		// Count publication types (but don't display counts)
+		function countPublications() {
 			const publications = document.querySelectorAll('[data-publication]');
 			const counts = {
 				all: publications.length,
@@ -1412,19 +1412,8 @@ const getGradientClass = (index: number) => {
 				}
 			});
 			
-			// Update button labels
-			filterButtons.forEach(btn => {
-				const filter = btn.getAttribute('data-filter');
-				const count = counts[filter] || 0;
-				const baseText = {
-					'all': 'All',
-					'journal': 'Journals',
-					'conference': 'Conferences',
-					'workshop': 'Workshops',
-					'preprint': 'Preprints'
-				}[filter] || filter;
-				btn.textContent = `${baseText} (${count})`;
-			});
+			// We no longer update button text with counts
+			return counts;
 		}
 		
 		// Search input handler
@@ -1441,7 +1430,8 @@ const getGradientClass = (index: number) => {
 					b.classList.add('btn-outline');
 				});
 				
-				const target = e.target;
+				// Get the button element (might be the span inside the button)
+				const target = e.target.closest('.filter-btn') || e.target;
 				target.classList.remove('btn-outline');
 				target.classList.add('btn-primary', 'active');
 				
@@ -1516,10 +1506,18 @@ const getGradientClass = (index: number) => {
 			});
 		}
 		
-		// Initialize
-		document.addEventListener('DOMContentLoaded', () => {
-			updateFilterCounts();
+		// Initialize - run immediately and also on DOMContentLoaded
+		function initializeSearch() {
+			// Just filter publications, no need to update counts on buttons
 			filterPublications();
-		});
+		}
+		
+		// Run immediately if DOM is already loaded
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initializeSearch);
+		} else {
+			// DOM already loaded, run now
+			initializeSearch();
+		}
 	</script>
 </Layout>
