@@ -133,7 +133,14 @@ function parseTalksFromReadme(readmeContent, talkDirs) {
     // Slides
     const slidesMatches = [...fullContent.matchAll(/- \[Slides\]\(([^)]+)\)/g)];
     if (slidesMatches && slidesMatches.length > 0) {
-      links.slides = slidesMatches[0][1];
+      const slidesPath = slidesMatches[0][1];
+      // Check if it's a full URL or relative path
+      if (slidesPath.startsWith('http') || slidesPath.startsWith('https')) {
+        links.slides = slidesPath;
+      } else {
+        // It's a relative path, add the GitHub URL prefix
+        links.slides = `https://github.com/hadipourh/talks/tree/main/${slidesPath}`;
+      }
     } else {
       // Fallback: Try to find slides link in GitHub repository
       links.slides = `https://github.com/hadipourh/talks/tree/main/${matchingDir}`;
