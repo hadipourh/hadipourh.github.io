@@ -70,22 +70,65 @@ const { Content } = await render(post);
 
 			<!-- Post content -->
 			<div
-				class='prose mt-6 sm:mt-8 prose-sm sm:prose-base lg:prose-lg
-         prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-3 sm:prose-h2:mb-4
-         prose-h3:text-lg sm:prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-2 sm:prose-h3:mb-3
-         prose-p:mb-3 sm:prose-p:mb-4 prose-p:leading-relaxed
-         prose-strong:text-base-content prose-strong:font-bold
-         prose-em:italic
-         prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-         prose-code:text-accent prose-code:bg-base-200 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-xs sm:prose-code:text-sm
-         prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-3 sm:prose-blockquote:pl-4 prose-blockquote:italic
-         prose-ul:list-disc prose-ul:pl-4 sm:prose-ul:pl-6
-         prose-ol:list-decimal prose-ol:pl-4 sm:prose-ol:pl-6
-         prose-li:mb-1 sm:prose-li:mb-2
-         prose-img:rounded-lg prose-img:my-4 sm:prose-img:my-8 prose-img:w-full'
-        >
+			class='prose mt-6 sm:mt-8 prose-sm sm:prose-base lg:prose-lg
+		 prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-3 sm:prose-h2:mb-4
+		 prose-h3:text-lg sm:prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-2 sm:prose-h3:mb-3
+		 prose-p:mb-3 sm:prose-p:mb-4 prose-p:leading-relaxed
+		 prose-strong:text-base-content prose-strong:font-bold
+		 prose-em:italic
+		 prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+		 prose-code:text-base-content prose-code:text-xs sm:prose-code:text-sm
+			 prose-pre:bg-base-100 prose-pre:text-base-content prose-pre:rounded-xl prose-pre:border prose-pre:border-base-300 prose-pre:shadow-sm prose-pre:p-4 sm:prose-pre:p-5 prose-pre:overflow-x-auto prose-pre:font-mono
+		 prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-3 sm:prose-blockquote:pl-4 prose-blockquote:italic
+		 prose-ul:list-disc prose-ul:pl-4 sm:prose-ul:pl-6 prose-ul:my-2 sm:prose-ul:my-3
+		 prose-ol:list-decimal prose-ol:pl-4 sm:prose-ol:pl-6 prose-ol:my-2 sm:prose-ol:my-3
+		 prose-li:mb-0.5 sm:prose-li:mb-1
+		 prose-img:rounded-lg prose-img:my-4 sm:prose-img:my-8 prose-img:w-full'
+		>
                 <Content />
 			</div>
 		</article>
 	</div>
 </Layout>
+
+<style>
+	/* Avoid double background/padding for code inside pre blocks */
+	.prose pre code {
+		background: transparent;
+		padding: 0;
+		color: inherit;
+		box-shadow: none;
+	}
+
+	/* Remove decorative backticks around inline code from typography plugin */
+	.prose :not(pre) > code::before,
+	.prose :not(pre) > code::after {
+		content: none;
+	}
+
+	/* Ensure inline code has no background in both themes */
+	.prose :not(pre) > code {
+		background: transparent;
+	}
+
+		/* Improve contrast for ASCII diagrams and messages in light mode */
+		[data-theme="light"] .prose pre {
+			background-color: hsl(var(--b1)); /* base-100 */
+			border-color: hsl(var(--b3));     /* base-300 */
+				color: hsl(var(--bc));            /* base-content */
+		}
+
+		/* And in dark mode keep a faint panel look for readability */
+		[data-theme="dark"] .prose pre {
+			background-color: hsl(var(--b2)); /* base-200 */
+			border-color: hsl(var(--b3));     /* base-300 */
+				color: hsl(var(--bc));            /* base-content */
+		}
+
+			/* Ensure nested code inherits the same high-contrast color */
+			[data-theme="light"] .prose pre code,
+			[data-theme="dark"] .prose pre code {
+				color: hsl(var(--bc));
+			}
+
+</style>

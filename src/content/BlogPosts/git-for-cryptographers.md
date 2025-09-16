@@ -1,17 +1,22 @@
 ---
-title: "Git for Cryptographic Research: A Practical Guide"
+title: "Git for Research: A Practical Guide"
 date: "2025-09-11"
-excerpt: "A practical introduction to version control workflows for cryptographic research, covering essential commands and security considerations."
+excerpt: "A simple guide to version control for research. Learn the basics, safe daily use, and how to handle tricky cases like divergence and rebase."
 tags: ["git", "research", "collaboration", "academic", "tools"]
 ---
 
-# Git for Cryptographic Research: A Practical Guide
+# Git for Research: A Practical Guide
 
-Version control is a fundamental tool in modern computational research. This guide introduces Git workflows specifically tailored for cryptographic research, addressing common challenges we encounter when managing code, papers, and collaborative projects.
+Version control is key to modern research. This guide introduces Git with a focus on research projects. It keeps the language simple and shows safe steps for common tasks.
 
-- [Git for Cryptographic Research: A Practical Guide](#git-for-cryptographic-research-a-practical-guide)
+## Why Version Control Matters
+
+In research, we work on code, papers, and data with many changes and collaborators. 
+Without version control, you can lose work, run into conflicts, and struggle to reproduce results.
+In collaborative projects, version control helps manage contributions from multiple people, track who made which changes, and resolve conflicts when edits overlap.
+
+- [Git for Research: A Practical Guide](#git-for-research-a-practical-guide)
   - [Why Version Control Matters](#why-version-control-matters)
-    - [A Practical Example](#a-practical-example)
   - [Git Fundamentals](#git-fundamentals)
     - [Installation and Setup](#installation-and-setup)
     - [Setting Up Git (Do This Once)](#setting-up-git-do-this-once)
@@ -23,12 +28,22 @@ Version control is a fundamental tool in modern computational research. This gui
     - [Protecting Sensitive Data](#protecting-sensitive-data)
     - [Recovery Procedures](#recovery-procedures)
   - [Collaboration Workflows](#collaboration-workflows)
-  - [Collaboration Workflows](#collaboration-workflows-1)
     - [Basic Repository Operations](#basic-repository-operations)
     - [Contribution Workflow](#contribution-workflow)
   - [Common Issues and Solutions](#common-issues-and-solutions)
     - [Understanding Git Messages](#understanding-git-messages)
     - [Merge Conflicts in Research](#merge-conflicts-in-research)
+  - [Handling Divergence and Rebase (Safe and Simple)](#handling-divergence-and-rebase-safe-and-simple)
+    - [What is divergence](#what-is-divergence)
+    - [Safe rebase checklist](#safe-rebase-checklist)
+    - [Small visual guide for rebase](#small-visual-guide-for-rebase)
+      - [Fast-forward vs merge](#fast-forward-vs-merge)
+      - [Rebase a feature branch onto updated main](#rebase-a-feature-branch-onto-updated-main)
+      - [Pushing after a rebase](#pushing-after-a-rebase)
+      - [Rebase with conflicts (quick reminder)](#rebase-with-conflicts-quick-reminder)
+      - [Optional: squash before merge (clean up)](#optional-squash-before-merge-clean-up)
+    - [When not to rebase](#when-not-to-rebase)
+    - [Fixing a wrong rebase](#fixing-a-wrong-rebase)
   - [Advanced Techniques](#advanced-techniques)
     - [Branch Management for Research](#branch-management-for-research)
     - [Repository Organization](#repository-organization)
@@ -36,14 +51,6 @@ Version control is a fundamental tool in modern computational research. This gui
   - [Quick Reference](#quick-reference)
     - [Essential Commands](#essential-commands-1)
     - [Useful Resources](#useful-resources)
-
-## Why Version Control Matters
-
-In cryptographic research, we work with complex implementations, evolving papers, and collaborative projects across institutions. Without proper version control, we risk losing work, struggling with collaboration, and difficulty reproducing results.
-
-### A Practical Example
-
-A cryptocurrency project in 2019 lost significant work when implementation files were accidentally overwritten. Proper version control practices could have prevented this issue entirely.
 
 ## Git Fundamentals
 
@@ -70,7 +77,8 @@ git config --global user.email "your.email@university.edu"
 # Recommended settings for crypto research
 git config --global init.defaultBranch main
 git config --global core.editor "code --wait"  # Use VS Code as editor
-git config --global pull.rebase true  # We'll explain this later
+git config --global pull.ff only      # Refuse merge pulls. Keep history clean.
+git config --global pull.rebase true  # Rebase when pulling. See rebase section.
 ```
 
 ### Creating Your First Repository
@@ -135,11 +143,16 @@ When working with cryptographic research, security practices are paramount.
 
 ### Notable Security Incidents
 
-**Case 1: Private Key Exposure (2021)**
-A DeFi project inadvertently committed private keys to a public repository. The exposure resulted in significant financial losses within hours.
+Examples where sensitive data was exposed due to Git/GitHub usage:
 
-**Case 2: Research Infrastructure Breach (2020)**  
-A university laboratory accidentally committed server credentials. This led to unauthorized access to computational resources and data.
+- [Toyota exposed a secret key on GitHub for ~5 years](https://blog.gitguardian.com/toyota-accidently-exposed-a-secret-key-publicly-on-github-for-five-years/?utm_source=chatgpt.com) — A subcontractor uploaded source code to a public repo in 2017 containing an access key to a customer-data server. About 296,019 customers’ data was at risk until discovery in 2022.
+
+- [Leaked GitHub Personal Access Token (PAT) with admin rights on Istio repos](https://www.infoq.com/news/2025/09/github-leaked-secrets/?utm_source=chatgpt.com) — Researchers found a PAT with full admin permissions left in a force-pushed commit, creating a serious supply-chain risk.
+
+- [PyPI admin leaked GitHub PAT in a Docker image](https://blog.pypi.org/posts/2024-07-08-incident-report-leaked-admin-personal-access-token/?utm_source=chatgpt.com) — A debugging change caused a GitHub PAT to be embedded in a `.pyc` file, which ended up in a public Docker image.
+
+- [GhostAction supply-chain campaign](https://www.techradar.com/pro/security/github-supply-chain-attack-sees-thousands-of-tokens-and-secrets-stolen-in-ghostaction-campaign?utm_source=chatgpt.com) — Attackers compromised 817 GitHub repos by injecting malicious workflows that stole 3,325 secrets, including AWS, npm, and PyPI tokens.
+
 
 ### Protecting Sensitive Data
 
@@ -191,8 +204,6 @@ git push --force-with-lease
 
 ## Collaboration Workflows
 
-## Collaboration Workflows
-
 ### Basic Repository Operations
 
 ```bash
@@ -224,6 +235,9 @@ git commit -m "Implement new feature"
 git remote add upstream https://github.com/original/crypto-project.git
 git fetch upstream
 git merge upstream/main
+
+# Or use rebase to keep a straight history
+git rebase upstream/main
 ```
 
 ## Common Issues and Solutions
@@ -256,6 +270,157 @@ git status
 # Add resolved files
 git add conflicted_file.tex
 git commit -m "Resolve merge conflict in Section 4"
+
+```
+
+## Handling Divergence and Rebase (Safe and Simple)
+
+Sometimes your branch and the remote branch move in different ways. This is divergence. You can handle it in two ways: merge or rebase. New users should pick one and stick to it. We use rebase for a clean history.
+
+### What is divergence
+
+```
+A---B---C        origin/main
+     \
+  D---E      your/local main
+```
+
+Your local branch has commits D and E. The remote has C. You need to bring your work on top of C.
+
+### Safe rebase checklist
+
+```bash
+# 1) Make sure your work tree is clean
+git status
+
+# 2) Update your remote info
+git fetch origin
+
+# 3) Rebase your branch onto the fresh main
+git rebase origin/main
+
+# 4) If there are conflicts, fix files, then continue
+git add <fixed-files>
+git rebase --continue
+
+# 5) If you get lost, you can stop the rebase
+git rebase --abort
+```
+
+If your branch was already pushed and others may have pulled it, use this instead to avoid breaking others:
+
+```bash
+# Merge the remote into your branch (no rewrite of existing commits)
+git fetch origin
+git merge origin/main
+```
+
+### Small visual guide for rebase
+
+Before rebase:
+
+```
+  D---E   (you)
+     /
+A---B---C     (origin/main)
+```
+
+After `git rebase origin/main`:
+
+```
+A---B---C---D'---E'   (you, rebased)
+```
+
+Your changes are the same, but now sit after C. This keeps history straight.
+
+#### Fast-forward vs merge
+
+Fast-forward (no parallel commits):
+
+```
+Before:
+A---B      (main)
+     \
+  C    (feature)
+
+After fast-forward merge into main:
+A---B---C  (main)
+```
+
+Regular merge (parallel histories):
+
+```
+Before:
+A---B---C        (main)
+     \
+  D---E      (feature)
+
+After merge:
+A---B---C-------M   (main)
+     \     /
+      D---E     (feature)
+```
+
+#### Rebase a feature branch onto updated main
+
+```
+Before:
+A---B---C        (origin/main)
+     \
+  D---E      (feature)
+
+Rebase command:
+$ git checkout feature
+$ git fetch origin
+$ git rebase origin/main
+
+After:
+A---B---C---D'---E'  (feature)
+```
+
+#### Pushing after a rebase
+
+After rebasing a branch you already pushed, the remote has the old history. Use a safe update:
+
+```bash
+git push --force-with-lease origin feature
+```
+
+This refuses to overwrite if teammates pushed new commits meanwhile.
+
+#### Rebase with conflicts (quick reminder)
+
+```bash
+git rebase origin/main
+# Fix files, then
+git add <files>
+git rebase --continue
+# Or stop if needed
+git rebase --abort
+```
+
+#### Optional: squash before merge (clean up)
+
+```bash
+# Interactively squash D and E into one commit before opening a PR
+git checkout feature
+git rebase -i origin/main
+# In the editor: mark E as "squash" into D, save and exit
+```
+
+### When not to rebase
+
+- Do not rebase public branches that teammates already use. Prefer merge.
+- For shared branches, use `git pull --rebase` only if your team agrees.
+
+### Fixing a wrong rebase
+
+```bash
+# See recent branch positions
+git reflog
+
+# Move back to a good point
+git reset --hard <reflog-entry>
 ```
 
 ## Advanced Techniques
@@ -323,8 +488,7 @@ git reflog               # Find lost commits
 ### Useful Resources
 - [Pro Git Book](https://git-scm.com/book) - Comprehensive reference
 - [GitHub Documentation](https://docs.github.com) - Platform-specific guides
-- [Git Security Best Practices](https://github.blog/2022-06-08-github-secrets-scanning-integration-pre-commit-hooks/) - Official security guide
 
 ---
 
-This guide covers fundamental Git workflows for cryptographic research. Version control practices continue to evolve, and we encourage adapting these techniques to specific research needs while maintaining security and reproducibility standards.
+This guide covers fundamental Git workflows for research projects. Version control practices continue to evolve, and we encourage adapting these techniques to specific needs while maintaining security and reproducibility standards.
