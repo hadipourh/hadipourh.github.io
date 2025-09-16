@@ -1,856 +1,2514 @@
 ---
 import Layout from '../layouts/Layout.astro'
+
+// Function to get a gradient class based on index
+const getGradientClass = (index: number) => {
+  const gradients = [
+    'from-primary via-secondary to-accent',
+    'from-success via-info to-warning',
+    'from-error via-primary to-success',
+    'from-accent via-warning to-error',
+    'from-info via-accent to-primary',
+    'from-warning via-success to-info'
+  ]
+  return gradients[index % gradients.length]
+}
 ---
 
-<Layout>
-	<section class='py-12'>
-		<h1 class='text-4xl font-bold mb-8'>Projects</h1>
-		<p class='text-lg text-gray-600 mb-8'>
-			Here are some of my research projects and open-source contributions in cryptography and security.
-		</p>
-		
-		<h2 class='text-2xl font-bold mb-6'>My Projects</h2>
-		<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12'>
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Course Cryptanalysis
-					</h2>
-					<p class='text-sm'>A Course in Cryptanalysis</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>146 stars</div>
-						<div class='badge badge-outline'>TeX</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Educational Resource</div>
-						<a href='https://github.com/hadipourh/course-cryptanalysis' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
+<Layout
+	title='Projects - Hosein Hadipour'
+	description='Explore my cryptographic research projects, open-source tools, and collaborative works in applied cryptography.'
+>
+	<main class='container mx-auto px-4 py-8 max-w-6xl'>
+		<!-- Header Section -->
+		<section class='text-center mb-16'>
+			<div class='relative mb-8'>
+				<h1 class={`text-4xl md:text-6xl font-bold bg-gradient-to-r ${getGradientClass(0)} bg-clip-text text-transparent mb-6`}>
+					Research Projects
+				</h1>
+				<p class='text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed'>
+					A comprehensive collection of cryptographic research tools, open-source implementations, and collaborative projects advancing the field of applied cryptography.
+				</p>
 			</div>
 
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						KeeLoq
-					</h2>
-					<p class='text-sm'>C implementation of KeeLoq algorithm, equipped with a function to generate al...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>100 stars</div>
-						<div class='badge badge-outline'>C</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/KeeLoq' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
+			<!-- Statistics Section -->
+			<div class='grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mb-12'>
+				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
+					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(1)} bg-clip-text text-transparent`}>36</div>
+					<div class='text-sm md:text-base text-base-content/70'>Projects</div>
 				</div>
+				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
+					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(2)} bg-clip-text text-transparent`}>527</div>
+					<div class='text-sm md:text-base text-base-content/70'>GitHub Stars</div>
+				</div>
+				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
+					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(3)} bg-clip-text text-transparent`}>9</div>
+					<div class='text-sm md:text-base text-base-content/70'>Languages</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Featured Projects Section -->
+		<section class='mb-16'>
+			<div class='text-center mb-12'>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(4)} bg-clip-text text-transparent`}>
+					Featured Projects
+				</h2>
+				<p class='text-base-content/70 text-lg'>
+					Top projects by GitHub stars and research impact
+				</p>
+			</div>
+			
+			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16'>
+				<!-- FEATURED_PROJECTS_START -->
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                course-cryptanalysis
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                A Course in Cryptanalysis
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>146</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>10</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                TeX
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/course-cryptanalysis" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                KeeLoq
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                C implementation of KeeLoq algorithm, equipped with a function to generate algebraic equations of KeeLoq over GF(2)
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>100</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>27</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/KeeLoq" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                AES-VHDL
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                VHDL Implementation of AES Algorithm
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>84</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>26</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                VHDL
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/AES-VHDL" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                sboxanalyzer
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                An easy-to-use and open-source tool for differential, linear, differential-linear, and integral analysis of S-boxes
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>31</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>5</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/sboxanalyzer" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                autoguess
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                An easy-to-use, general and open-source tool to solve the guess-and-determine problem
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>28</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>4</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/autoguess" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                CryptoHDL
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                A list of VHDL codes implementing cryptographic algorithms
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>27</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>8</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                VHDL
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/CryptoHDL" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-600 to-teal-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                zeroplus
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                Improved Search for Integral, Impossible Differential and Zero-Correlation Attacks: Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>14</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                MiniZinc
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/zeroplus" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-600 to-cyan-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                ctiming
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                Measuring the Performance of C Implementations in CPU clock cycle
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>12</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>4</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/ctiming" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                DL
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                Revisiting Differential-Linear Attacks via a Boomerang Perspective
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>11</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+            </div>
+            <a href="https://github.com/hadipourh/DL" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+    <!-- FEATURED_PROJECTS_END -->
+			</div>
+		</section>
+
+		<!-- Main Projects Section -->
+		<section class='mb-16'>
+			<div class='text-center mb-12'>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(5)} bg-clip-text text-transparent`}>
+					Complete Project Archive
+				</h2>
+				<p class='text-base-content/70 text-lg'>
+					Comprehensive collection of cryptographic research tools and implementations
+				</p>
 			</div>
 
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						AES VHDL
-					</h2>
-					<p class='text-sm'>VHDL Implementation of AES Algorithm</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>84 stars</div>
-						<div class='badge badge-outline'>VHDL</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/AES-VHDL' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
+			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+				<!-- MAIN_PROJECTS_START -->
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              course-cryptanalysis
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>146</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>10</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A Course in Cryptanalysis
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                TeX
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 25, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/course-cryptanalysis" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              KeeLoq
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>100</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>27</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            C implementation of KeeLoq algorithm, equipped with a function to generate algebraic equations of KeeLoq over GF(2)
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 4, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/KeeLoq" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              AES-VHDL
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>84</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>26</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            VHDL Implementation of AES Algorithm
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                VHDL
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 4, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/AES-VHDL" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              sboxanalyzer
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>31</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>5</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            An easy-to-use and open-source tool for differential, linear, differential-linear, and integral analysis of S-boxes
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 21, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/sboxanalyzer" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              autoguess
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>28</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>4</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            An easy-to-use, general and open-source tool to solve the guess-and-determine problem
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 1, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/autoguess" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              CryptoHDL
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>27</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>8</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A list of VHDL codes implementing cryptographic algorithms
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                VHDL
+              </span>
+              <span class="text-xs text-gray-500">Updated May 19, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/CryptoHDL" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              zeroplus
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>14</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Improved Search for Integral, Impossible Differential and Zero-Correlation Attacks: Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                MiniZinc
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 28, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/zeroplus" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              ctiming
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>12</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>4</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Measuring the Performance of C Implementations in CPU clock cycle
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 1, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/ctiming" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              DL
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>11</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Revisiting Differential-Linear Attacks via a Boomerang Perspective
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 27, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/DL" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              zero
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>11</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            An Automatic Tool to Search for Full Impossible-Differential, Zero-Correlation and Integral Attacks
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Apr 27, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/zero" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              Boomerang
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>8</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>2</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A New Method to Search for Boomerang Distinguishers: Improved Rectangle Attacks on SKINNY and CRAFT
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Jupyter Notebook
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 26, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/Boomerang" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              twinkle
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>6</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Breaking the Twinkle Authenticated Encryption Scheme
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 10, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/twinkle" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              talks
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>6</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>3</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            The LaTex Sources for My Talks
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                TeX
+              </span>
+              <span class="text-xs text-gray-500">Updated Mar 23, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/talks" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              logic-minimization
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>6</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A repository containing off-the-shelf programs for solving the logic minimization problem
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Unknown
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 13, 2023</span>
+            </div>
+            <a href="https://github.com/hadipourh/logic-minimization" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              CTC2-Fast-Algebraic-Attack
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>5</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A python class implementing the Courtois Toy Cipher (CTC2) equipped with some methods for algebraic cryptanalysis of CTC2
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Feb 19, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/CTC2-Fast-Algebraic-Attack" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              comeback
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>4</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            An Efficient Tool to Search for Boomerang Distinguishers for Feistel and SPN Ciphers
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 19, 2023</span>
+            </div>
+            <a href="https://github.com/hadipourh/comeback" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              craftanalysis
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>4</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>3</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Comprehensive Security Analysis of CRAFT
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Jupyter Notebook
+              </span>
+              <span class="text-xs text-gray-500">Updated Oct 14, 2024</span>
+            </div>
+            <a href="https://github.com/hadipourh/craftanalysis" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              CRAFT-Integral-Distinguisher
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>4</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Using an MILP method to find integral distinguisher based on division property for CRAFT
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Jul 6, 2024</span>
+            </div>
+            <a href="https://github.com/hadipourh/CRAFT-Integral-Distinguisher" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              MIBS-Integral-Cryptanalysis-Basd-on-Division-Property
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>4</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Applying the MILP method to search bit-based integral distinguishers and degree estimation of the round function of MIBS block cipher, using division property.
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated May 17, 2022</span>
+            </div>
+            <a href="https://github.com/hadipourh/MIBS-Integral-Cryptanalysis-Basd-on-Division-Property" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              fnv2
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>4</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A Sage code for finding collision for the FNV2 hash function
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                TeX
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 1, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/fnv2" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              mpt
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>3</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Integral Analysis Based on Monomial Prediction
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Mar 28, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/mpt" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              Syncing-Your-Github-Fork
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>2</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A brief guidance about syncing a forked repository with the original one
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Unknown
+              </span>
+              <span class="text-xs text-gray-500">Updated Apr 21, 2023</span>
+            </div>
+            <a href="https://github.com/hadipourh/Syncing-Your-Github-Fork" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              minizinc-installer-linux
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            MiniZinc Installer for Linux (Bundle Version)
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Shell
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 30, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/minizinc-installer-linux" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              grabgurobi
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Gurobi Installer for Linux
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Shell
+              </span>
+              <span class="text-xs text-gray-500">Updated Jun 4, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/grabgurobi" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              QARMAnalysis
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Cryptanalysis of QARMAv2
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                TeX
+              </span>
+              <span class="text-xs text-gray-500">Updated Oct 12, 2024</span>
+            </div>
+            <a href="https://github.com/hadipourh/QARMAnalysis" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              faultyaes
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Practical Multiple Persistent Faults Analysis
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Feb 22, 2023</span>
+            </div>
+            <a href="https://github.com/hadipourh/faultyaes" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              mqchallenge
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Decode the MQ Challenge Systems into the Sage Format
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Jupyter Notebook
+              </span>
+              <span class="text-xs text-gray-500">Updated Feb 4, 2022</span>
+            </div>
+            <a href="https://github.com/hadipourh/mqchallenge" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              skinny
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            C++ Implementation of Skinny
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C++
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 1, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/skinny" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              pythonexample
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Some Python Examples for Those Who Want to Learn Python
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Jupyter Notebook
+              </span>
+              <span class="text-xs text-gray-500">Updated Jun 16, 2022</span>
+            </div>
+            <a href="https://github.com/hadipourh/pythonexample" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              artifacts
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A comprehensive toolkit for research artifact evaluation with guides, templates, and evaluation forms for computer science conferences
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Unknown
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 27, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/artifacts" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              hadipourh.github.io
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            My Personal Website
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Astro
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 15, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/hadipourh.github.io" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              mscthesis
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            No description available
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                TeX
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 12, 2024</span>
+            </div>
+            <a href="https://github.com/hadipourh/mscthesis" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              sha3collision
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A Simple Python Script to Find Collision for Truncated SHA3
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Jan 28, 2022</span>
+            </div>
+            <a href="https://github.com/hadipourh/sha3collision" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              CythonSage
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            An example of using an external C code in Python (SageMath)
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Jupyter Notebook
+              </span>
+              <span class="text-xs text-gray-500">Updated May 8, 2023</span>
+            </div>
+            <a href="https://github.com/hadipourh/CythonSage" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              DegreeDropper
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Degree Dropper Algorithm
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Mar 12, 2021</span>
+            </div>
+            <a href="https://github.com/hadipourh/DegreeDropper" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              Algebraic-Attack-on-BiviumA
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>0</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            It is a SageMath script, which extracts the BiviumA algebraic equations, and then solves the extracted equations via a SAT solver. Here the Cryptominisat5 is used as a SAT solver. 
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Jupyter Notebook
+              </span>
+              <span class="text-xs text-gray-500">Updated Mar 19, 2025</span>
+            </div>
+            <a href="https://github.com/hadipourh/Algebraic-Attack-on-BiviumA" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- MAIN_PROJECTS_END -->
+			</div>
+		</section>
+
+		<!-- Collaborative Projects Section -->
+		<section class='mb-16'>
+			<div class='text-center mb-12'>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(3)} bg-clip-text text-transparent`}>
+					Collaborative Projects
+				</h2>
+				<p class='text-base-content/70 text-lg'>
+					Research partnerships and joint developments with fellow researchers
+				</p>
 			</div>
 
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Sboxanalyzer
-					</h2>
-					<p class='text-sm'>An easy-to-use and open-source tool for differential, linear, differential-li...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>31 stars</div>
-						<div class='badge badge-outline'>C</div>
-						<div class='badge badge-outline'>Ddlct</div><div class='badge badge-outline'>Ddt</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/sboxanalyzer' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
+			<div class='grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto'>
+				<!-- COLLABORATIVE_PROJECTS_START -->
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                cryptosmt
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by kste</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>97</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>39</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            An easy to use tool for cryptanalysis of symmetric primitives based on SMT/SAT solvers.
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Aug 6, 2025</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              6 PRs
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to kste/cryptosmt
+            </div>
+            <a href="https://github.com/kste/cryptosmt" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-teal-600 to-cyan-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                sec-deadlines.github.io
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by sec-deadlines</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>749</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>289</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Deadline countdowns for academic conferences in Security and Privacy
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                HTML
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 16, 2025</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              5 PRs
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to sec-deadlines/sec-deadlines.github.io
+            </div>
+            <a href="https://github.com/sec-deadlines/sec-deadlines.github.io" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-cyan-600 to-sky-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                zeroplusplus
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by Debasmita-isi</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>3</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>1</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                MiniZinc
+              </span>
+              <span class="text-xs text-gray-500">Updated Jun 26, 2025</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              3 PRs
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to Debasmita-isi/zeroplusplus
+            </div>
+            <a href="https://github.com/Debasmita-isi/zeroplusplus" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-sky-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                sage
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by sagemath</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1962</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>661</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Main repository of SageMath
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 15, 2025</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              2 PRs
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to sagemath/sage
+            </div>
+            <a href="https://github.com/sagemath/sage" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                Tools-for-Cryptanalysis
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by Deadlyelder</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>214</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>52</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            A repository that aims to provide tools for cryptography and cryptanalysis
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                HTML
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 15, 2025</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              2 PRs
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to Deadlyelder/Tools-for-Cryptanalysis
+            </div>
+            <a href="https://github.com/Deadlyelder/Tools-for-Cryptanalysis" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                solvatore
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by kste</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>24</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>11</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            An easy to use tool for evaluating the security of cryptographic algorithms against integral attacks.
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Python
+              </span>
+              <span class="text-xs text-gray-500">Updated Nov 14, 2024</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              2 PRs
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to kste/solvatore
+            </div>
+            <a href="https://github.com/kste/solvatore" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                iacrtrans
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by Cryptosaurus</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>32</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>23</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            LaTeX class for the IACR Transactions on Symmetric Cryptology
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                PostScript
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 1, 2025</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              1 PR
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to Cryptosaurus/iacrtrans
+            </div>
+            <a href="https://github.com/Cryptosaurus/iacrtrans" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-violet-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                AES-attacks-finder
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by cbouilla</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>5</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>2</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            Automatic tool from 2011 to find low-data complexity MitM attacks on the AES
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                C
+              </span>
+              <span class="text-xs text-gray-500">Updated Nov 29, 2024</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              1 PR
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to cbouilla/AES-attacks-finder
+            </div>
+            <a href="https://github.com/cbouilla/AES-attacks-finder" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                info-sec-contacts
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by alxdavids</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>5</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>9</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            List of available research positions in information security
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                Shell
+              </span>
+              <span class="text-xs text-gray-500">Updated Sep 8, 2021</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              1 PR
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to alxdavids/info-sec-contacts
+            </div>
+            <a href="https://github.com/alxdavids/info-sec-contacts" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-teal-600 to-cyan-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                boolector
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by Sichao-Yang</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>1</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>0</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            My copy of A Satisfiability Modulo Theories (SMT) solver for the theories of fixed-size bit-vectors, arrays and uninterpreted functions.
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                SMT
+              </span>
+              <span class="text-xs text-gray-500">Updated Jul 30, 2025</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              1 PR
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to Sichao-Yang/boolector
+            </div>
+            <a href="https://github.com/Sichao-Yang/boolector" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>
+        <!-- COLLABORATIVE_PROJECTS_END -->
 			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Autoguess
-					</h2>
-					<p class='text-sm'>An easy-to-use, general and open-source tool to solve the guess-and-determine...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>28 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						<div class='badge badge-outline'>Blockcipher</div><div class='badge badge-outline'>Constrain...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/autoguess' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						CryptoHDL
-					</h2>
-					<p class='text-sm'>A list of VHDL codes implementing cryptographic algorithms</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>27 stars</div>
-						<div class='badge badge-outline'>VHDL</div>
-						<div class='badge badge-outline'>Aes</div><div class='badge badge-outline'>Ascon</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/CryptoHDL' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Zeroplus
-					</h2>
-					<p class='text-sm'>Improved Search for Integral, Impossible Differential and Zero-Correlation At...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>14 stars</div>
-						<div class='badge badge-outline'>MiniZinc</div>
-						<div class='badge badge-outline'>Ascon</div><div class='badge badge-outline'>Constrain...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/zeroplus' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Ctiming
-					</h2>
-					<p class='text-sm'>Measuring the Performance of C Implementations in CPU clock cycle</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>12 stars</div>
-						<div class='badge badge-outline'>C</div>
-						<div class='badge badge-outline'>Aes</div><div class='badge badge-outline'>Aes Ni</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/ctiming' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						DL
-					</h2>
-					<p class='text-sm'>Revisiting Differential-Linear Attacks via a Boomerang Perspective</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>11 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						<div class='badge badge-outline'>Aes</div><div class='badge badge-outline'>Ascon</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/DL' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Zero
-					</h2>
-					<p class='text-sm'>An Automatic Tool to Search for Full Impossible-Differential, Zero-Correlatio...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>11 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						<div class='badge badge-outline'>Block Cipher</div><div class='badge badge-outline'>Craft Blo...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/zero' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Boomerang
-					</h2>
-					<p class='text-sm'>A New Method to Search for Boomerang Distinguishers: Improved Rectangle Attac...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>8 stars</div>
-						<div class='badge badge-outline'>Jupyter...</div>
-						<div class='badge badge-outline'>Automated...</div><div class='badge badge-outline'>Bct</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/Boomerang' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Twinkle
-					</h2>
-					<p class='text-sm'>Breaking the Twinkle Authenticated Encryption Scheme</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>6 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						<div class='badge badge-outline'>Different...</div><div class='badge badge-outline'>Division ...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/twinkle' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Talks
-					</h2>
-					<p class='text-sm'>The LaTex Sources for My Talks</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>6 stars</div>
-						<div class='badge badge-outline'>TeX</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Presentation Templates</div>
-						<a href='https://github.com/hadipourh/talks' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Logic Minimization
-					</h2>
-					<p class='text-sm'>A repository containing off-the-shelf programs for solving the logic minimiza...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>6 stars</div>
-						<div class='badge badge-outline'>Mixed</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/logic-minimization' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						CTC2 Fast Algebraic Attack
-					</h2>
-					<p class='text-sm'>A python class implementing the Courtois Toy Cipher (CTC2) equipped with some...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>5 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/CTC2-Fast-Algebraic-Attack' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Fnv2
-					</h2>
-					<p class='text-sm'>A Sage code for finding collision for the FNV2 hash function</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>4 stars</div>
-						<div class='badge badge-outline'>TeX</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/fnv2' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Craftanalysis
-					</h2>
-					<p class='text-sm'>Comprehensive Security Analysis of CRAFT</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>4 stars</div>
-						<div class='badge badge-outline'>Jupyter...</div>
-						<div class='badge badge-outline'>Craft</div><div class='badge badge-outline'>Cryptanal...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/craftanalysis' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						CRAFT Integral Distinguisher
-					</h2>
-					<p class='text-sm'>Using an MILP method to find integral distinguisher based on division propert...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>4 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/CRAFT-Integral-Distinguisher' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Comeback
-					</h2>
-					<p class='text-sm'>An Efficient Tool to Search for Boomerang Distinguishers for Feistel and SPN ...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>4 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						<div class='badge badge-outline'>Boomerang...</div><div class='badge badge-outline'>Clefia Bl...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/comeback' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						MIBS Integral Cryptanalysis Basd On Division Property
-					</h2>
-					<p class='text-sm'>Applying the MILP method to search bit-based integral distinguishers and degr...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>4 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/MIBS-Integral-Cryptanalysis-Basd-on-Division-Property' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Mpt
-					</h2>
-					<p class='text-sm'>Integral Analysis Based on Monomial Prediction</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>3 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						<div class='badge badge-outline'>Aes</div><div class='badge badge-outline'>Cp</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/mpt' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Syncing Your Github Fork
-					</h2>
-					<p class='text-sm'>A brief guidance about syncing a forked repository with the original one</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>2 stars</div>
-						<div class='badge badge-outline'>Mixed</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/Syncing-Your-Github-Fork' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Skinny
-					</h2>
-					<p class='text-sm'>C++ Implementation of Skinny</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>1 stars</div>
-						<div class='badge badge-outline'>C++</div>
-						<div class='badge badge-outline'>Skinny</div><div class='badge badge-outline'>Skinny Bl...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/skinny' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Minizinc Installer Linux
-					</h2>
-					<p class='text-sm'>MiniZinc Installer for Linux (Bundle Version)</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>1 stars</div>
-						<div class='badge badge-outline'>Shell</div>
-						<div class='badge badge-outline'>Installer...</div><div class='badge badge-outline'>Linux</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/minizinc-installer-linux' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Grabgurobi
-					</h2>
-					<p class='text-sm'>Gurobi Installer for Linux</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>1 stars</div>
-						<div class='badge badge-outline'>Shell</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/grabgurobi' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						QARMAnalysis
-					</h2>
-					<p class='text-sm'>Cryptanalysis of QARMAv2</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>1 stars</div>
-						<div class='badge badge-outline'>TeX</div>
-						<div class='badge badge-outline'>Block Cip...</div><div class='badge badge-outline'>Cryptanal...</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/QARMAnalysis' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Faultyaes
-					</h2>
-					<p class='text-sm'>Practical Multiple Persistent Faults Analysis</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>1 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						<div class='badge badge-outline'>Aes</div><div class='badge badge-outline'>Fault Attack</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/faultyaes' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Pythonexample
-					</h2>
-					<p class='text-sm'>Some Python Examples for Those Who Want to Learn Python</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>1 stars</div>
-						<div class='badge badge-outline'>Jupyter...</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/pythonexample' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Mqchallenge
-					</h2>
-					<p class='text-sm'>Decode the MQ Challenge Systems into the Sage Format</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>1 stars</div>
-						<div class='badge badge-outline'>Jupyter...</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/mqchallenge' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Hadipourh.github.io
-					</h2>
-					<p class='text-sm'>My Personal Website</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>0 stars</div>
-						<div class='badge badge-outline'>Astro</div>
-						<div class='badge badge-outline'>Block Cipher</div><div class='badge badge-outline'>Cryptography</div>
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/hadipourh.github.io' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Artifacts
-					</h2>
-					<p class='text-sm'>A comprehensive toolkit for research artifact evaluation with guides, templat...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>0 stars</div>
-						<div class='badge badge-outline'>Mixed</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/artifacts' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Algebraic Attack On BiviumA
-					</h2>
-					<p class='text-sm'>It is a SageMath script, which extracts the BiviumA algebraic equations, and ...</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>0 stars</div>
-						<div class='badge badge-outline'>Jupyter...</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/Algebraic-Attack-on-BiviumA' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Mscthesis
-					</h2>
-					<p class='text-sm'>No description available</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>0 stars</div>
-						<div class='badge badge-outline'>TeX</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/mscthesis' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						CythonSage
-					</h2>
-					<p class='text-sm'>An example of using an external C code in Python (SageMath)</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>0 stars</div>
-						<div class='badge badge-outline'>Jupyter...</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/CythonSage' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						Sha3collision
-					</h2>
-					<p class='text-sm'>A Simple Python Script to Find Collision for Truncated SHA3</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>0 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/sha3collision' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						DegreeDropper
-					</h2>
-					<p class='text-sm'>Degree Dropper Algorithm</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>0 stars</div>
-						<div class='badge badge-outline'>Python</div>
-						
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>Research Tool</div>
-						<a href='https://github.com/hadipourh/DegreeDropper' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<h2 class='text-2xl font-bold mb-6'>Contributions & Collaborations</h2>
-		<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Cryptosmt
-						<span class="badge badge-secondary badge-sm">6 PRs</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>An easy to use tool for cryptanalysis of symmetric primitives based...</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>97 stars</div>
-						<div class='badge badge-sm badge-outline'>Python</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/kste/cryptosmt' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Sec Deadlines.github.io
-						<span class="badge badge-secondary badge-sm">5 PRs</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>Deadline countdowns for academic conferences in Security and Privacy</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>748 stars</div>
-						<div class='badge badge-sm badge-outline'>HTML</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/sec-deadlines/sec-deadlines.github.io' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Zeroplusplus
-						<span class="badge badge-secondary badge-sm">3 PRs</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>Finding Complete Impossible Differential Attacks on AndRX Ciphers a...</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>3 stars</div>
-						<div class='badge badge-sm badge-outline'>MiniZinc</div>
-						<div class='badge badge-sm badge-outline'>Andrx</div>
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/Debasmita-isi/zeroplusplus' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Sage
-						<span class="badge badge-secondary badge-sm">2 PRs</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>Main repository of SageMath</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>1960 stars</div>
-						<div class='badge badge-sm badge-outline'>Python</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/sagemath/sage' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Tools For Cryptanalysis
-						<span class="badge badge-secondary badge-sm">2 PRs</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>A repository that aims to provide tools for cryptography and crypta...</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>216 stars</div>
-						<div class='badge badge-sm badge-outline'>HTML</div>
-						<div class='badge badge-sm badge-outline'>Cryptan...</div>
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/Deadlyelder/Tools-for-Cryptanalysis' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Solvatore
-						<span class="badge badge-secondary badge-sm">2 PRs</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>An easy to use tool for evaluating the security of cryptographic al...</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>24 stars</div>
-						<div class='badge badge-sm badge-outline'>Python</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/kste/solvatore' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Iacrtrans
-						<span class="badge badge-secondary badge-sm">1 PR</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>LaTeX class for the IACR Transactions on Symmetric Cryptology</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>32 stars</div>
-						<div class='badge badge-sm badge-outline'>PostS...</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/Cryptosaurus/iacrtrans' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						AES Attacks Finder
-						<span class="badge badge-secondary badge-sm">1 PR</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>Automatic tool from 2011 to find low-data complexity MitM attacks o...</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>5 stars</div>
-						<div class='badge badge-sm badge-outline'>C</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/cbouilla/AES-attacks-finder' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Info Sec Contacts
-						<span class="badge badge-secondary badge-sm">1 PR</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>List of available research positions in information security</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>5 stars</div>
-						<div class='badge badge-sm badge-outline'>Shell</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/alxdavids/info-sec-contacts' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-
-			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						Boolector
-						<span class="badge badge-secondary badge-sm">1 PR</span>
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>My copy of A Satisfiability Modulo Theories (SMT) solver for the th...</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>1 stars</div>
-						<div class='badge badge-sm badge-outline'>SMT</div>
-						
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='https://github.com/Sichao-Yang/boolector' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section></section>
+		</section>
+	</main>
 </Layout>

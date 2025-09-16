@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Auto-update projects from GitHub repositories
- * This script fetches project information and updates src/pages/projects.astro
- * Focus: Pull requests for contributions and collaborations
+ * Clean Projects Updater
+ * Fetches GitHub repositories and updates the projects page with:
+ * 1. Featured Projects (top 6 by stars)
+ * 2. All Projects archive
  */
 
 import fs from 'fs/promises';
@@ -11,12 +12,15 @@ import path from 'path';
 
 const GITHUB_API = 'https://api.github.com';
 const USERNAME = 'hadipourh';
-
-// GitHub token for API authentication (optional but recommended)
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-// Helper function to get headers for GitHub API requests
-function getGitHubHeaders() {
+// Repositories to exclude
+const EXCLUDED_REPOS = ['mywebsite', 'hadipourh'];
+
+/**
+ * Get GitHub API headers
+ */
+function getHeaders() {
   const headers = {
     'Accept': 'application/vnd.github.v3+json',
     'User-Agent': 'Academic-Website-Bot'
@@ -29,42 +33,65 @@ function getGitHubHeaders() {
   return headers;
 }
 
-// Repositories to exclude from the projects page
-const EXCLUDED_REPOS = [
-  'mywebsite', // This website itself
-  'hadipourh'  // Profile README
-];
-
-// Additional repositories to exclude from contributions section only
-const EXCLUDED_CONTRIBUTIONS = [
-  'sandbox',              // NRTC/sandbox
-  'course-cryptanalysis'  // Ling-Song-000/course-cryptanalysis
-];
-
 /**
- * Fetch all pull requests created by the user across GitHub
+ * Fetch user repositories
  */
-async function fetchUserPullRequests() {
+async function fetchRepositories() {
   try {
-    console.log('Fetching pull requests from GitHub...');
+    console.log('Fetching repositories...');
     
-    const query = `author:${USERNAME} type:pr`;
-    const response = await fetch(`${GITHUB_API}/search/issues?q=${encodeURIComponent(query)}&per_page=100&sort=updated`, {
-      headers: getGitHubHeaders()
+    const response = await fetch(`${GITHUB_API}/users/${USERNAME}/repos?type=owner&sort=stargazers&direction=desc&per_page=100`, {
+      headers: getHeaders()
     });
     
     if (!response.ok) {
       if (response.status === 403) {
-        console.log('WARNING: GitHub API rate limit reached. Consider setting GITHUB_TOKEN environment variable.');
-        console.log('Rate limit info:', response.headers.get('x-ratelimit-remaining'), 'requests remaining');
+        console.log('Rate limit reached. Try setting GITHUB_TOKEN environment variable.');
       }
-      throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
+      throw new Error(`GitHub API failed: ${response.status}`);
+    }
+    
+    const repos = await response.json();
+    
+    // Filter repositories
+    const filtered = repos.filter(repo => 
+      !repo.fork && 
+      !repo.archived && 
+      !EXCLUDED_REPOS.includes(repo.name)
+    );
+    
+    console.log(`Found ${filtered.length} repositories`);
+    return filtered;
+    
+  } catch (error) {
+    console.error('Error fetching repositories:', error.message);
+    return [];
+  }
+}
+
+/**
+ * Fetch pull requests made by the user across GitHub
+ */
+async function fetchPullRequests() {
+  try {
+    console.log('Fetching pull requests...');
+    
+    const response = await fetch(`${GITHUB_API}/search/issues?q=author:${USERNAME}+type:pr&per_page=100&sort=updated`, {
+      headers: getHeaders()
+    });
+    
+    if (!response.ok) {
+      if (response.status === 403) {
+        console.log('Rate limit reached for pull requests.');
+      }
+      throw new Error(`GitHub API failed: ${response.status}`);
     }
     
     const data = await response.json();
-    console.log(`Found ${data.total_count} pull requests by ${USERNAME}`);
+    console.log(`Found ${data.total_count} pull requests`);
     
     return data.items;
+    
   } catch (error) {
     console.error('Error fetching pull requests:', error.message);
     return [];
@@ -74,7 +101,10 @@ async function fetchUserPullRequests() {
 /**
  * Extract unique repositories from pull requests
  */
-function extractRepositoriesFromPRs(pullRequests) {
+function extractCollaborativeRepos(pullRequests) {
+  // Projects to exclude from collaborative section
+  const excludedProjects = ['course-cryptanalysis', 'sandbox'];
+  
   const repoMap = new Map();
   
   pullRequests.forEach(pr => {
@@ -82,13 +112,13 @@ function extractRepositoriesFromPRs(pullRequests) {
     const repoFullName = repoUrl.replace(`${GITHUB_API}/repos/`, '');
     const [owner, name] = repoFullName.split('/');
     
-    // Skip own repositories and excluded repos
-    if (owner === USERNAME || EXCLUDED_REPOS.includes(name)) {
+    // Skip own repositories
+    if (owner === USERNAME) {
       return;
     }
     
-    // Skip repositories excluded from contributions section
-    if (EXCLUDED_CONTRIBUTIONS.includes(name.toLowerCase())) {
+    // Skip excluded projects
+    if (excludedProjects.includes(name)) {
       return;
     }
     
@@ -98,8 +128,8 @@ function extractRepositoriesFromPRs(pullRequests) {
         owner,
         name,
         fullName: repoFullName,
-        pullRequests: [],
-        url: pr.html_url.replace(/\/pull\/\d+$/, '')
+        url: pr.html_url.replace(/\/pull\/\d+$/, ''), // Remove PR number to get repo URL
+        pullRequests: []
       });
     }
     
@@ -108,8 +138,7 @@ function extractRepositoriesFromPRs(pullRequests) {
       title: pr.title,
       state: pr.state,
       url: pr.html_url,
-      created_at: pr.created_at,
-      updated_at: pr.updated_at
+      created: pr.created_at
     });
   });
   
@@ -117,285 +146,384 @@ function extractRepositoriesFromPRs(pullRequests) {
 }
 
 /**
- * Fetch additional repository information
+ * Enrich collaborative repositories with GitHub data
  */
-async function enrichRepositoryData(repositories) {
-  console.log(`Fetching details for ${repositories.length} repositories...`);
-  
+async function enrichCollaborativeRepos(collaborativeRepos) {
   const enriched = [];
   
-  for (const repo of repositories) {
+  for (const repo of collaborativeRepos.slice(0, 10)) { // Limit to avoid rate limits
     try {
       const response = await fetch(`${GITHUB_API}/repos/${repo.fullName}`, {
-        headers: getGitHubHeaders()
+        headers: getHeaders()
       });
       
       if (response.ok) {
         const repoData = await response.json();
         enriched.push({
-          ...repo,
+          name: repoData.name,
+          fullName: repoData.full_name,
           description: repoData.description || 'No description available',
-          stars: repoData.stargazers_count,
-          forks: repoData.forks_count,
-          language: repoData.language,
-          topics: repoData.topics || [],
-          updated: repoData.updated_at
+          stars: repoData.stargazers_count || 0,
+          forks: repoData.forks_count || 0,
+          language: repoData.language || 'Unknown',
+          url: repoData.html_url,
+          updated: repoData.updated_at,
+          pullRequests: repo.pullRequests,
+          owner: repo.owner
         });
-        
-        console.log(`Processed: ${repo.fullName} (${repo.pullRequests.length} PRs)`);
-      } else {
-        console.log(`Warning: Could not fetch details for ${repo.fullName}`);
       }
-      
-      // Rate limiting
-      await new Promise(resolve => setTimeout(resolve, 100));
     } catch (error) {
-      console.log(`Warning: Error processing ${repo.fullName}: ${error.message}`);
+      console.log(`Warning: Could not fetch details for ${repo.fullName}`);
     }
   }
   
-  return enriched;
+  return enriched.sort((a, b) => b.pullRequests.length - a.pullRequests.length || b.stars - a.stars);
 }
 
 /**
- * Fetch user's own repositories
+ * Generate featured project card HTML
  */
-async function fetchUserRepositories() {
-  try {
-    console.log('Fetching user repositories...');
-    
-    const response = await fetch(`${GITHUB_API}/users/${USERNAME}/repos?sort=updated&per_page=100`, {
-      headers: getGitHubHeaders()
-    });
-    
-    if (!response.ok) {
-      if (response.status === 403) {
-        console.log('WARNING: GitHub API rate limit reached for user repositories.');
-        console.log('Rate limit info:', response.headers.get('x-ratelimit-remaining'), 'requests remaining');
-      }
-      throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
-    }
-    
-    const repos = await response.json();
-    
-    // Filter for original work (non-forks, non-excluded)
-    const originalRepos = repos
-      .filter(repo => !repo.fork && !repo.private && !EXCLUDED_REPOS.includes(repo.name))
-      .sort((a, b) => {
-        if (a.stargazers_count !== b.stargazers_count) {
-          return b.stargazers_count - a.stargazers_count;
-        }
-        return new Date(b.updated_at) - new Date(a.updated_at);
-      })
-      .map(repo => ({
-        name: repo.name,
-        fullName: repo.full_name,
-        description: repo.description || 'No description available',
-        stars: repo.stargazers_count,
-        forks: repo.forks_count,
-        language: repo.language,
-        url: repo.html_url,
-        topics: repo.topics || [],
-        updated: repo.updated_at,
-        fork: false
-      }));
-    
-    console.log(`Found ${originalRepos.length} original repositories`);
-    return originalRepos;
-  } catch (error) {
-    console.error('Error fetching user repositories:', error.message);
-    return [];
-  }
+function generateFeaturedCard(repo, index) {
+  const gradients = [
+    'from-blue-600 to-purple-600',
+    'from-purple-600 to-pink-600', 
+    'from-pink-600 to-red-600',
+    'from-red-600 to-orange-600',
+    'from-orange-600 to-yellow-600',
+    'from-yellow-600 to-green-600',
+    'from-green-600 to-teal-600',
+    'from-teal-600 to-cyan-600',
+    'from-cyan-600 to-blue-600'
+  ];
+  
+  const gradient = gradients[index % gradients.length];
+  const stars = repo.stargazers_count || 0;
+  const forks = repo.forks_count || 0;
+  const description = repo.description || 'No description available';
+  const language = repo.language || 'Unknown';
+  
+  return `      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2 transition-all duration-300">
+                ${repo.name}
+              </h3>
+              <p class="text-sm opacity-80 mb-3 line-clamp-2">
+                ${description}
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center space-x-4">
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>${stars}</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>${forks}</span>
+              </span>
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                ${language}
+              </span>
+            </div>
+            <a href="${repo.html_url}" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>`;
 }
 
 /**
- * Main function to fetch all projects data
+ * Generate regular project card HTML
  */
-async function fetchProjectsFromGitHub() {
+function generateProjectCard(repo, index) {
+  const gradients = [
+    'from-blue-600 to-purple-600',
+    'from-purple-600 to-pink-600', 
+    'from-pink-600 to-red-600',
+    'from-red-600 to-orange-600',
+    'from-orange-600 to-yellow-600',
+    'from-yellow-600 to-green-600',
+    'from-green-600 to-blue-600',
+    'from-indigo-600 to-blue-600'
+  ];
+  
+  const gradient = gradients[index % gradients.length];
+  const stars = repo.stargazers_count || 0;
+  const forks = repo.forks_count || 0;
+  const description = repo.description || 'No description available';
+  const language = repo.language || 'Unknown';
+  const updatedDate = new Date(repo.updated_at).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+  
+  return `      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-lg font-semibold transition-all duration-300">
+              ${repo.name}
+            </h3>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>${stars}</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>${forks}</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            ${description}
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                ${language}
+              </span>
+              <span class="text-xs text-gray-500">Updated ${updatedDate}</span>
+            </div>
+            <a href="${repo.html_url}" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>`;
+}
+
+/**
+ * Generate collaborative project card HTML
+ */
+function generateCollaborativeCard(repo, index) {
+  const gradients = [
+    'from-emerald-600 to-teal-600',
+    'from-teal-600 to-cyan-600',
+    'from-cyan-600 to-sky-600',
+    'from-sky-600 to-blue-600',
+    'from-blue-600 to-indigo-600',
+    'from-indigo-600 to-purple-600',
+    'from-purple-600 to-violet-600',
+    'from-violet-600 to-pink-600'
+  ];
+  
+  const gradient = gradients[index % gradients.length];
+  const stars = repo.stars || 0;
+  const forks = repo.forks || 0;
+  const description = repo.description || 'No description available';
+  const language = repo.language || 'Unknown';
+  const prCount = repo.pullRequests.length;
+  const updatedDate = new Date(repo.updated).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+  
+  return `      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold transition-all duration-300 mb-1">
+                ${repo.name}
+              </h3>
+              <p class="text-xs text-gray-500 mb-2">by ${repo.owner}</p>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-600">
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <span>${stars}</span>
+              </span>
+              <span class="flex items-center space-x-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 717 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414L2.586 7a2 2 0 010-2.828l3.707-3.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>${forks}</span>
+              </span>
+            </div>
+          </div>
+          
+          <p class="text-sm opacity-80 mb-3 line-clamp-2">
+            ${description}
+          </p>
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
+                ${language}
+              </span>
+              <span class="text-xs text-gray-500">Updated ${updatedDate}</span>
+            </div>
+            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              ${prCount} PR${prCount > 1 ? 's' : ''}
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="text-xs text-gray-600">
+              Contributed to ${repo.owner}/${repo.name}
+            </div>
+            <a href="${repo.url}" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+              View →
+            </a>
+          </div>
+        </div>
+      </div>`;
+}
+
+/**
+ * Calculate project statistics
+ */
+function calculateStatistics(repositories, collaborativeRepos = []) {
+  const totalProjects = repositories.length;
+  const totalStars = repositories.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+  const languages = new Set(repositories.map(repo => repo.language).filter(lang => lang));
+  const totalLanguages = languages.size;
+  
+  return {
+    totalProjects,
+    totalStars,
+    totalLanguages,
+    collaborativeProjects: collaborativeRepos.length
+  };
+}
+
+/**
+ * Update the projects page
+ */
+async function updateProjectsPage(repositories, collaborativeRepos = []) {
   try {
-    const [userRepos, pullRequests] = await Promise.all([
-      fetchUserRepositories(),
-      fetchUserPullRequests()
-    ]);
-    
-    const contributionRepos = extractRepositoriesFromPRs(pullRequests);
-    const enrichedContributions = await enrichRepositoryData(contributionRepos);
-    
-    // Sort contributions by number of pull requests (descending), then by stars
-    enrichedContributions.sort((a, b) => {
-      if (a.pullRequests.length !== b.pullRequests.length) {
-        return b.pullRequests.length - a.pullRequests.length;
-      }
-      return b.stars - a.stars;
-    });
-    
-    console.log(`Summary: ${userRepos.length} original repos, ${enrichedContributions.length} contributions`);
-    
-    return {
-      original: userRepos,
-      contributions: enrichedContributions
-    };
-  } catch (error) {
-    console.error('Error fetching projects from GitHub:', error.message);
-    return { original: [], contributions: [] };
-  }
-}
-
-function generateProjectCard(project) {
-  const truncatedDescription = truncateText(project.description, 80);
-  
-  // Simple, dynamic project type based on characteristics
-  let projectType = 'Research Tool';
-  if (project.topics.includes('education') || project.name.includes('course')) {
-    projectType = 'Educational Resource';
-  } else if (project.name.includes('talks') || project.name.includes('presentation')) {
-    projectType = 'Presentation Templates';
-  }
-  
-  return `			<div class='card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow'>
-				<div class='card-body'>
-					<h2 class='card-title text-lg'>
-						${formatProjectName(project.name)}
-					</h2>
-					<p class='text-sm'>${truncatedDescription}</p>
-					<div class='flex flex-wrap gap-2 mt-3 mb-2'>
-						<div class='badge badge-primary'>${project.stars} stars</div>
-						<div class='badge badge-outline'>${truncateText(project.language || 'Mixed', 10)}</div>
-						${project.topics.slice(0, 2).map(topic => 
-							`<div class='badge badge-outline'>${truncateText(formatTopic(topic), 12)}</div>`
-						).join('')}
-					</div>
-					<div class='card-actions justify-between items-end'>
-						<div class='text-xs text-gray-500 flex-1'>${projectType}</div>
-						<a href='${project.url}' target='_blank' class='btn btn-primary btn-sm whitespace-nowrap'>View Code</a>
-					</div>
-				</div>
-			</div>`;
-}
-
-function generateContributionCard(project) {
-  const truncatedDescription = truncateText(project.description, 70);
-  
-  // Show pull request count prominently for contributions
-  const prInfo = project.pullRequests ? 
-    `<span class="badge badge-secondary badge-sm">${project.pullRequests.length} PR${project.pullRequests.length !== 1 ? 's' : ''}</span>` : '';
-  
-  return `			<div class='card bg-base-100 shadow-md hover:shadow-lg transition-shadow'>
-				<div class='card-body p-4'>
-					<h3 class='card-title text-base'>
-						${formatProjectName(project.name)}
-						${prInfo}
-					</h3>
-					<p class='text-sm text-gray-600 mb-3'>${truncatedDescription}</p>
-					<div class='flex flex-wrap gap-2 mb-3'>
-						<div class='badge badge-sm badge-primary'>${project.stars} stars</div>
-						<div class='badge badge-sm badge-outline'>${truncateText(project.language || 'Mixed', 8)}</div>
-						${project.topics.slice(0, 1).map(topic => 
-							`<div class='badge badge-sm badge-outline'>${truncateText(formatTopic(topic), 10)}</div>`
-						).join('')}
-					</div>
-					<div class='flex justify-between items-center'>
-						<div class='text-xs text-gray-500'>Collaboration</div>
-						<a href='${project.url}' target='_blank' class='btn btn-primary btn-xs'>View Project</a>
-					</div>
-				</div>
-			</div>`;
-}
-
-function formatProjectName(name) {
-  // Convert kebab-case to Title Case
-  return name.split('-').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(' ');
-}
-
-function truncateText(text, maxLength) {
-  if (!text) return '';
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength - 3) + '...';
-}
-
-function formatTopic(topic) {
-  return topic.split('-').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(' ');
-}
-
-async function updateProjectsPage(projectData) {
-  try {
-    const projectsPath = path.join(process.cwd(), 'src', 'pages', 'projects.astro');
+    const projectsPath = path.resolve('src/pages/projects.astro');
     let content = await fs.readFile(projectsPath, 'utf-8');
     
-    // Generate main projects (your original repositories)
-    const mainProjectCards = projectData.original.map(generateProjectCard).join('\n\n');
+    // Sort repositories by stars (descending)
+    const sortedRepos = repositories.sort((a, b) => b.stargazers_count - a.stargazers_count);
     
-    // Generate contributions section with compact cards
-    const contributionCards = projectData.contributions.map(project => 
-      generateContributionCard(project)
-    ).join('\n\n');
+    // Calculate real statistics
+    const stats = calculateStatistics(sortedRepos, collaborativeRepos);
     
-    // Find the start of the main projects section
-    const mainProjectsStart = content.indexOf('<h2 class=\'text-2xl font-bold mb-6\'>My Projects</h2>');
-    const mainGridStart = content.indexOf('<div class=\'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12\'>', mainProjectsStart);
+    // Update statistics in the content
+    content = content.replace(/>\s*50\+\s*</, `>${stats.totalProjects}<`);
+    content = content.replace(/>\s*1000\+\s*</, `>${stats.totalStars}<`);
+    content = content.replace(/>\s*15\+\s*</, `>${stats.totalLanguages}<`);
     
-    // Find the contributions section
-    const contributionsStart = content.indexOf('<h2 class=\'text-2xl font-bold mb-6\'>Contributions & Collaborations</h2>');
-    const contributionsGridStart = content.indexOf('<div class=\'grid grid-cols-1 md:grid-cols-2 gap-4\'>', contributionsStart);
-    const contributionsEnd = content.indexOf('</div>', contributionsGridStart) + 6; // Include the closing </div>
-    const sectionEnd = content.indexOf('</section>', contributionsEnd);
+    // Generate featured projects (top 9)
+    const featuredRepos = sortedRepos.slice(0, 9);
+    const featuredHTML = featuredRepos.map((repo, index) => generateFeaturedCard(repo, index)).join('\n');
     
-    if (mainProjectsStart !== -1 && sectionEnd !== -1) {
-      const beforeContent = content.substring(0, mainProjectsStart);
-      const afterContent = content.substring(sectionEnd);
-      
-      const newContent = `<h2 class='text-2xl font-bold mb-6'>My Projects</h2>
-		<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12'>
-${mainProjectCards}
-		</div>
-
-		<h2 class='text-2xl font-bold mb-6'>Contributions & Collaborations</h2>
-		<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-${contributionCards}
-		</div>
-	</section>`;
-      
-      content = beforeContent + newContent + afterContent;
+    // Generate all projects archive
+    const archiveHTML = sortedRepos.map((repo, index) => generateProjectCard(repo, index)).join('\n');
+    
+    // Update featured projects section
+    const featuredRegex = /<!-- FEATURED_PROJECTS_START -->[\s\S]*?<!-- FEATURED_PROJECTS_END -->/;
+    if (featuredRegex.test(content)) {
+      content = content.replace(featuredRegex, 
+        `<!-- FEATURED_PROJECTS_START -->\n${featuredHTML}\n    <!-- FEATURED_PROJECTS_END -->`
+      );
+      console.log(`Updated featured projects (${featuredRepos.length} projects)`);
     } else {
-      console.log('ERROR: Could not find section boundaries, content not updated');
-      console.log('Main projects start:', mainProjectsStart);
-      console.log('Section end:', sectionEnd);
+      console.log('Could not find FEATURED_PROJECTS markers');
     }
     
-    await fs.writeFile(projectsPath, content, 'utf-8');
-    console.log('SUCCESS: Updated projects.astro');
+    // Update main projects archive section
+    const archiveRegex = /<!-- MAIN_PROJECTS_START -->[\s\S]*?<!-- MAIN_PROJECTS_END -->/;
+    if (archiveRegex.test(content)) {
+      content = content.replace(archiveRegex, 
+        `<!-- MAIN_PROJECTS_START -->\n${archiveHTML}\n      <!-- MAIN_PROJECTS_END -->`
+      );
+      console.log(`Updated projects archive (${sortedRepos.length} projects)`);
+    } else {
+      console.log('Could not find MAIN_PROJECTS markers');
+    }
+    
+    // Update collaborative projects section
+    if (collaborativeRepos.length > 0) {
+      const collaborativeHTML = collaborativeRepos.map((repo, index) => generateCollaborativeCard(repo, index)).join('\n');
+      const collaborativeRegex = /<!-- COLLABORATIVE_PROJECTS_START -->[\s\S]*?<!-- COLLABORATIVE_PROJECTS_END -->/;
+      if (collaborativeRegex.test(content)) {
+        content = content.replace(collaborativeRegex, 
+          `<!-- COLLABORATIVE_PROJECTS_START -->\n${collaborativeHTML}\n        <!-- COLLABORATIVE_PROJECTS_END -->`
+        );
+        console.log(`Updated collaborative projects (${collaborativeRepos.length} projects)`);
+      } else {
+        console.log('Could not find COLLABORATIVE_PROJECTS markers');
+      }
+    } else {
+      console.log('No collaborative projects found');
+    }
+    
+    await fs.writeFile(projectsPath, content);
+    console.log('Projects page updated successfully');
+    
+    // Summary
+    console.log(`\nSummary:`);
+    console.log(`- Total repositories: ${repositories.length}`);
+    console.log(`- Featured projects: ${featuredRepos.length}`);
+    console.log(`- Collaborative projects: ${collaborativeRepos.length}`);
+    if (featuredRepos.length > 0) {
+      console.log(`- Top project: ${featuredRepos[0].name} (${featuredRepos[0].stargazers_count} stars)`);
+    }
     
   } catch (error) {
-    console.error('ERROR: Error updating projects.astro:', error.message);
+    console.error('Error updating projects page:', error.message);
   }
 }
 
+/**
+ * Main function
+ */
 async function main() {
-  console.log('Starting projects update process...');
+  console.log('Starting projects update...');
   
-  // Show authentication status
   if (GITHUB_TOKEN) {
-    console.log('✓ Using GitHub token authentication (higher rate limits)');
+    console.log('Using GitHub token (higher rate limits)');
   } else {
-    console.log('⚠ No GitHub token found. Using unauthenticated requests (lower rate limits)');
-    console.log('  To avoid rate limits, set GITHUB_TOKEN environment variable');
+    console.log('No GitHub token set (limited rate limits)');
+    console.log('  Set GITHUB_TOKEN environment variable to avoid rate limits');
   }
   
-  const projectData = await fetchProjectsFromGitHub();
+  // Fetch user's own repositories
+  const repositories = await fetchRepositories();
   
-  if (projectData.original.length > 0 || projectData.contributions.length > 0) {
-    await updateProjectsPage(projectData);
-    console.log(`Projects update completed! Updated ${projectData.original.length} main projects and ${projectData.contributions.length} contributions`);
-  } else {
-    console.log('WARNING: No projects found, skipping update');
+  if (repositories.length === 0) {
+    console.log('No repositories found. Check GitHub token or rate limits.');
+    return;
   }
+  
+  // Fetch collaborative projects (pull requests)
+  const pullRequests = await fetchPullRequests();
+  const collaborativeRepos = extractCollaborativeRepos(pullRequests);
+  const enrichedCollaborative = await enrichCollaborativeRepos(collaborativeRepos);
+  
+  await updateProjectsPage(repositories, enrichedCollaborative);
+  console.log('\nProjects update completed!');
 }
 
 // Run the script
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch(console.error);
-}
+main().catch(console.error);

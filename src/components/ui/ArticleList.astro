@@ -14,27 +14,69 @@ const {listTitle, listItems} = Astro.props
 
 // Take only the first few publications for the home page
 const displayItems = listItems ? listItems.slice(0, 3) : []
+
+// Function to get a gradient class based on index
+const getGradientClass = (index: number) => {
+  const gradients = [
+    'from-emerald-600 to-blue-600',
+    'from-violet-600 to-purple-600',
+    'from-rose-600 to-pink-600'
+  ]
+  return gradients[index % gradients.length]
+}
+
+// Function to get a text gradient class based on index
+const getTextGradientClass = (index: number) => {
+  const gradients = [
+    'from-primary via-secondary to-accent',
+    'from-success via-info to-warning',
+    'from-error via-primary to-success'
+  ]
+  return gradients[index % gradients.length]
+}
 ---
 
-<h2 class='text-3xl font-bold mb-8'>{listTitle}</h2>
-		<div class='space-y-6'>
-			{
-				displayItems.map(item => (
-					<div class='p-6 rounded-lg text-base-content bg-base-200'>
-						<h3 class='text-xl font-semibold mb-2'>{item.title}</h3>
-						<p class='text-sm text-gray-600 mb-1'>{item.authors}</p>
-						<p class='font-medium'>
+<div class="mb-12">
+	<h2 class={`text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-accent via-primary to-secondary bg-clip-text text-transparent`}>{listTitle}</h2>
+	<div class='space-y-6'>
+		{
+			displayItems.map((item, index) => (
+				<div class={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${getGradientClass(index)} p-1 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-${getGradientClass(index).split(' ')[0].replace('from-', '').replace('-600', '')}-500/25`}>
+					<div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+						<h3 class={`text-xl font-bold mb-3 bg-gradient-to-r ${getTextGradientClass(index)} bg-clip-text text-transparent transition-all duration-300`}>{item.title}</h3>
+						<p class='text-sm text-base-content/70 mb-2 font-medium'>{item.authors}</p>
+						<p class='font-medium text-base-content/90 mb-3'>
 							{item.journal} • {item.time}
 						</p>
 						{item.abstract && (
-							<p class='text-sm text-gray-600 mt-2'>{item.abstract}</p>
+							<p class='text-sm text-base-content/70 mb-4 leading-relaxed'>{item.abstract}</p>
 						)}
 						{item.link && (
-							<a href={item.link} target="_blank" class='text-primary hover:underline mt-2 inline-block'>
-								View Publication →
+							<a href={item.link} target="_blank" class={`inline-flex items-center space-x-2 bg-gradient-to-r ${getTextGradientClass(index)} bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 font-semibold`}>
+								<span>View Publication</span>
+								<svg class="w-4 h-4 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+								</svg>
 							</a>
 						)}
+						
+						<!-- Subtle glow effect on hover -->
+						<div class={`absolute inset-0 rounded-2xl bg-gradient-to-br ${getGradientClass(index)} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none`}></div>
 					</div>
-				))
-			}
-		</div>
+				</div>
+			))
+		}
+	</div>
+	
+	<!-- View All Publications Button -->
+	<div class="text-center mt-8">
+		<a href="/papers" class="group relative inline-flex items-center space-x-2 px-8 py-4 overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary/25">
+			<div class="rounded-xl bg-base-100 px-6 py-3 transition-all duration-300 group-hover:bg-opacity-95">
+				<span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">View All Publications</span>
+				<svg class="w-5 h-5 ml-2 inline-block text-primary group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+				</svg>
+			</div>
+		</a>
+	</div>
+</div>

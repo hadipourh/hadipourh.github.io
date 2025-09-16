@@ -38,21 +38,23 @@ const {
 			<input id='my-drawer' type='checkbox' class='drawer-toggle' />
 			<!-- Drawer content -->
             <div class='drawer-content bg-base-100'>
-				<div class='bg-base-100 z-50 text-base-content shadow-sm'>
+				<div class='bg-gradient-to-r from-base-100 via-base-200/30 to-base-100 backdrop-blur-sm z-50 text-base-content shadow-lg border-b border-base-300/50'>
 					<nav class='navbar'>
 						<div class='navbar-start'>
 							{template.menu_left &&
-								<DarkLightController/>
+								<div class="transition-all duration-300 hover:scale-110">
+									<DarkLightController/>
+								</div>
 								/* <ThemeSelector transition:persist /> */
 							}
-							<label for='my-drawer' class='btn btn-square btn-ghost lg:hidden'>
+							<label for='my-drawer' class='btn btn-square btn-ghost lg:hidden group transition-all duration-300 hover:scale-110 hover:bg-primary/10'>
 								<BetterIcon>
 									<svg
 										xmlns='http://www.w3.org/2000/svg'
 										fill='none'
 										viewBox='0 0 24 24'
 										stroke-width='1.5'
-										class='size-6 stroke-current'
+										class='size-6 stroke-current transition-colors duration-300 group-hover:stroke-primary'
 									>
 										<path
 											stroke-linecap='round'
@@ -63,12 +65,16 @@ const {
 							</label>
 						</div>
 						<div class='navbar-center lg:hidden text-lg font-black hidden'>
-							{profile.title}
-							{profile.fullName}
+							<span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+								{profile.title}
+								{profile.fullName}
+							</span>
 						</div>
 						<div class='navbar-end'>
 							{!template.menu_left &&
-								<DarkLightController/>
+								<div class="transition-all duration-300 hover:scale-110">
+									<DarkLightController/>
+								</div>
 								/* <ThemeSelector transition:persist /> */
 							}
 						</div>
