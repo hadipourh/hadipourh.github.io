@@ -1,18 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
-
-// Function to get a gradient class based on index
-const getGradientClass = (index: number) => {
-  const gradients = [
-    'from-primary via-secondary to-accent',
-    'from-success via-info to-warning',
-    'from-error via-primary to-success',
-    'from-accent via-warning to-error',
-    'from-info via-accent to-primary',
-    'from-warning via-success to-info'
-  ]
-  return gradients[index % gradients.length]
-}
+import { getGradientClass } from '../lib/utils'
 ---
 
 <Layout
@@ -1372,24 +1360,26 @@ const getGradientClass = (index: number) => {
 	</main>
 
 	<!-- Search and Filter JavaScript -->
-	<script is:inline>
-		// Search functionality
-		const searchInput = document.getElementById('searchInput');
-		const filterButtons = document.querySelectorAll('.filter-btn');
-		const sortSelect = document.getElementById('sortSelect');
-		const publicationsList = document.getElementById('publicationsList');
-		
-		let currentFilter = 'all';
-		let currentSort = 'year-desc';
-		
-		// Count publication types (but don't display counts)
-		function countPublications() {
-			const publications = document.querySelectorAll('[data-publication]');
-			const counts = {
-				all: publications.length,
-				journal: 0,
-				conference: 0,
-				workshop: 0,
+	<script>
+		// Function to initialize search functionality
+		function initializeSearchAndFilter() {
+			// Search functionality
+			const searchInput = document.getElementById('searchInput');
+			const filterButtons = document.querySelectorAll('.filter-btn');
+			const sortSelect = document.getElementById('sortSelect');
+			const publicationsList = document.getElementById('publicationsList');
+			
+			let currentFilter = 'all';
+			let currentSort = 'year-desc';
+			
+			// Count publication types (but don't display counts)
+			function countPublications() {
+				const publications = document.querySelectorAll('[data-publication]');
+				const counts = {
+					all: publications.length,
+					journal: 0,
+					conference: 0,
+					workshop: 0,
 				preprint: 0,
 				hybrid: 0
 			};
@@ -1506,7 +1496,7 @@ const getGradientClass = (index: number) => {
 			});
 		}
 		
-		// Initialize - run immediately and also on DOMContentLoaded
+		// Initialize search functionality
 		function initializeSearch() {
 			// Just filter publications, no need to update counts on buttons
 			filterPublications();
@@ -1519,5 +1509,15 @@ const getGradientClass = (index: number) => {
 			// DOM already loaded, run now
 			initializeSearch();
 		}
+	}
+	
+	// Initialize on first load
+	initializeSearchAndFilter();
+	
+	// Re-initialize when navigating via Astro transitions
+	document.addEventListener('astro:page-load', () => {
+		initializeSearchAndFilter();
+	});
 	</script>
+</Layout>
 </Layout>

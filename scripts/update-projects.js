@@ -9,29 +9,13 @@
 
 import fs from 'fs/promises';
 import path from 'path';
+import { getGitHubHeaders } from './lib/api-utils.js';
 
 const GITHUB_API = 'https://api.github.com';
 const USERNAME = 'hadipourh';
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 // Repositories to exclude
 const EXCLUDED_REPOS = ['mywebsite', 'hadipourh'];
-
-/**
- * Get GitHub API headers
- */
-function getHeaders() {
-  const headers = {
-    'Accept': 'application/vnd.github.v3+json',
-    'User-Agent': 'Academic-Website-Bot'
-  };
-  
-  if (GITHUB_TOKEN) {
-    headers['Authorization'] = `token ${GITHUB_TOKEN}`;
-  }
-  
-  return headers;
-}
 
 /**
  * Fetch user repositories
@@ -41,7 +25,7 @@ async function fetchRepositories() {
     console.log('Fetching repositories...');
     
     const response = await fetch(`${GITHUB_API}/users/${USERNAME}/repos?type=owner&sort=stargazers&direction=desc&per_page=100`, {
-      headers: getHeaders()
+      headers: getGitHubHeaders()
     });
     
     if (!response.ok) {
@@ -77,7 +61,7 @@ async function fetchPullRequests() {
     console.log('Fetching pull requests...');
     
     const response = await fetch(`${GITHUB_API}/search/issues?q=author:${USERNAME}+type:pr&per_page=100&sort=updated`, {
-      headers: getHeaders()
+      headers: getGitHubHeaders()
     });
     
     if (!response.ok) {
@@ -154,7 +138,7 @@ async function enrichCollaborativeRepos(collaborativeRepos) {
   for (const repo of collaborativeRepos.slice(0, 10)) { // Limit to avoid rate limits
     try {
       const response = await fetch(`${GITHUB_API}/repos/${repo.fullName}`, {
-        headers: getHeaders()
+        headers: getGitHubHeaders()
       });
       
       if (response.ok) {
@@ -500,6 +484,8 @@ async function updateProjectsPage(repositories, collaborativeRepos = []) {
  */
 async function main() {
   console.log('Starting projects update...');
+  
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   
   if (GITHUB_TOKEN) {
     console.log('Using GitHub token (higher rate limits)');

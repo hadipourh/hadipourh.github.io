@@ -9,19 +9,6 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-// Function to get a gradient class based on index (consistent with other pages)
-const getGradientClass = (index) => {
-  const gradients = [
-    'from-primary via-secondary to-accent',
-    'from-success via-info to-warning',
-    'from-error via-primary to-success',
-    'from-accent via-warning to-error',
-    'from-info via-accent to-primary',
-    'from-warning via-success to-info'
-  ];
-  return gradients[index % gradients.length];
-};
-
 // Fetch talks from GitHub repository
 async function fetchTalksFromGitHub() {
   console.log('Fetching talks from GitHub repository...');
@@ -318,19 +305,7 @@ async function updateTalksPage(talks) {
 // Real statistics: ${totalTalks} talks, ${totalCountries} countries, ${yearSpan}
 // Shows ALL talks - no limits applied!
 import Layout from "../layouts/Layout.astro";
-
-// Function to get a gradient class based on index
-const getGradientClass = (index: number) => {
-  const gradients = [
-    'from-primary via-secondary to-accent',
-    'from-success via-info to-warning',
-    'from-error via-primary to-success',
-    'from-accent via-warning to-error',
-    'from-info via-accent to-primary',
-    'from-warning via-success to-info'
-  ]
-  return gradients[index % gradients.length]
-}
+import { getGradientClass } from "../lib/utils";
 ---
 <Layout 
   title="Talks & Presentations | Hosein Hadipour" 
