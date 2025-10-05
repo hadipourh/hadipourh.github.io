@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getGradientClass } from '../lib/utils'
+import { getTextColorClass } from '../lib/utils'
 ---
 
 <Layout
@@ -11,7 +11,7 @@ import { getGradientClass } from '../lib/utils'
 		<!-- Header Section -->
 		<section class='text-center mb-16'>
 			<div class='relative mb-8'>
-				<h1 class={`text-4xl md:text-6xl font-bold bg-gradient-to-r ${getGradientClass(0)} bg-clip-text text-transparent mb-6`}>
+				<h1 class={`text-4xl md:text-6xl font-bold ${getTextColorClass(0)} mb-6`}>
 					Publications
 				</h1>
 				<p class='text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed'>
@@ -22,25 +22,25 @@ import { getGradientClass } from '../lib/utils'
 			<!-- Statistics Section -->
 			<div class='grid grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto mb-12'>
 				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
-					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(1)} bg-clip-text text-transparent`}>
+					<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(1)}`}>
 						23
 					</div>
 					<div class='text-sm md:text-base text-base-content/70'>Papers</div>
 				</div>
 				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
-					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(2)} bg-clip-text text-transparent`}>
+					<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(2)}`}>
 						8
 					</div>
 					<div class='text-sm md:text-base text-base-content/70'>Journals</div>
 				</div>
 				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
-					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(3)} bg-clip-text text-transparent`}>
+					<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(3)}`}>
 						11
 					</div>
 					<div class='text-sm md:text-base text-base-content/70'>Conferences</div>
 				</div>
 				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
-					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(4)} bg-clip-text text-transparent`}>
+					<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(4)}`}>
 						7
 					</div>
 					<div class='text-sm md:text-base text-base-content/70'>Years</div>
@@ -51,7 +51,7 @@ import { getGradientClass } from '../lib/utils'
 		<!-- Featured Publications Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(5)} bg-clip-text text-transparent`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(5)}`}>
 					Featured Publications
 				</h2>
 				<p class='text-base-content/70 text-lg'>
@@ -61,7 +61,7 @@ import { getGradientClass } from '../lib/utils'
 			
 			<div class='grid grid-cols-1 md:grid-cols-2 gap-8 mb-16'>
 				<!-- FEATURED_PUBLICATIONS_START -->
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -102,7 +102,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -143,7 +143,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -184,7 +184,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -225,7 +225,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -266,7 +266,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -355,7 +355,7 @@ import { getGradientClass } from '../lib/utils'
 		<!-- All Publications Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(0)} bg-clip-text text-transparent`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(0)}`}>
 					Complete Publications
 				</h2>
 				<p class='text-base-content/70 text-lg'>

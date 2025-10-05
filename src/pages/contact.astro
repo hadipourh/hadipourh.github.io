@@ -11,7 +11,7 @@ const { title, institute } = profile
 	<section class='py-12'>
 		<div class="text-center mb-12">
 			<h1 class='text-4xl lg:text-6xl font-bold mb-4'>
-				<span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+				<span class="text-cyan-600 dark:text-cyan-400">
 					Contact
 				</span>
 			</h1>
@@ -25,7 +25,7 @@ const { title, institute } = profile
 			<div class='space-y-6 lg:col-span-2'>
 				<div class='card bg-gradient-to-br from-base-200 to-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 border border-primary/20 h-fit'>
 					<div class='card-body p-6'>
-						<h2 class='card-title text-xl mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent'>
+						<h2 class='card-title text-xl mb-6 text-cyan-600 dark:text-cyan-400'>
 							Contact Information
 						</h2>
 						<div class='space-y-4'>
@@ -163,7 +163,7 @@ const { title, institute } = profile
 	<section class='py-12 border-t border-base-300'>
 		<div class="text-center mb-12">
 			<h2 class="text-3xl lg:text-4xl font-bold mb-4">
-				<span class="bg-gradient-to-r from-secondary via-accent to-primary bg-clip-text text-transparent">
+				<span class="text-cyan-600 dark:text-cyan-400">
 					Research Collaboration & Opportunities
 				</span>
 			</h2>
@@ -175,10 +175,12 @@ const { title, institute } = profile
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<div class="group p-6 rounded-lg bg-gradient-to-br from-base-200 to-base-300 hover:from-primary/10 hover:to-secondary/10 transition-all duration-300 border border-primary/20 hover:border-primary/40 shadow-lg hover:shadow-xl">
 				<div class="flex items-center gap-3 mb-4">
-					<div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-xl">
-						🔬
+					<div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+						</svg>
 					</div>
-					<h3 class="text-xl font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Research Collaboration</h3>
+					<h3 class="text-xl font-semibold text-cyan-600 dark:text-cyan-400">Research Collaboration</h3>
 				</div>
 				<p class="text-base-content/80 leading-relaxed">Open to collaborative research in cryptanalysis, symmetric cryptography, and applied cryptographic protocol design. 
 					Let's connect and discuss potential projects.</p>
@@ -186,10 +188,12 @@ const { title, institute } = profile
 			
 			<div class="group p-6 rounded-lg bg-gradient-to-br from-base-200 to-base-300 hover:from-secondary/10 hover:to-accent/10 transition-all duration-300 border border-secondary/20 hover:border-secondary/40 shadow-lg hover:shadow-xl">
 				<div class="flex items-center gap-3 mb-4">
-					<div class="w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white text-xl">
-						🎓
+					<div class="w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+						</svg>
 					</div>
-					<h3 class="text-xl font-semibold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Academic Partnerships</h3>
+					<h3 class="text-xl font-semibold text-cyan-600 dark:text-cyan-400">Academic Partnerships</h3>
 				</div>
 				<p class="text-base-content/80 leading-relaxed">Interested in joint publications, conference presentations, and academic exchanges. 
 				   Available for guest lectures and workshop participation.</p>
@@ -197,20 +201,24 @@ const { title, institute } = profile
 			
 			<div class="group p-6 rounded-lg bg-gradient-to-br from-base-200 to-base-300 hover:from-accent/10 hover:to-primary/10 transition-all duration-300 border border-accent/20 hover:border-accent/40 shadow-lg hover:shadow-xl">
 				<div class="flex items-center gap-3 mb-4">
-					<div class="w-10 h-10 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center text-white text-xl">
-						💼
+					<div class="w-10 h-10 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center text-white">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+						</svg>
 					</div>
-					<h3 class="text-xl font-semibold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">Consulting Services</h3>
+					<h3 class="text-xl font-semibold text-cyan-600 dark:text-cyan-400">Consulting Services</h3>
 				</div>
 				<p class="text-base-content/80 leading-relaxed">Providing expert consultation on cryptographic implementations, security assessments, and protocol analysis for industry and academia.</p>
 			</div>
 			
 			<div class="group p-6 rounded-lg bg-gradient-to-br from-base-200 to-base-300 hover:from-primary/10 hover:to-accent/10 transition-all duration-300 border border-primary/20 hover:border-accent/40 shadow-lg hover:shadow-xl">
 				<div class="flex items-center gap-3 mb-4">
-					<div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white text-xl">
-						👥
+					<div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+						</svg>
 					</div>
-					<h3 class="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Mentoring & Supervision</h3>
+					<h3 class="text-xl font-semibold text-cyan-600 dark:text-cyan-400">Mentoring & Supervision</h3>
 				</div>
 				<p class="text-base-content/80 leading-relaxed">Available for supervising master and bachelor students. 
 				   Open to mentoring and guidance throughout their research journey.</p>

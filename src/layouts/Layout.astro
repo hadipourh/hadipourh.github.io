@@ -3,7 +3,6 @@ import { ClientRouter } from 'astro:transitions';
 
 import BetterIcon from '../components/ui/BetterIcon.astro'
 import DarkLightController from '../components/ui/DarkLightController.astro'
-// import ThemeSelector from '../components/ui/ThemeSelector.astro' // Disabled - using DarkLightController instead
 import Navbar from '../components/ui/Navbar.astro'
 import Head from '../components/Head.astro'
 
@@ -24,14 +23,11 @@ const {
 ---
 
 <!doctype html>
-<html lang='en' data-theme="dark">
+<html lang='en' data-theme="night">
 	<head>
 		{template.transitions && <ClientRouter /> }
 
 		<Head title={title} description={description} image={image} />
-
-
-
 	</head>
 	<body>
 		<div class={`bg-base-100 drawer lg:drawer-open ${template.menu_left ? 'drawer-end' : ''}`}>
@@ -45,7 +41,6 @@ const {
 								<div class="transition-all duration-300 hover:scale-110">
 									<DarkLightController/>
 								</div>
-								/* <ThemeSelector transition:persist /> */
 							}
 							<label for='my-drawer' class='btn btn-square btn-ghost lg:hidden group transition-all duration-300 hover:scale-110 hover:bg-primary/10'>
 								<BetterIcon>
@@ -65,7 +60,7 @@ const {
 							</label>
 						</div>
 						<div class='navbar-center lg:hidden text-lg font-black hidden'>
-							<span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+							<span class="text-primary dark:text-primary-content font-bold">
 								{profile.title}
 								{profile.fullName}
 							</span>
@@ -75,7 +70,6 @@ const {
 								<div class="transition-all duration-300 hover:scale-110">
 									<DarkLightController/>
 								</div>
-								/* <ThemeSelector transition:persist /> */
 							}
 						</div>
 					</nav>
@@ -109,6 +103,50 @@ const {
 		height: 100%;
 	}
 
+	/* Override corporate theme to use rounded corners like night theme */
+	[data-theme="corporate"] {
+		--rounded-box: 1rem; /* card and other large boxes */
+		--rounded-btn: 1.9rem; /* buttons and similar elements */
+		--rounded-badge: 1.9rem; /* badges and tags */
+		
+		/* Shiki/Astro code highlighting variables for light theme */
+		--astro-code-background: #f3f4f6; /* Light gray background */
+		--astro-code-foreground: #1f2937; /* Dark gray text */
+		--astro-code-token-constant: #1f2937;
+		--astro-code-token-string: #1f2937;
+		--astro-code-token-comment: #6b7280; /* Slightly lighter for comments */
+		--astro-code-token-keyword: #1f2937;
+		--astro-code-token-parameter: #1f2937;
+		--astro-code-token-function: #1f2937;
+		--astro-code-token-string-expression: #1f2937;
+		--astro-code-token-punctuation: #1f2937;
+		--astro-code-token-link: #1f2937;
+	}
+	
+	[data-theme="night"] {
+		/* Shiki/Astro code highlighting variables for dark theme */
+		--astro-code-background: #1e293b; /* Dark slate background */
+		--astro-code-foreground: #e2e8f0; /* Light slate text */
+		--astro-code-token-constant: #e2e8f0;
+		--astro-code-token-string: #e2e8f0;
+		--astro-code-token-comment: #94a3b8; /* Slightly dimmer for comments */
+		--astro-code-token-keyword: #e2e8f0;
+		--astro-code-token-parameter: #e2e8f0;
+		--astro-code-token-function: #e2e8f0;
+		--astro-code-token-string-expression: #e2e8f0;
+		--astro-code-token-punctuation: #e2e8f0;
+		--astro-code-token-link: #e2e8f0;
+	}
+
+	/* Name and title text colors - maximum contrast */
+	[data-theme="corporate"] .name-title-text {
+		color: #000000 !important;
+	}
+	
+	[data-theme="night"] .name-title-text {
+		color: #a5b4fc !important; /* indigo-300 */
+	}
+
 	/* Global prose content overflow handling for mobile responsiveness */
 	.prose {
 		/* Ensure prose content never exceeds container width */
@@ -137,10 +175,43 @@ const {
 		font-size: 0.75rem !important;
 	}
 	
-	/* Handle inline code */
-	.prose code:not(pre code) {
+	/* Code blocks styling - works with Astro's Shiki CSS variables */
+	[data-theme="corporate"] .prose pre.astro-code,
+	[data-theme="corporate"] article.prose pre.astro-code,
+	[data-theme="corporate"] div.prose pre.astro-code {
+		border: 1px solid #d1d5db !important;
+		padding: 1rem !important;
+		border-radius: 0.5rem !important;
+	}
+	
+	[data-theme="night"] .prose pre.astro-code,
+	[data-theme="night"] article.prose pre.astro-code,
+	[data-theme="night"] div.prose pre.astro-code {
+		border: 1px solid #334155 !important;
+		padding: 1rem !important;
+		border-radius: 0.5rem !important;
+	}
+	
+	/* Handle inline code - corporate theme */
+	[data-theme="corporate"] .prose code:not(pre code),
+	[data-theme="corporate"] article.prose code:not(pre code) {
 		white-space: normal !important;
 		word-break: break-all !important;
+		background-color: #f3f4f6 !important;
+		color: #1f2937 !important;
+		padding: 0.125rem 0.25rem !important;
+		border-radius: 0.25rem !important;
+	}
+	
+	/* Handle inline code - night theme */
+	[data-theme="night"] .prose code:not(pre code),
+	[data-theme="night"] article.prose code:not(pre code) {
+		white-space: normal !important;
+		word-break: break-all !important;
+		background-color: #1e293b !important;
+		color: #e2e8f0 !important;
+		padding: 0.125rem 0.25rem !important;
+		border-radius: 0.25rem !important;
 	}
 	
 	/* Handle tables */

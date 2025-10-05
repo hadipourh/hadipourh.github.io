@@ -23,4 +23,12 @@ export default defineConfig({
     ],
     site: 'https://hadipourh.github.io',
     base: '/',
+    markdown: {
+        shikiConfig: {
+            // Disable default themes and use CSS variables instead
+            // This allows our theme-based CSS to control code block colors
+            theme: 'css-variables',
+            wrap: false,
+        }
+    }
 });

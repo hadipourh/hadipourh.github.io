@@ -7,8 +7,8 @@ import {template} from  '../../settings.ts'
     type="checkbox"
     id="theme-toggle"
     name="theme-toggle"
-  class="toggle toggle-lg col-span-2 col-start-1 row-start-1 relative z-0 transition-all duration-200"
-    data-toggle-theme={`${template.darkTheme},${template.lightTheme}`}
+  class="toggle toggle-lg col-span-2 col-start-1 row-start-1 relative z-0 transition-all duration-200 [--rounded-btn:1.9rem]"
+    data-toggle-theme={`${template.lightTheme},${template.darkTheme}`}
     aria-label="Toggle color theme"
   />
   <svg
@@ -42,17 +42,17 @@ import {template} from  '../../settings.ts'
 </label>
 
 <script is:inline>
-  // Ensure the visual state of the toggle matches the active theme (dark = checked)
-  const darkTheme = "${template.darkTheme}";
+  // Ensure the visual state of the toggle matches the active theme (light = checked)
+  const lightTheme = "${template.lightTheme}";
   const getTheme = () =>
     document.documentElement.getAttribute('data-theme') ||
     localStorage.getItem('theme') ||
-    'dark';
+    'night';
   const syncToggle = () => {
     const el = document.getElementById('theme-toggle');
     if (!(el instanceof HTMLInputElement)) return;
-  // Set once to avoid fighting CSS transition (checked = dark)
-  el.checked = getTheme() === darkTheme;
+  // Set once to avoid fighting CSS transition (checked = light mode)
+  el.checked = getTheme() === lightTheme;
   };
 
   // Sync at startup

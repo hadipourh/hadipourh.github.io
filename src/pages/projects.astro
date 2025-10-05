@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getGradientClass } from '../lib/utils'
+import { getTextColorClass } from '../lib/utils'
 ---
 
 <Layout
@@ -11,7 +11,7 @@ import { getGradientClass } from '../lib/utils'
 		<!-- Header Section -->
 		<section class='text-center mb-16'>
 			<div class='relative mb-8'>
-				<h1 class={`text-4xl md:text-6xl font-bold bg-gradient-to-r ${getGradientClass(0)} bg-clip-text text-transparent mb-6`}>
+				<h1 class={`text-4xl md:text-6xl font-bold ${getTextColorClass(0)} mb-6`}>
 					Research Projects
 				</h1>
 				<p class='text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed'>
@@ -22,15 +22,15 @@ import { getGradientClass } from '../lib/utils'
 			<!-- Statistics Section -->
 			<div class='grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mb-12'>
 				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
-					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(1)} bg-clip-text text-transparent`}>36</div>
+					<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(1)}`}>36</div>
 					<div class='text-sm md:text-base text-base-content/70'>Projects</div>
 				</div>
 				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
-					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(2)} bg-clip-text text-transparent`}>527</div>
+					<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(2)}`}>527</div>
 					<div class='text-sm md:text-base text-base-content/70'>GitHub Stars</div>
 				</div>
 				<div class='bg-base-200 rounded-2xl p-4 md:p-6'>
-					<div class={`text-2xl md:text-3xl font-bold bg-gradient-to-r ${getGradientClass(3)} bg-clip-text text-transparent`}>9</div>
+					<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(3)}`}>9</div>
 					<div class='text-sm md:text-base text-base-content/70'>Languages</div>
 				</div>
 			</div>
@@ -39,7 +39,7 @@ import { getGradientClass } from '../lib/utils'
 		<!-- Featured Projects Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(4)} bg-clip-text text-transparent`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(4)}`}>
 					Featured Projects
 				</h2>
 				<p class='text-base-content/70 text-lg'>
@@ -49,7 +49,7 @@ import { getGradientClass } from '../lib/utils'
 			
 			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16'>
 				<!-- FEATURED_PROJECTS_START -->
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -89,7 +89,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -108,7 +108,7 @@ import { getGradientClass } from '../lib/utils'
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                 </svg>
-                <span>100</span>
+                <span>101</span>
               </span>
               <span class="flex items-center space-x-1">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -129,7 +129,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -169,7 +169,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -209,7 +209,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -249,7 +249,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -289,7 +289,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-600 to-teal-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -329,7 +329,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-600 to-cyan-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -369,7 +369,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -416,7 +416,7 @@ import { getGradientClass } from '../lib/utils'
 		<!-- Main Projects Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(5)} bg-clip-text text-transparent`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(5)}`}>
 					Complete Project Archive
 				</h2>
 				<p class='text-base-content/70 text-lg'>
@@ -426,7 +426,7 @@ import { getGradientClass } from '../lib/utils'
 
 			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 				<!-- MAIN_PROJECTS_START -->
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -468,7 +468,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -479,7 +479,7 @@ import { getGradientClass } from '../lib/utils'
                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                 </svg>
-                <span>100</span>
+                <span>101</span>
               </span>
               <span class="flex items-center space-x-1">
                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -499,7 +499,7 @@ import { getGradientClass } from '../lib/utils'
               <span class="px-2 py-1 rounded-full text-xs bg-opacity-20 bg-white">
                 C
               </span>
-              <span class="text-xs text-gray-500">Updated Sep 4, 2025</span>
+              <span class="text-xs text-gray-500">Updated Oct 5, 2025</span>
             </div>
             <a href="https://github.com/hadipourh/KeeLoq" 
                target="_blank" 
@@ -510,7 +510,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -552,7 +552,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -594,7 +594,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -636,7 +636,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -678,7 +678,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -720,7 +720,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -762,7 +762,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -804,7 +804,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -846,7 +846,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -888,7 +888,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -930,7 +930,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -972,7 +972,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1014,7 +1014,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1056,7 +1056,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1098,7 +1098,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1140,7 +1140,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1182,7 +1182,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1224,7 +1224,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1266,7 +1266,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1308,7 +1308,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1350,7 +1350,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1392,7 +1392,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1434,7 +1434,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1476,7 +1476,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1518,7 +1518,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1560,7 +1560,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1602,7 +1602,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-600 to-yellow-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1644,7 +1644,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-600 to-green-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1686,7 +1686,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1728,7 +1728,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1770,7 +1770,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1812,7 +1812,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1854,7 +1854,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-pink-600 to-red-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1896,7 +1896,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-600 to-orange-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1945,7 +1945,7 @@ import { getGradientClass } from '../lib/utils'
 		<!-- Collaborative Projects Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${getGradientClass(3)} bg-clip-text text-transparent`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(3)}`}>
 					Collaborative Projects
 				</h2>
 				<p class='text-base-content/70 text-lg'>
@@ -1955,7 +1955,7 @@ import { getGradientClass } from '../lib/utils'
 
 			<div class='grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto'>
 				<!-- COLLABORATIVE_PROJECTS_START -->
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2009,7 +2009,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-teal-600 to-cyan-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2063,7 +2063,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-cyan-600 to-sky-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2117,7 +2117,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-sky-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2131,7 +2131,7 @@ import { getGradientClass } from '../lib/utils'
                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                 </svg>
-                <span>1999</span>
+                <span>2000</span>
               </span>
               <span class="flex items-center space-x-1">
                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -2171,7 +2171,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2225,7 +2225,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2279,7 +2279,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2333,7 +2333,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-violet-600 to-pink-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2387,7 +2387,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2441,7 +2441,7 @@ import { getGradientClass } from '../lib/utils'
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-teal-600 to-cyan-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">

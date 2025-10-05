@@ -168,19 +168,9 @@ async function enrichCollaborativeRepos(collaborativeRepos) {
  * Generate featured project card HTML
  */
 function generateFeaturedCard(repo, index) {
-  const gradients = [
-    'from-blue-600 to-purple-600',
-    'from-purple-600 to-pink-600', 
-    'from-pink-600 to-red-600',
-    'from-red-600 to-orange-600',
-    'from-orange-600 to-yellow-600',
-    'from-yellow-600 to-green-600',
-    'from-green-600 to-teal-600',
-    'from-teal-600 to-cyan-600',
-    'from-cyan-600 to-blue-600'
-  ];
+  // Use uniform emerald-to-blue gradient for all featured cards
+  const gradient = 'from-emerald-600 to-blue-600';
   
-  const gradient = gradients[index % gradients.length];
   const stars = repo.stargazers_count || 0;
   const forks = repo.forks_count || 0;
   const description = repo.description || 'No description available';
@@ -232,18 +222,9 @@ function generateFeaturedCard(repo, index) {
  * Generate regular project card HTML
  */
 function generateProjectCard(repo, index) {
-  const gradients = [
-    'from-blue-600 to-purple-600',
-    'from-purple-600 to-pink-600', 
-    'from-pink-600 to-red-600',
-    'from-red-600 to-orange-600',
-    'from-orange-600 to-yellow-600',
-    'from-yellow-600 to-green-600',
-    'from-green-600 to-blue-600',
-    'from-indigo-600 to-blue-600'
-  ];
+  // Use uniform emerald-to-blue gradient for all project cards
+  const gradient = 'from-emerald-600 to-blue-600';
   
-  const gradient = gradients[index % gradients.length];
   const stars = repo.stargazers_count || 0;
   const forks = repo.forks_count || 0;
   const description = repo.description || 'No description available';
@@ -302,18 +283,9 @@ function generateProjectCard(repo, index) {
  * Generate collaborative project card HTML
  */
 function generateCollaborativeCard(repo, index) {
-  const gradients = [
-    'from-emerald-600 to-teal-600',
-    'from-teal-600 to-cyan-600',
-    'from-cyan-600 to-sky-600',
-    'from-sky-600 to-blue-600',
-    'from-blue-600 to-indigo-600',
-    'from-indigo-600 to-purple-600',
-    'from-purple-600 to-violet-600',
-    'from-violet-600 to-pink-600'
-  ];
+  // Use uniform emerald-to-blue gradient for all collaborative cards
+  const gradient = 'from-emerald-600 to-blue-600';
   
-  const gradient = gradients[index % gradients.length];
   const stars = repo.stars || 0;
   const forks = repo.forks || 0;
   const description = repo.description || 'No description available';

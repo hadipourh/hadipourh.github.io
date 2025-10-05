@@ -9,7 +9,7 @@ export const profile = {
 	institute: 'Ruhr University Bochum',
 	author_name: 'Hosein Hadipour', // Author name to be highlighted in the papers section
 	research_areas: [
-		{ title: 'Cryptanalysis', description: 'Broadly interested in cryptanalysis in all its forms, with a particular focus on symmetric-key primitives. This includes unified approaches to analyze ciphers/primitives through various techniques such as differential, linear, boomerang, integral, impossible-differential, zero-correlation, and differential-linear attacks.', field: 'cryptography' },
+		{ title: 'Cryptanalysis', description: 'Cryptanalysis of symmetric-key primitives through unified attack frameworks, including differential, linear, boomerang, integral, impossible-differential, zero-correlation, and differential-linear techniques.', field: 'cryptography' },
 		{ title: 'Automated Cryptanalysis', description: 'Interested in the automation of cryptanalysis, with emphasis on designing tools and algorithms for systematic security evaluation of ciphers, such as SAT/SMT-based approaches and dedicated frameworks.', field: 'automation' },
 		{ title: 'Applied Mathematics and Interdisciplinary Methods', description: 'Exploring connections between mathematics, logic, and computer science, and applying advances from one area to solve challenges in another, particularly in cryptography and security.', field: 'applied-mathematics' },
 		{ title: 'Side-Channel Analysis', description: 'Exploring physical attack vectors against cryptographic implementations, such as power analysis, electromagnetic analysis, and fault injection techniques.', field: 'hardware-security' },
@@ -40,8 +40,8 @@ export const template = {
 	website_url: 'https://localhost:4321', // Astro needs to know your site’s deployed URL to generate a sitemap. It must start with http:// or https://
 	menu_left: false,
 	transitions: true,
-	lightTheme: 'light', // Select one of the Daisy UI Themes or create your own
-	darkTheme: 'dark', // Select one of the Daisy UI Themes or create your own
+	lightTheme: 'corporate', // Select one of the Daisy UI Themes or create your own
+	darkTheme: 'night', // Select one of the Daisy UI Themes or create your own
 	excerptLength: 200,
 	postPerPage: 5,
     base: '' // Repository name starting with /

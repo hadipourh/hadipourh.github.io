@@ -305,7 +305,7 @@ async function updateTalksPage(talks) {
 // Real statistics: ${totalTalks} talks, ${totalCountries} countries, ${yearSpan}
 // Shows ALL talks - no limits applied!
 import Layout from "../layouts/Layout.astro";
-import { getGradientClass } from "../lib/utils";
+import { getTextColorClass } from "../lib/utils";
 ---
 <Layout 
   title="Talks & Presentations | Hosein Hadipour" 
@@ -315,7 +315,7 @@ import { getGradientClass } from "../lib/utils";
     <!-- Header Section -->
     <section class="text-center mb-16">
       <div class="relative mb-8">
-        <h1 class={\`text-4xl md:text-6xl font-bold bg-gradient-to-r \${getGradientClass(0)} bg-clip-text text-transparent mb-6\`}>
+        <h1 class={\`text-4xl md:text-6xl font-bold \${getTextColorClass(0)} mb-6\`}>
           Talks & Presentations
         </h1>
         <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed">
@@ -327,19 +327,19 @@ import { getGradientClass } from "../lib/utils";
       <!-- Statistics Section -->
       <div class="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto mb-12">
         <div class="bg-base-200 rounded-2xl p-4 md:p-6">
-          <div class={\`text-2xl md:text-3xl font-bold bg-gradient-to-r \${getGradientClass(1)} bg-clip-text text-transparent\`}>
+          <div class={\`text-2xl md:text-3xl font-bold \${getTextColorClass(1)}\`}>
             ${totalTalks}
           </div>
           <div class="text-sm md:text-base text-base-content/70">Talks</div>
         </div>
         <div class="bg-base-200 rounded-2xl p-4 md:p-6">
-          <div class={\`text-2xl md:text-3xl font-bold bg-gradient-to-r \${getGradientClass(2)} bg-clip-text text-transparent\`}>
+          <div class={\`text-2xl md:text-3xl font-bold \${getTextColorClass(2)}\`}>
             ${totalCountries}
           </div>
           <div class="text-sm md:text-base text-base-content/70">Countries</div>
         </div>
         <div class="bg-base-200 rounded-2xl p-4 md:p-6">
-          <div class={\`text-2xl md:text-3xl font-bold bg-gradient-to-r \${getGradientClass(3)} bg-clip-text text-transparent\`}>
+          <div class={\`text-2xl md:text-3xl font-bold \${getTextColorClass(3)}\`}>
             ${yearSpan}
           </div>
           <div class="text-sm md:text-base text-base-content/70">Years</div>
@@ -350,7 +350,7 @@ import { getGradientClass } from "../lib/utils";
     <!-- Talks Collection Section -->
     <section class="mb-16">
       <div class="text-center mb-12">
-        <h2 class={\`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r \${getGradientClass(4)} bg-clip-text text-transparent\`}>
+        <h2 class={\`text-3xl md:text-4xl font-bold mb-4 \${getTextColorClass(4)}\`}>
           Complete Collection
         </h2>
         <p class="text-base-content/70 text-lg">

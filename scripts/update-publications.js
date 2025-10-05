@@ -256,16 +256,8 @@ function calculateStatistics(publications) {
  * Generate featured publication card HTML (without prestige score display)
  */
 function generateFeaturedCard(pub, index) {
-  const gradients = [
-    'from-blue-600 to-purple-600',
-    'from-purple-600 to-pink-600', 
-    'from-pink-600 to-red-600',
-    'from-red-600 to-orange-600',
-    'from-orange-600 to-yellow-600',
-    'from-yellow-600 to-green-600'
-  ];
+  const gradient = 'from-emerald-600 to-blue-600';
   
-  const gradient = gradients[index % gradients.length];
   const typeColors = {
     'journal': 'bg-blue-100 text-blue-800',
     'conference': 'bg-green-100 text-green-800',
@@ -451,9 +443,29 @@ async function updatePublicationsPage(publications) {
     
     await fs.writeFile(filePath, content);
     
+    // Write publications data as JSON for use in CV and other pages
+    const publicationsDataPath = path.join(process.cwd(), 'src', 'data', 'publications.json');
+    const publicationsData = {
+      lastUpdated: new Date().toISOString(),
+      statistics: stats,
+      publications: publications.map(pub => ({
+        title: pub.title,
+        authors: pub.authors,
+        venue: pub.venue,
+        year: pub.year,
+        url: pub.url,
+        doi: pub.doi,
+        type: pub.type,
+        prestigeScore: pub.prestigeScore
+      }))
+    };
+    
+    await fs.writeFile(publicationsDataPath, JSON.stringify(publicationsData, null, 2));
+    
     console.log(`Updated featured publications (${featuredPubs.length} publications)`);
     console.log(`Updated all publications (${publications.length} publications)`);
     console.log('Publications page updated successfully');
+    console.log(`Publications data exported to ${publicationsDataPath}`);
     
     return stats;
     

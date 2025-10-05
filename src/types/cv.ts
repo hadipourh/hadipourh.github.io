@@ -23,9 +23,16 @@ export interface Skill {
 export interface Publication {
   title: string;
   authors: string;
-  journal: string;
-  time: string;
-  link?: string;
+  venue: string;  // Venue name (was 'journal')
+  year: number;   // Year as number (was 'time' as string)
+  url?: string;   // Primary URL (was 'link')
+  doi?: string;   // DOI identifier
+  type?: string;  // Publication type: conference, journal, hybrid, workshop, preprint
+  prestigeScore?: number; // Venue prestige score (0-100)
+  // Legacy fields for backward compatibility
+  journal?: string;  // Alias for venue
+  time?: string;     // Alias for year
+  link?: string;     // Alias for url
   abstract?: string;
 }
 
