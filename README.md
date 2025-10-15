@@ -1,6 +1,6 @@
 # Academic Website
 
-A modern, secure academic website built with Astro, featuring automated content management, interactive terminals, and comprehensive security measures.
+An academic website built with Astro, featuring automated content updates and a clean, professional design.
 
 ## Overview
 
@@ -8,13 +8,21 @@ This website serves as a professional academic platform designed for researchers
 
 ## Technology Stack
 
-- **Framework**: Astro v5.13.3 (Static Site Generator)
-- **Styling**: TailwindCSS + DaisyUI (32 themes)
-- **Content**: Markdown with frontmatter validation
+- **Framework**: Astro v5.x (static generation with view transitions)
+- **Styling**: TailwindCSS + DaisyUI (32 themes with custom cyberpunk palette)
+- **Content**: Markdown with frontmatter validation + JSON datasets
 - **Mathematics**: MathJax 3.x for equation rendering
 - **Security**: Multi-layer content filtering and rate limiting
 - **Automation**: GitHub Actions + n8n workflows
 - **Hosting**: Static deployment ready
+
+## Key Features
+
+- Automated ingestion of publications, projects, talks, and CV data
+- Professional icon system for CV sections (monochrome SVGs with emoji fallback for honors)
+- High-contrast, accessibility-aware corporate/night theming across light/dark modes
+- Interactive “Quick Message Terminal” with security guards and Telegram delivery
+- Auto-generated RSS feed, sitemap, and robots rules for SEO hygiene
 
 ## Quick Start
 
@@ -50,17 +58,13 @@ export const profile = {
 ```
 
 ### CV Data (src/data/cv.ts)
-Structure your academic CV with automated updates:
-```typescript
-export const publications = [
-  {
-    title: "Paper Title",
-    authors: ["Author 1", "Author 2"],
-    venue: "Conference/Journal",
-    year: "2024"
-  }
-];
-```
+Core CV sections (experience, education, skills, etc.) live in `src/data/cv.ts` and are maintained by the LaTeX importer. Publications are no longer hard-coded here—see the following section for details.
+
+### Auto-Generated Publications (src/data/publications.json)
+Publications are synchronized from DBLP via `scripts/update-publications.js` and stored in `src/data/publications.json`. Pages (home, CV, papers) consume this JSON directly, so manual edits belong in the source data (e.g., DBLP) or in the JSON file if you need overrides.
+
+### Professional Icon Mapping (src/components/ui/IconRenderer.astro)
+CV sections reference semantic icon keys (e.g., `"book"`, `"code"`, `"award"`). The `IconRenderer` component translates these keys to monochrome SVGs for a consistent, professional look while retaining emoji fallback for honors.
 
 ## Content Management
 
@@ -87,7 +91,7 @@ $$E = mc^2$$
 - **Engine**: MathJax 3.x
 - **Inline math**: `$equation$`
 - **Display math**: `$$equation$$`
-- **LaTeX support**: Full LaTeX mathematical notation
+- **LaTeX support**: Full LaTeX mathematical notation (rendered in posts and leveraged during CV imports)
 
 ## Automation Features
 
@@ -110,7 +114,7 @@ npm run update:projects  # Fetches from GitHub API
 
 ### CV Updates
 ```bash
-npm run update:cv  # Parses encrypted CV file
+npm run update:cv  # Parses CV.tex and refreshes src/data/cv.ts
 ```
 
 ### All Updates
