@@ -10,11 +10,12 @@ on:
     paths: ['scripts/**']
 
 jobs:
-  update-content:
+  update-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -63,7 +64,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "🤖 Auto-update: publications, talks, and projects $(date +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "Auto-update: publications, talks, and projects $(date +'%Y-%m-%d %H:%M:%S')"
           
           # Configure remote URL with token for authentication
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
@@ -74,8 +75,7 @@ jobs:
           # Push changes
           git push
 
-      - name: Build and deploy
+      - name: Build and deploy to GitHub Pages
         if: steps.check-changes.outputs.changes == 'true'
-        run: |
-          npm run build
-          # Deploy to GitHub Pages would go here
+        uses: withastro/action@v4
+        # This action automatically builds and deploys to GitHub Pages

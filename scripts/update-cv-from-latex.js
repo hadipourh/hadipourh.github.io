@@ -79,7 +79,7 @@ function filterCommentedContent(content) {
 }
 
 function extractEducation(latex) {
-  console.log('🎓 Extracting education...');
+  console.log('Extracting education...');
   
   const educationRegex = /\\section\{Education\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(educationRegex);
@@ -114,7 +114,7 @@ function extractEducation(latex) {
 }
 
 function extractExperience(latex) {
-  console.log('💼 Extracting experience...');
+  console.log('Extracting experience...');
   
   const experienceRegex = /\\section\{Experience\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(experienceRegex);
@@ -148,7 +148,7 @@ function extractExperience(latex) {
 }
 
 function extractTeaching(latex) {
-  console.log('👨‍🏫 Extracting teaching experience...');
+  console.log('Extracting teaching experience...');
   
   const teachingRegex = /\\section\{[^}]*Teaching[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(teachingRegex);
@@ -201,7 +201,7 @@ function extractTeaching(latex) {
 }
 
 function extractSkills(latex) {
-  console.log('📋 Extracting skills...');
+  console.log('Extracting skills...');
   
   const skillsRegex = /\\section\{[^}]*Computer Skills[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(skillsRegex);
@@ -245,7 +245,7 @@ function extractSkills(latex) {
 }
 
 function extractReviews(latex) {
-  console.log('📋 Extracting reviews...');
+  console.log('Extracting reviews...');
   
   const reviewsRegex = /\\section\{[^}]*Reviews[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(reviewsRegex);
@@ -318,7 +318,7 @@ function extractReviews(latex) {
 }
 
 function extractHonors(latex) {
-  console.log('🏆 Extracting honors and awards...');
+  console.log('Extracting honors and awards...');
   
   const honorsRegex = /\\section\{[^}]*Honors[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(honorsRegex);
@@ -409,7 +409,7 @@ function extractHonors(latex) {
 }
 
 function extractInterests(latex) {
-  console.log('📋 Extracting interests...');
+  console.log('Extracting interests...');
   
   // Look for Other Information section with Interests subsection
   const otherInfoRegex = /\\section\{[^}]*Other Information[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
@@ -508,7 +508,7 @@ function getInterestDescription(interest) {
 }
 
 function extractPresentations(latex) {
-  console.log('🎤 Extracting visits and presentations...');
+  console.log('Extracting visits and presentations...');
   
   const presentationsRegex = /\\section\{[^}]*Visits and Presentations[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(presentationsRegex);
@@ -573,7 +573,7 @@ function extractPresentations(latex) {
 }
 
 function extractLanguages(latex) {
-  console.log('🌍 Extracting languages...');
+  console.log('Extracting languages...');
   
   const languagesRegex = /\\section\{[^}]*Languages[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
   const match = latex.match(languagesRegex);
@@ -650,7 +650,7 @@ function extractLanguages(latex) {
 }
 
 function extractMemberships(latex) {
-  console.log('👥 Extracting memberships...');
+  console.log('Extracting memberships...');
   
   // Look for Other Information section with Memberships subsection
   const otherInfoRegex = /\\section\{[^}]*Other Information[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
@@ -816,7 +816,7 @@ async function main() {
     }
     
     const latexContent = fs.readFileSync(cvPath, 'utf8');
-    console.log('📄 CV.tex loaded successfully');
+    console.log('CV.tex loaded successfully');
     
     // Extract all sections (ignoring commented content)
     const education = extractEducation(latexContent);
@@ -834,7 +834,7 @@ async function main() {
     updateCvData(education, experiences, teaching, skills, reviews, honors, interests, languages, presentations, memberships);
     
     console.log(' CV update completed successfully!');
-    console.log('📊 Summary:');
+    console.log('Summary:');
     console.log(`   Education: ${education.length} entries`);
     console.log(`   Experience: ${experiences.length} entries`);
     console.log(`   Teaching: ${teaching.length} entries`);
