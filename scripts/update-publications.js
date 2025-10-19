@@ -400,26 +400,18 @@ async function updatePublicationsPage(publications) {
     const featuredHTML = featuredPubs.map((pub, index) => generateFeaturedCard(pub, index)).join('\n');
     const allHTML = sortedPubs.map((pub, index) => generatePublicationCard(pub, index)).join('\n');
     
-    // Update statistics in header
-    content = content.replace(
-      /(\s+<div class=['"]text-2xl md:text-3xl font-bold bg-gradient-to-r[^>]*['"]>\s+)\d+(\s+<\/div>\s+<div class=['"]text-sm md:text-base text-base-content\/70['"]>Papers<\/div>)/,
-      `$1${stats.total}$2`
-    );
-    
-    content = content.replace(
-      /(\s+<div class=['"]text-2xl md:text-3xl font-bold bg-gradient-to-r[^>]*['"]>\s+)\d+(\s+<\/div>\s+<div class=['"]text-sm md:text-base text-base-content\/70['"]>Journals<\/div>)/,
-      `$1${stats.journals}$2`
-    );
-    
-    content = content.replace(
-      /(\s+<div class=['"]text-2xl md:text-3xl font-bold bg-gradient-to-r[^>]*['"]>\s+)\d+(\s+<\/div>\s+<div class=['"]text-sm md:text-base text-base-content\/70['"]>Conferences<\/div>)/,
-      `$1${stats.conferences}$2`
-    );
-    
-    content = content.replace(
-      /(\s+<div class=['"]text-2xl md:text-3xl font-bold bg-gradient-to-r[^>]*['"]>\s+)\d+(\s+<\/div>\s+<div class=['"]text-sm md:text-base text-base-content\/70['"]>Years<\/div>)/,
-      `$1${stats.years}$2`
-    );
+    // Update statistics in header using data attributes to preserve layout markup
+    const statKeys = [
+      { key: 'total', value: stats.total },
+      { key: 'journals', value: stats.journals },
+      { key: 'conferences', value: stats.conferences },
+      { key: 'years', value: stats.years }
+    ];
+
+    statKeys.forEach(({ key, value }) => {
+      const regex = new RegExp(`(data-stat=['"]${key}['"]>\\s*)\\d+(\\s*</div>)`);
+      content = content.replace(regex, `$1${value}$2`);
+    });
     
     // Replace featured publications section
     const featuredStart = content.indexOf('<!-- FEATURED_PUBLICATIONS_START -->');
