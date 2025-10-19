@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2025-10-13T06:04:04.312Z",
+  "lastUpdated": "2025-10-19T06:03:38.943Z",
   "statistics": {
-    "total": 23,
-    "journals": 8,
-    "conferences": 11,
-    "hybrids": 8,
+    "total": 25,
+    "journals": 10,
+    "conferences": 13,
+    "hybrids": 10,
     "years": 7,
     "topPublication": {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
@@ -40,6 +40,26 @@
       "doi": "10.1007/978-3-031-30634-1_5",
       "type": "conference",
       "prestigeScore": 100
+    },
+    {
+      "title": "Mix-Basis Geometric Approach to Boomerang Distinguishers.",
+      "authors": "Chengcheng Chang, Hosein Hadipour, Kai Hu 0001, Muzhou Li, Meiqin Wang",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2025,
+      "url": "https://doi.org/10.46586/tosc.v2025.i3.693-728",
+      "doi": "10.46586/TOSC.V2025.I3.693-728",
+      "type": "hybrid",
+      "prestigeScore": 95
+    },
+    {
+      "title": "Cryptanalysis: Theory Versus Practice Correcting Cryptanalysis Results on Ascon, ChaCha, and Serpent Using GPUs.",
+      "authors": "Cihangir Tezcan, Gregor Leander, Hosein Hadipour",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2025,
+      "url": "https://doi.org/10.46586/tosc.v2025.i3.729-754",
+      "doi": "10.46586/TOSC.V2025.I3.729-754",
+      "type": "hybrid",
+      "prestigeScore": 95
     },
     {
       "title": "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
