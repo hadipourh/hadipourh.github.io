@@ -203,9 +203,10 @@ async function updateTalksPage(talks) {
     return `    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
       <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
         <!-- Card header with badge and date -->
-        <div class="flex flex-wrap justify-between items-start mb-4 gap-y-2">
-          <div class="badge badge-${talk.type === 'thesis' ? 'secondary' : 'primary'} text-xs font-mono">${talk.type}</div>
-          <div class="text-xs text-base-content/60 font-mono bg-base-content/5 px-2 py-1 rounded">${talk.date.substring(0, 4)}</div>
+                <!-- Card header with badge and date -->
+        <div class="flex justify-between items-start mb-3">
+          <div class="badge badge-${talk.type === 'thesis' ? 'secondary' : 'primary'} text-xs font-mono whitespace-nowrap">${talk.type}</div>
+          <span class="text-sm font-bold text-base-content/70">${talk.date}</span>
         </div>
         
         <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2 break-words">

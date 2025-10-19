@@ -282,7 +282,7 @@ function generateFeaturedCard(pub, index) {
               </p>
             </div>
             <div class="ml-4 flex flex-col items-end space-y-2">
-              <span class="px-2 py-1 rounded-full text-xs ${typeColor} font-medium">
+              <span class="px-2 py-1 rounded-full text-xs ${typeColor} font-medium whitespace-nowrap">
                 ${pub.type.charAt(0).toUpperCase() + pub.type.slice(1)}
               </span>
               <span class="text-lg font-bold text-gray-600">
@@ -347,7 +347,7 @@ function generatePublicationCard(pub, index) {
               </p>
             </div>
             <div class="ml-4 text-right">
-              <span class="badge ${typeColor} badge-sm mb-1">${pub.type}</span>
+              <span class="badge ${typeColor} badge-sm mb-1 whitespace-nowrap">${pub.type}</span>
               <div class="text-sm font-medium">${pub.year}</div>
             </div>
           </div>
