@@ -13,8 +13,9 @@ This website serves as a professional academic platform designed for researchers
 - **Content**: Markdown with frontmatter validation + JSON datasets
 - **Mathematics**: MathJax 3.x for equation rendering
 - **Security**: Multi-layer content filtering and rate limiting
-- **Automation**: GitHub Actions + n8n workflows
-- **Hosting**: Static deployment ready
+- **Automation**: GitHub Actions for content updates and deployment
+- **Contact System**: n8n webhook integration with Telegram delivery
+- **Hosting**: GitHub Pages (static deployment)
 
 ## Key Features
 
@@ -58,13 +59,13 @@ export const profile = {
 ```
 
 ### CV Data (src/data/cv.ts)
-Core CV sections (experience, education, skills, etc.) live in `src/data/cv.ts` and are maintained by the LaTeX importer. Publications are no longer hard-coded here—see the following section for details.
+Core CV sections (experience, education, skills, honors, etc.) are stored in `src/data/cv.ts` and can be automatically updated from your LaTeX CV using the CV parser script. Publications are no longer hard-coded here—they're auto-generated from DBLP (see below).
 
 ### Auto-Generated Publications (src/data/publications.json)
-Publications are synchronized from DBLP via `scripts/update-publications.js` and stored in `src/data/publications.json`. Pages (home, CV, papers) consume this JSON directly, so manual edits belong in the source data (e.g., DBLP) or in the JSON file if you need overrides.
+Publications are automatically synchronized from DBLP via `scripts/update-publications.js` and stored in `src/data/publications.json`. Pages (home, CV, papers) consume this JSON directly. The update script runs automatically every 6 days or can be triggered manually.
 
-### Professional Icon Mapping (src/components/ui/IconRenderer.astro)
-CV sections reference semantic icon keys (e.g., `"book"`, `"code"`, `"award"`). The `IconRenderer` component translates these keys to monochrome SVGs for a consistent, professional look while retaining emoji fallback for honors.
+### Professional Icon Mapping (src/data/researchIcons.ts)
+CV sections and research areas reference semantic icon keys. The icon system uses SVG assets from `src/assets/social-icons/` for a consistent, professional look.
 
 ## Content Management
 
@@ -122,6 +123,36 @@ npm run update:cv  # Parses CV.tex and refreshes src/data/cv.ts
 npm run update:all  # Runs all update scripts
 ```
 
+### GitHub Actions Auto-Deployment Setup
+
+The website automatically updates content and deploys every 6 days via GitHub Actions. To enable this:
+
+1. **Create a Personal Access Token (PAT)**:
+   - Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+   - Click "Generate new token (classic)"
+   - Name it "Website Auto Deploy"
+   - Set expiration (recommended: 1 year)
+   - Select scopes:
+     - ✅ `repo` (all sub-scopes)
+     - ✅ `workflow` (to trigger deployment workflows)
+   - Click "Generate token" and **copy it immediately**
+
+2. **Add PAT as Repository Secret**:
+   - Go to repository Settings → Secrets and variables → Actions
+   - Click "New repository secret"
+   - Name: `PAT_TOKEN`
+   - Value: Paste your PAT
+   - Click "Add secret"
+
+3. **How It Works**:
+   - The `update-content.yml` workflow runs on schedule (every 6 days)
+   - Updates publications, talks, and projects from external sources
+   - Commits changes using the PAT (not default `GITHUB_TOKEN`)
+   - The PAT-authenticated push triggers the `deploy.yml` workflow
+   - Site automatically rebuilds and deploys to GitHub Pages
+
+**Note**: Using a PAT instead of `GITHUB_TOKEN` is required because GitHub prevents the default token from triggering other workflows (security feature to prevent recursive runs).
+
 ## Security Features
 
 ### Terminal Contact System
@@ -141,16 +172,16 @@ npm run update:all  # Runs all update scripts
 ## Maintenance
 
 ### Regular Updates
-1. **Content synchronization** (automated daily via GitHub Actions)
+1. **Content synchronization** (automated every 6 days via GitHub Actions)
 2. **Security patches** (monitor for vulnerabilities)
 3. **Dependencies** (regular npm audit and updates)
 4. **Performance monitoring** (build times and site speed)
 
 ### Manual Maintenance Tasks
 - **Blog posts**: Add new content in `src/content/BlogPosts/`
-- **CV updates**: Update `src/data/cv.ts` or run CV parser
+- **CV updates**: Update `public/cv/CV.tex` and run `npm run update:cv` to sync changes
 - **Settings**: Modify `src/settings.ts` for profile changes
-- **Theme**: Customize in `tailwind.config.mjs`
+- **Themes**: Customize in `tailwind.config.mjs` (supports 32 DaisyUI themes)
 
 ### Deployment Preparation
 ```bash
@@ -177,15 +208,17 @@ scripts/        # Automation scripts
 ## Troubleshooting
 
 ### Common Issues
-- **Build errors**: Check content frontmatter validation
-- **MathJax not rendering**: Verify equation syntax
-- **Terminal not working**: Check network connectivity
-- **Automation failures**: Verify API keys and permissions
+- **Build errors**: Check content frontmatter validation in blog posts
+- **MathJax not rendering**: Verify LaTeX equation syntax
+- **Terminal contact not working**: Check n8n webhook connectivity
+- **Automation failures**: Verify PAT_TOKEN is set in repository secrets
+- **Publication updates failing**: Check DBLP API availability
 
 ### Debug Commands
 ```bash
 npm run build  # Check for build errors
-grep -r "error" dist/  # Search for runtime errors
+npm run preview  # Test production build
+npm run update:all  # Manually trigger all content updates
 ```
 
 ## Contributing
