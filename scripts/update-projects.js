@@ -381,15 +381,22 @@ async function updateProjectsPage(repositories, collaborativeRepos = []) {
     // Sort repositories by stars (descending)
     const sortedRepos = repositories.sort((a, b) => b.stargazers_count - a.stargazers_count);
     
-    // Calculate real statistics
-    const stats = calculateStatistics(sortedRepos, collaborativeRepos);
-    
-    // Update statistics in the content
-    content = content.replace(/>\s*50\+\s*</, `>${stats.totalProjects}<`);
-    content = content.replace(/>\s*1000\+\s*</, `>${stats.totalStars}<`);
-    content = content.replace(/>\s*15\+\s*</, `>${stats.totalLanguages}<`);
-    
-    // Generate featured projects (top 9)
+  // Calculate real statistics
+  const stats = calculateStatistics(sortedRepos, collaborativeRepos);
+  
+  // Update statistics using data-stat attributes (similar to publications page)
+  const statUpdates = [
+    { key: 'projects', value: stats.totalProjects },
+    { key: 'stars', value: stats.totalStars },
+    { key: 'languages', value: stats.totalLanguages }
+  ];
+  
+  statUpdates.forEach(({ key, value }) => {
+    const regex = new RegExp(`(data-stat=['"]${key}['"]>)\\d+(</div>)`);
+    content = content.replace(regex, `$1${value}$2`);
+  });
+  
+  console.log(`Updated statistics: ${stats.totalProjects} projects, ${stats.totalStars} stars, ${stats.totalLanguages} languages`);    // Generate featured projects (top 9)
     const featuredRepos = sortedRepos.slice(0, 9);
     const featuredHTML = featuredRepos.map((repo, index) => generateFeaturedCard(repo, index)).join('\n');
     

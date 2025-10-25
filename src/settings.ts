@@ -37,7 +37,7 @@ export const social = {
 }
 
 export const template = {
-	website_url: 'https://localhost:4321', // Astro needs to know your site’s deployed URL to generate a sitemap. It must start with http:// or https://
+	website_url: 'https://hadipourh.github.io', // Production URL for sitemap generation
 	menu_left: false,
 	transitions: true,
 	lightTheme: 'corporate', // Select one of the Daisy UI Themes or create your own

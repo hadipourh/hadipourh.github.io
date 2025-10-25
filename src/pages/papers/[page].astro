@@ -243,8 +243,6 @@ for (let i = startPage; i <= endPage; i++) {
       
       // Also listen for when search input is cleared manually (backspace/delete)
       searchInput.addEventListener('keyup', performSearch);
-      
-      console.log('Search functionality initialized');
     }
 
     function populateYearFilter() {
@@ -269,8 +267,6 @@ for (let i = startPage; i <= endPage; i++) {
         option.textContent = year;
         yearFilter.appendChild(option);
       });
-      
-      console.log('Year filter populated with', years.length, 'years');
     }
 
     function isFilterActive() {

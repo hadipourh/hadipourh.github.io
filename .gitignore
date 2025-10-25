@@ -19,9 +19,8 @@ pnpm-debug.log*
 .env.local
 .env.development
 
-# CV files (security)
+# CV source files (keep PDF public for download)
 public/cv/CV.tex
-public/cv/CV.pdf
 
 # Security - prevent accidental password leaks
 *.password
