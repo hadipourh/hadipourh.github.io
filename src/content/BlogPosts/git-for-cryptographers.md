@@ -6,7 +6,7 @@ tags: ["git", "research", "security", "collaboration", "version-control", "best-
 ---
 # Git for Research: A Practical Guide
 
-Version control is key to modern research. This guide introduces Git with a focus on research projects. It keeps the language simple and shows safe steps for common tasks.
+In this post, I share some Git basics that I've found useful for research work. I'll cover the essential commands, how to avoid accidentally leaking secrets, and how to handle common problems like merge conflicts and rebases.
 
 - [Git for Research: A Practical Guide](#git-for-research-a-practical-guide)
   - [Why Version Control Matters](#why-version-control-matters)
