@@ -8,6 +8,43 @@ tags: ["git", "research", "security", "collaboration", "version-control", "best-
 
 Version control is key to modern research. This guide introduces Git with a focus on research projects. It keeps the language simple and shows safe steps for common tasks.
 
+- [Git for Research: A Practical Guide](#git-for-research-a-practical-guide)
+  - [Why Version Control Matters](#why-version-control-matters)
+  - [Git Fundamentals](#git-fundamentals)
+    - [Installation and Setup](#installation-and-setup)
+    - [Setting Up Git (Do This Once)](#setting-up-git-do-this-once)
+    - [Creating Your First Repository](#creating-your-first-repository)
+    - [Essential Commands](#essential-commands)
+    - [Daily Operations](#daily-operations)
+  - [Security: Protect Your Secrets](#security-protect-your-secrets)
+    - [Real Security Incidents](#real-security-incidents)
+    - [Protect Your Secrets](#protect-your-secrets)
+    - [If You Already Committed a Secret](#if-you-already-committed-a-secret)
+  - [Working with Others](#working-with-others)
+    - [Clone and Branch](#clone-and-branch)
+    - [Contributing to Other Projects](#contributing-to-other-projects)
+  - [Fixing Problems](#fixing-problems)
+    - [Common Error Messages](#common-error-messages)
+    - [Handling Merge Conflicts](#handling-merge-conflicts)
+  - [Understanding Rebase](#understanding-rebase)
+    - [What is Divergence?](#what-is-divergence)
+    - [When to Use Rebase](#when-to-use-rebase)
+    - [How to Rebase Safely](#how-to-rebase-safely)
+    - [Rebase Visual Guide](#rebase-visual-guide)
+    - [Pushing After Rebase](#pushing-after-rebase)
+    - [Recovering from Mistakes](#recovering-from-mistakes)
+      - [1. Discard uncommitted changes](#1-discard-uncommitted-changes)
+      - [2. Undo commits (but keep your work)](#2-undo-commits-but-keep-your-work)
+      - [3. Recovery from major mistakes (rebase, merge gone wrong)](#3-recovery-from-major-mistakes-rebase-merge-gone-wrong)
+  - [Advanced Tips](#advanced-tips)
+    - [Organize Your Research Project](#organize-your-research-project)
+    - [File Structure](#file-structure)
+    - [Tag Important Versions](#tag-important-versions)
+  - [Quick Reference](#quick-reference)
+    - [Essential Commands](#essential-commands-1)
+    - [Learn More](#learn-more)
+
+
 ## Why Version Control Matters
 
 Research involves code, papers, and data that change constantly. Without version control, you risk losing work, creating conflicts, and failing to reproduce results.
