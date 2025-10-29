@@ -57,7 +57,7 @@ const navigationItems = [
 						<li>
 							<a href={item.href} class={`group relative overflow-hidden rounded-xl bg-gradient-to-r from-transparent via-transparent to-transparent p-3 text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:from-primary/10 hover:via-secondary/10 hover:to-accent/10 active:scale-95`}>
 								<div class="flex items-center space-x-3 relative z-10">
-									<svg class="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon}></path>
 									</svg>
 									<span class="transition-all duration-300 group-hover:text-primary">{item.label}</span>

@@ -20,7 +20,7 @@ const { elements } = Astro.props
       <a
         href={element.link as string}
         class='block hover:text-accent transition-colors duration-200'
-        target='_blank'
+        target='_blank' rel='noopener noreferrer'
       >
         <h3 class='text-lg font-bold mb-2'>{element.title}</h3>
       </a>

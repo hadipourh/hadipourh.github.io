@@ -39,97 +39,97 @@ const socialColors = {
 <div class='flex flex-wrap justify-between items-center gap-2'>
 
 	<!-- Email -->
-	{social.email !== '' &&
-		<a href={`mailto:${social.email}`} class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.email} group relative overflow-hidden`}>
-			<Envelope class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.email !== '' &&
+        <a href={`mailto:${social.email}`} class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.email} group relative overflow-hidden`} aria-label="Email">
+            <Envelope class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-red-500/10 to-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- GitHub -->
-	{social.github !== '' &&
-		<a href={social.github} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.github} group relative overflow-hidden`}>
-			<GitHub class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.github !== '' &&
+        <a href={social.github} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.github} group relative overflow-hidden`} aria-label="GitHub profile">
+            <GitHub class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-gray-800/10 to-gray-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- DBLP -->
-	{social.dblp !== '' &&
-		<a href={social.dblp} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.dblp} group relative overflow-hidden`}>
-			<DBLP class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.dblp !== '' &&
+        <a href={social.dblp} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.dblp} group relative overflow-hidden`} aria-label="DBLP profile">
+            <DBLP class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-blue-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- Google Scholar -->
-	{social.scholar !== '' &&
-		<a href={social.scholar} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.scholar} group relative overflow-hidden`}>
-			<Scholar class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.scholar !== '' &&
+        <a href={social.scholar} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.scholar} group relative overflow-hidden`} aria-label="Google Scholar profile">
+            <Scholar class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-blue-700/10 to-blue-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- IACR -->
-	{social.iacr !== '' &&
-		<a href={social.iacr} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.iacr} group relative overflow-hidden`}>
-			<IACR class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.iacr !== '' &&
+        <a href={social.iacr} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.iacr} group relative overflow-hidden`} aria-label="IACR profile">
+            <IACR class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-purple-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- ORCID -->
-	{social.orcid !== '' &&
-		<a href={social.orcid} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.orcid} group relative overflow-hidden`}>
-			<ORCID class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.orcid !== '' &&
+        <a href={social.orcid} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.orcid} group relative overflow-hidden`} aria-label="ORCID profile">
+            <ORCID class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-green-600/10 to-green-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- LinkedIn -->
-	{social.linkedin !== '' &&
-		<a href={social.linkedin} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.linkedin} group relative overflow-hidden`}>
-			<LinkedIn class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.linkedin !== '' &&
+        <a href={social.linkedin} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.linkedin} group relative overflow-hidden`} aria-label="LinkedIn profile">
+            <LinkedIn class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-blue-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- X -->
-	{social.x !== '' &&
-		<a href={social.x} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.x} group relative overflow-hidden`}>
-			<X class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.x !== '' &&
+        <a href={social.x} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.x} group relative overflow-hidden`} aria-label="X (Twitter) profile">
+            <X class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-gray-900/10 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- ResearchGate -->
-	{social.researchgate !== '' &&
-		<a href={social.researchgate} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.researchgate} group relative overflow-hidden`}>
-			<ResearchGate class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.researchgate !== '' &&
+        <a href={social.researchgate} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.researchgate} group relative overflow-hidden`} aria-label="ResearchGate profile">
+            <ResearchGate class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-teal-600/10 to-teal-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 	<!-- GitLab -->
-	{social.gitlab !== '' &&
-		<a href={social.gitlab} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.gitlab} group relative overflow-hidden`}>
-			<GitLab class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.gitlab !== '' &&
+        <a href={social.gitlab} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.gitlab} group relative overflow-hidden`} aria-label="GitLab profile">
+            <GitLab class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-orange-600/10 to-orange-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 	</a>
 	}
 
 <!-- Inspire -->
-	{social.inspire !== '' &&
-		<a href={social.inspire} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.inspire} group relative overflow-hidden`}>
-			<Inspire class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.inspire !== '' &&
+        <a href={social.inspire} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.inspire} group relative overflow-hidden`} aria-label="INSPIRE profile">
+            <Inspire class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-indigo-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}
 
 <!-- arxiv -->
-	{social.arxiv !== '' &&
-		<a href={social.arxiv} target="_blank" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.arxiv} group relative overflow-hidden`}>
-			<Arxiv class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" />
+    {social.arxiv !== '' &&
+        <a href={social.arxiv} target="_blank" rel="noopener noreferrer" class={`${calculatedContainerSize} inline-flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg ${socialColors.arxiv} group relative overflow-hidden`} aria-label="arXiv profile">
+            <Arxiv class={`${calculatedIconSize} transition-all duration-300 group-hover:scale-110`} fill="currentColor" aria-hidden="true" />
 			<div class="absolute inset-0 bg-gradient-to-r from-red-700/10 to-red-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
 		</a>
 	}

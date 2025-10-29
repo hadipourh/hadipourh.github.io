@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { profile } from '@/settings'
+import { profile, social, template } from '@/settings'
 import Hero from '@/components/ui/Hero.astro'
 import Grid from '@/components/ui/Grid.astro'
 import ArticleList from '@/components/ui/ArticleList.astro'
@@ -23,6 +23,19 @@ const publications = (publicationsData.publications as any[]).map((pub: any) => 
 
 // Use the uploaded professional profile picture
 const profilePicture = '/images/profilepic1.png'
+
+// Structured data: Person JSON-LD (invisible, SEO only)
+const sameAsLinks = Object.values(social).filter((v) => typeof v === 'string' && v.startsWith('http')) as string[]
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": fullName,
+  "jobTitle": title,
+  "affiliation": institute,
+  "url": template.website_url || 'https://hadipourh.github.io',
+  "image": (template.website_url || 'https://hadipourh.github.io') + profilePicture,
+  "sameAs": sameAsLinks
+}
 ---
 
 <Layout>
@@ -116,6 +129,11 @@ const profilePicture = '/images/profilepic1.png'
 	</section>
 	</div>
 </Layout>
+
+<!-- Person JSON-LD (does not change UI) -->
+<script type="application/ld+json" is:inline>
+{JSON.stringify(jsonLd)}
+</script>
 
 <script>
 import { initTerminal } from '../lib/terminal.js';

@@ -270,6 +270,21 @@ function generateFeaturedCard(pub, index) {
   const authors = pub.authors.length > 100 ? pub.authors.substring(0, 100) + '...' : pub.authors;
   const highlightedAuthors = highlightAuthorName(authors);
   
+  // JSON-LD (ScholarlyArticle) for SEO – invisible, does not affect UI
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "name": pub.title,
+    "author": (pub.authors || '').split(',').map(a => ({ "@type": "Person", "name": a.trim() })).filter(a => a.name),
+    "datePublished": String(pub.year),
+    "isPartOf": {
+      "@type": "PublicationVolume",
+      "name": pub.venue
+    },
+    ...(pub.doi ? { "sameAs": `https://doi.org/${pub.doi}` } : {}),
+    ...(pub.url ? { "url": pub.url } : {})
+  };
+
   return `      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
@@ -310,7 +325,8 @@ function generateFeaturedCard(pub, index) {
             </a>` : ''}
           </div>
         </div>
-      </div>`;
+      </div>
+      <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
 }
 
 /**
@@ -329,6 +345,21 @@ function generatePublicationCard(pub, index) {
   const authors = pub.authors.length > 150 ? pub.authors.substring(0, 150) + '...' : pub.authors;
   const highlightedAuthors = highlightAuthorName(authors);
   
+  // JSON-LD (ScholarlyArticle) for SEO – invisible, does not affect UI
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "name": pub.title,
+    "author": (pub.authors || '').split(',').map(a => ({ "@type": "Person", "name": a.trim() })).filter(a => a.name),
+    "datePublished": String(pub.year),
+    "isPartOf": {
+      "@type": "PublicationVolume",
+      "name": pub.venue
+    },
+    ...(pub.doi ? { "sameAs": `https://doi.org/${pub.doi}` } : {}),
+    ...(pub.url ? { "url": pub.url } : {})
+  };
+
   return `      <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 border border-base-300" 
            data-publication 
            data-title="${pub.title.replace(/"/g, '&quot;')}" 
@@ -371,7 +402,8 @@ function generatePublicationCard(pub, index) {
             </a>` : ''}
           </div>
         </div>
-      </div>`;
+      </div>
+      <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
 }
 
 /**
