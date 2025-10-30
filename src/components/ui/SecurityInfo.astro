@@ -43,7 +43,7 @@
       <p class="border-l-2 border-amber-500 pl-3 transition-all hover:border-l-4 hover:pl-4 hover:bg-amber-500/5 py-1.5 -ml-0.5 rounded-r">
         <span class="font-semibold text-amber-500 font-mono">[!]</span> 
         <span class="font-medium text-amber-500">Message Transmission:</span>
-        <span class="text-base-content/80">Your messages are sent directly from your browser to n8n automation service over HTTPS (encrypted in transit) but are accessible in unencrypted form within the n8n service itself.</span>
+        <span class="text-base-content/80">Your messages are sent directly from your browser to the n8n server over HTTPS (encrypted in transit) but are accessible in unencrypted form within the n8n server itself.</span>
       </p>
     </div>
     
@@ -62,8 +62,8 @@
     <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-scan"></div>
     
     <p class="text-sm text-base-content/80 mb-3">
-      This system shows why cryptography matters: even with HTTPS protection, your messages are readable by intermediaries (n8n, Telegram). 
-      The solution? <strong class="text-emerald-400">Encrypt messages before sending them.</strong> Try it yourself with <code class="bg-black/40 px-1.5 py-0.5 rounded text-cyan-400 text-[11px] font-mono border border-cyan-500/20 hover:border-cyan-500/40 transition-colors">/encrypt &lt;your message&gt;</code> in the terminal above.
+      This system shows why <strong class="text-emerald-400">end-to-end encryption</strong> matters: your browser connects to this website over HTTPS, but when you send a message, intermediaries (n8n server, Telegram) can still read the content. 
+      The solution? <strong class="text-emerald-400">Encrypt messages in your browser before sending them.</strong> Try it yourself with <code class="bg-black/40 px-1.5 py-0.5 rounded text-cyan-400 text-[11px] font-mono border border-cyan-500/20 hover:border-cyan-500/40 transition-colors">/encrypt &lt;your message&gt;</code> in the terminal above.
     </p>
     
     <!-- Research focus with animated border -->
