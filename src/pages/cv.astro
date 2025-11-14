@@ -120,9 +120,9 @@ if (publications.length > 0) {
 						}
 						return acc;
 					}, []).map((categoryGroup) => (
-						<div class='relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl group'>
+						<div class='relative overflow-hidden rounded-2xl bg-teal-600 dark:bg-cyan-500 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl group'>
 							<div class='h-full rounded-xl bg-base-100 p-4'>
-								<h3 class='font-bold text-lg mb-4 text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600 dark:from-emerald-400 dark:to-blue-400'>{categoryGroup.category}</h3>
+								<h3 class='font-bold text-lg mb-4 text-transparent bg-clip-text bg-clip-text text-teal-600 dark:text-cyan-400'>{categoryGroup.category}</h3>
 								<div class='grid grid-cols-1 md:grid-cols-2 gap-3'>
 									{categoryGroup.items.map((skill: any) => (
 										<div class='bg-base-200/50 rounded p-3 hover:bg-base-200 transition-colors'>
@@ -167,7 +167,7 @@ if (publications.length > 0) {
 				</h2>
 				<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
 					{presentations.map((item) => (
-						<div class='group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl'>
+						<div class='group relative overflow-hidden rounded-xl bg-teal-600 dark:bg-cyan-500 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl'>
 							<div class='h-full rounded-lg bg-base-100 p-3'>
 								<div class='flex justify-between items-start mb-2'>
 									{item.link ? (
@@ -202,7 +202,7 @@ if (publications.length > 0) {
 				</h2>
 				<div class='grid grid-cols-1 md:grid-cols-2 gap-3'>
 					{reviews.map((item) => (
-						<div class='group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-blue-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl'>
+						<div class='group relative overflow-hidden rounded-xl bg-teal-600 dark:bg-cyan-500 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl'>
 							<div class='flex justify-between items-center p-3 rounded-lg bg-base-100'>
 								<span class='font-medium text-base-content'>{item.title}</span>
 								<div class='text-right'>

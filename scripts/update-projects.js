@@ -168,15 +168,15 @@ async function enrichCollaborativeRepos(collaborativeRepos) {
  * Generate featured project card HTML
  */
 function generateFeaturedCard(repo, index) {
-  // Use uniform emerald-to-blue gradient for all featured cards
-  const gradient = 'from-emerald-600 to-blue-600';
+  // Solid professional hacker color instead of gradient
+  const borderColor = 'bg-teal-600 dark:bg-cyan-500';
   
   const stars = repo.stargazers_count || 0;
   const forks = repo.forks_count || 0;
   const description = repo.description || 'No description available';
   const language = repo.language || 'Unknown';
   
-  return `      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+  return `      <div class="group relative overflow-hidden rounded-2xl ${borderColor} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -222,8 +222,8 @@ function generateFeaturedCard(repo, index) {
  * Generate regular project card HTML
  */
 function generateProjectCard(repo, index) {
-  // Use uniform emerald-to-blue gradient for all project cards
-  const gradient = 'from-emerald-600 to-blue-600';
+  // Solid professional hacker color instead of gradient
+  const borderColor = 'bg-teal-600 dark:bg-cyan-500';
   
   const stars = repo.stargazers_count || 0;
   const forks = repo.forks_count || 0;
@@ -235,7 +235,7 @@ function generateProjectCard(repo, index) {
     day: 'numeric'
   });
   
-  return `      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+  return `      <div class="group relative overflow-hidden rounded-xl bg-teal-600 dark:bg-cyan-500 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -283,8 +283,8 @@ function generateProjectCard(repo, index) {
  * Generate collaborative project card HTML
  */
 function generateCollaborativeCard(repo, index) {
-  // Use uniform emerald-to-blue gradient for all collaborative cards
-  const gradient = 'from-emerald-600 to-blue-600';
+  // Solid professional hacker color instead of gradient
+  const borderColor = 'bg-teal-600 dark:bg-cyan-500';
   
   const stars = repo.stars || 0;
   const forks = repo.forks || 0;
@@ -297,7 +297,7 @@ function generateCollaborativeCard(repo, index) {
     day: 'numeric'
   });
   
-  return `      <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+  return `      <div class="group relative overflow-hidden rounded-xl bg-teal-600 dark:bg-cyan-500 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">

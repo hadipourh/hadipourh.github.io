@@ -543,14 +543,14 @@ export const languages: { language: string; level: string; proficiency: number; 
 		language: "German",
 		level: "Learning",
 		proficiency: 1,
-		color: "text-purple-600",
+		color: "text-teal-600",
 		icon: "🌱"
 	},
 	{
 		language: "Chinese",
 		level: "Learning",
 		proficiency: 1,
-		color: "text-purple-600",
+		color: "text-cyan-600",
 		icon: "🌱"
 	}
 ];

@@ -256,12 +256,12 @@ function calculateStatistics(publications) {
  * Generate featured publication card HTML (without prestige score display)
  */
 function generateFeaturedCard(pub, index) {
-  const gradient = 'from-emerald-600 to-blue-600';
+  const borderColor = 'bg-teal-600 dark:bg-cyan-500'; // Solid professional hacker color
   
   const typeColors = {
     'journal': 'bg-blue-100 text-blue-800',
     'conference': 'bg-green-100 text-green-800',
-    'hybrid': 'bg-purple-100 text-purple-800',
+    'hybrid': 'bg-cyan-100 text-cyan-800',
     'workshop': 'bg-yellow-100 text-yellow-800',
     'preprint': 'bg-gray-100 text-gray-800'
   };
@@ -285,7 +285,7 @@ function generateFeaturedCard(pub, index) {
     ...(pub.url ? { "url": pub.url } : {})
   };
 
-  return `      <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+  return `      <div class="group relative overflow-hidden rounded-2xl ${borderColor} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">

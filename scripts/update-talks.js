@@ -200,7 +200,7 @@ async function updateTalksPage(talks) {
   
   // Generate talk cards for ALL talks with styling consistent with papers and projects pages
   const talkCards = talks.map((talk, index) => {
-    return `    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+    return `    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-600 to-teal-700 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
       <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
         <!-- Card header with badge and date -->
                 <!-- Card header with badge and date -->

@@ -11,19 +11,16 @@ const {gridTitle, gridItems} = Astro.props;
 
 import { getTextColorClass } from '../../lib/utils';
 
-// Gradient pairs for card backgrounds/borders
-const gradientPairs = ['from-primary to-secondary', 'from-secondary to-accent', 'from-accent to-primary']
-const hoverTints = ['hover:from-primary/10 hover:to-secondary/10', 'hover:from-secondary/10 hover:to-accent/10', 'hover:from-accent/10 hover:to-primary/10']
-const borderTints = ['border-primary/20 hover:border-primary/40', 'border-secondary/20 hover:border-secondary/40', 'border-accent/20 hover:border-accent/40']
+// Solid colors for professional hacker aesthetic - NO GRADIENTS
+const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10']
+const borderTints = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40']
 ---
 <h2 class={`text-3xl md:text-4xl font-bold mb-8 ${getTextColorClass(0)}`}>{gridTitle}</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {gridItems.map((item, index) => (
-    <div class={`group relative overflow-hidden p-6 rounded-lg bg-gradient-to-br from-base-200 to-base-300 ${hoverTints[index % 3]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderTints[index % 3]}`}>
+    <div class={`group relative overflow-hidden p-6 rounded-lg bg-base-200 ${hoverTints[index % 3]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderTints[index % 3]}`}>
       <h3 class="text-xl font-semibold mb-3 name-title-text">{item.title}</h3>
       <p class="text-base-content/80 leading-relaxed">{item.description}</p>
-      <!-- Subtle glow effect on hover -->
-      <div class={`absolute inset-0 rounded-lg bg-gradient-to-br ${gradientPairs[index % 3]} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none`}></div>
     </div>
   ))}
 </div>

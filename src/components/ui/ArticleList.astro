@@ -18,7 +18,7 @@ import { getTextColorClass } from '../../lib/utils';
 const displayItems = listItems ? listItems.slice(0, 3) : []
 
 // Use uniform gradient color for all cards (emerald to blue)
-const cardGradient = 'from-emerald-600 to-blue-600'
+const cardGradient = 'bg-teal-600 dark:bg-cyan-500' // Solid professional hacker color
 ---
 
 <div class="mb-12">
@@ -26,7 +26,7 @@ const cardGradient = 'from-emerald-600 to-blue-600'
 	<div class='space-y-6'>
 		{
 			displayItems.map((item, index) => (
-				<div class={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${cardGradient} p-1 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-500/25`}>
+				<div class={`group relative overflow-hidden rounded-2xl ${cardGradient} p-1 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-500/25`}>
 					<div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
 						<h3 class="text-xl font-bold mb-3 text-base-content">{item.title}</h3>
 						<p class='text-sm text-base-content/70 mb-2 font-medium'>{item.authors}</p>
@@ -46,7 +46,7 @@ const cardGradient = 'from-emerald-600 to-blue-600'
 						)}
 						
 						<!-- Subtle glow effect on hover -->
-						<div class={`absolute inset-0 rounded-2xl bg-gradient-to-br ${cardGradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none`}></div>
+						<div class={`absolute inset-0 rounded-2xl ${cardGradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none`}></div>
 					</div>
 				</div>
 			))
@@ -55,7 +55,7 @@ const cardGradient = 'from-emerald-600 to-blue-600'
 	
 	<!-- View All Publications Button -->
 	<div class="text-center mt-8">
-		<a href="/papers" class="group relative inline-flex items-center justify-center space-x-2 px-6 py-2.5 overflow-hidden rounded-lg bg-gradient-to-br from-emerald-600 to-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+		<a href="/papers" class="group relative inline-flex items-center justify-center space-x-2 px-6 py-2.5 overflow-hidden rounded-lg bg-teal-600 dark:bg-cyan-500 transition-all duration-300 hover:scale-105 hover:shadow-xl">
 			<span class="text-white font-semibold text-sm">View All Publications</span>
 			<svg class="w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
