@@ -168,16 +168,18 @@ async function enrichCollaborativeRepos(collaborativeRepos) {
  * Generate featured project card HTML
  */
 function generateFeaturedCard(repo, index) {
-  // Solid professional hacker color instead of gradient
-  const borderColor = 'bg-teal-600 dark:bg-cyan-500';
+  // Grid-style design with rotating colors
+  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
+  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const colorIndex = index % 3;
   
   const stars = repo.stargazers_count || 0;
   const forks = repo.forks_count || 0;
   const description = repo.description || 'No description available';
   const language = repo.language || 'Unknown';
   
-  return `      <div class="group relative overflow-hidden rounded-2xl ${borderColor} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+  return `      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}">
+        <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
               <h3 class="text-xl font-bold mb-2 transition-all duration-300">
@@ -222,8 +224,10 @@ function generateFeaturedCard(repo, index) {
  * Generate regular project card HTML
  */
 function generateProjectCard(repo, index) {
-  // Solid professional hacker color instead of gradient
-  const borderColor = 'bg-teal-600 dark:bg-cyan-500';
+  // Grid-style design with rotating colors
+  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
+  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const colorIndex = index % 3;
   
   const stars = repo.stargazers_count || 0;
   const forks = repo.forks_count || 0;
@@ -235,8 +239,8 @@ function generateProjectCard(repo, index) {
     day: 'numeric'
   });
   
-  return `      <div class="group relative overflow-hidden rounded-xl bg-teal-600 dark:bg-cyan-500 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
-        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+  return `      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}">
+        <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
               ${repo.name}
@@ -283,8 +287,10 @@ function generateProjectCard(repo, index) {
  * Generate collaborative project card HTML
  */
 function generateCollaborativeCard(repo, index) {
-  // Solid professional hacker color instead of gradient
-  const borderColor = 'bg-teal-600 dark:bg-cyan-500';
+  // Grid-style design with rotating colors
+  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
+  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const colorIndex = index % 3;
   
   const stars = repo.stars || 0;
   const forks = repo.forks || 0;
@@ -297,8 +303,8 @@ function generateCollaborativeCard(repo, index) {
     day: 'numeric'
   });
   
-  return `      <div class="group relative overflow-hidden rounded-xl bg-teal-600 dark:bg-cyan-500 p-1 transition-all duration-300 hover:scale-105 hover:shadow-xl">
-        <div class="h-full rounded-lg bg-base-100 p-5 transition-all duration-300 group-hover:bg-opacity-95">
+  return `      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}">
+        <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
               <h3 class="text-lg font-semibold transition-all duration-300 mb-1">

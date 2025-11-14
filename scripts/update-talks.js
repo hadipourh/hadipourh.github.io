@@ -198,12 +198,15 @@ function extractCountriesFromTalks(talks) {
 async function updateTalksPage(talks) {
   const talksPath = path.join(process.cwd(), 'src', 'pages', 'talks.astro');
   
-  // Generate talk cards for ALL talks with styling consistent with papers and projects pages
+  // Generate talk cards for ALL talks with clean Grid-style design
+  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
+  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  
   const talkCards = talks.map((talk, index) => {
-    return `    <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-600 to-teal-700 p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-      <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+    const colorIndex = index % 3;
+    return `    <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}">
+      <div class="h-full">
         <!-- Card header with badge and date -->
-                <!-- Card header with badge and date -->
         <div class="flex justify-between items-start mb-3">
           <div class="badge badge-${talk.type === 'thesis' ? 'secondary' : 'primary'} text-xs font-mono whitespace-nowrap">${talk.type}</div>
           <span class="text-sm font-bold text-base-content/70">${talk.date}</span>
@@ -224,8 +227,8 @@ async function updateTalksPage(talks) {
           </div>` : ''}
         </div>
         
-        <!-- Talk Links - Enhanced -->
-        ${Object.keys(talk.links || {}).length > 0 ? `<div class="mt-4 border-t border-base-200 pt-4">
+        <!-- Talk Links -->
+        ${Object.keys(talk.links || {}).length > 0 ? `<div class="mt-4 border-t border-base-300 pt-4">
           <div class="flex flex-wrap gap-2 break-words">
             ${talk.links.paper ? `<a href="${talk.links.paper}" target="_blank" 
                class="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary font-medium hover:bg-primary/30 transition-colors">

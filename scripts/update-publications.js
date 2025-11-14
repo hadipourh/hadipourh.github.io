@@ -256,7 +256,10 @@ function calculateStatistics(publications) {
  * Generate featured publication card HTML (without prestige score display)
  */
 function generateFeaturedCard(pub, index) {
-  const borderColor = 'bg-teal-600 dark:bg-cyan-500'; // Solid professional hacker color
+  // Grid-style design with rotating colors
+  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
+  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const colorIndex = index % 3;
   
   const typeColors = {
     'journal': 'bg-blue-100 text-blue-800',
@@ -285,8 +288,8 @@ function generateFeaturedCard(pub, index) {
     ...(pub.url ? { "url": pub.url } : {})
   };
 
-  return `      <div class="group relative overflow-hidden rounded-2xl ${borderColor} p-1 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-        <div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+  return `      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}">
+        <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
               <h3 class="text-xl font-bold mb-2 transition-all duration-300 line-clamp-2">
@@ -333,6 +336,11 @@ function generateFeaturedCard(pub, index) {
  * Generate publication card HTML (without prestige score display)
  */
 function generatePublicationCard(pub, index) {
+  // Grid-style design with rotating colors
+  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
+  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const colorIndex = index % 3;
+  
   const typeColors = {
     'journal': 'badge-primary',
     'conference': 'badge-secondary',
@@ -360,14 +368,14 @@ function generatePublicationCard(pub, index) {
     ...(pub.url ? { "url": pub.url } : {})
   };
 
-  return `      <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 border border-base-300" 
+  return `      <div class="p-6 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}" 
            data-publication 
            data-title="${pub.title.replace(/"/g, '&quot;')}" 
            data-authors="${pub.authors.replace(/"/g, '&quot;')}" 
            data-venue="${pub.venue.replace(/"/g, '&quot;')}" 
            data-year="${pub.year}" 
            data-type="${pub.type}">
-        <div class="card-body p-6">
+        <div class="h-full">
           <div class="flex justify-between items-start mb-3">
             <div class="flex-1">
               <h3 class="card-title text-lg mb-2 line-clamp-2">
