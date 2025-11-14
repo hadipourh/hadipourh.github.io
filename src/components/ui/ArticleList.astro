@@ -17,8 +17,9 @@ import { getTextColorClass } from '../../lib/utils';
 // Take only the first few publications for the home page
 const displayItems = listItems ? listItems.slice(0, 3) : []
 
-// Use uniform gradient color for all cards (emerald to blue)
-const cardGradient = 'bg-teal-600 dark:bg-cyan-500' // Solid professional hacker color
+// Grid-style design with rotating colors
+const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10']
+const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40']
 ---
 
 <div class="mb-12">
@@ -29,9 +30,11 @@ const cardGradient = 'bg-teal-600 dark:bg-cyan-500' // Solid professional hacker
 	</h2>
 	<div class='space-y-6'>
 		{
-			displayItems.map((item, index) => (
-				<div class={`group relative overflow-hidden rounded-2xl ${cardGradient} p-1 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-500/25`}>
-					<div class="h-full rounded-xl bg-base-100 p-6 transition-all duration-300 group-hover:bg-opacity-95">
+			displayItems.map((item, index) => {
+				const colorIndex = index % 3
+				return (
+				<div class={`group relative overflow-hidden p-6 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}`}>
+					<div class="h-full">
 						<h3 class="text-xl font-bold mb-3 text-base-content">{item.title}</h3>
 						<p class='text-sm text-base-content/70 mb-2 font-medium'>{item.authors}</p>
 						<p class='font-medium text-base-content/90 mb-3'>
@@ -48,12 +51,9 @@ const cardGradient = 'bg-teal-600 dark:bg-cyan-500' // Solid professional hacker
 								</svg>
 							</a>
 						)}
-						
-						<!-- Subtle glow effect on hover -->
-						<div class={`absolute inset-0 rounded-2xl ${cardGradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none`}></div>
 					</div>
 				</div>
-			))
+			)})
 		}
 	</div>
 </div>
