@@ -44,8 +44,7 @@ export const DEFAULT_WELCOME_MESSAGES = [
   { text: '2. Messages sent directly from browser to n8n over HTTPS', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '3. Messages forwarded to Telegram via API (readable by intermediaries)', className: 'text-amber-400', withTyping: true, delay: 12 },
   { text: '4. Command and message history saved locally in your browser', className: 'text-gray-400', withTyping: true, delay: 12 },
-  { text: '', className: '', withTyping: false },
-  { text: 'Trust issues? Want to hide from n8n and Telegram servers? ;-) Use /encrypt to encrypt with my public key before sending!', className: 'text-yellow-400', withTyping: true, delay: 16 },
+  { text: '5. Use /encrypt to encrypt with my public key before sending!', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false },
   { text: 'Type /help for commands | /encrypt encrypts & sends | /history shows past commands', className: 'text-blue-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false }
