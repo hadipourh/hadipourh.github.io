@@ -8,7 +8,7 @@ tags: ["git", "research", "security", "collaboration", "version-control", "best-
 
 In this post, I share some Git basics that I've found useful for research work. I'll cover the essential commands, how to avoid accidentally leaking secrets, and how to handle common problems like merge conflicts and rebases.
 
-- [Git for Research: A Practical Guide](#git-for-research-a-practical-guide)
+- [Git Basics: A Practical Guide](#git-basics-a-practical-guide)
   - [Why Version Control Matters](#why-version-control-matters)
   - [Git Fundamentals](#git-fundamentals)
     - [Installation and Setup](#installation-and-setup)
@@ -101,7 +101,7 @@ Git workflow has four steps: edit, stage, commit, push.
 
 ```bash
 # 1. Create or edit files
-echo "# My Crypto Project" > README.md
+echo "# My Project" > README.md
 
 # 2. Check what changed
 git status
