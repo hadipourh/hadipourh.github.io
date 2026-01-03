@@ -23,15 +23,15 @@ In this post, I share some Git basics that I've found useful for research work. 
   - [Working with Others](#working-with-others)
     - [Clone and Branch](#clone-and-branch)
     - [Contributing to Other Projects](#contributing-to-other-projects)
+  - [Understanding Merge and Rebase](#understanding-merge-and-rebase)
+    - [What is Divergence?](#what-is-divergence)
+    - [When to Use Rebase](#when-to-use-rebase)
+    - [Owner vs Contributor: Which to Use?](#owner-vs-contributor-which-to-use)
+    - [How to Rebase Safely](#how-to-rebase-safely)
+    - [Pushing After Rebase](#pushing-after-rebase)
   - [Fixing Problems](#fixing-problems)
     - [Common Error Messages](#common-error-messages)
     - [Handling Merge Conflicts](#handling-merge-conflicts)
-  - [Understanding Rebase](#understanding-rebase)
-    - [What is Divergence?](#what-is-divergence)
-    - [When to Use Rebase](#when-to-use-rebase)
-    - [How to Rebase Safely](#how-to-rebase-safely)
-    - [Rebase Visual Guide](#rebase-visual-guide)
-    - [Pushing After Rebase](#pushing-after-rebase)
     - [Recovering from Mistakes](#recovering-from-mistakes)
       - [1. Discard uncommitted changes](#1-discard-uncommitted-changes)
       - [2. Undo commits (but keep your work)](#2-undo-commits-but-keep-your-work)
@@ -84,12 +84,30 @@ git config --global core.editor "code --wait"  # Use VS Code
 git config --global pull.rebase true           # Keep history clean
 ```
 
+**Understanding `pull.rebase`**: When you run `git pull` and your branch has diverged from remote, Git needs to reconcile the differences. The `pull.rebase` setting controls how:
+
+```bash
+# Rebase mode (recommended for contributors)
+git config --global pull.rebase true
+# Your commits are replayed on top of remote changes → clean linear history
+
+# Merge mode (default, often used by maintainers)
+git config --global pull.rebase false
+# Creates a merge commit combining both histories → preserves parallel work
+
+# Fast-forward only (strict mode)
+git config --global pull.ff only
+# Rejects pulls that would need merge/rebase → forces you to decide manually
+```
+
+You can override the global setting per-repository by dropping `--global`, or per-command with `git pull --rebase` or `git pull --no-rebase`.
+
 ### Creating Your First Repository
 
 ```bash
 # Start a new project
-mkdir my-crypto-project
-cd my-crypto-project
+mkdir myproject
+cd myproject
 git init
 
 # This creates a hidden .git folder that tracks everything
@@ -114,7 +132,7 @@ git add README.md
 git commit -m "Add README file"
 
 # 5. Push to GitHub (first time)
-git remote add origin https://github.com/yourusername/my-project.git
+git remote add origin https://github.com/yourusername/myproject.git
 git push -u origin main
 
 # 6. Push updates (after first time)
@@ -250,6 +268,137 @@ git push origin my-feature
 # 6. Create Pull Request on GitHub
 ```
 
+## Understanding Merge and Rebase
+
+### What is Divergence?
+
+Your local branch and remote branch have different commits:
+
+```
+A---B---C        (remote: origin/main)
+     \
+      D---E      (local: your main)
+```
+
+This diagram shows:
+
+- Both branches share commits A and B (common ancestor)
+- The remote `origin/main` has commit C (perhaps a colleague pushed it)
+- Your local `main` has commits D and E (your work)
+- The branches have **diverged** at commit B
+- You cannot simply push or pull and you need to reconcile these differences
+
+You need to combine them. 
+Two options: **merge** or **rebase**:
+
+- **Merge**: Creates a merge commit that ties both histories together
+- **Rebase**: Replays your commits on top of the remote, rewriting history
+
+**Merge result:**
+
+```
+A---B---C---------M    (M = merge commit)
+     \           /
+      D---E-----/
+```
+
+- Preserves the exact history of both branches
+- Shows when parallel work happened
+- Safe for shared branches (no history rewriting)
+- Can make history harder to read with many contributors
+
+**Rebase result:**
+
+```
+A---B---C---D'---E'    (linear history)
+```
+
+- Creates a clean, linear history
+- Easier to read and understand
+- Rewrites commit hashes (D→D', E→E')
+- Should only be used on branches you alone control
+
+### When to Use Rebase
+
+Use rebase when:
+
+- Working on your own branch
+- You want clean, linear history
+- Before creating a pull request
+
+Don't use rebase when:
+
+- Others are using the same branch
+- The branch is already public and shared
+
+### Owner vs Contributor: Which to Use?
+
+**As a repository owner/maintainer:**
+
+- Use **merge** when accepting pull requests into `main`
+- Merge commits document when features were integrated
+- Never rebase the `main` branch (others depend on it)
+- Set your local config: `git config pull.rebase false`
+
+```bash
+# Merging a contributor's PR locally
+git checkout main
+git pull origin main
+git fetch origin feature-branch  # Get the contributor's branch
+git merge origin/feature-branch   # Merge from remote tracking branch
+git push origin main
+```
+
+**As a contributor:**
+
+- Use **rebase** to keep your feature branch updated with `main`
+- Rebase before opening a PR for cleaner review
+- Set your local config: `git config pull.rebase true`
+
+```bash
+# Updating your feature branch before PR
+git checkout my-feature
+git fetch origin
+git rebase origin/main
+# Resolve any conflicts, then:
+git push --force-with-lease origin my-feature
+```
+
+**Rule of thumb**: Rebase your own work, merge others' work.
+
+### How to Rebase Safely
+
+```bash
+# 1. Make sure everything is committed
+git status  # Should show "nothing to commit"
+
+# 2. Get latest changes
+git fetch origin
+
+# 3. Rebase your work on top
+git rebase origin/main
+
+# 4. If conflicts appear:
+# - Fix the conflicted files
+git add <fixed-files>
+git rebase --continue
+
+# 5. If you mess up:
+git rebase --abort  # Returns to before rebase
+```
+
+### Pushing After Rebase
+
+Rebase rewrites history. 
+If you already pushed your branch:
+
+```bash
+# Safe force push (checks for new commits first)
+git push --force-with-lease origin my-branch
+```
+
+**Warning**: Never force push to shared branches like `main`.
+
 ## Fixing Problems
 
 ### Common Error Messages
@@ -296,110 +445,10 @@ git add fixed_file.tex
 git commit -m "Resolve conflict in Section 4"
 ```
 
-## Understanding Rebase
-
-### What is Divergence?
-
-Your local branch and remote branch have different commits:
-
-```
-A---B---C        (remote: origin/main)
-     \
-      D---E      (local: your main)
-```
-
-This diagram shows:
-
-- Both branches share commits A and B (common ancestor)
-- The remote `origin/main` has commit C (perhaps a colleague pushed it)
-- Your local `main` has commits D and E (your work)
-- The branches have **diverged** at commit B
-- You cannot simply push or pull—you need to reconcile these differences
-
-You need to combine them. Two options: **merge** or **rebase**:
-
-- **Merge**: Creates a merge commit (messy history)
-- **Rebase**: Moves your commits on top (clean history)
-
-### When to Use Rebase
-
-Use rebase when:
-
-- Working on your own branch
-- You want clean, linear history
-- Before creating a pull request
-
-Don't use rebase when:
-
-- Others are using the same branch
-- The branch is already public and shared
-
-### How to Rebase Safely
-
-```bash
-# 1. Make sure everything is committed
-git status  # Should show "nothing to commit"
-
-# 2. Get latest changes
-git fetch origin
-
-# 3. Rebase your work on top
-git rebase origin/main
-
-# 4. If conflicts appear:
-# - Fix the conflicted files
-git add <fixed-files>
-git rebase --continue
-
-# 5. If you mess up:
-git rebase --abort  # Returns to before rebase
-```
-
-### Rebase Visual Guide
-
-**Before rebase:**
-
-```
-      D---E   (your work)
-     /
-A---B---C     (origin/main)
-```
-
-In this scenario:
-
-- You created your branch at commit B
-- Meanwhile, someone else pushed commit C to the remote main branch
-- Your commits D and E are based on B, but main has moved forward to C
-- Your history has **diverged** from the main branch
-
-**After rebase:**
-
-```
-A---B---C---D'---E'   (your work moved on top)
-```
-
-After running `git rebase origin/main`:
-
-- Your commits D and E are **replayed** on top of C (the latest commit on main)
-- Git creates new commits D' and E' with the same changes but different commit hashes
-- The apostrophe (') indicates these are new commits with new SHA hashes
-- Your branch now has a clean, linear history on top of the latest main branch
-- The original D and E commits still exist temporarily (recoverable via `git reflog`)
-
-### Pushing After Rebase
-
-Rebase rewrites history. If you already pushed your branch:
-
-```bash
-# Safe force push (checks for new commits first)
-git push --force-with-lease origin my-branch
-```
-
-**Warning**: Never force push to shared branches like `main`.
-
 ### Recovering from Mistakes
 
-Git keeps a history of where HEAD (your current position) has been. You can always go back!
+Git keeps a history of where HEAD (your current position) has been. 
+You can always go back!
 
 #### 1. Discard uncommitted changes
 
@@ -411,7 +460,7 @@ git reset --hard HEAD
 
 - `HEAD` means "current commit" (no movement in history)
 - Throws away ALL uncommitted changes in your working directory
-- Resets staged files back to unstaged
+- Discards both staged and unstaged modifications
 - Use when you've made a mess and want to start fresh from the last commit
 - **Warning**: Cannot be undone - all local modifications are lost permanently
 
