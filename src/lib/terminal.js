@@ -963,8 +963,8 @@ function loadCommandHistory() {
         queueMessage(msg.text, msg.className, msg.withTyping, msg.delay);
       });
       
-      // Focus input field
-      setTimeout(() => input.focus(), 100);
+      // Focus input field without scrolling the page
+      setTimeout(() => input.focus({ preventScroll: true }), 100);
     }
     
     // Set up event listeners
@@ -1060,8 +1060,8 @@ function loadCommandHistory() {
     if (!loadTerminalState()) {
       initializeTerminal();
     } else {
-      // If we loaded state, just focus the input
-      setTimeout(() => input.focus(), 100);
+      // If we loaded state, just focus the input without scrolling
+      setTimeout(() => input.focus({ preventScroll: true }), 100);
     }
     
     // Set up all event listeners

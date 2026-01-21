@@ -9,12 +9,11 @@ export const profile = {
 	institute: 'Ruhr University Bochum',
 	author_name: 'Hosein Hadipour', // Author name to be highlighted in the papers section
 	research_areas: [
-		{ title: 'Cryptanalysis', description: 'Cryptanalysis of symmetric-key primitives through unified attack frameworks, including differential, linear, boomerang, integral, impossible-differential, zero-correlation, and differential-linear techniques.', field: 'cryptography' },
+		{ title: 'Cryptanalysis', description: 'Cryptanalysis of symmetric-key primitives through unified attack frameworks and creative techniques, including differential, linear, differential-linear, boomerang, integral, impossible-differential, and zero-correlation attacks.', field: 'cryptography' },
 		{ title: 'Automated Cryptanalysis', description: 'Interested in the automation of cryptanalysis, with emphasis on designing tools and algorithms for systematic security evaluation of ciphers, such as SAT/SMT-based approaches and dedicated frameworks.', field: 'automation' },
-		{ title: 'Applied Mathematics and Interdisciplinary Methods', description: 'Exploring connections between mathematics, logic, and computer science, and applying advances from one area to solve challenges in another, particularly in cryptography and security.', field: 'applied-mathematics' },
-		{ title: 'Side-Channel Analysis', description: 'Exploring physical attack vectors against cryptographic implementations, such as power analysis, electromagnetic analysis, and fault injection techniques.', field: 'hardware-security' },
-		{ title: 'Logic', description: 'Study of formal logic and proof theory, with applications in computer science and cryptography, such as verification, reasoning systems, and complexity theory.', field: 'logic' },
-		{ title: 'Constraint Programming', description: 'Application of constraint programming to cryptographic problems and beyond, such as satisfiability, combinatorial optimization, and automated reasoning.', field: 'constraint-programming' },
+		{ title: 'Logic and Constraint Programming', description: 'Applying formal logic and constraint programming to applied problems, including satisfiability, automated reasoning, and combinatorial optimization.', field: 'logic' },
+		{ title: 'Side-Channel Analysis', description: 'Exploring physical attack vectors against cryptographic implementations, such as fault injection, power analysis, and electromagnetic analysis techniques.', field: 'hardware-security' },
+		{ title: 'Applied Mathematics', description: 'Exploring connections between mathematics, logic, and computer science, and applying advances from one area to solve challenges in another, particularly in cryptography and security.', field: 'applied-mathematics' },
 		{ title: 'Information Security', description: 'General interest in securing information systems, with focus on principles and practices such as threat modeling, risk management, and security evaluation.', field: 'information-security' },
 	],
 
