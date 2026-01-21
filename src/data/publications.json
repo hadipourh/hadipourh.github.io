@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-01-01T06:22:05.931Z",
+  "lastUpdated": "2026-01-19T06:06:02.064Z",
   "statistics": {
-    "total": 26,
+    "total": 27,
     "journals": 10,
     "conferences": 13,
     "hybrids": 10,
@@ -157,6 +157,16 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2025,
       "url": "https://eprint.iacr.org/2025/1339",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50
+    },
+    {
+      "title": "Turning Multiple Key-Dependent Attacks into Universal Attacks.",
+      "authors": "Hosein Hadipour, Yosuke Todo, Mostafizar Rahman, Maria Eichlseder, Ravi Anand, Takanori Isobe 0001",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2025,
+      "url": "https://eprint.iacr.org/2025/1996",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50
