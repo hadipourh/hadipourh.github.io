@@ -8,7 +8,7 @@ const heroProfilePicture = '/images/profilepic2.png'
 ---
 <div class='flex-1 order-2 lg:order-1 relative'>
   <h1 class='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 name-title-text'>
-    {fullName}
+    <span id="cipher-name" data-final-text={fullName} class="inline-block font-mono">{fullName}</span>
   </h1>
   
   <!-- Multilingual Names -->
@@ -16,15 +16,15 @@ const heroProfilePicture = '/images/profilepic2.png'
     <div class='flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-sm'>
       <div class='flex items-center gap-2 bg-base-200/50 px-3 py-2 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-base-200/80 hover:scale-105'>
         <span class='text-primary font-medium'>English:</span>
-        <span class='text-base-content font-bold'>{profile.namesMultilingual.english}</span>
+        <span id="cipher-name-en" data-final-text={profile.namesMultilingual.english} class='text-base-content font-bold font-mono'>{profile.namesMultilingual.english}</span>
       </div>
       <div class='flex items-center gap-2 bg-base-200/50 px-3 py-2 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-base-200/80 hover:scale-105'>
         <span class='text-primary font-medium'>فارسی:</span>
-        <span class='text-base-content font-bold' dir='rtl'>{profile.namesMultilingual.persian}</span>
+        <span id="cipher-name-fa" data-final-text={profile.namesMultilingual.persian} class='text-base-content font-bold font-mono' dir='rtl'>{profile.namesMultilingual.persian}</span>
       </div>
       <div class='flex items-center gap-2 bg-base-200/50 px-3 py-2 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-base-200/80 hover:scale-105'>
         <span class='text-primary font-medium'>中文:</span>
-        <span class='text-base-content font-bold'>{profile.namesMultilingual.chinese}</span>
+        <span id="cipher-name-zh" data-final-text={profile.namesMultilingual.chinese} class='text-base-content font-bold font-mono'>{profile.namesMultilingual.chinese}</span>
       </div>
     </div>
   </div>
@@ -66,3 +66,105 @@ const heroProfilePicture = '/images/profilepic2.png'
     <div class='absolute inset-0 bg-teal-600/20 dark:bg-cyan-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10'></div>
   </div>
 </div>
+
+<script>
+  // Cipher rotor animation for names
+  function initCipherAnimation() {
+    // Character sets for different languages
+    const charSets = {
+      latin: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?<>[]{}',
+      persian: 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی۰۱۲۳۴۵۶۷۸۹',
+      chinese: '密码学安全加解锁钥匙算法数据信息网络系统程序代码研究'
+    };
+    
+    // Animation configuration for each element
+    const elements = [
+      { id: 'cipher-name', charset: 'latin', delay: 200 },
+      { id: 'cipher-name-en', charset: 'latin', delay: 400 },
+      { id: 'cipher-name-fa', charset: 'persian', delay: 600, rtl: true },
+      { id: 'cipher-name-zh', charset: 'chinese', delay: 800 }
+    ];
+    
+    elements.forEach(config => {
+      const element = document.getElementById(config.id);
+      if (!element) return;
+      
+      const finalText = element.dataset.finalText || '';
+      if (!finalText) return;
+      
+      const chars = charSets[config.charset];
+      
+      // Animation settings
+      const totalDuration = 2500;
+      const frameRate = 50;
+      const frames = totalDuration / frameRate;
+      
+      // Track which characters are "locked"
+      const locked = new Array(finalText.length).fill(false);
+      let currentText = new Array(finalText.length).fill('');
+      
+      // Initialize with random characters (preserve spaces)
+      for (let i = 0; i < finalText.length; i++) {
+        if (finalText[i] === ' ') {
+          currentText[i] = ' ';
+          locked[i] = true;
+        } else {
+          currentText[i] = chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+      
+      element.textContent = currentText.join('');
+      
+      let frame = 0;
+      
+      const animate = () => {
+        frame++;
+        
+        const progress = frame / frames;
+        const charsToLock = Math.floor(progress * finalText.length);
+        
+        for (let i = 0; i < finalText.length; i++) {
+          if (locked[i]) continue;
+          
+          if (i < charsToLock) {
+            currentText[i] = finalText[i];
+            locked[i] = true;
+          } else {
+            if (Math.random() > 0.3) {
+              currentText[i] = chars[Math.floor(Math.random() * chars.length)];
+            }
+          }
+        }
+        
+        element.textContent = currentText.join('');
+        
+        if (frame < frames) {
+          setTimeout(animate, frameRate);
+        } else {
+          element.textContent = finalText;
+          element.classList.remove('font-mono');
+        }
+      };
+      
+      // Start animation with staggered delay
+      setTimeout(animate, config.delay);
+    });
+  }
+  
+  // Run animation - handle various loading scenarios for mobile compatibility
+  function runAnimation() {
+    // Small delay to ensure DOM is ready
+    setTimeout(initCipherAnimation, 50);
+  }
+  
+  // Try multiple approaches for mobile compatibility
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAnimation);
+  } else {
+    // DOM already loaded
+    runAnimation();
+  }
+  
+  // Also run on Astro page transitions (for SPA navigation)
+  document.addEventListener('astro:page-load', runAnimation);
+</script>

@@ -46,7 +46,9 @@ const navigationItems = [
 					<!-- Glow effect -->
 					<div class="absolute inset-0 bg-teal-600/30 dark:bg-cyan-500/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10"></div>
 				</div>
-				<h1 class="text-xl font-bold mt-6 hidden lg:block name-title-text transition-all duration-300 hover:scale-105">{fullName}</h1>
+				<h1 class="text-xl font-bold mt-6 hidden lg:block name-title-text transition-all duration-300 hover:scale-105">
+					<span id="navbar-cipher-name" data-final-text={fullName} class="inline-block font-mono">{fullName}</span>
+				</h1>
 			</div>
 
 			<!-- Navigation Menu -->
@@ -72,3 +74,94 @@ const navigationItems = [
         
 	</div>
 </aside>
+
+<script>
+  // Cipher rotor animation for the navbar name
+  function initNavbarCipherAnimation() {
+    const cipherElement = document.getElementById('navbar-cipher-name');
+    if (!cipherElement) return;
+    
+    const finalText = cipherElement.dataset.finalText || '';
+    if (!finalText) return;
+    
+    // Characters to cycle through (cipher-like aesthetic)
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!?<>[]{}';
+    
+    // Animation settings
+    const totalDuration = 2500; // Total animation time in ms
+    const frameRate = 50; // ms between each frame
+    const frames = totalDuration / frameRate;
+    
+    // Track which characters are "locked"
+    const locked = new Array(finalText.length).fill(false);
+    let currentText = new Array(finalText.length).fill('');
+    
+    // Initialize with random characters (preserve spaces)
+    for (let i = 0; i < finalText.length; i++) {
+      if (finalText[i] === ' ') {
+        currentText[i] = ' ';
+        locked[i] = true;
+      } else {
+        currentText[i] = chars[Math.floor(Math.random() * chars.length)];
+      }
+    }
+    
+    cipherElement.textContent = currentText.join('');
+    
+    let frame = 0;
+    
+    const animate = () => {
+      frame++;
+      
+      // Calculate how many characters should be locked by now
+      const progress = frame / frames;
+      const charsToLock = Math.floor(progress * finalText.length);
+      
+      for (let i = 0; i < finalText.length; i++) {
+        if (locked[i]) continue;
+        
+        // Lock this character if it's time
+        if (i < charsToLock) {
+          currentText[i] = finalText[i];
+          locked[i] = true;
+        } else {
+          // Keep cycling through random characters
+          if (Math.random() > 0.3) {
+            currentText[i] = chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+      }
+      
+      cipherElement.textContent = currentText.join('');
+      
+      // Continue animation or finish
+      if (frame < frames) {
+        setTimeout(animate, frameRate);
+      } else {
+        // Ensure final text is correct
+        cipherElement.textContent = finalText;
+        // Remove mono font after animation completes
+        cipherElement.classList.remove('font-mono');
+      }
+    };
+    
+    // Start animation after a brief delay
+    setTimeout(animate, 200);
+  }
+  
+  // Run animation - handle various loading scenarios for mobile compatibility
+  function runAnimation() {
+    setTimeout(initNavbarCipherAnimation, 50);
+  }
+  
+  // Try multiple approaches for mobile compatibility
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAnimation);
+  } else {
+    // DOM already loaded
+    runAnimation();
+  }
+  
+  // Also run on Astro page transitions (for SPA navigation)
+  document.addEventListener('astro:page-load', runAnimation);
+</script>
