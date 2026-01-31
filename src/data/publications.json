@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-01-25T06:03:56.030Z",
+  "lastUpdated": "2026-01-31T06:08:32.485Z",
   "statistics": {
-    "total": 27,
+    "total": 28,
     "journals": 10,
-    "conferences": 13,
+    "conferences": 14,
     "hybrids": 10,
     "years": 7,
     "topPublication": {
@@ -150,6 +150,16 @@
       "doi": "10.1007/978-3-031-09234-3_12",
       "type": "conference",
       "prestigeScore": 75
+    },
+    {
+      "title": "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
+      "authors": "Debasmita Chakraborty, Hosein Hadipour, Anup Kumar Kundu, Mostafizar Rahman, Prathamesh Ram, Yu Sasaki, Dilip Sau, Aman Sinha",
+      "venue": "SAC",
+      "year": 2025,
+      "url": "https://doi.org/10.1007/978-3-032-10536-3_4",
+      "doi": "10.1007/978-3-032-10536-3_4",
+      "type": "conference",
+      "prestigeScore": 70
     },
     {
       "title": "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
