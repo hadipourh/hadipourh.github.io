@@ -12,14 +12,17 @@ import publicationsData from '../data/publications.json'
 const { fullName, title, institute, research_areas } = profile
 
 // Convert publications from JSON data to expected format for ArticleList
-const publications = (publicationsData.publications as any[]).map((pub: any) => ({
-	title: pub.title,
-	authors: pub.authors,
-	journal: pub.venue,  // Use venue as journal
-	time: pub.year.toString(),  // Convert year to string
-	link: pub.url,  // Use url as link
-	abstract: pub.abstract
-}))
+// Sort by year (most recent first) for "Recent Publications"
+const publications = (publicationsData.publications as any[])
+	.sort((a: any, b: any) => b.year - a.year)
+	.map((pub: any) => ({
+		title: pub.title,
+		authors: pub.authors,
+		journal: pub.venue,  // Use venue as journal
+		time: pub.year.toString(),  // Convert year to string
+		link: pub.url,  // Use url as link
+		abstract: pub.abstract
+	}))
 
 // Use the uploaded professional profile picture
 const profilePicture = '/images/profilepic1.png'

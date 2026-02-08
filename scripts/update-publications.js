@@ -10,7 +10,24 @@ import fs from 'fs/promises';
 import path from 'path';
 
 const DBLP_API = 'https://dblp.org/search/publ/api';
+const SEMANTIC_SCHOLAR_API = 'https://api.semanticscholar.org/graph/v1';
 const AUTHOR_NAME = 'Hosein Hadipour';
+
+// Rate limiting for Semantic Scholar (100 requests per 5 minutes)
+const SS_RATE_LIMIT_DELAY = 3500; // 3.5 seconds between requests to be safe
+let lastSSRequest = 0;
+
+async function rateLimitedFetch(url, options = {}) {
+  const now = Date.now();
+  const timeSinceLastRequest = now - lastSSRequest;
+  
+  if (timeSinceLastRequest < SS_RATE_LIMIT_DELAY) {
+    await new Promise(resolve => setTimeout(resolve, SS_RATE_LIMIT_DELAY - timeSinceLastRequest));
+  }
+  
+  lastSSRequest = Date.now();
+  return fetch(url, options);
+}
 
 // Venue prestige ranking (higher score = more prestigious)
 // Based on cryptography/security conference/journal rankings from community consensus
@@ -146,6 +163,77 @@ function highlightAuthorName(authors) {
 }
 
 /**
+ * Fetch citation count from Semantic Scholar API
+ * Tries DOI first, then falls back to title search
+ */
+async function fetchCitationCount(publication) {
+  try {
+    // Try by DOI first (most reliable)
+    if (publication.doi) {
+      const doi = publication.doi.replace('https://doi.org/', '');
+      const response = await rateLimitedFetch(
+        `${SEMANTIC_SCHOLAR_API}/paper/DOI:${encodeURIComponent(doi)}?fields=citationCount`,
+        { headers: { 'User-Agent': 'Academic-Website-Bot/1.0' } }
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.citationCount !== undefined) {
+          return data.citationCount;
+        }
+      }
+    }
+    
+    // Fallback: search by title
+    const searchResponse = await rateLimitedFetch(
+      `${SEMANTIC_SCHOLAR_API}/paper/search?query=${encodeURIComponent(publication.title)}&fields=citationCount&limit=1`,
+      { headers: { 'User-Agent': 'Academic-Website-Bot/1.0' } }
+    );
+    
+    if (searchResponse.ok) {
+      const searchData = await searchResponse.json();
+      if (searchData.data && searchData.data.length > 0) {
+        return searchData.data[0].citationCount || 0;
+      }
+    }
+    
+    return 0;
+  } catch (error) {
+    console.warn(`  Warning: Could not fetch citations for "${publication.title.substring(0, 50)}...": ${error.message}`);
+    return 0;
+  }
+}
+
+/**
+ * Fetch citations for all publications with progress logging
+ */
+async function fetchAllCitations(publications) {
+  console.log('\nFetching citation counts from Semantic Scholar...');
+  console.log(`(This may take ${Math.ceil(publications.length * SS_RATE_LIMIT_DELAY / 1000 / 60)} minutes due to rate limiting)\n`);
+  
+  const results = [];
+  let totalCitations = 0;
+  
+  for (let i = 0; i < publications.length; i++) {
+    const pub = publications[i];
+    const citations = await fetchCitationCount(pub);
+    totalCitations += citations;
+    
+    results.push({
+      ...pub,
+      citations: citations
+    });
+    
+    // Progress indicator
+    const progress = Math.round(((i + 1) / publications.length) * 100);
+    process.stdout.write(`\r  Progress: ${i + 1}/${publications.length} (${progress}%) - Citations so far: ${totalCitations}`);
+  }
+  
+  console.log('\n');
+  return results;
+}
+
+/**
  * Fetch publications from DBLP
  */
 async function fetchDBLPPublications() {
@@ -217,10 +305,12 @@ function calculateStatistics(publications) {
   let journalCount = 0;
   let conferenceCount = 0;
   let hybridCount = 0;
+  let totalCitations = 0;
   const years = new Set();
   
   publications.forEach(pub => {
     years.add(pub.year);
+    totalCitations += pub.citations || 0;
     switch(pub.type) {
       case 'journal':
         journalCount++;
@@ -242,13 +332,21 @@ function calculateStatistics(publications) {
     publications[0] || { prestigeScore: 0 }
   );
   
+  // Find most cited publication
+  const mostCited = publications.reduce((max, pub) => 
+    (pub.citations || 0) > (max.citations || 0) ? pub : max,
+    publications[0] || { citations: 0 }
+  );
+  
   return {
     total: totalPubs,
     journals: journalCount,
     conferences: conferenceCount,
     hybrids: hybridCount,
     years: years.size,
-    topPublication: topPub
+    totalCitations: totalCitations,
+    topPublication: topPub,
+    mostCited: mostCited
   };
 }
 
@@ -318,7 +416,8 @@ function generateFeaturedCard(pub, index) {
           
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
-              ${pub.doi ? `<span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">DOI</span>` : ''}
+              ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank" rel="noopener noreferrer" class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors duration-200">DOI</a>` : ''}
+              ${pub.citations > 0 ? `<span class="px-2 py-1 rounded-full text-xs bg-base-300 text-base-content font-medium" title="Citation count from Semantic Scholar">${pub.citations} cited</span>` : ''}
             </div>
             ${pub.url ? `<a href="${pub.url}" 
                target="_blank" 
@@ -400,7 +499,8 @@ function generatePublicationCard(pub, index) {
           
           <div class="flex justify-between items-center">
             <div class="flex items-center space-x-2">
-              ${pub.doi ? `<span class="badge badge-outline badge-xs">DOI</span>` : ''}
+              ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank" rel="noopener noreferrer" class="badge badge-outline badge-xs hover:bg-primary hover:text-primary-content hover:border-primary transition-colors duration-200">DOI</a>` : ''}
+              ${pub.citations > 0 ? `<span class="badge badge-ghost badge-xs" title="Citations">${pub.citations} cited</span>` : ''}
             </div>
             ${pub.url ? `<a href="${pub.url}" 
                target="_blank" 
@@ -422,10 +522,18 @@ async function updatePublicationsPage(publications) {
     const filePath = path.join(process.cwd(), 'src/pages/papers.astro');
     let content = await fs.readFile(filePath, 'utf-8');
     
-    // Sort publications by prestige score and year
+    // Sort publications by combined score (prestige + citation impact) and year
+    // Citation score: log scale to prevent extremely cited papers from dominating
+    const getCombinedScore = (pub) => {
+      const citationBonus = pub.citations > 0 ? Math.log10(pub.citations + 1) * 10 : 0;
+      return pub.prestigeScore + citationBonus;
+    };
+    
     const sortedPubs = publications.sort((a, b) => {
-      if (b.prestigeScore !== a.prestigeScore) {
-        return b.prestigeScore - a.prestigeScore;
+      const scoreA = getCombinedScore(a);
+      const scoreB = getCombinedScore(b);
+      if (scoreB !== scoreA) {
+        return scoreB - scoreA;
       }
       return b.year - a.year;
     });
@@ -488,7 +596,8 @@ async function updatePublicationsPage(publications) {
         url: pub.url,
         doi: pub.doi,
         type: pub.type,
-        prestigeScore: pub.prestigeScore
+        prestigeScore: pub.prestigeScore,
+        citations: pub.citations || 0
       }))
     };
     
@@ -514,12 +623,15 @@ async function main() {
   try {
     console.log('Starting publications update...');
     
-    const publications = await fetchDBLPPublications();
+    let publications = await fetchDBLPPublications();
     
     if (publications.length === 0) {
       console.log('No publications found');
       return;
     }
+    
+    // Fetch citation counts from Semantic Scholar
+    publications = await fetchAllCitations(publications);
     
     const stats = await updatePublicationsPage(publications);
     
@@ -536,8 +648,12 @@ async function main() {
       console.log(`- Hybrid venues (IACR Trans): ${stats.hybrids}`);
     }
     console.log(`- Years active: ${stats.years}`);
+    console.log(`- Total citations: ${stats.totalCitations}`);
     console.log(`- Top publication: "${topPub.title}" (${topPub.venue}, ${topPub.year})`);
     console.log(`- Top venue prestige score: ${topPub.prestigeScore}/100`);
+    if (stats.mostCited && stats.mostCited.citations > 0) {
+      console.log(`- Most cited: "${stats.mostCited.title.substring(0, 50)}..." (${stats.mostCited.citations} citations)`);
+    }
     
     console.log('\nVenue Equivalencies Applied:');
     console.log('- FSE ≡ IACR Trans. Symmetric Cryptol. (90 pts)');
@@ -545,6 +661,7 @@ async function main() {
     console.log('- IACR Transactions counted as hybrid (both journal and conference)');
     console.log('- Prestige scores removed from public display');
     console.log('- Author name highlighting: Your name appears bold and underlined');
+    console.log('- Citation counts fetched from Semantic Scholar API');
     
     console.log('\nPublications update completed!');
     

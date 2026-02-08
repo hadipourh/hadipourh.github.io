@@ -70,12 +70,30 @@ const heroProfilePicture = '/images/profilepic2.png'
 <script>
   // Cipher rotor animation for names
   function initCipherAnimation() {
-    // Character sets for different languages
+    // Character sets for different languages (letters only)
     const charSets = {
-      latin: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?<>[]{}',
-      persian: 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی۰۱۲۳۴۵۶۷۸۹',
+      latinUpper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      latinLower: 'abcdefghijklmnopqrstuvwxyz',
+      persian: 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی',
       chinese: '密码学安全加解锁钥匙算法数据信息网络系统程序代码研究'
     };
+    
+    // Helper function to get appropriate charset for a character
+    function getCharsetForChar(char, charset) {
+      if (charset === 'latin') {
+        // Match the case of the final character
+        if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+          return charSets.latinUpper;
+        } else {
+          return charSets.latinLower;
+        }
+      } else if (charset === 'persian') {
+        return charSets.persian;
+      } else if (charset === 'chinese') {
+        return charSets.chinese;
+      }
+      return charSets.latinLower;
+    }
     
     // Animation configuration for each element
     const elements = [
@@ -92,8 +110,6 @@ const heroProfilePicture = '/images/profilepic2.png'
       const finalText = element.dataset.finalText || '';
       if (!finalText) return;
       
-      const chars = charSets[config.charset];
-      
       // Animation settings
       const totalDuration = 2500;
       const frameRate = 50;
@@ -103,12 +119,13 @@ const heroProfilePicture = '/images/profilepic2.png'
       const locked = new Array(finalText.length).fill(false);
       let currentText = new Array(finalText.length).fill('');
       
-      // Initialize with random characters (preserve spaces)
+      // Initialize with random characters (preserve spaces, match case)
       for (let i = 0; i < finalText.length; i++) {
         if (finalText[i] === ' ') {
           currentText[i] = ' ';
           locked[i] = true;
         } else {
+          const chars = getCharsetForChar(finalText[i], config.charset);
           currentText[i] = chars[Math.floor(Math.random() * chars.length)];
         }
       }
@@ -131,6 +148,7 @@ const heroProfilePicture = '/images/profilepic2.png'
             locked[i] = true;
           } else {
             if (Math.random() > 0.3) {
+              const chars = getCharsetForChar(finalText[i], config.charset);
               currentText[i] = chars[Math.floor(Math.random() * chars.length)];
             }
           }

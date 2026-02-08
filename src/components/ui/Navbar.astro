@@ -84,8 +84,17 @@ const navigationItems = [
     const finalText = cipherElement.dataset.finalText || '';
     if (!finalText) return;
     
-    // Characters to cycle through (cipher-like aesthetic)
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!?<>[]{}';
+    // Character sets (letters only, matching case)
+    const charsUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const charsLower = 'abcdefghijklmnopqrstuvwxyz';
+    
+    // Helper to get charset based on character case
+    function getCharsForChar(char) {
+      if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+        return charsUpper;
+      }
+      return charsLower;
+    }
     
     // Animation settings
     const totalDuration = 2500; // Total animation time in ms
@@ -96,12 +105,13 @@ const navigationItems = [
     const locked = new Array(finalText.length).fill(false);
     let currentText = new Array(finalText.length).fill('');
     
-    // Initialize with random characters (preserve spaces)
+    // Initialize with random characters (preserve spaces, match case)
     for (let i = 0; i < finalText.length; i++) {
       if (finalText[i] === ' ') {
         currentText[i] = ' ';
         locked[i] = true;
       } else {
+        const chars = getCharsForChar(finalText[i]);
         currentText[i] = chars[Math.floor(Math.random() * chars.length)];
       }
     }
@@ -125,8 +135,9 @@ const navigationItems = [
           currentText[i] = finalText[i];
           locked[i] = true;
         } else {
-          // Keep cycling through random characters
+          // Keep cycling through random characters (matching case)
           if (Math.random() > 0.3) {
+            const chars = getCharsForChar(finalText[i]);
             currentText[i] = chars[Math.floor(Math.random() * chars.length)];
           }
         }
