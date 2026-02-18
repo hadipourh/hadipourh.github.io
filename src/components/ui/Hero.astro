@@ -7,12 +7,12 @@ const {fullName, title, institute} = Astro.props
 const heroProfilePicture = '/images/profilepic2.png'
 ---
 <div class='flex-1 order-2 lg:order-1 relative'>
-  <h1 class='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 name-title-text'>
-    <span id="cipher-name" data-final-text={fullName} class="inline-block font-mono">{fullName}</span>
+  <h1 class='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 name-title-text' style="font-family: 'Orbitron', sans-serif;">
+    <span id="cipher-name" data-final-text={fullName} class="inline-block" style="font-family: 'Orbitron', sans-serif;">{fullName}</span>
   </h1>
   
   <!-- Multilingual Names -->
-  <div class='mb-4 space-y-2'>
+  <div class='mb-4 space-y-2' style="font-family: ui-sans-serif, system-ui, sans-serif;">
     <div class='flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-sm'>
       <div class='flex items-center gap-2 bg-base-200/50 px-3 py-2 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-base-200/80 hover:scale-105'>
         <span class='text-primary font-medium'>English:</span>
@@ -29,9 +29,9 @@ const heroProfilePicture = '/images/profilepic2.png'
     </div>
   </div>
   
-  <p class='text-lg sm:text-xl text-base-content/80 mb-4 font-medium'>{title}{institute ? ` at ${institute}` : ''}</p>
+  <p class='text-lg sm:text-xl text-base-content/80 mb-4 font-medium' style="font-family: 'Exo 2', sans-serif;">{title}{institute ? ` at ${institute}` : ''}</p>
   <div class='bg-base-200/30 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-base-300/50 transition-all duration-300 hover:bg-base-200/50 hover:border-base-300/80'>
-    <p class='text-sm sm:text-base lg:text-lg leading-relaxed text-base-content/90'>
+    <p class='text-sm sm:text-base lg:text-lg leading-relaxed text-base-content/90' style="font-family: 'Quantico', sans-serif;">
       I am interested in mathematics, logic, and computer science. 
       I love finding connections between different mathematical problems and applying advances from one area to solve challenges in another. 
       My academic background spans mathematics and electronic engineering (two bachelor's degrees) from <a href="https://en.kntu.ac.ir/" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-secondary transition-colors duration-300 hover:underline font-medium">K. N. Toosi University</a>, followed by a master's degree in mathematics at the <a href="https://ut.ac.ir/en" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-secondary transition-colors duration-300 hover:underline font-medium">University of Tehran</a>. 
@@ -41,9 +41,9 @@ const heroProfilePicture = '/images/profilepic2.png'
     </p>
   </div>
   <div class='bg-base-200/30 backdrop-blur-sm rounded-lg p-3 mb-4 border border-base-300/50 transition-all duration-300 hover:bg-base-200/50'>
-    <p class='text-xs font-mono overflow-x-auto'>
+    <p class='text-xs overflow-x-auto' style="font-family: 'Quantico', sans-serif;">
       <span class='text-primary font-medium'>Public key:</span> 
-      <span class='break-all text-base-content/80'>age17x6fu4na8hvxuh7hgs7ec62g7ddhsdlasqrqe6u7pzx0z86fpsxsgfpwdp</span>
+      <span class='break-all text-base-content/80 font-mono'>age17x6fu4na8hvxuh7hgs7ec62g7ddhsdlasqrqe6u7pzx0z86fpsxsgfpwdp</span>
     </p>
   </div>
   <div class='flex gap-4'>

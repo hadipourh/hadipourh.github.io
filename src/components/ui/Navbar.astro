@@ -46,14 +46,14 @@ const navigationItems = [
 					<!-- Glow effect -->
 					<div class="absolute inset-0 bg-teal-600/30 dark:bg-cyan-500/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10"></div>
 				</div>
-				<h1 class="text-xl font-bold mt-6 hidden lg:block name-title-text transition-all duration-300 hover:scale-105">
-					<span id="navbar-cipher-name" data-final-text={fullName} class="inline-block font-mono">{fullName}</span>
+				<h1 class="text-xl font-bold mt-6 hidden lg:block name-title-text transition-all duration-300 hover:scale-105" style="font-family: 'Orbitron', sans-serif;">
+					<span id="navbar-cipher-name" data-final-text={fullName} class="inline-block" style="font-family: 'Orbitron', sans-serif;">{fullName}</span>
 				</h1>
 			</div>
 
 			<!-- Navigation Menu -->
 			<div class='mx-2 h-full'>
-				<ul class='space-y-3 menu menu-md h-full overflow-y-auto'>
+				<ul class='space-y-3 menu menu-md h-full overflow-y-auto' style="font-family: 'Quantico', sans-serif;">
 					{navigationItems.map((item, index) => (
 						<li>
 							<a href={item.href} class={`group relative overflow-hidden rounded-xl bg-transparent p-3 text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-teal-600/10 dark:hover:bg-cyan-600/10 active:scale-95`}>
