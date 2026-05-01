@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-04-25T06:31:01.236Z",
+  "lastUpdated": "2026-05-01T06:54:49.707Z",
   "statistics": {
     "total": 30,
     "journals": 11,
     "conferences": 15,
     "hybrids": 11,
     "years": 8,
-    "totalCitations": 13,
+    "totalCitations": 12,
     "topPublication": {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
@@ -22,32 +22,21 @@
       "citations": 0
     },
     "mostCited": {
-      "title": "Integral Cryptanalysis of WARP based on Monomial Prediction.",
-      "authors": "Hosein Hadipour, Maria Eichlseder",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2022,
-      "url": "https://doi.org/10.46586/tosc.v2022.i2.92-112",
-      "doi": "10.46586/TOSC.V2022.I2.92-112",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "pages": "92-112",
-      "volume": "2022",
-      "number": "2",
-      "citations": 12
+      "title": "Improved Search for Integral, Impossible-Differential and Zero-Correlation Attacks: Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2.",
+      "authors": "Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2023,
+      "url": "https://eprint.iacr.org/2023/1701",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "pages": "1701",
+      "volume": "2023",
+      "number": "",
+      "citations": 9
     }
   },
   "publications": [
-    {
-      "title": "Integral Cryptanalysis of WARP based on Monomial Prediction.",
-      "authors": "Hosein Hadipour, Maria Eichlseder",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2022,
-      "url": "https://doi.org/10.46586/tosc.v2022.i2.92-112",
-      "doi": "10.46586/TOSC.V2022.I2.92-112",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 12
-    },
     {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
@@ -71,6 +60,17 @@
       "citations": 0
     },
     {
+      "title": "Cryptanalysis: Theory Versus Practice Correcting Cryptanalysis Results on Ascon, ChaCha, and Serpent Using GPUs.",
+      "authors": "Cihangir Tezcan, Gregor Leander, Hosein Hadipour",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2025,
+      "url": "https://doi.org/10.46586/tosc.v2025.i3.729-754",
+      "doi": "10.46586/TOSC.V2025.I3.729-754",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 2
+    },
+    {
       "title": "Cube and Integral Attacks on ChiLow-32.",
       "authors": "Shuo Peng, Akram Khalesi, Zahra Ahmadian, Hosein Hadipour, Jiahui He 0002, Kai Hu 0001, Zhongfeng Niu, Shahram Rasoolzadeh, Meiqin Wang",
       "venue": "IACR Trans. Symmetric Cryptol.",
@@ -88,17 +88,6 @@
       "year": 2025,
       "url": "https://doi.org/10.46586/tosc.v2025.i3.693-728",
       "doi": "10.46586/TOSC.V2025.I3.693-728",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 0
-    },
-    {
-      "title": "Cryptanalysis: Theory Versus Practice Correcting Cryptanalysis Results on Ascon, ChaCha, and Serpent Using GPUs.",
-      "authors": "Cihangir Tezcan, Gregor Leander, Hosein Hadipour",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2025,
-      "url": "https://doi.org/10.46586/tosc.v2025.i3.729-754",
-      "doi": "10.46586/TOSC.V2025.I3.729-754",
       "type": "hybrid",
       "prestigeScore": 95,
       "citations": 0
@@ -143,6 +132,17 @@
       "year": 2022,
       "url": "https://doi.org/10.46586/tches.v2022.i1.367-390",
       "doi": "10.46586/TCHES.V2022.I1.367-390",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 0
+    },
+    {
+      "title": "Integral Cryptanalysis of WARP based on Monomial Prediction.",
+      "authors": "Hosein Hadipour, Maria Eichlseder",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2022,
+      "url": "https://doi.org/10.46586/tosc.v2022.i2.92-112",
+      "doi": "10.46586/TOSC.V2022.I2.92-112",
       "type": "hybrid",
       "prestigeScore": 95,
       "citations": 0
@@ -201,6 +201,17 @@
       "type": "conference",
       "prestigeScore": 70,
       "citations": 1
+    },
+    {
+      "title": "Improved Search for Integral, Impossible-Differential and Zero-Correlation Attacks: Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2.",
+      "authors": "Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2023,
+      "url": "https://eprint.iacr.org/2023/1701",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 9
     },
     {
       "title": "Cube and Integral Attacks on ChiLow-32.",
@@ -263,17 +274,6 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2024,
       "url": "https://eprint.iacr.org/2024/255",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "citations": 0
-    },
-    {
-      "title": "Improved Search for Integral, Impossible-Differential and Zero-Correlation Attacks: Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2.",
-      "authors": "Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2023,
-      "url": "https://eprint.iacr.org/2023/1701",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
