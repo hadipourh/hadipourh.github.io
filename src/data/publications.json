@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-06-07T07:23:06.851Z",
+  "lastUpdated": "2026-06-13T07:17:39.672Z",
   "statistics": {
     "total": 30,
     "journals": 11,
     "conferences": 15,
     "hybrids": 11,
     "years": 8,
-    "totalCitations": 23,
+    "totalCitations": 127,
     "topPublication": {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
@@ -19,35 +19,24 @@
       "pages": "38-72",
       "volume": "",
       "number": "",
-      "citations": 0
+      "citations": 16
     },
     "mostCited": {
-      "title": "Comprehensive security analysis of CRAFT.",
-      "authors": "Hosein Hadipour, Sadegh Sadeghi, Majid M. Niknam, Ling Song 0001, Nasour Bagheri",
+      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
+      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
       "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2019,
-      "url": "https://doi.org/10.13154/tosc.v2019.i4.290-317",
-      "doi": "10.13154/TOSC.V2019.I4.290-317",
+      "year": 2021,
+      "url": "https://doi.org/10.46586/tosc.v2021.i2.140-198",
+      "doi": "10.46586/TOSC.V2021.I2.140-198",
       "type": "hybrid",
       "prestigeScore": 95,
-      "pages": "290-317",
-      "volume": "2019",
-      "number": "4",
-      "citations": 22
+      "pages": "140-198",
+      "volume": "2021",
+      "number": "2",
+      "citations": 52
     }
   },
   "publications": [
-    {
-      "title": "Comprehensive security analysis of CRAFT.",
-      "authors": "Hosein Hadipour, Sadegh Sadeghi, Majid M. Niknam, Ling Song 0001, Nasour Bagheri",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2019,
-      "url": "https://doi.org/10.13154/tosc.v2019.i4.290-317",
-      "doi": "10.13154/TOSC.V2019.I4.290-317",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 22
-    },
     {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
@@ -57,7 +46,40 @@
       "doi": "10.1007/978-3-031-68385-5_2",
       "type": "conference",
       "prestigeScore": 100,
-      "citations": 0
+      "citations": 16
+    },
+    {
+      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
+      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2021,
+      "url": "https://doi.org/10.46586/tosc.v2021.i2.140-198",
+      "doi": "10.46586/TOSC.V2021.I2.140-198",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 52
+    },
+    {
+      "title": "Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
+      "authors": "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2022,
+      "url": "https://doi.org/10.46586/tosc.v2022.i3.271-302",
+      "doi": "10.46586/TOSC.V2022.I3.271-302",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 23
+    },
+    {
+      "title": "Comprehensive security analysis of CRAFT.",
+      "authors": "Hosein Hadipour, Sadegh Sadeghi, Majid M. Niknam, Ling Song 0001, Nasour Bagheri",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2019,
+      "url": "https://doi.org/10.13154/tosc.v2019.i4.290-317",
+      "doi": "10.13154/TOSC.V2019.I4.290-317",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 22
     },
     {
       "title": "Finding the Impossible: Automated Search for Full Impossible-Differential, Zero-Correlation, and Integral Attacks.",
@@ -159,28 +181,6 @@
       "citations": 0
     },
     {
-      "title": "Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
-      "authors": "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2022,
-      "url": "https://doi.org/10.46586/tosc.v2022.i3.271-302",
-      "doi": "10.46586/TOSC.V2022.I3.271-302",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 0
-    },
-    {
-      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
-      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2021,
-      "url": "https://doi.org/10.46586/tosc.v2021.i2.140-198",
-      "doi": "10.46586/TOSC.V2021.I2.140-198",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 0
-    },
-    {
       "title": "Autoguess: A Tool for Finding Guess-and-Determine Attacks and Key Bridges.",
       "authors": "Hosein Hadipour, Maria Eichlseder",
       "venue": "ACNS",
@@ -200,7 +200,18 @@
       "doi": "10.1007/978-3-032-10536-3_4",
       "type": "conference",
       "prestigeScore": 70,
-      "citations": 1
+      "citations": 0
+    },
+    {
+      "title": "Practical Multiple Persistent Faults Analysis.",
+      "authors": "Hadi Soleimany, Nasour Bagheri, Hosein Hadipour, Prasanna Ravi, Shivam Bhasin, Sara Mansouri",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2021,
+      "url": "https://eprint.iacr.org/2021/1362",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 14
     },
     {
       "title": "Cube and Integral Attacks on ChiLow-32.",
@@ -329,17 +340,6 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2021,
       "url": "https://eprint.iacr.org/2021/1529",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "citations": 0
-    },
-    {
-      "title": "Practical Multiple Persistent Faults Analysis.",
-      "authors": "Hadi Soleimany, Nasour Bagheri, Hosein Hadipour, Prasanna Ravi, Shivam Bhasin, Sara Mansouri",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2021,
-      "url": "https://eprint.iacr.org/2021/1362",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
