@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-06-25T07:10:20.484Z",
+  "lastUpdated": "2026-07-01T07:28:25.385Z",
   "statistics": {
     "total": 30,
     "journals": 11,
     "conferences": 15,
     "hybrids": 11,
     "years": 8,
-    "totalCitations": 70,
+    "totalCitations": 52,
     "topPublication": {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
@@ -22,31 +22,64 @@
       "citations": 0
     },
     "mostCited": {
-      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
-      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
+      "title": "Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
+      "authors": "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
       "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2021,
-      "url": "https://doi.org/10.46586/tosc.v2021.i2.140-198",
-      "doi": "10.46586/TOSC.V2021.I2.140-198",
+      "year": 2022,
+      "url": "https://doi.org/10.46586/tosc.v2022.i3.271-302",
+      "doi": "10.46586/TOSC.V2022.I3.271-302",
       "type": "hybrid",
       "prestigeScore": 95,
-      "pages": "140-198",
-      "volume": "2021",
-      "number": "2",
-      "citations": 52
+      "pages": "271-302",
+      "volume": "2022",
+      "number": "3",
+      "citations": 23
     }
   },
   "publications": [
     {
-      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
-      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
+      "title": "Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
+      "authors": "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
       "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2021,
-      "url": "https://doi.org/10.46586/tosc.v2021.i2.140-198",
-      "doi": "10.46586/TOSC.V2021.I2.140-198",
+      "year": 2022,
+      "url": "https://doi.org/10.46586/tosc.v2022.i3.271-302",
+      "doi": "10.46586/TOSC.V2022.I3.271-302",
       "type": "hybrid",
       "prestigeScore": 95,
-      "citations": 52
+      "citations": 23
+    },
+    {
+      "title": "Practical Multiple Persistent Faults Analysis.",
+      "authors": "Hadi Soleimany, Nasour Bagheri, Hosein Hadipour, Prasanna Ravi, Shivam Bhasin, Sara Mansouri",
+      "venue": "IACR Trans. Cryptogr. Hardw. Embed. Syst.",
+      "year": 2022,
+      "url": "https://doi.org/10.46586/tches.v2022.i1.367-390",
+      "doi": "10.46586/TCHES.V2022.I1.367-390",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 14
+    },
+    {
+      "title": "Improved Search for Integral, Impossible Differential and Zero-Correlation Attacks Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2.",
+      "authors": "Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2024,
+      "url": "https://doi.org/10.46586/tosc.v2024.i1.234-325",
+      "doi": "10.46586/TOSC.V2024.I1.234-325",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 9
+    },
+    {
+      "title": "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
+      "authors": "Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2024,
+      "url": "https://doi.org/10.46586/tosc.v2024.i3.84-176",
+      "doi": "10.46586/TOSC.V2024.I3.84-176",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 6
     },
     {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
@@ -104,45 +137,12 @@
       "citations": 0
     },
     {
-      "title": "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
-      "authors": "Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2024,
-      "url": "https://doi.org/10.46586/tosc.v2024.i3.84-176",
-      "doi": "10.46586/TOSC.V2024.I3.84-176",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 0
-    },
-    {
-      "title": "Improved Search for Integral, Impossible Differential and Zero-Correlation Attacks Application to Ascon, ForkSKINNY, SKINNY, MANTIS, PRESENT and QARMAv2.",
-      "authors": "Hosein Hadipour, Simon Gerhalter, Sadegh Sadeghi, Maria Eichlseder",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2024,
-      "url": "https://doi.org/10.46586/tosc.v2024.i1.234-325",
-      "doi": "10.46586/TOSC.V2024.I1.234-325",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 0
-    },
-    {
       "title": "Cryptanalysis of QARMAv2.",
       "authors": "Hosein Hadipour, Yosuke Todo",
       "venue": "IACR Trans. Symmetric Cryptol.",
       "year": 2024,
       "url": "https://doi.org/10.46586/tosc.v2024.i1.188-213",
       "doi": "10.46586/TOSC.V2024.I1.188-213",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 0
-    },
-    {
-      "title": "Practical Multiple Persistent Faults Analysis.",
-      "authors": "Hadi Soleimany, Nasour Bagheri, Hosein Hadipour, Prasanna Ravi, Shivam Bhasin, Sara Mansouri",
-      "venue": "IACR Trans. Cryptogr. Hardw. Embed. Syst.",
-      "year": 2022,
-      "url": "https://doi.org/10.46586/tches.v2022.i1.367-390",
-      "doi": "10.46586/TCHES.V2022.I1.367-390",
       "type": "hybrid",
       "prestigeScore": 95,
       "citations": 0
@@ -159,12 +159,12 @@
       "citations": 0
     },
     {
-      "title": "Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
-      "authors": "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
+      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
+      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
       "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2022,
-      "url": "https://doi.org/10.46586/tosc.v2022.i3.271-302",
-      "doi": "10.46586/TOSC.V2022.I3.271-302",
+      "year": 2021,
+      "url": "https://doi.org/10.46586/tosc.v2021.i2.140-198",
+      "doi": "10.46586/TOSC.V2021.I2.140-198",
       "type": "hybrid",
       "prestigeScore": 95,
       "citations": 0
@@ -189,7 +189,7 @@
       "doi": "10.1007/978-3-031-09234-3_12",
       "type": "conference",
       "prestigeScore": 75,
-      "citations": 17
+      "citations": 0
     },
     {
       "title": "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
@@ -201,17 +201,6 @@
       "type": "conference",
       "prestigeScore": 70,
       "citations": 0
-    },
-    {
-      "title": "Improved Integral Attack on ChiLow-32 Exploiting the Inverse of the ChiChi Function.",
-      "authors": "Akram Khalesi, Zahra Ahmadian, Hosein Hadipour",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2025,
-      "url": "https://eprint.iacr.org/2025/1806",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "citations": 1
     },
     {
       "title": "Cube and Integral Attacks on ChiLow-32.",
@@ -241,6 +230,17 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2025,
       "url": "https://eprint.iacr.org/2025/1996",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 0
+    },
+    {
+      "title": "Improved Integral Attack on ChiLow-32 Exploiting the Inverse of the ChiChi Function.",
+      "authors": "Akram Khalesi, Zahra Ahmadian, Hosein Hadipour",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2025,
+      "url": "https://eprint.iacr.org/2025/1806",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
