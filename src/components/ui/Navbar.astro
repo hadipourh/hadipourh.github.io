@@ -1,12 +1,11 @@
 ---
-import { Image } from 'astro:assets'
 import {profile} from '../../settings'
 import { getCollection } from 'astro:content'
 import { template } from '@/settings'
 
 const isBlogPopulated = await getCollection('blog').then(collection => collection.length > 0)
 
-const {fullName, title} = profile
+const {fullName} = profile
 // Use the uploaded professional profile picture for navbar
 const profilePicture = '/images/profilepic2.png'
 
@@ -54,7 +53,7 @@ const navigationItems = [
 			<!-- Navigation Menu -->
 			<div class='mx-2 h-full'>
 				<ul class='space-y-3 menu menu-md h-full overflow-y-auto' style="font-family: 'Quantico', sans-serif;">
-					{navigationItems.map((item, index) => (
+          {navigationItems.map((item) => (
 						<li>
 							<a href={item.href} class={`group relative overflow-hidden rounded-xl bg-transparent p-3 text-base font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-teal-600/10 dark:hover:bg-cyan-600/10 active:scale-95`}>
 								<div class="flex items-center space-x-3 relative z-10">

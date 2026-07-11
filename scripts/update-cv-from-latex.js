@@ -16,55 +16,133 @@ function cleanLatexText(text) {
   if (!text) return '';
   
   return text
-    // Remove LaTeX commands but keep the content
+    .replace(/\\href\{([^{}]*)\}\{([^{}]*)\}/g, '$2')
+    .replace(/\\url\{([^{}]*)\}/g, '$1')
     .replace(/\\textbf\{([^}]*)\}/g, '$1')
     .replace(/\\textsc\{([^}]*)\}/g, '$1')
     .replace(/\\emph\{([^}]*)\}/g, '$1')
-    .replace(/\\url\{([^}]*)\}/g, '$1') // Keep URL content
-    .replace(/\\href\{[^}]*\}\{([^}]*)\}/g, '$1') // Keep link text only
-    .replace(/\\LaTeX/g, 'LaTeX') // Convert \LaTeX to LaTeX
+    .replace(/\\text\{([^}]*)\}/g, '$1')
+    .replace(/\\LaTeX/g, 'LaTeX')
+    .replace(/\\sim/g, ' through ')
     .replace(/\\faTrophy\s*/g, '')
     .replace(/\\faGraduationCap\s*/g, '')
     .replace(/\\faStar\s*/g, '')
     .replace(/\\fa[A-Za-z]+\s*/g, '')
-    // Remove LaTeX measurement units like 1cm
     .replace(/^\d+(?:cm|mm|in|pt)\s+/g, '')
-    // Clean up LaTeX artifacts and special characters
-    .replace(/‌/g, '') // Remove zero-width non-joiner
-    .replace(/\\\\/g, ' ') // Replace double backslashes with space
-    .replace(/\\([a-zA-Z]+)/g, '') // Remove remaining LaTeX commands
-    .replace(/\{|\}/g, '') // Remove remaining braces
-    .replace(/\s+/g, ' ') // Normalize whitespace
+    .replace(/‌/g, '')
+    .replace(/\\\\/g, ' ')
+    .replace(/\\([#$%&_])/g, '$1')
+    .replace(/\\([a-zA-Z]+)/g, '')
+    .replace(/\{|\}/g, '')
+    .replace(/[$^]/g, '')
+    .replace(/~/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
 function cleanDescriptionWithUrl(text) {
   if (!text) return '';
   
-  // Handle descriptions that contain URLs more elegantly
   return text
-    // Remove LaTeX commands but keep the content
+    .replace(/\\href\{([^{}]*)\}\{([^{}]*)\}/g, '$2 (More info: $1)')
+    .replace(/\s+\\url\{([^{}]*)\}/g, '. More info: $1')
+    .replace(/\\url\{([^{}]*)\}/g, 'More info: $1')
     .replace(/\\textbf\{([^}]*)\}/g, '$1')
     .replace(/\\textsc\{([^}]*)\}/g, '$1')
     .replace(/\\emph\{([^}]*)\}/g, '$1')
-    // Format URLs nicely - keep full URL for hyperlinks
-    .replace(/\s+\\url\{([^}]*)\}/g, '. More info: $1')
-    .replace(/\\url\{([^}]*)\}/g, 'More info: $1')
-    .replace(/\\href\{[^}]*\}\{([^}]*)\}/g, '$1') // Keep link text only
-    .replace(/\\LaTeX/g, 'LaTeX') // Convert \LaTeX to LaTeX
+    .replace(/\\LaTeX/g, 'LaTeX')
     .replace(/\\faTrophy\s*/g, '')
     .replace(/\\faGraduationCap\s*/g, '')
     .replace(/\\faStar\s*/g, '')
     .replace(/\\fa[A-Za-z]+\s*/g, '')
-    // Remove LaTeX measurement units like 1cm
     .replace(/^\d+(?:cm|mm|in|pt)\s+/g, '')
-    // Clean up LaTeX artifacts and special characters
-    .replace(/‌/g, '') // Remove zero-width non-joiner
-    .replace(/\\\\/g, ' ') // Replace double backslashes with space
-    .replace(/\\([a-zA-Z]+)/g, '') // Remove remaining LaTeX commands
-    .replace(/\{|\}/g, '') // Remove remaining braces
-    .replace(/\s+/g, ' ') // Normalize whitespace
+    .replace(/‌/g, '')
+    .replace(/\\\\/g, ' ')
+    .replace(/\\([#$%&_])/g, '$1')
+    .replace(/\\([a-zA-Z]+)/g, '')
+    .replace(/\{|\}/g, '')
+    .replace(/\s+/g, ' ')
     .trim();
+}
+
+function readDelimitedArgument(text, start, open, close) {
+  if (text[start] !== open) return null;
+
+  let depth = 0;
+  for (let index = start; index < text.length; index++) {
+    if (text[index] === open) depth++;
+    if (text[index] === close) {
+      depth--;
+      if (depth === 0) {
+        return { value: text.slice(start + 1, index), end: index + 1 };
+      }
+    }
+  }
+
+  return null;
+}
+
+function extractCommandEntries(content, command, argumentCount) {
+  const entries = [];
+  const token = `\\${command}`;
+  let searchIndex = 0;
+
+  while (searchIndex < content.length) {
+    const commandIndex = content.indexOf(token, searchIndex);
+    if (commandIndex === -1) break;
+
+    let cursor = commandIndex + token.length;
+    if (/[A-Za-z@]/.test(content[cursor] || '')) {
+      searchIndex = cursor;
+      continue;
+    }
+
+    while (/\s/.test(content[cursor] || '')) cursor++;
+    if (content[cursor] === '[') {
+      const optionalArgument = readDelimitedArgument(content, cursor, '[', ']');
+      if (!optionalArgument) {
+        searchIndex = cursor + 1;
+        continue;
+      }
+      cursor = optionalArgument.end;
+    }
+
+    const args = [];
+    while (args.length < argumentCount) {
+      while (/\s/.test(content[cursor] || '')) cursor++;
+      const argument = readDelimitedArgument(content, cursor, '{', '}');
+      if (!argument) break;
+      args.push(argument.value);
+      cursor = argument.end;
+    }
+
+    if (args.length === argumentCount) {
+      entries.push({ command, args, index: commandIndex });
+    }
+    searchIndex = Math.max(cursor, commandIndex + token.length);
+  }
+
+  return entries;
+}
+
+function extractEntriesForCommands(content, commands, argumentCount) {
+  return commands
+    .flatMap(command => extractCommandEntries(content, command, argumentCount))
+    .sort((left, right) => left.index - right.index);
+}
+
+function cleanLatexUrl(url) {
+  return url
+    .replace(/\\([#$%&_])/g, '$1')
+    .replace(/\s+/g, '')
+    .trim();
+}
+
+function extractHrefEntries(text) {
+  return extractCommandEntries(text, 'href', 2).map(({ args }) => ({
+    url: cleanLatexUrl(args[0]),
+    label: cleanLatexText(args[1])
+  }));
 }
 
 function isCommentedLine(line) {
@@ -91,14 +169,9 @@ function extractEducation(latex) {
   
   const educationSection = filterCommentedContent(match[1]);
   const education = [];
-  
-  // Updated regex to handle nested braces
-  const entryRegex = /\\cventry\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g;
-  let entryMatch;
-  
-  while ((entryMatch = entryRegex.exec(educationSection)) !== null) {
-    console.log('Found cventry:', entryMatch[1], entryMatch[2], entryMatch[3]);
-    const [, time, degree, institution, city, country, description] = entryMatch;
+  const entries = extractCommandEntries(educationSection, 'cventry', 6);
+
+  for (const { args: [time, degree, institution, city, country, description] } of entries) {
     
     education.push({
       time: cleanLatexText(time),
@@ -126,19 +199,15 @@ function extractExperience(latex) {
   
   const experienceSection = filterCommentedContent(match[1]);
   const experiences = [];
-  
-  // Updated regex to handle nested braces
-  const entryRegex = /\\cventry\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g;
-  let entryMatch;
-  
-  while ((entryMatch = entryRegex.exec(experienceSection)) !== null) {
-    const [, time, position, company, location, , description] = entryMatch;
+  const entries = extractEntriesForCommands(experienceSection, ['experienceentry', 'cventry'], 6);
+
+  for (const { args: [time, position, company, city, country, description] } of entries) {
     
     experiences.push({
       time: cleanLatexText(time),
       title: cleanLatexText(position),
       company: cleanLatexText(company),
-      location: cleanLatexText(location),
+      location: cleanLatexText(`${city}${country ? ', ' + country : ''}`),
       description: cleanDescriptionWithUrl(description)
     });
   }
@@ -160,39 +229,26 @@ function extractTeaching(latex) {
   
   const teachingSection = filterCommentedContent(match[1]);
   const teaching = [];
-  
-  // Updated regex to handle nested braces and empty fields
-  const entryRegex = /\\cventry\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g;
-  let entryMatch;
-  
-  while ((entryMatch = entryRegex.exec(teachingSection)) !== null) {
-    const [, year, course, institution, location, extra, description] = entryMatch;
-    
-    // Parse the description to extract role and institution
-    let role = '';
-    let inst = '';
-    let time = cleanLatexText(year);
-    
-    if (description) {
-      // Clean LaTeX text and specifically remove 1cm prefixes
-      const desc = cleanLatexText(description).replace(/^1cm\s+/g, '');
-      // Extract role and institution from description like "Guest Lecturer, Graz University of Technology, Summer 2023 and 2024"
-      const parts = desc.split(',').map(p => p.trim());
-      if (parts.length >= 2) {
-        role = parts[0].replace(/^1cm\s+/g, '');
-        inst = parts[1];
-        if (parts.length >= 3) {
-          time = parts[2];
-        }
-      }
-    }
+  const entries = extractEntriesForCommands(teachingSection, ['experienceentry', 'cventry'], 6);
+
+  for (const { command, args: [year, field, institution, , , description] } of entries) {
+    const cleanedDescription = cleanDescriptionWithUrl(description);
+    const courseMatch = cleanedDescription.match(/^Course:\s*(.*?)(?:\.?\s*)$/i);
+    const descriptionParts = cleanedDescription.split(',').map(part => part.trim());
+    const isExperienceEntry = command === 'experienceentry';
+    const role = isExperienceEntry ? cleanLatexText(field) : descriptionParts[0] || 'Instructor';
+    const inst = isExperienceEntry ? cleanLatexText(institution) : descriptionParts[1] || cleanLatexText(institution);
+    const time = isExperienceEntry ? cleanLatexText(year) : descriptionParts[2] || cleanLatexText(year);
+    const course = isExperienceEntry
+      ? cleanLatexText(courseMatch?.[1] || cleanedDescription.replace(/^Course:\s*/i, ''))
+      : cleanLatexText(field);
     
     teaching.push({
-      course: cleanLatexText(course) || 'Unknown Course',
-      role: (role || 'Instructor').replace(/^1cm\s+/g, ''),
-      institution: inst || cleanLatexText(institution),
+      course: course || 'Unknown Course',
+      role: role || 'Instructor',
+      institution: inst,
       time: time,
-      description: cleanLatexText(description).replace(/^1cm\s+/g, '')
+      description: cleanedDescription
     });
   }
   
@@ -222,13 +278,11 @@ function extractSkills(latex) {
     const category = cleanLatexText(subsectionMatch[1]);
     const content = filterCommentedContent(subsectionMatch[2]);
     
-    // Extract \cvitem entries
-    const itemRegex = /\\cvitem\{([^}]+)\}\{([^}]+)\}/g;
-    let itemMatch;
+    const entries = extractEntriesForCommands(content, ['detailitem', 'skillitem', 'cvitem'], 2);
     
-    while ((itemMatch = itemRegex.exec(content)) !== null) {
-      const level = cleanLatexText(itemMatch[1]);
-      const skillList = cleanLatexText(itemMatch[2]);
+    for (const { args: [levelArgument, skillsArgument] } of entries) {
+      const level = cleanLatexText(levelArgument);
+      const skillList = cleanLatexText(skillsArgument);
       
       if (level && skillList) {
         skills.push({
@@ -285,10 +339,10 @@ function extractReviews(latex) {
         role = cleanLatexText(roleMatch[1]);
       }
       
-      // Extract year
-      const yearMatch = line.match(/(\d{4})/);
+      // Only evaluate the rendered content, not a four-digit sequence in a URL.
+      const yearMatch = cleanLatexText(line).match(/\b(?:19|20)\d{2}\b/);
       if (yearMatch) {
-        year = yearMatch[1];
+        year = yearMatch[0];
       }
       
       if (role && venue) {
@@ -377,35 +431,49 @@ function extractHonors(latex) {
         title = title.trim().replace(/[,.]$/, ''); // Remove trailing punctuation
         
         if (title) {
-          // Determine appropriate icon based on the title
-          let icon = '';
-          const lowerTitle = title.toLowerCase();
-          if (lowerTitle.includes('medal') || lowerTitle.includes('competition')) {
-            icon = '🥉'; // Bronze medal for mathematical competitions
-          } else if (lowerTitle.includes('winner') || lowerTitle.includes('crypto')) {
-            icon = '🏆'; // Trophy for cryptography achievements
-          } else if (lowerTitle.includes('award') || lowerTitle.includes('prize')) {
-            icon = '🏅'; // General award medal
-          } else if (lowerTitle.includes('scholarship') || lowerTitle.includes('grant')) {
-            icon = '💰'; // Money for financial awards
-          } else {
-            icon = '⭐'; // Default star for achievements
-          }
-
           honors.push({
             title: title,
             description: cleanLatexText(content.replace(/\\url\{[^}]*\}/g, '')),
             time: year,
             link: link || '',
-            icon: icon
+            icon: getHonorIcon(title)
           });
         }
       }
     }
   }
+
+  const entries = extractCommandEntries(honorsSection, 'cventry', 6);
+  for (const { args: [time, distinction, event, location, date, details] } of entries) {
+    const title = cleanLatexText(`${distinction}: ${event}`);
+    const description = [location, date, details]
+      .map(cleanLatexText)
+      .filter(Boolean)
+      .join(', ');
+    const link = extractHrefEntries(details)[0]?.url || '';
+
+    if (title) {
+      honors.push({
+        title,
+        description,
+        time: cleanLatexText(time),
+        link,
+        icon: getHonorIcon(title)
+      });
+    }
+  }
   
   console.log(`SUCCESS: Found ${honors.length} honors`);
   return honors;
+}
+
+function getHonorIcon(title) {
+  const lowerTitle = title.toLowerCase();
+  if (lowerTitle.includes('medal') || lowerTitle.includes('competition')) return '🥉';
+  if (lowerTitle.includes('winner') || lowerTitle.includes('crypto')) return '🏆';
+  if (lowerTitle.includes('award') || lowerTitle.includes('prize')) return '🏅';
+  if (lowerTitle.includes('scholarship') || lowerTitle.includes('grant')) return '💰';
+  return '⭐';
 }
 
 function extractInterests(latex) {
@@ -510,66 +578,70 @@ function getInterestDescription(interest) {
 function extractPresentations(latex) {
   console.log('Extracting visits and presentations...');
   
-  const presentationsRegex = /\\section\{[^}]*Visits and Presentations[^}]*\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/i;
-  const match = latex.match(presentationsRegex);
+  const presentations = extractCvItemEvents(
+    latex,
+    title => /^Visits(?: and Presentations)?$/i.test(title)
+  );
   
-  if (!match) {
-    console.log('WARNING: No Visits and Presentations section found');
-    return [];
-  }
-  
-  const presentationsSection = filterCommentedContent(match[1]);
-  const presentations = [];
-  
-  // Extract \item entries from itemize environment
-  const lines = presentationsSection.split('\n');
-  
-  for (let line of lines) {
-    line = line.trim();
-    if (line.startsWith('\\item ')) {
-      // Parse the complex format: \item \textbf{\href{url}{title} - location, date}: \href{url}{description}
-      
-      // Extract event name and location/date
-      const eventMatch = line.match(/\\textbf\{\\href\{([^}]*)\}\{([^}]+)\}[^:}]*- ([^:}]+)\}/);
-      let eventUrl = '';
-      let eventName = '';
-      let location = '';
-      
-      if (eventMatch) {
-        eventUrl = eventMatch[1];
-        eventName = eventMatch[2];
-        location = eventMatch[3];
-      }
-      
-      // Extract description and link
-      const descMatch = line.match(/:\s*\\href\{([^}]*)\}\{([^}]+)\}/);
-      let descUrl = '';
-      let description = '';
-      
-      if (descMatch) {
-        descUrl = descMatch[1];
-        description = descMatch[2];
-      }
-      
-      // Extract year
-      const yearMatch = line.match(/(\d{4})/);
-      const year = yearMatch ? yearMatch[1] : '';
-      
-      if (eventName) {
-        presentations.push({
-          title: cleanLatexText(eventName),
-          location: cleanLatexText(location),
-          time: year,
-          type: cleanLatexText(description),
-          link: eventUrl,
-          detailsLink: descUrl
+  console.log(`SUCCESS: Found ${presentations.length} presentations`);
+  return presentations;
+}
+
+function extractConferences(latex) {
+  console.log('Extracting conference attendance...');
+
+  const conferences = extractCvItemEvents(
+    latex,
+    title => /^Attended Seminars\/Conferences\/Workshops$/i.test(title)
+  ).map(event => ({
+    title: event.title,
+    location: event.location,
+    time: event.time,
+    role: event.type || 'Attendee'
+  }));
+
+  console.log(`SUCCESS: Found ${conferences.length} conferences`);
+  return conferences;
+}
+
+function extractCvItemEvents(latex, matchesSectionTitle) {
+  const sectionRegex = /\\section\{([^}]*)\}([\s\S]*?)(?=\\section|\\end\{document\}|$)/g;
+  const events = [];
+  let sectionMatch;
+
+  while ((sectionMatch = sectionRegex.exec(latex)) !== null) {
+    if (!matchesSectionTitle(cleanLatexText(sectionMatch[1]))) continue;
+
+    const section = filterCommentedContent(sectionMatch[2]);
+    for (const { args: [date, details] } of extractCommandEntries(section, 'cvitem', 2)) {
+      const links = extractHrefEntries(details);
+      const cleanedDetails = cleanLatexText(details);
+      const title = links[0]?.label || cleanedDetails.split(',')[0].trim();
+      const detailsWithoutTitle = cleanedDetails
+        .slice(cleanedDetails.indexOf(title) + title.length)
+        .replace(/^,\s*/, '');
+      const typeMatch = detailsWithoutTitle.match(/\(([^()]*)\)\s*$/);
+      const type = typeMatch?.[1]?.trim() || '';
+      const location = detailsWithoutTitle
+        .replace(/\s*\([^()]*\)\s*$/, '')
+        .replace(/,\s*$/, '')
+        .trim();
+      const yearMatch = cleanLatexText(date).match(/\b(?:19|20)\d{2}\b/);
+
+      if (title) {
+        events.push({
+          title,
+          location,
+          time: yearMatch?.[0] || '',
+          type,
+          link: links[0]?.url || '',
+          detailsLink: links[1]?.url || ''
         });
       }
     }
   }
-  
-  console.log(`SUCCESS: Found ${presentations.length} presentations`);
-  return presentations;
+
+  return events;
 }
 
 function extractLanguages(latex) {
@@ -585,14 +657,14 @@ function extractLanguages(latex) {
   
   const languagesSection = filterCommentedContent(match[1]);
   const languages = [];
-  
-  // Extract \cvitemwithcomment entries
-  const itemRegex = /\\cvitemwithcomment\{([^}]+)\}\{([^}]+)\}\{[^}]*\}/g;
-  let itemMatch;
-  
-  while ((itemMatch = itemRegex.exec(languagesSection)) !== null) {
-    const language = cleanLatexText(itemMatch[1]);
-    const level = cleanLatexText(itemMatch[2]);
+  const entries = [
+    ...extractCommandEntries(languagesSection, 'detailitem', 2),
+    ...extractCommandEntries(languagesSection, 'cvitemwithcomment', 3)
+  ].sort((left, right) => left.index - right.index);
+
+  for (const { args } of entries) {
+    const language = cleanLatexText(args[0]);
+    const level = cleanLatexText(args[1]);
     
     if (language && level) {
       let proficiency = 1; // Default to lowest proficiency
@@ -669,13 +741,9 @@ function extractMemberships(latex) {
   
   if (membershipsMatch) {
     const membershipsSection = filterCommentedContent(membershipsMatch[1]);
+    const entries = extractEntriesForCommands(membershipsSection, ['detailitem', 'cvitem'], 2);
     
-    // Extract \cvitem entries (format: \cvitem{time}{organization})
-    const itemRegex = /\\cvitem\{([^}]+)\}\{([^}]+)\}/g;
-    let itemMatch;
-    
-    while ((itemMatch = itemRegex.exec(membershipsSection)) !== null) {
-      const [, time, organization] = itemMatch;
+    for (const { args: [time, organization] } of entries) {
       const cleanTime = cleanLatexText(time);
       const cleanOrg = cleanLatexText(organization);
       
@@ -693,7 +761,11 @@ function extractMemberships(latex) {
   return memberships;
 }
 
-function updateCvData(education, experiences, teaching, skills, reviews, honors, interests, languages, presentations, memberships) {
+function escapeDoubleQuotes(value) {
+  return value.replace(/"/g, '\\"');
+}
+
+function updateCvData(education, experiences, teaching, skills, reviews, honors, interests, languages, presentations, conferences, memberships) {
   const cvPath = path.join(__dirname, '..', 'src', 'data', 'cv.ts');
   
   // Read current cv.ts file
@@ -701,7 +773,7 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update education section
   const educationData = education.map(edu => 
-    `\t{\n\t\t"time": "${edu.time}",\n\t\t"degree": "${edu.degree ? edu.degree.replace(/"/g, '\\"') : ''}",\n\t\t"school": "${edu.school ? edu.school.replace(/"/g, '\\"') : ''}",\n\t\t"location": "${edu.location || ''}",\n\t\t"description": "${edu.description ? edu.description.replace(/"/g, '\\"') : ''}"\n\t}`
+    `\t{\n\t\t"time": "${edu.time}",\n\t\t"degree": "${edu.degree ? escapeDoubleQuotes(edu.degree) : ''}",\n\t\t"school": "${edu.school ? escapeDoubleQuotes(edu.school) : ''}",\n\t\t"location": "${edu.location || ''}",\n\t\t"description": "${edu.description ? escapeDoubleQuotes(edu.description) : ''}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
@@ -711,7 +783,7 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update experiences section
   const experienceData = experiences.map(exp => 
-    `\t{\n\t\t"time": "${exp.time}",\n\t\t"title": "${exp.title ? exp.title.replace(/"/g, '\\"') : ''}",\n\t\t"company": "${exp.company ? exp.company.replace(/"/g, '\\"') : ''}",\n\t\t"location": "${exp.location || ''}",\n\t\t"description": "${exp.description ? exp.description.replace(/"/g, '\\"') : ''}"\n\t}`
+    `\t{\n\t\t"time": "${exp.time}",\n\t\t"title": "${exp.title ? escapeDoubleQuotes(exp.title) : ''}",\n\t\t"company": "${exp.company ? escapeDoubleQuotes(exp.company) : ''}",\n\t\t"location": "${exp.location || ''}",\n\t\t"description": "${exp.description ? escapeDoubleQuotes(exp.description) : ''}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
@@ -721,7 +793,7 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update teaching section
   const teachingData = teaching.map(teach => 
-    `\t{\n\t\t"course": "${teach.course ? teach.course.replace(/"/g, '\\"') : ''}",\n\t\t"role": "${teach.role ? teach.role.replace(/"/g, '\\"') : ''}",\n\t\t"institution": "${teach.institution ? teach.institution.replace(/"/g, '\\"') : ''}",\n\t\t"time": "${teach.time || ''}",\n\t\t"description": "${teach.description ? teach.description.replace(/"/g, '\\"') : ''}"\n\t}`
+    `\t{\n\t\t"course": "${teach.course ? escapeDoubleQuotes(teach.course) : ''}",\n\t\t"role": "${teach.role ? escapeDoubleQuotes(teach.role) : ''}",\n\t\t"institution": "${teach.institution ? escapeDoubleQuotes(teach.institution) : ''}",\n\t\t"time": "${teach.time || ''}",\n\t\t"description": "${teach.description ? escapeDoubleQuotes(teach.description) : ''}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
@@ -731,7 +803,7 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update skills section - create proper hierarchical structure
   const skillsData = skills.map(skill => 
-    `\t{\n\t\t"category": "${skill.category.replace(/"/g, '\\"')}",\n\t\t"level": "${skill.level.replace(/"/g, '\\"')}",\n\t\t"skills": "${skill.skills.replace(/"/g, '\\"')}"\n\t}`
+    `\t{\n\t\t"category": "${escapeDoubleQuotes(skill.category)}",\n\t\t"level": "${escapeDoubleQuotes(skill.level)}",\n\t\t"skills": "${escapeDoubleQuotes(skill.skills)}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
@@ -741,7 +813,7 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update reviews section
   const reviewsData = reviews.map(review => 
-    `\t{\n\t\t"title": "${review.title ? review.title.replace(/"/g, '\\"') : ''}",\n\t\t"venue": "${review.venue ? review.venue.replace(/"/g, '\\"') : ''}",\n\t\t"time": "${review.time || ''}",\n\t\t"link": "${review.link || ''}"\n\t}`
+    `\t{\n\t\t"title": "${review.title ? escapeDoubleQuotes(review.title) : ''}",\n\t\t"venue": "${review.venue ? escapeDoubleQuotes(review.venue) : ''}",\n\t\t"time": "${review.time || ''}",\n\t\t"link": "${review.link || ''}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
@@ -751,7 +823,7 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update honors section
   const honorsData = honors.map(honor => 
-    `\t{\n\t\t"title": "${honor.title.replace(/"/g, '\\"')}",\n\t\t"description": "${honor.description ? honor.description.replace(/"/g, '\\"') : ''}",\n\t\t"time": "${honor.time || ''}",\n\t\t"link": "${honor.link || ''}",\n\t\t"icon": "${honor.icon || '⭐'}"\n\t}`
+    `\t{\n\t\t"title": "${escapeDoubleQuotes(honor.title)}",\n\t\t"description": "${honor.description ? escapeDoubleQuotes(honor.description) : ''}",\n\t\t"time": "${honor.time || ''}",\n\t\t"link": "${honor.link || ''}",\n\t\t"icon": "${honor.icon || '⭐'}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
@@ -761,7 +833,7 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update interests section
   const interestsData = interests.map(interest => 
-    `\t{\n\t\t"title": "${interest.title ? interest.title.replace(/"/g, '\\"') : ''}",\n\t\t"description": "${interest.description ? interest.description.replace(/"/g, '\\"') : ''}",\n\t\t"icon": "${interest.icon || ''}"\n\t}`
+    `\t{\n\t\t"title": "${interest.title ? escapeDoubleQuotes(interest.title) : ''}",\n\t\t"description": "${interest.description ? escapeDoubleQuotes(interest.description) : ''}",\n\t\t"icon": "${interest.icon || ''}"\n\t}`
   ).join(',\n');
   cvContent = cvContent.replace(
     /export const interests = \[[\s\S]*?\];/,
@@ -780,17 +852,26 @@ function updateCvData(education, experiences, teaching, skills, reviews, honors,
   
   // Update presentations section
   const presentationsData = presentations.map(pres => 
-    `\t{\n\t\t"title": "${pres.title ? pres.title.replace(/"/g, '\\"') : ''}",\n\t\t"location": "${pres.location ? pres.location.replace(/"/g, '\\"') : ''}",\n\t\t"time": "${pres.time || ''}",\n\t\t"type": "${pres.type ? pres.type.replace(/"/g, '\\"') : ''}",\n\t\t"link": "${pres.link || ''}",\n\t\t"detailsLink": "${pres.detailsLink || ''}"\n\t}`
+    `\t{\n\t\t"title": "${pres.title ? escapeDoubleQuotes(pres.title) : ''}",\n\t\t"location": "${pres.location ? escapeDoubleQuotes(pres.location) : ''}",\n\t\t"time": "${pres.time || ''}",\n\t\t"type": "${pres.type ? escapeDoubleQuotes(pres.type) : ''}",\n\t\t"link": "${pres.link || ''}",\n\t\t"detailsLink": "${pres.detailsLink || ''}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
     /export const presentations = \[[\s\S]*?\];/,
     `export const presentations = [\n${presentationsData}\n];`
   );
+
+  const conferencesData = conferences.map(conference =>
+    `\t{\n\t\t"title": "${conference.title ? escapeDoubleQuotes(conference.title) : ''}",\n\t\t"location": "${conference.location ? escapeDoubleQuotes(conference.location) : ''}",\n\t\t"role": "${conference.role ? escapeDoubleQuotes(conference.role) : ''}",\n\t\t"time": "${conference.time || ''}"\n\t}`
+  ).join(',\n');
+
+  cvContent = cvContent.replace(
+    /export const conferences = \[[\s\S]*?\];/,
+    `export const conferences = [\n${conferencesData}\n];`
+  );
   
   // Update memberships section
   const membershipsData = memberships.map(member => 
-    `\t{\n\t\t"title": "${member.title.replace(/"/g, '\\"')}",\n\t\t"description": "${member.description.replace(/"/g, '\\"')}",\n\t\t"time": "${member.time}"\n\t}`
+    `\t{\n\t\t"title": "${escapeDoubleQuotes(member.title)}",\n\t\t"description": "${escapeDoubleQuotes(member.description)}",\n\t\t"time": "${member.time}"\n\t}`
   ).join(',\n');
   
   cvContent = cvContent.replace(
@@ -828,10 +909,11 @@ async function main() {
     const interests = extractInterests(latexContent);
     const languages = extractLanguages(latexContent);
     const presentations = extractPresentations(latexContent);
+    const conferences = extractConferences(latexContent);
     const memberships = extractMemberships(latexContent);
     
     // Update cv.ts file
-    updateCvData(education, experiences, teaching, skills, reviews, honors, interests, languages, presentations, memberships);
+    updateCvData(education, experiences, teaching, skills, reviews, honors, interests, languages, presentations, conferences, memberships);
     
     console.log(' CV update completed successfully!');
     console.log('Summary:');
@@ -844,6 +926,7 @@ async function main() {
     console.log(`   Interests: ${interests.length} entries`);
     console.log(`   Languages: ${languages.length} entries`);
     console.log(`   Presentations: ${presentations.length} entries`);
+    console.log(`   Conferences: ${conferences.length} entries`);
     console.log(`   Memberships: ${memberships.length} entries`);
     
   } catch (error) {

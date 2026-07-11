@@ -5,22 +5,22 @@ export const experiences = [
 		"time": "2024--Present",
 		"title": "Postdoctoral Researcher",
 		"company": "Ruhr University Bochum",
-		"location": "",
-		"description": "Working on symmetric-key cryptanalysis under the supervision of Prof. Gregor Leander. More info: https://informatik.rub.de/symcrypt/"
+		"location": "Bochum, Germany",
+		"description": "Conducting research on symmetric-key cryptanalysis under the supervision of Prof. Gregor Leander in the Symmetric Cryptography Group (More info: https://informatik.rub.de/symcrypt/)."
 	},
 	{
 		"time": "2022--2024",
 		"title": "Ph.D. Candidate",
-		"company": "Graz Univeristy of Technology",
-		"location": "",
-		"description": "Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder. More info: https://www.isec.tugraz.at/people/?groupby=alumni"
+		"company": "Graz University of Technology",
+		"location": "Graz, Austria",
+		"description": "Conducted research on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder. Institute profile (More info: https://www.isec.tugraz.at/people/?groupby=alumni)."
 	},
 	{
 		"time": "2021--2022",
 		"title": "Ph.D. Student",
-		"company": "Graz Univeristy of Technology",
-		"location": "",
-		"description": "Working on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder. More info: https://www.iaik.tugraz.at/research-area/crypto/"
+		"company": "Graz University of Technology",
+		"location": "Graz, Austria",
+		"description": "Conducted research on symmetric-key cryptanalysis under the supervision of Dr. Maria Eichlseder in the Cryptography Research Area (More info: https://www.iaik.tugraz.at/research-area/crypto/)."
 	}
 ];
 
@@ -28,14 +28,14 @@ export const education = [
 	{
 		"time": "2025--Present",
 		"degree": "Postdoc in Computer Science",
-		"school": "Ruhr Univeristy Bochum",
+		"school": "Ruhr University Bochum",
 		"location": "Bochum, Germany",
 		"description": ""
 	},
 	{
 		"time": "2021--2024",
 		"degree": "Ph.D. in Computer Science",
-		"school": "Graz Univeristy of Technology",
+		"school": "Graz University of Technology",
 		"location": "Graz, Austria",
 		"description": ""
 	},
@@ -74,48 +74,48 @@ export const skills = [
 		"skills": "Java, Assembly(AVR)"
 	},
 	{
-		"category": "Software, Tools \& Packages",
+		"category": "Software, Tools & Packages",
 		"level": "Math",
 		"skills": "SageMath, Matlab, Maple, CoCoA"
 	},
 	{
-		"category": "Software, Tools \& Packages",
+		"category": "Software, Tools & Packages",
 		"level": "SAT",
 		"skills": "PySAT, Cadical, Minisat, CryptoMinisat"
 	},
 	{
-		"category": "Software, Tools \& Packages",
+		"category": "Software, Tools & Packages",
 		"level": "SMT",
 		"skills": "PySMT, Z3, STP"
 	},
 	{
-		"category": "Software, Tools \& Packages",
+		"category": "Software, Tools & Packages",
 		"level": "MILP",
-		"skills": "Pulp, Gurobi"
+		"skills": "Gurobi"
 	},
 	{
-		"category": "Software, Tools \& Packages",
+		"category": "Software, Tools & Packages",
 		"level": "CP",
 		"skills": "Minizinc"
 	},
 	{
-		"category": "Software, Tools \& Packages",
-		"level": "Office",
+		"category": "Software, Tools & Packages",
+		"level": "Productivity",
 		"skills": "LaTeX, Microsoft Office Tools, Texstudio"
 	},
 	{
-		"category": "Software, Tools \& Packages",
-		"level": "OS",
-		"skills": "Linux, Windows"
+		"category": "Software, Tools & Packages",
+		"level": "Platforms",
+		"skills": "Linux, Mac, Windows"
 	},
 	{
-		"category": "Software, Tools \& Packages",
-		"level": "IDE",
+		"category": "Software, Tools & Packages",
+		"level": "IDEs",
 		"skills": "Visual Studio Code, Microsoft Visual Studio, Eclipse"
 	},
 	{
-		"category": "Software, Tools \& Packages",
-		"level": "Electrical Engineering Softwares",
+		"category": "Software, Tools & Packages",
+		"level": "Hardware/EDA",
 		"skills": "Xilinx ISE, Altium Designer, PSpice, CodeVision, Atmelstudio, Arduino, Proteus"
 	}
 ];
@@ -130,53 +130,29 @@ export const teaching = [
 		"course": "Cryptanalysis",
 		"role": "Guest Lecturer",
 		"institution": "Graz University of Technology",
-		"time": "Summer 2023 and 2024",
-		"description": "Guest Lecturer, Graz University of Technology, Summer 2023 and 2024"
+		"time": "Summer 2023, 2024",
+		"description": "Course: Cryptanalysis."
 	},
 	{
 		"course": "A Course in Cryptography",
 		"role": "Teaching Assistant",
 		"institution": "University of Tehran",
 		"time": "Fall 2016",
-		"description": "Teaching Assistant, University of Tehran, Fall 2016"
+		"description": "Course: A Course in Cryptography."
 	},
 	{
 		"course": "Introduction to Cryptography",
 		"role": "Teaching Assistant",
-		"institution": "K. N. Toosi University",
+		"institution": "K. N. Toosi University of Technology",
 		"time": "Fall 2014",
-		"description": "Teaching Assistant, K. N. Toosi University, Fall 2014"
+		"description": "Course: Introduction to Cryptography."
 	}
 ];
 
 export const presentations = [
 	{
-		"title": "FSE 2025",
-		"location": "Rome, Italy, March 2025",
-		"time": "2025",
-		"type": "Attendee with accepted paper",
-		"link": "https://fse.iacr.org/2025/",
-		"detailsLink": "https://ia.cr/2024/1359"
-	},
-	{
-		"title": "SKCAM 2025",
-		"location": "Rome, Italy, March 2025",
-		"time": "2025",
-		"type": "Invited Speaker",
-		"link": "https://skcamworkshop.github.io/skcam2025/",
-		"detailsLink": "https://skcamworkshop.github.io/skcam2025/"
-	},
-	{
-		"title": "CRYPTO 2024",
-		"location": "Santa Barbara, USA, August 2024",
-		"time": "2024",
-		"type": "Paper presentation",
-		"link": "https://crypto.iacr.org/2024/",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
 		"title": "Inria",
-		"location": "Paris, France, May 2024",
+		"location": "Paris, France",
 		"time": "2024",
 		"type": "Visiting Professor Maria Naya-Plasencia's Lab",
 		"link": "https://www.inria.fr/en/inria-paris-centre",
@@ -184,7 +160,7 @@ export const presentations = [
 	},
 	{
 		"title": "IRISA",
-		"location": "Rennes, France, May 2024",
+		"location": "Rennes, France",
 		"time": "2024",
 		"type": "Visiting IRISA Lab",
 		"link": "https://www.irisa.fr/en",
@@ -192,87 +168,35 @@ export const presentations = [
 	},
 	{
 		"title": "LORIA",
-		"location": "Nancy, France, May 2024",
+		"location": "Nancy, France",
 		"time": "2024",
 		"type": "Visiting LORIA Lab",
 		"link": "https://www.loria.fr/en/",
-		"detailsLink": "https://www.loria.fr/en/"
+		"detailsLink": "https://www.loria.fr/en"
 	},
 	{
-		"title": "Lorentz Center",
-		"location": "Leiden, Netherlands, April 2024",
-		"time": "2024",
-		"type": "Invited attendee",
-		"link": "https://www.lorentzcenter.nl/beating-real-time-crypto-solutions-and-analysis.html",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
-		"title": "FSE 2024",
-		"location": "Leuven, Belgium",
-		"time": "2024",
-		"type": "Paper presentation",
-		"link": "https://fse.iacr.org/2024/",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
-		"title": "EUROCRYPT 2023",
-		"location": "Lyon, France",
-		"time": "2024",
-		"type": "Paper presentation",
-		"link": "https://eurocrypt.iacr.org/2024/",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
-		"title": "FSE 2023",
+		"title": "University of Hyogo",
 		"location": "Kobe, Japan",
-		"time": "2023",
-		"type": "Paper presentation",
-		"link": "https://fse.iacr.org/2023/",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
-		"title": "FSE 2023",
-		"location": "Kobe, Japan",
-		"time": "2023",
-		"type": "Paper presentation",
-		"link": "https://fse.iacr.org/2023/",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
-		"title": "ACNS 2022",
-		"location": "Rome, Italy",
-		"time": "2022",
-		"type": "Paper presentation",
-		"link": "https://acns22.di.uniroma1.it/",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
-		"title": "FRISIACRYPT 2022",
-		"location": "Netherlands",
-		"time": "2022",
-		"type": "Invited attendee",
-		"link": "https://frisiacrypt2022.cs.ru.nl/",
-		"detailsLink": "https://frisiacrypt2022.cs.ru.nl/"
-	},
-	{
-		"title": "CHES 2022",
-		"location": "Louven, Belgium",
-		"time": "2022",
-		"type": "Paper presnetation",
-		"link": "https://ches.iacr.org/2022/",
-		"detailsLink": "https://github.com/hadipourh/talks"
-	},
-	{
-		"title": "FSE 2022",
-		"location": "Atehns, Greece",
-		"time": "2022",
-		"type": "Paper presentation",
-		"link": "https://fse.iacr.org/2022/",
-		"detailsLink": "https://github.com/hadipourh/talks"
+		"time": "2024",
+		"type": "Visiting Professor Takanori Isobe's Lab",
+		"link": "https://www.u-hyogo.ac.jp/english/",
+		"detailsLink": "https://sites.google.com/view/takanoriisobe/publication"
 	}
 ];
 
 export const reviews = [
+	{
+		"title": "Reviewer",
+		"venue": "FSE 2027/ToSC 2026-2 through ToSC 2027-1",
+		"time": "2027",
+		"link": "https://fse.iacr.org/2027/"
+	},
+	{
+		"title": "Reviewer",
+		"venue": "ASIACRYPT 2026",
+		"time": "2026",
+		"link": "https://asiacrypt.iacr.org/2026/"
+	},
 	{
 		"title": "Artifact Review Chair",
 		"venue": "FSE 2026/ToSC",
@@ -288,7 +212,7 @@ export const reviews = [
 	{
 		"title": "Reviewer",
 		"venue": "Designs, Codes and Cryptography (DCC) 2025",
-		"time": "1062",
+		"time": "2025",
 		"link": "https://www.springer.com/journal/10623"
 	},
 	{
@@ -366,95 +290,155 @@ export const reviews = [
 	{
 		"title": "Reviewer",
 		"venue": "Designs, Codes and Cryptography (DCC) 2022",
-		"time": "1062",
+		"time": "2022",
 		"link": "https://www.springer.com/journal/10623"
 	}
 ];
 
 export const honors = [
 	{
-		"title": "Bronze medal, 38th National Mathematical Competition for University Students, Kerman, Iran",
-		"description": "Bronze medal, 38th National Mathematical Competition for University Students, Kerman, Iran, May 2014.",
+		"title": "Winner: NSUCRYPTO 2019",
+		"description": "October 13--21, Competition results",
+		"time": "2019",
+		"link": "https://nsucrypto.nsu.ru/archive/2019/total_results/round/1/section/2/#data",
+		"icon": "🏆"
+	},
+	{
+		"title": "Bronze Medal: 38th National Mathematical Competition for University Students",
+		"description": "Kerman, Iran, May, Competition website",
 		"time": "2014",
 		"link": "http://www.ims.ir",
 		"icon": "🥉"
 	},
 	{
-		"title": "Bronze medal, 37th National Mathematical Competition for University Students, Semnan, Iran",
-		"description": "Bronze medal, 37th National Mathematical Competition for University Students, Semnan, Iran, May 2013.",
+		"title": "Bronze Medal: 37th National Mathematical Competition for University Students",
+		"description": "Semnan, Iran, May, Competition website",
 		"time": "2013",
 		"link": "http://www.ims.ir",
 		"icon": "🥉"
-	},
-	{
-		"title": "Among the winners of NSUCRYPTO-2019",
-		"description": "Among the winners of NSUCRYPTO-2019 (October 13-21, 2019).",
-		"time": "2019",
-		"link": "https://nsucrypto.nsu.ru/archive/2019/total\_results/round/1/section/2/\#data",
-		"icon": "🏆"
 	}
 ];
 
 export const conferences = [
 	{
-		"title": "Fast Software Encryption (FSE) 2025",
-		"location": "Rome, March 17-21",
-		"time": "2025",
-		"role": "attendee"
+		"title": "FSE 2026",
+		"location": "Singapore, Singapore, March 23--27",
+		"role": "Attendee",
+		"time": "2026"
+	},
+	{
+		"title": "ASK 2026",
+		"location": "Nanyang Technological University, Singapore, March 19--22",
+		"role": "Invited attendee",
+		"time": "2026"
+	},
+	{
+		"title": "FSE 2025",
+		"location": "Rome, Italy, March 17--21",
+		"role": "Attendee with accepted paper",
+		"time": "2025"
 	},
 	{
 		"title": "SKCAM 2025",
-		"location": "Italy, Rome",
-		"time": "2025",
-		"role": "invited speaker"
+		"location": "Rome, Italy",
+		"role": "Invited speaker",
+		"time": "2025"
+	},
+	{
+		"title": "ASK 2024",
+		"location": "TCG CREST, Kolkata, India, December 14--17",
+		"role": "Invited speaker",
+		"time": "2024"
+	},
+	{
+		"title": "CRYPTO 2024",
+		"location": "Santa Barbara, USA, August 18--22",
+		"role": "Paper presentation",
+		"time": "2024"
 	},
 	{
 		"title": "Beating Real-Time Crypto: Solutions and Analysis",
-		"location": "Netherlands, April 22-26",
-		"time": "2024",
-		"role": "invited speaker"
+		"location": "Lorentz Center, Leiden, Netherlands, April 22--26",
+		"role": "Invited attendee and speaker",
+		"time": "2024"
 	},
 	{
-		"title": "Fast Software Encryption (FSE) 2024",
-		"location": "Belgium, March 25-29",
-		"time": "2024",
-		"role": "speaker"
+		"title": "FSE 2024",
+		"location": "Leuven, Belgium, March 25--29",
+		"role": "Paper presentation",
+		"time": "2024"
 	},
 	{
 		"title": "EUROCRYPT 2023",
-		"location": "France, April 23-27",
-		"time": "2023",
-		"role": "speaker"
+		"location": "Lyon, France, April 23--27",
+		"role": "Paper presentation",
+		"time": "2023"
 	},
 	{
-		"title": "Fast Software Encryption (FSE) 2023",
-		"location": "Japan, March 20-24",
-		"time": "2023",
-		"role": "speaker"
-	},
-	{
-		"title": "Applied Cryptography and Network Security 2022",
-		"location": "Italy, June 20-23",
-		"time": "2022",
-		"role": "speaker"
+		"title": "FSE 2023",
+		"location": "Kobe, Japan, March 20--24",
+		"role": "Paper presentation",
+		"time": "2023"
 	},
 	{
 		"title": "FRISIACRYPT 2022",
-		"location": "Netherlands, September 25-28",
-		"time": "2022",
-		"role": "invited attendee"
+		"location": "Terschelling, Netherlands, September 25--28",
+		"role": "Invited attendee",
+		"time": "2022"
 	},
 	{
-		"title": "Cryptographic Hardware and Embedded Systems 2022",
-		"location": "Belgium, September 18-21",
-		"time": "2022",
-		"role": "speaker"
+		"title": "CHES 2022",
+		"location": "Leuven, Belgium, September 18--21",
+		"role": "Paper presentation",
+		"time": "2022"
 	},
 	{
-		"title": "Fast Software Encryption (FSE) 2022",
-		"location": "Greece, March 20-25",
-		"time": "2022",
-		"role": "speaker"
+		"title": "ACNS 2022",
+		"location": "Rome, Italy, June 20--23",
+		"role": "Paper presentation",
+		"time": "2022"
+	},
+	{
+		"title": "FSE 2022",
+		"location": "Athens, Greece, March 20--25",
+		"role": "Paper presentation",
+		"time": "2022"
+	},
+	{
+		"title": "Symmetric Cryptography in Theory and Practice",
+		"location": "ISC Winter School on Information Security and Cryptology (ISCwsISC 2020), Iran University of Science and Technology, February 2--3",
+		"role": "Speaker",
+		"time": "2020"
+	},
+	{
+		"title": "16th International ISC Conference on Information Security and Cryptology (ISCISC 2019)",
+		"location": "Ferdowsi University of Mashhad, Mashhad, Iran, August 28--29",
+		"role": "Attendee",
+		"time": "2019"
+	},
+	{
+		"title": "9th IPM-HPC Workshop on Multi-core Systems and Graphic Processors",
+		"location": "Institute for Research in Fundamental Sciences (IPM), Tehran, Iran, June 8--9",
+		"role": "Attendee",
+		"time": "2019"
+	},
+	{
+		"title": "8th IPM-HPC Workshop on Multi-core Systems and Parallel Platforms",
+		"location": "Institute for Research in Fundamental Sciences (IPM), Tehran, Iran, February 20--21",
+		"role": "Attendee",
+		"time": "2019"
+	},
+	{
+		"title": "Selected Areas in Post-Quantum Cryptography",
+		"location": "Sharif University of Technology, Tehran, Iran, February 13--14",
+		"role": "Attendee",
+		"time": "2019"
+	},
+	{
+		"title": "Advanced MATLAB Workshop",
+		"location": "IEEE Student Branch, Faculty of Electrical Engineering, K. N. Toosi University of Technology, Tehran, Iran",
+		"role": "Attendee",
+		"time": "2014"
 	}
 ];
 
@@ -543,14 +527,14 @@ export const languages: { language: string; level: string; proficiency: number; 
 		language: "German",
 		level: "Learning",
 		proficiency: 1,
-		color: "text-teal-600",
+		color: "text-purple-600",
 		icon: "🌱"
 	},
 	{
 		language: "Chinese",
 		level: "Learning",
 		proficiency: 1,
-		color: "text-cyan-600",
+		color: "text-purple-600",
 		icon: "🌱"
 	}
 ];
