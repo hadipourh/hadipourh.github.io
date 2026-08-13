@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-08-07T06:24:50.489Z",
+  "lastUpdated": "2026-08-13T06:30:30.111Z",
   "statistics": {
     "total": 30,
     "journals": 11,
     "conferences": 15,
     "hybrids": 11,
     "years": 8,
-    "totalCitations": 81,
+    "totalCitations": 35,
     "topPublication": {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
@@ -19,24 +19,35 @@
       "pages": "38-72",
       "volume": "",
       "number": "",
-      "citations": 0
+      "citations": 17
     },
     "mostCited": {
-      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
-      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2020,
-      "url": "https://eprint.iacr.org/2020/1317",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "pages": "1317",
-      "volume": "2020",
+      "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
+      "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
+      "venue": "CRYPTO",
+      "year": 2024,
+      "url": "https://doi.org/10.1007/978-3-031-68385-5_2",
+      "doi": "10.1007/978-3-031-68385-5_2",
+      "type": "conference",
+      "prestigeScore": 100,
+      "pages": "38-72",
+      "volume": "",
       "number": "",
-      "citations": 52
+      "citations": 17
     }
   },
   "publications": [
+    {
+      "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
+      "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
+      "venue": "CRYPTO",
+      "year": 2024,
+      "url": "https://doi.org/10.1007/978-3-031-68385-5_2",
+      "doi": "10.1007/978-3-031-68385-5_2",
+      "type": "conference",
+      "prestigeScore": 100,
+      "citations": 17
+    },
     {
       "title": "Integral Cryptanalysis of WARP based on Monomial Prediction.",
       "authors": "Hosein Hadipour, Maria Eichlseder",
@@ -47,17 +58,6 @@
       "type": "hybrid",
       "prestigeScore": 95,
       "citations": 12
-    },
-    {
-      "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
-      "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
-      "venue": "CRYPTO",
-      "year": 2024,
-      "url": "https://doi.org/10.1007/978-3-031-68385-5_2",
-      "doi": "10.1007/978-3-031-68385-5_2",
-      "type": "conference",
-      "prestigeScore": 100,
-      "citations": 0
     },
     {
       "title": "Finding the Impossible: Automated Search for Full Impossible-Differential, Zero-Correlation, and Integral Attacks.",
@@ -189,7 +189,7 @@
       "doi": "10.1007/978-3-031-09234-3_12",
       "type": "conference",
       "prestigeScore": 75,
-      "citations": 17
+      "citations": 0
     },
     {
       "title": "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
@@ -203,26 +203,15 @@
       "citations": 0
     },
     {
-      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
-      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
+      "title": "Cryptanalysis of QARMAv2.",
+      "authors": "Hosein Hadipour, Yosuke Todo",
       "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2020,
-      "url": "https://eprint.iacr.org/2020/1317",
+      "year": 2023,
+      "url": "https://eprint.iacr.org/2023/1833",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
-      "citations": 52
-    },
-    {
-      "title": "Cube and Integral Attacks on ChiLow-32.",
-      "authors": "Shuo Peng, Akram Khalesi, Zahra Ahmadian, Hosein Hadipour, Jiahui He 0002, Kai Hu 0001, Zhongfeng Niu, Shahram Rasoolzadeh, Meiqin Wang",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2026,
-      "url": "https://eprint.iacr.org/2026/365",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "citations": 0
+      "citations": 5
     },
     {
       "title": "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
@@ -230,6 +219,17 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2025,
       "url": "https://eprint.iacr.org/2025/1339",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 1
+    },
+    {
+      "title": "Cube and Integral Attacks on ChiLow-32.",
+      "authors": "Shuo Peng, Akram Khalesi, Zahra Ahmadian, Hosein Hadipour, Jiahui He 0002, Kai Hu 0001, Zhongfeng Niu, Shahram Rasoolzadeh, Meiqin Wang",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2026,
+      "url": "https://eprint.iacr.org/2026/365",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
@@ -291,17 +291,6 @@
       "citations": 0
     },
     {
-      "title": "Cryptanalysis of QARMAv2.",
-      "authors": "Hosein Hadipour, Yosuke Todo",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2023,
-      "url": "https://eprint.iacr.org/2023/1833",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "citations": 0
-    },
-    {
       "title": "Integral Cryptanalysis of WARP based on Monomial Prediction.",
       "authors": "Hosein Hadipour, Maria Eichlseder",
       "venue": "IACR Cryptol. ePrint Arch.",
@@ -351,6 +340,17 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2021,
       "url": "https://eprint.iacr.org/2021/1362",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 0
+    },
+    {
+      "title": "Improved Rectangle Attacks on SKINNY and CRAFT.",
+      "authors": "Hosein Hadipour, Nasour Bagheri, Ling Song 0001",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2020,
+      "url": "https://eprint.iacr.org/2020/1317",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
