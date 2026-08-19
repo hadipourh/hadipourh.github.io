@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-08-13T06:30:30.111Z",
+  "lastUpdated": "2026-08-19T06:09:40.653Z",
   "statistics": {
-    "total": 30,
+    "total": 31,
     "journals": 11,
     "conferences": 15,
     "hybrids": 11,
     "years": 8,
-    "totalCitations": 35,
+    "totalCitations": 6,
     "topPublication": {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
@@ -19,21 +19,21 @@
       "pages": "38-72",
       "volume": "",
       "number": "",
-      "citations": 17
+      "citations": 0
     },
     "mostCited": {
-      "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
-      "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
-      "venue": "CRYPTO",
+      "title": "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
+      "authors": "Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder",
+      "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2024,
-      "url": "https://doi.org/10.1007/978-3-031-68385-5_2",
-      "doi": "10.1007/978-3-031-68385-5_2",
-      "type": "conference",
-      "prestigeScore": 100,
-      "pages": "38-72",
-      "volume": "",
+      "url": "https://eprint.iacr.org/2024/1359",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "pages": "1359",
+      "volume": "2024",
       "number": "",
-      "citations": 17
+      "citations": 6
     }
   },
   "publications": [
@@ -46,18 +46,7 @@
       "doi": "10.1007/978-3-031-68385-5_2",
       "type": "conference",
       "prestigeScore": 100,
-      "citations": 17
-    },
-    {
-      "title": "Integral Cryptanalysis of WARP based on Monomial Prediction.",
-      "authors": "Hosein Hadipour, Maria Eichlseder",
-      "venue": "IACR Trans. Symmetric Cryptol.",
-      "year": 2022,
-      "url": "https://doi.org/10.46586/tosc.v2022.i2.92-112",
-      "doi": "10.46586/TOSC.V2022.I2.92-112",
-      "type": "hybrid",
-      "prestigeScore": 95,
-      "citations": 12
+      "citations": 0
     },
     {
       "title": "Finding the Impossible: Automated Search for Full Impossible-Differential, Zero-Correlation, and Integral Attacks.",
@@ -148,6 +137,17 @@
       "citations": 0
     },
     {
+      "title": "Integral Cryptanalysis of WARP based on Monomial Prediction.",
+      "authors": "Hosein Hadipour, Maria Eichlseder",
+      "venue": "IACR Trans. Symmetric Cryptol.",
+      "year": 2022,
+      "url": "https://doi.org/10.46586/tosc.v2022.i2.92-112",
+      "doi": "10.46586/TOSC.V2022.I2.92-112",
+      "type": "hybrid",
+      "prestigeScore": 95,
+      "citations": 0
+    },
+    {
       "title": "Throwing Boomerangs into Feistel Structures Application to CLEFIA, WARP, LBlock, LBlock-s and TWINE.",
       "authors": "Hosein Hadipour, Marcel Nageler, Maria Eichlseder",
       "venue": "IACR Trans. Symmetric Cryptol.",
@@ -203,26 +203,15 @@
       "citations": 0
     },
     {
-      "title": "Cryptanalysis of QARMAv2.",
-      "authors": "Hosein Hadipour, Yosuke Todo",
+      "title": "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
+      "authors": "Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder",
       "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2023,
-      "url": "https://eprint.iacr.org/2023/1833",
+      "year": 2024,
+      "url": "https://eprint.iacr.org/2024/1359",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
-      "citations": 5
-    },
-    {
-      "title": "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
-      "authors": "Debasmita Chakraborty, Hosein Hadipour, Anup Kumar Kundu, Mostafizar Rahman, Prathamesh Ram, Yu Sasaki 0001, Dilip Sau, Aman Sinha",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2025,
-      "url": "https://eprint.iacr.org/2025/1339",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "citations": 1
+      "citations": 6
     },
     {
       "title": "Cube and Integral Attacks on ChiLow-32.",
@@ -230,6 +219,28 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2026,
       "url": "https://eprint.iacr.org/2026/365",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 0
+    },
+    {
+      "title": "On Extending Integral Distinguishers.",
+      "authors": "Dachao Wang, Hosein Hadipour, Simon Gerhalter",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2026,
+      "url": "https://eprint.iacr.org/2026/1402",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 0
+    },
+    {
+      "title": "Breaking the Twinkle Authenticated Encryption Scheme and Analyzing Its Underlying Permutation.",
+      "authors": "Debasmita Chakraborty, Hosein Hadipour, Anup Kumar Kundu, Mostafizar Rahman, Prathamesh Ram, Yu Sasaki 0001, Dilip Sau, Aman Sinha",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2025,
+      "url": "https://eprint.iacr.org/2025/1339",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
@@ -258,17 +269,6 @@
       "citations": 0
     },
     {
-      "title": "Finding Complete Impossible Differential Attacks on AndRX Ciphers and Efficient Distinguishers for ARX Designs.",
-      "authors": "Debasmita Chakraborty, Hosein Hadipour, Phuong Hoa Nguyen, Maria Eichlseder",
-      "venue": "IACR Cryptol. ePrint Arch.",
-      "year": 2024,
-      "url": "https://eprint.iacr.org/2024/1359",
-      "doi": "",
-      "type": "preprint",
-      "prestigeScore": 50,
-      "citations": 0
-    },
-    {
       "title": "Revisiting Differential-Linear Attacks via a Boomerang Perspective with Application to AES, Ascon, CLEFIA, SKINNY, PRESENT, KNOT, TWINE, WARP, LBlock, Simeck, and SERPENT.",
       "authors": "Hosein Hadipour, Patrick Derbez, Maria Eichlseder",
       "venue": "IACR Cryptol. ePrint Arch.",
@@ -285,6 +285,17 @@
       "venue": "IACR Cryptol. ePrint Arch.",
       "year": 2023,
       "url": "https://eprint.iacr.org/2023/1701",
+      "doi": "",
+      "type": "preprint",
+      "prestigeScore": 50,
+      "citations": 0
+    },
+    {
+      "title": "Cryptanalysis of QARMAv2.",
+      "authors": "Hosein Hadipour, Yosuke Todo",
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "year": 2023,
+      "url": "https://eprint.iacr.org/2023/1833",
       "doi": "",
       "type": "preprint",
       "prestigeScore": 50,
