@@ -1,0 +1,83 @@
+/* Research-article styling; scoped to this post to preserve other pages. */
+.keeloq-article {
+  --article-accent: oklch(var(--p));
+  --article-line: oklch(var(--bc) / .18);
+  --article-link: oklch(var(--a));
+  font-size: 1.0625rem !important;
+  line-height: 1.85 !important;
+}
+.keeloq-article .article-header { border-color: var(--article-line); padding-bottom: 2rem; }
+.keeloq-article .article-eyebrow { color: oklch(var(--bc) / .65); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 1.2rem; }
+.keeloq-article .article-title { font-size: clamp(2rem, 4.2vw, 3.6rem) !important; line-height: 1.12; letter-spacing: -.035em; max-width: 19ch !important; margin: 0 0 1.5rem; }
+.keeloq-article .post-content { font-size: inherit !important; line-height: inherit !important; }
+.keeloq-article p { margin: 1.25em 0; }
+.keeloq-article .article-lead { font-size: 1.14em; line-height: 1.8; }
+.keeloq-article .article-lead p:first-child { margin-top: 0; }
+.keeloq-article h2 { font-size: 1.8rem !important; line-height: 1.3; letter-spacing: -.02em; margin-top: 3.7rem; padding-top: 1.7rem; border-top: 1px solid var(--article-line); scroll-margin-top: 2rem; }
+.keeloq-article h3 { font-size: 1.25rem !important; line-height: 1.4; margin: 2.4rem 0 1rem; scroll-margin-top: 2rem; }
+.keeloq-article a { color: var(--article-link); text-decoration-thickness: 1px; text-underline-offset: .2em; word-break: normal !important; overflow-wrap: anywhere !important; }
+.keeloq-article .article-source { display: flex; flex-wrap: wrap; gap: .65rem 1.5rem; padding: 1rem 0; font-size: .9rem; border-block: 1px solid var(--article-line); }
+.keeloq-article .article-source a { font-weight: 650; }
+.keeloq-article .article-source span { color: oklch(var(--bc) / .65); }
+.keeloq-article .article-contents { padding: 1.5rem; margin: 2rem 0; background: oklch(var(--b2) / .5); border: 1px solid var(--article-line); border-radius: .75rem; }
+.keeloq-article .contents-label, .keeloq-article .figure-kicker { display: block; font-size: .8rem; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; color: oklch(var(--bc) / .65); }
+.keeloq-article .article-contents ol { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; margin: .75rem 0 0; font-size: .94rem; padding-left: 1.2rem; }
+.keeloq-article .article-contents li { margin: .4rem 0; }
+.keeloq-article .attack-figure, .keeloq-article .result-figure { margin: 2rem 0; }
+.keeloq-article .attack-figure > a { display: block; background: #fff; border-radius: .5rem; padding: clamp(.5rem, 2vw, 1.25rem); border: 1px solid #d6dde5; }
+.keeloq-article .attack-figure img { display: block; width: 100% !important; height: auto !important; margin: 0 auto !important; border-radius: 0; }
+.keeloq-article .figure-tall img { max-height: 680px; object-fit: contain; }
+.keeloq-article .result-figure img { width: 100% !important; border-radius: .5rem; margin: 0 !important; }
+.keeloq-article figcaption { font-size: .875rem; line-height: 1.65; color: oklch(var(--bc) / .72); margin: .9rem 0 0; }
+.keeloq-article figcaption > span { font-weight: 700; color: oklch(var(--bc)); }
+.keeloq-article .technical-detail { margin: 2rem 0; border-block: 1px solid var(--article-line); padding: 1rem 0; }
+.keeloq-article .technical-detail > summary { cursor: pointer; font-size: .96rem; font-weight: 650; }
+.keeloq-article blockquote { background: oklch(var(--b2) / .55); border-left: 3px solid oklch(var(--p)); border-radius: 0 .5rem .5rem 0; padding: .5rem 1.3rem; margin: 2rem 0; font-style: normal; font-weight: 400; }
+.keeloq-article blockquote p::before, .keeloq-article blockquote p::after { content: none; }
+/* KaTeX's measured boxes must not inherit prose word wrapping or width limits. */
+.prose .katex, .prose .katex * { max-width: none !important; overflow-wrap: normal !important; word-wrap: normal !important; word-break: normal !important; box-sizing: content-box !important; }
+.prose .katex { font-size: 1.06em; }
+.prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: .65rem .1rem; margin: 1.5rem 0; max-width: 100% !important; }
+.prose .katex-display > .katex { text-align: center; }
+.prose .katex-mathml { position: absolute !important; }
+.keeloq-article .cycle-explorer, .keeloq-article .data-explorer { border: 1px solid var(--article-line); border-radius: .75rem; margin: 2rem 0; padding: clamp(1rem, 3vw, 1.75rem); background: oklch(var(--b2) / .45); }
+.keeloq-article .visual-heading strong { display: block; margin-top: .4rem; font-size: 1.13rem; line-height: 1.4; }
+.keeloq-article .cycle-controls { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.4rem; }
+.keeloq-article button { font: inherit; font-size: .875rem; cursor: pointer; border: 1px solid var(--article-line); padding: .55rem .8rem; min-height: 44px; border-radius: .4rem; line-height: 1.3; background: oklch(var(--b1)); color: oklch(var(--bc)); }
+.keeloq-article button:hover { border-color: oklch(var(--p)); }
+.keeloq-article button[aria-pressed="true"] { color: oklch(var(--pc)); background: oklch(var(--p)); border-color: oklch(var(--p)); }
+.keeloq-article :is(button, input, summary, a):focus-visible { outline: 2px solid oklch(var(--p)); outline-offset: 4px; }
+.keeloq-article .cycle-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.keeloq-article .cycle-status { font-size: .9rem; line-height: 1.6; min-height: 3.2em; margin-bottom: 0; }
+.keeloq-article [data-cycle-svg] { display: block; width: 100%; height: auto; margin: .5rem 0; }
+.keeloq-article .cycle-edge { stroke: oklch(var(--bc) / .4); stroke-width: 1.5; fill: none; }
+.keeloq-article .cycle-node { fill: oklch(var(--b1)); stroke: oklch(var(--bc) / .35); stroke-width: 1.5; }
+.keeloq-article .cycle-node.active { fill: oklch(var(--p)); stroke: oklch(var(--p)); }
+.keeloq-article .cycle-node.start { stroke-width: 3; }
+.keeloq-article .cycle-label { fill: oklch(var(--bc)); font: 16px system-ui, sans-serif; }
+.keeloq-article .cycle-label.active { fill: oklch(var(--pc)); font-weight: 700; }
+.keeloq-article .cycle-center { fill: oklch(var(--bc)); font: 600 22px system-ui, sans-serif; }
+.keeloq-article .data-explorer label { display: block; margin-top: 1.5rem; font-size: .94rem; }
+.keeloq-article .data-explorer input { display: block; width: 100%; min-height: 44px; accent-color: oklch(var(--p)); cursor: pointer; margin: .5rem 0 0; }
+.keeloq-article .range-endpoints { display: flex; justify-content: space-between; font-size: .85rem; color: oklch(var(--bc) / .65); }
+.keeloq-article .probability-result { display: flex; flex-wrap: wrap; gap: .25rem 1rem; align-items: baseline; margin: 1.2rem 0 .6rem; }
+.keeloq-article .probability-result output { font-size: 2.8rem; line-height: 1.2; font-weight: 650; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.keeloq-article .probability-result span { font-size: .875rem; }
+.keeloq-article .probability-track { height: .5rem; border-radius: 10px; background: oklch(var(--bc) / .12); overflow: hidden; }
+.keeloq-article .probability-track span { display: block; height: 100%; background: oklch(var(--p)); }
+.keeloq-article #keeloq-data-note { font-size: .875rem; line-height: 1.6; margin-bottom: 0; color: oklch(var(--bc) / .7); }
+.keeloq-article pre, .keeloq-article pre code { font-size: .84rem !important; line-height: 1.7 !important; white-space: pre !important; word-break: normal !important; }
+@media (max-width: 640px) {
+  .keeloq-article, .keeloq-article .post-content { font-size: 1rem !important; line-height: 1.8 !important; }
+  .keeloq-article .article-contents ol { grid-template-columns: 1fr; }
+  .keeloq-article h2 { font-size: 1.5rem !important; margin-top: 3rem; }
+  .keeloq-article .article-title { font-size: 2.1rem !important; }
+  .keeloq-article .cycle-label { font-size: 21px; }
+}
+@media print {
+  .keeloq-article .cycle-actions, .keeloq-article .cycle-controls, .keeloq-article input { display: none; }
+  .keeloq-article { color: #111; }
+}
+
+[data-theme="corporate"] .keeloq-article { --article-link: #2455b8; }
+.keeloq-article .badge { color: oklch(var(--bc) / .8); border-color: var(--article-line); }

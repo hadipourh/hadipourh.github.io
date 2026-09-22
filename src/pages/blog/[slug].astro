@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import {template} from '@/settings'
+import 'katex/dist/katex.min.css'
+import KeeLoqEnhancements from '@/components/blog/KeeLoqEnhancements.astro'
 import {getCollection, render} from 'astro:content'
 
 export async function getStaticPaths(): Promise<Array<{ params: { slug: string }, props: { post: any } }>> {
@@ -17,18 +18,22 @@ export async function getStaticPaths(): Promise<Array<{ params: { slug: string }
     return posts
 }
 const {post} = Astro.props;
-const { title, date, tags} = post.data; 
+const { title, date, tags, excerpt } = post.data;
+const isKeeLoq = post.id === "keeloq-attacks";
 const { Content } = await render(post);
 ---
 
-<Layout title={title}>
+<Layout title={title} description={excerpt}>
+    {isKeeLoq && <KeeLoqEnhancements />}
 	<div class='w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
 		<article
+			class:list={[isKeeLoq && 'keeloq-article']}
 			class='prose w-full max-w-full prose-headings:text-base-content prose-p:text-base-content/80 prose-sm sm:prose-base lg:prose-lg overflow-hidden'
 		>
 			<!-- Header section -->
-			<div class='mb-6 sm:mb-8 border-b pb-6 sm:pb-8'>
-				<h1 class='text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-base-content'>{title}</h1>
+			<div class='article-header mb-6 sm:mb-8 border-b pb-6 sm:pb-8'>
+                {isKeeLoq && <p class='article-eyebrow'>Research notes / Symmetric-key cryptanalysis</p>}
+				<h1 class='article-title text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-base-content'>{title}</h1>
 				<div class='flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 sm:gap-4 text-base-content/70'>
 					<!-- Date -->
 					<time datetime={date} class='flex items-center text-xs sm:text-sm'>
@@ -70,7 +75,7 @@ const { Content } = await render(post);
 
 			<!-- Post content -->
 			<div
-			class='prose mt-6 sm:mt-8 prose-sm sm:prose-base lg:prose-lg
+			class='post-content prose mt-6 sm:mt-8 prose-sm sm:prose-base lg:prose-lg
 		 prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-3 sm:prose-h2:mb-4
 		 prose-h3:text-lg sm:prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-2 sm:prose-h3:mb-3
 		 prose-p:mb-3 sm:prose-p:mb-4 prose-p:leading-relaxed

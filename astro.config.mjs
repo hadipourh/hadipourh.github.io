@@ -2,6 +2,8 @@
 import { defineConfig } from "astro/config";
 
 import react from "@astrojs/react";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import tailwind from "@astrojs/tailwind";
 import partytown from "@astrojs/partytown";
 
@@ -24,6 +26,8 @@ export default defineConfig({
     site: 'https://hadipourh.github.io',
     base: '/',
     markdown: {
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
         shikiConfig: {
             // Disable default themes and use CSS variables instead
             // This allows our theme-based CSS to control code block colors

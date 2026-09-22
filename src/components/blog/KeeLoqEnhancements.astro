@@ -1,0 +1,81 @@
+---
+import '../../styles/keeloq-article.css';
+---
+<script>
+  const NS = 'http://www.w3.org/2000/svg';
+  const superscript = (value: number) => String(value).replace(/\d/g, digit => '⁰¹²³⁴⁵⁶⁷⁸⁹'[Number(digit)]);
+
+  function initializeKeeLoqFigures() {
+    const explorer = document.querySelector<HTMLElement>('[data-cycle-explorer]');
+    if (explorer && explorer.dataset.ready !== 'true') {
+      explorer.dataset.ready = 'true';
+      const svg = explorer.querySelector<SVGSVGElement>('[data-cycle-svg]')!;
+      const status = explorer.querySelector<HTMLElement>('[data-cycle-status]')!;
+      let length = 8;
+      let steps = 0;
+      const add = (name: string, attrs: Record<string, string | number>, text?: string) => {
+        const element = document.createElementNS(NS, name);
+        for (const [key, value] of Object.entries(attrs)) element.setAttribute(key, String(value));
+        if (text !== undefined) element.textContent = text;
+        svg.append(element);
+        return element;
+      };
+      const draw = () => {
+        svg.replaceChildren();
+        const active = steps % length;
+        const radius = length === 1 ? 0 : 106;
+        const points = Array.from({length}, (_, i) => ({
+          x: 300 + radius * Math.cos(-Math.PI / 2 + i * 2 * Math.PI / length),
+          y: 142 + radius * Math.sin(-Math.PI / 2 + i * 2 * Math.PI / length),
+        }));
+        if (length === 1) {
+          add('path', {d: 'M 283 125 C 235 40 365 40 317 125', class: 'cycle-edge'});
+          add('path', {d: 'M 311 112 L 317 125 L 325 116', class: 'cycle-edge'});
+        } else {
+          for (let i = 0; i < length; i++) {
+            // Follow a circular arc, so the two directions in a 2-cycle remain distinct.
+            const angleA = -Math.PI / 2 + i * 2 * Math.PI / length + .25;
+            const angleB = -Math.PI / 2 + (i + 1) * 2 * Math.PI / length - .25;
+            const sx = 300 + radius * Math.cos(angleA), sy = 142 + radius * Math.sin(angleA);
+            const ex = 300 + radius * Math.cos(angleB), ey = 142 + radius * Math.sin(angleB);
+            add('path', {d: `M ${sx} ${sy} A ${radius} ${radius} 0 0 1 ${ex} ${ey}`, class: 'cycle-edge'});
+            const dx = -Math.sin(angleB), dy = Math.cos(angleB);
+            add('path', {d: `M ${ex - 9 * dx + 4 * dy} ${ey - 9 * dy - 4 * dx} L ${ex} ${ey} L ${ex - 9 * dx - 4 * dy} ${ey - 9 * dy + 4 * dx}`, class: 'cycle-edge'});
+          }
+          add('text', {x: 300, y: 149, 'text-anchor': 'middle', class: 'cycle-center'}, `${steps} step${steps === 1 ? '' : 's'}`);
+        }
+        points.forEach(({x, y}, i) => {
+          add('circle', {cx: x, cy: y, r: 23, class: `cycle-node${i === active ? ' active' : ''}${i === 0 ? ' start' : ''}`});
+          add('text', {x, y: y + 6, 'text-anchor': 'middle', class: `cycle-label${i === active ? ' active' : ''}`}, `P${'₀₁₂₃₄₅₆₇'[i]}`);
+        });
+        const eligible = 8 % length === 0;
+        const state = `After ${steps} application${steps === 1 ? '' : 's'} of F, the state is P${'₀₁₂₃₄₅₆₇'[active]}.`;
+        status.textContent = `${state} ${eligible ? `A ${length}-cycle contributes ${length} fixed point${length === 1 ? '' : 's'} of F⁸.` : `Since ${length} does not divide 8, this cycle contributes no fixed points of F⁸.`}`;
+        svg.setAttribute('aria-label', `${length}-cycle. ${state} Arrows represent applications of F; P₀ has the outlined starting position.`);
+        explorer.querySelectorAll<HTMLButtonElement>('[data-cycle]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.cycle) === length)));
+      };
+      explorer.querySelectorAll<HTMLButtonElement>('[data-cycle]').forEach(button => button.addEventListener('click', () => { length = Number(button.dataset.cycle); steps = 0; draw(); }));
+      explorer.querySelector('[data-cycle-step]')!.addEventListener('click', () => { steps++; draw(); });
+      explorer.querySelector('[data-cycle-eight]')!.addEventListener('click', () => { steps += 8; draw(); });
+      explorer.querySelector('[data-cycle-reset]')!.addEventListener('click', () => { steps = 0; draw(); });
+      draw();
+    }
+    const slider = document.querySelector<HTMLInputElement>('#keeloq-data-bits');
+    if (slider && slider.dataset.ready !== 'true') {
+      slider.dataset.ready = 'true';
+      const update = () => {
+        const exponent = Number(slider.value), count = 2 ** exponent;
+        const probability = -Math.expm1(-count * (count - 1) / 2 ** 32);
+        const percentage = probability * 100;
+        document.querySelector('#keeloq-data-count')!.textContent = `2${superscript(exponent)} = ${count.toLocaleString('en-US')}`;
+        document.querySelector('#keeloq-data-probability')!.textContent = percentage >= 99.95 ? '>99.9%' : `${percentage.toFixed(1)}%`;
+        document.querySelector<HTMLElement>('[data-probability-bar]')!.style.width = `${percentage}%`;
+        slider.setAttribute('aria-valuetext', `2 to the power ${exponent}, ${count} known pairs; ${percentage.toFixed(1)} percent approximate slid-pair presence`);
+      };
+      slider.addEventListener('input', update);
+      update();
+    }
+  }
+  initializeKeeLoqFigures();
+  document.addEventListener('astro:page-load', initializeKeeLoqFigures);
+</script>
