@@ -3,8 +3,8 @@ import SocialIcons from './SocialIcons.astro'
 import { profile } from '../../settings'
 
 const {fullName, title, institute} = Astro.props
-// Use profilepic2.png for the hero section
-const heroProfilePicture = '/images/profilepic2.png'
+// 600x600 WebP of the same photo: 1548 KB -> 45 KB, displayed at 288px max
+const heroProfilePicture = '/images/profilepic2.webp'
 ---
 <div class='flex-1 order-2 lg:order-1 relative'>
   <h1 class='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 name-title-text' style="font-family: 'Orbitron', sans-serif;">

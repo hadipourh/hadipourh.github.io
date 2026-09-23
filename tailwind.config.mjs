@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
     content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+    // Bind Tailwind's `dark:` variant to the DaisyUI theme the toggle sets.
+    // Without this, `dark:` follows the OS `prefers-color-scheme` instead, so a
+    // visitor whose OS and site theme disagree got light-mode colours on a dark
+    // background (and vice versa).
+    darkMode: ["selector", '[data-theme="night"]'],
     theme: {
         extend: {},
     },

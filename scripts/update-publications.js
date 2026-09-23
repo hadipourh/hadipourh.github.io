@@ -401,17 +401,17 @@ function generateFeaturedCard(pub, index) {
               <span class="px-2 py-1 rounded-full text-xs ${typeColor} font-medium whitespace-nowrap">
                 ${pub.type.charAt(0).toUpperCase() + pub.type.slice(1)}
               </span>
-              <span class="text-lg font-bold text-gray-600">
+              <span class="text-lg font-bold text-base-content/70">
                 ${pub.year}
               </span>
             </div>
           </div>
           
           <div class="mb-4">
-            <p class="text-sm font-medium text-gray-700 mb-1">
+            <p class="text-sm font-medium text-base-content/80 mb-1">
               ${pub.venue}
             </p>
-            ${pub.volume ? `<p class="text-xs text-gray-500">Vol. ${pub.volume}${pub.number ? `, No. ${pub.number}` : ''}${pub.pages ? `, pp. ${pub.pages}` : ''}</p>` : ''}
+            ${pub.volume ? `<p class="text-xs text-base-content/60">Vol. ${pub.volume}${pub.number ? `, No. ${pub.number}` : ''}${pub.pages ? `, pp. ${pub.pages}` : ''}</p>` : ''}
           </div>
           
           <div class="flex items-center justify-between">

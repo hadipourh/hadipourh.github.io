@@ -41,9 +41,11 @@ import {template} from  '../../settings.ts'
   </svg>
 </label>
 
-<script is:inline>
-  // Ensure the visual state of the toggle matches the active theme (light = checked)
-  const lightTheme = "${template.lightTheme}";
+<script is:inline define:vars={{ lightTheme: template.lightTheme }}>
+  // Ensure the visual state of the toggle matches the active theme (light = checked).
+  // `lightTheme` is injected via define:vars — an `is:inline` script is emitted
+  // verbatim, so a `${...}` expression here would stay a literal string and the
+  // comparison below could never be true.
   const getTheme = () =>
     document.documentElement.getAttribute('data-theme') ||
     localStorage.getItem('theme') ||

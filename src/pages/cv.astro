@@ -78,7 +78,7 @@ if (publications.length > 0) {
 				Download PDF
 			</a>
 		</div>
-		<p class='text-lg text-gray-600'>
+		<p class='text-lg text-base-content/70'>
 			Postdoctoral Researcher specializing in cryptanalysis of symmetric-key primitives and automated security analysis at Ruhr University Bochum.
 		</p>
 	</section>
@@ -155,7 +155,7 @@ if (publications.length > 0) {
 						<div class='border-l-2 border-primary pl-4'>
 							<h3 class='text-lg font-semibold'>{item.course}</h3>
 							<p class='text-primary font-medium'>{item.role} at {item.institution}</p>
-							<p class='text-sm text-gray-600'>{item.time}</p>
+							<p class='text-sm text-base-content/70'>{item.time}</p>
 							{item.description && <p class='text-sm mt-2'>{item.description}</p>}
 						</div>
 					))}
@@ -252,8 +252,8 @@ if (publications.length > 0) {
 								) : (
 									<h3 class='text-lg font-semibold text-secondary'>{item.title}</h3>
 								)}
-								<p class='text-sm text-gray-600'>{item.description}</p>
-								<p class='text-xs text-gray-500'>{item.time}</p>
+								<p class='text-sm text-base-content/70'>{item.description}</p>
+								<p class='text-xs text-base-content/60'>{item.time}</p>
 							</div>
 						</div>
 					))}
@@ -273,11 +273,11 @@ if (publications.length > 0) {
 						<div class='flex justify-between items-start p-3 bg-base-100 border rounded'>
 							<div>
 								<h3 class='font-medium'>{item.title}</h3>
-								<p class='text-sm text-gray-600'>{item.location}</p>
+								<p class='text-sm text-base-content/70'>{item.location}</p>
 							</div>
 							<div class='text-right'>
 								<p class='text-sm text-primary font-medium'>{item.role}</p>
-								<p class='text-sm text-gray-500'>{item.time}</p>
+								<p class='text-sm text-base-content/60'>{item.time}</p>
 							</div>
 						</div>
 					))}
@@ -297,7 +297,7 @@ if (publications.length > 0) {
 						<div class='border-l-2 border-accent pl-4'>
 							<h3 class='text-lg font-semibold'>{item.title}</h3>
 							<p class='text-sm text-accent font-medium'>{item.time}</p>
-							<p class='text-sm text-gray-600 mt-1'>{item.description}</p>
+							<p class='text-sm text-base-content/70 mt-1'>{item.description}</p>
 						</div>
 					))}
 				</div>
@@ -320,7 +320,7 @@ if (publications.length > 0) {
 								</div>
 								<h3 class='font-semibold text-primary'>{item.title}</h3>
 							</div>
-							<p class='text-sm text-gray-600'>{item.description}</p>
+							<p class='text-sm text-base-content/70'>{item.description}</p>
 						</div>
 					))}
 				</div>
@@ -342,7 +342,7 @@ if (publications.length > 0) {
 							</div>
 							<div class='flex-1'>
 								<h3 class='font-semibold text-primary'>{lang.language}</h3>
-								<p class='text-sm text-gray-600'>{lang.level}</p>
+								<p class='text-sm text-base-content/70'>{lang.level}</p>
 								<div class='flex items-center mt-1 space-x-1'>
 									<div class={`w-4 h-2 rounded ${lang.proficiency >= 1 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
 									<div class={`w-4 h-2 rounded ${lang.proficiency >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>

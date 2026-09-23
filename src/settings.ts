@@ -49,5 +49,5 @@ export const template = {
 export const seo = {
 	default_title: 'Hosein Hadipour',
 	default_description: 'Hosein Hadipour - Postdoctoral Researcher in Cryptography at Ruhr University Bochum',
-	default_image: '/images/astro-academia.png',
+	default_image: '/images/profilepic1.jpg',
 }

@@ -25,7 +25,7 @@ const publications = (publicationsData.publications as any[])
 	}))
 
 // Use the uploaded professional profile picture
-const profilePicture = '/images/profilepic1.png'
+const profilePicture = '/images/profilepic1.jpg'
 
 // Structured data: Person JSON-LD (invisible, SEO only)
 const sameAsLinks = Object.values(social).filter((v) => typeof v === 'string' && v.startsWith('http')) as string[]
@@ -130,9 +130,9 @@ const jsonLd = {
 </Layout>
 
 <!-- Person JSON-LD (does not change UI) -->
-<script type="application/ld+json" is:inline>
-{JSON.stringify(jsonLd)}
-</script>
+<!-- set:html, not `{...}`: an is:inline script is emitted verbatim, so the
+     expression used to ship to the browser as literal text. -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 
 <script>
 import { initTerminal } from '../lib/terminal.js';

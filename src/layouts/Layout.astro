@@ -171,7 +171,7 @@ const {
 		max-width: 100% !important;
 		overflow-x: auto !important;
 		white-space: pre-wrap !important;
-		word-break: break-all !important;
+		overflow-wrap: anywhere !important;
 		font-size: 0.75rem !important;
 	}
 	
@@ -196,7 +196,7 @@ const {
 	[data-theme="corporate"] .prose code:not(pre code),
 	[data-theme="corporate"] article.prose code:not(pre code) {
 		white-space: normal !important;
-		word-break: break-all !important;
+		overflow-wrap: anywhere !important;
 		background-color: #f3f4f6 !important;
 		color: #1f2937 !important;
 		padding: 0.125rem 0.25rem !important;
@@ -207,7 +207,7 @@ const {
 	[data-theme="night"] .prose code:not(pre code),
 	[data-theme="night"] article.prose code:not(pre code) {
 		white-space: normal !important;
-		word-break: break-all !important;
+		overflow-wrap: anywhere !important;
 		background-color: #1e293b !important;
 		color: #e2e8f0 !important;
 		padding: 0.125rem 0.25rem !important;
@@ -232,8 +232,9 @@ const {
 	
 	/* Handle long URLs and links */
 	.prose a {
-		word-break: break-all !important;
-		overflow-wrap: break-word !important;
+		/* `anywhere`, not `break-all`: only split a URL when it truly cannot fit,
+		   instead of chopping every link mid-word. */
+		overflow-wrap: anywhere !important;
 		hyphens: auto !important;
 	}
 	

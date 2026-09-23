@@ -16,10 +16,10 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID || 'G-HBMGDXVLKF'
 <meta charset='utf-8' />
 <meta name='viewport' content='width=device-width,initial-scale=1' />
 
-<!-- Google Fonts - Orbitron, Exo 2, Rajdhani, Share Tech Mono, Electrolize & Quantico -->
+<!-- Google Fonts - Orbitron, Exo 2 & Quantico (the only families used in src/) -->
 <link rel='preconnect' href='https://fonts.googleapis.com' />
 <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-<link href='https://fonts.googleapis.com/css2?family=Electrolize&family=Exo+2:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Quantico:wght@400;700&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap' rel='stylesheet' />
+<link href='https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Quantico:wght@400;700&display=swap' rel='stylesheet' />
 
 <!-- Favicon -->
 <link rel='icon' type='image/x-icon' href='/favicon.ico' />
@@ -68,36 +68,21 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID || 'G-HBMGDXVLKF'
 </>
 )}
 
-<!-- MathJax Configuration -->
-<script is:inline>
-window.MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    macros: {
-      'DP': '\\text{DP}',
-      'N': '\\mathcal{N}',
-      'F': '\\mathbb{F}'
-    }
-  },
-  options: {
-    ignoreHtmlClass: 'tex2jax_ignore|katex',
-    processHtmlClass: 'tex2jax_process'
-  }
-};
-</script>
-<script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<!--
+  No math runtime is loaded. Math in blog posts is rendered at build time by
+  remark-math + rehype-katex (see astro.config.mjs); katex.min.css is imported
+  by src/pages/blog/[slug].astro. MathJax used to load on all 13 pages.
+-->
 
 <!-- Theme selector scripts -->
 <script is:inline>
-  // CRITICAL: Set default theme FIRST before theme-change library loads
-  // This ensures dark mode is default on first visit
-  // Force night theme as default
+  // Seed the default theme before the theme-change library loads, so the first
+  // visit is dark and there is no flash of the wrong theme.
+  // Only seed when nothing is stored — an explicit choice, including the light
+  // theme, must survive a reload.
   (function() {
     const currentTheme = localStorage.getItem('theme');
-    if (!currentTheme || currentTheme === 'corporate') {
+    if (!currentTheme) {
       localStorage.setItem('theme', 'night');
     }
   })();
