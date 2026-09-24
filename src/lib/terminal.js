@@ -887,7 +887,7 @@ function loadCommandHistory() {
           
           try {
             // Your age public key from the homepage
-            const agePublicKey = 'age17x6fu4na8hvxuh7hgs7ec62g7ddhsdlasqrqe6u7pzx0z86fpsxsgfpwdp';
+            const agePublicKey = 'age1fh2gf24ncuauqyzx6f9dz3n7fyh82kk9ychu3qwyu8gthy2dlv5qtt4h80';
             
             // Age encryption using age-encryption library
             encryptWithAge(buildEnvelope(message, source), agePublicKey).then(async encrypted => {
