@@ -14,7 +14,7 @@ This website serves as a professional academic platform designed for researchers
 - **Mathematics**: MathJax 3.x for equation rendering
 - **Security**: Multi-layer content filtering and rate limiting
 - **Automation**: GitHub Actions for content updates and deployment
-- **Contact System**: n8n webhook integration with Telegram delivery
+- **Contact System**: Cloudflare Worker relay with Telegram delivery (bot token held as a Worker secret)
 - **Hosting**: GitHub Pages (static deployment)
 
 ## Key Features
@@ -210,7 +210,7 @@ scripts/        # Automation scripts
 ### Common Issues
 - **Build errors**: Check content frontmatter validation in blog posts
 - **MathJax not rendering**: Verify LaTeX equation syntax
-- **Terminal contact not working**: Check n8n webhook connectivity
+- **Terminal contact not working**: Check the Cloudflare Worker is deployed and its BOT_TOKEN / CHAT_ID secrets and RL KV binding are set
 - **Automation failures**: Verify PAT_TOKEN is set in repository secrets
 - **Publication updates failing**: Check DBLP API availability
 

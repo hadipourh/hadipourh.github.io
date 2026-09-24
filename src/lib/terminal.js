@@ -28,8 +28,11 @@
  * });
  */
 
-// Shared webhook URL
-const WEBHOOK_URL = 'https://crypt0grapher.app.n8n.cloud/webhook/3145da13-aca7-4299-8046-07bcae2173a7';
+// Relay endpoint: a Cloudflare Worker that holds the Telegram bot token as a
+// secret and forwards messages on. The URL is public by necessity (this is a
+// static site), but unlike the old webhook the Worker enforces its own
+// per-IP rate limit and message validation server-side.
+const WEBHOOK_URL = 'https://terminal-relay.hsn-hadipour.workers.dev';
 
 // Version for cache busting and tracking
 const TERMINAL_VERSION = '1.1.0';
@@ -41,7 +44,7 @@ export const DEFAULT_WELCOME_MESSAGES = [
   { text: '', className: '', withTyping: false },
   { text: 'Security breakdown of this messaging system:', className: 'text-cyan-400', withTyping: true, delay: 15 },
   { text: '1. GitHub Pages serves static website files to your browser via HTTPS', className: 'text-gray-400', withTyping: true, delay: 12 },
-  { text: '2. Messages sent directly from browser to n8n over HTTPS', className: 'text-yellow-400', withTyping: true, delay: 12 },
+  { text: '2. Messages relayed browser -> Cloudflare Worker over HTTPS', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '3. Messages forwarded to Telegram via API (readable by intermediaries)', className: 'text-amber-400', withTyping: true, delay: 12 },
   { text: '4. Command and message history saved locally in your browser', className: 'text-gray-400', withTyping: true, delay: 12 },
   { text: '5. Use /encrypt to encrypt with my public key before sending!', className: 'text-yellow-400', withTyping: true, delay: 12 },
@@ -700,7 +703,7 @@ function loadCommandHistory() {
           localStorage.setItem(storageKey, now.toString());
           
           if (response.ok) {
-            queueMessage('Message delivered to automation server', 'text-green-400', true, 10);
+            queueMessage('Message accepted by relay', 'text-green-400', true, 10);
             queueMessage('Forwarding to Hosein\'s Telegram now...', 'text-cyan-400', true, 10);
           } else {
             // Handle HTTP error responses
@@ -757,8 +760,8 @@ function loadCommandHistory() {
           queueMessage('Secure Terminal Interface', 'text-green-400', true, 8);
           queueMessage('-------------------------', 'text-green-400', true, 5);
           queueMessage('This terminal allows you to send secure messages directly to Hosein.', 'text-gray-400', true, 8);
-          queueMessage('Messages are transmitted via HTTPS and forwarded to Telegram.', 'text-gray-400', true, 8);
-          queueMessage('Features: Command history, message persistence, rate limiting.', 'text-gray-400', true, 8);
+          queueMessage('Messages go over HTTPS to a Cloudflare Worker, which relays them to Telegram.', 'text-gray-400', true, 8);
+          queueMessage('Features: command history, message persistence, client- and server-side rate limiting.', 'text-gray-400', true, 8);
         }
         else if (cmd === '/version') {
           queueMessage(`Terminal version: ${TERMINAL_VERSION}`, 'text-blue-400', true, 8);
@@ -769,8 +772,8 @@ function loadCommandHistory() {
           queueMessage('• Your terminal state is saved locally in your browser only', 'text-gray-400', true, 8);
           queueMessage('• Command and message history are stored using localStorage', 'text-gray-400', true, 8);
           queueMessage('• Terminal interactions are saved for 24 hours for convenience', 'text-gray-400', true, 8);
-          queueMessage('• Messages you send are forwarded to Telegram via webhook', 'text-gray-400', true, 8);
-          queueMessage('• No analytics or tracking is used in this terminal', 'text-gray-400', true, 8);
+          queueMessage('• Messages are relayed to Telegram by a Cloudflare Worker (it can read them)', 'text-gray-400', true, 8);
+          queueMessage('• The terminal sends no analytics events (the site itself uses Google Analytics)', 'text-gray-400', true, 8);
           queueMessage('• Use /history to view your command history', 'text-gray-400', true, 8);
           queueMessage('• Use /nosave to disable all local storage features', 'text-gray-400', true, 8);
           queueMessage('• Use /clearstorage to remove all saved data', 'text-gray-400', true, 8);

@@ -199,8 +199,8 @@ async function updateTalksPage(talks) {
   const talksPath = path.join(process.cwd(), 'src', 'pages', 'talks.astro');
   
   // Generate talk cards for ALL talks with clean Grid-style design
-  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
-  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
+  const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
   
   const talkCards = talks.map((talk, index) => {
     const colorIndex = index % 3;
@@ -218,11 +218,11 @@ async function updateTalksPage(talks) {
         
         <div class="space-y-2 mt-3">
           <div class="flex flex-wrap items-start gap-2 text-sm">
-            <span class="font-semibold text-accent">Venue:</span>
+            <span class="font-semibold text-base-content/60">Venue:</span>
             <span class="text-base-content/80 break-words">${talk.venue}</span>
           </div>
           ${talk.location ? `<div class="flex flex-wrap items-start gap-2 text-sm">
-            <span class="font-semibold text-accent">Location:</span>
+            <span class="font-semibold text-base-content/60">Location:</span>
             <span class="text-base-content/80 break-words">${talk.location}</span>
           </div>` : ''}
         </div>
@@ -258,7 +258,7 @@ async function updateTalksPage(talks) {
               </span>
             </a>` : ''}
             ${talk.links.video ? `<a href="${talk.links.video}" target="_blank" 
-               class="px-3 py-1 rounded-full text-xs bg-accent/20 text-accent font-medium hover:bg-accent/30 transition-colors">
+               class="px-3 py-1 rounded-full text-xs bg-primary/15 text-primary font-medium hover:bg-primary/25 transition-colors">
               <span class="flex items-center gap-1">
                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
@@ -289,7 +289,7 @@ async function updateTalksPage(talks) {
           <a href="https://github.com/hadipourh/talks/tree/main/${talk.slug}" 
              target="_blank" 
              rel="noopener noreferrer"
-             class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 text-sm">
+             class="text-primary hover:text-primary/80 font-medium transition-colors duration-300 text-sm">
             View →
           </a>
         </div>
@@ -309,7 +309,7 @@ async function updateTalksPage(talks) {
 // Real statistics: ${totalTalks} talks, ${totalCountries} countries, ${yearSpan}
 // Shows ALL talks - no limits applied!
 import Layout from "../layouts/Layout.astro";
-import { getTextColorClass } from "../lib/utils";
+import { text } from "../lib/utils";
 ---
 <Layout 
   title="Talks & Presentations | Hosein Hadipour" 
@@ -319,7 +319,7 @@ import { getTextColorClass } from "../lib/utils";
     <!-- Header Section -->
     <section class="text-center mb-16">
       <div class="relative mb-8">
-        <h1 class={\`text-4xl md:text-6xl font-bold \${getTextColorClass(0)} mb-6\`}>
+        <h1 class={\`text-4xl md:text-6xl font-bold \${text.heading} mb-6\`}>
           Talks & Presentations
         </h1>
         <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed">
@@ -331,19 +331,19 @@ import { getTextColorClass } from "../lib/utils";
       <!-- Statistics Section -->
       <div class="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto mb-12">
         <div class="bg-base-200 rounded-2xl p-4 md:p-6">
-          <div class={\`text-2xl md:text-3xl font-bold \${getTextColorClass(1)}\`}>
+          <div class={\`text-2xl md:text-3xl font-bold \${text.accent}\`}>
             ${totalTalks}
           </div>
           <div class="text-sm md:text-base text-base-content/70">Talks</div>
         </div>
         <div class="bg-base-200 rounded-2xl p-4 md:p-6">
-          <div class={\`text-2xl md:text-3xl font-bold \${getTextColorClass(2)}\`}>
+          <div class={\`text-2xl md:text-3xl font-bold \${text.accent}\`}>
             ${totalCountries}
           </div>
           <div class="text-sm md:text-base text-base-content/70">Countries</div>
         </div>
         <div class="bg-base-200 rounded-2xl p-4 md:p-6">
-          <div class={\`text-2xl md:text-3xl font-bold \${getTextColorClass(3)}\`}>
+          <div class={\`text-2xl md:text-3xl font-bold \${text.accent}\`}>
             ${yearSpan}
           </div>
           <div class="text-sm md:text-base text-base-content/70">Years</div>
@@ -354,7 +354,7 @@ import { getTextColorClass } from "../lib/utils";
     <!-- Talks Collection Section -->
     <section class="mb-16">
       <div class="text-center mb-12">
-        <h2 class={\`text-3xl md:text-4xl font-bold mb-4 \${getTextColorClass(4)}\`}>
+        <h2 class={\`text-3xl md:text-4xl font-bold mb-4 \${text.heading}\`}>
           Complete Collection
         </h2>
         <p class="text-base-content/70 text-lg">

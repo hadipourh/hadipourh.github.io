@@ -169,8 +169,8 @@ async function enrichCollaborativeRepos(collaborativeRepos) {
  */
 function generateFeaturedCard(repo, index) {
   // Grid-style design with rotating colors
-  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
-  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
+  const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
   const colorIndex = index % 3;
   
   const stars = repo.stargazers_count || 0;
@@ -212,7 +212,7 @@ function generateFeaturedCard(repo, index) {
             <a href="${repo.html_url}" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
@@ -225,8 +225,8 @@ function generateFeaturedCard(repo, index) {
  */
 function generateProjectCard(repo, index) {
   // Grid-style design with rotating colors
-  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
-  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
+  const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
   const colorIndex = index % 3;
   
   const stars = repo.stargazers_count || 0;
@@ -275,7 +275,7 @@ function generateProjectCard(repo, index) {
             <a href="${repo.html_url}" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
@@ -288,8 +288,8 @@ function generateProjectCard(repo, index) {
  */
 function generateCollaborativeCard(repo, index) {
   // Grid-style design with rotating colors
-  const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
-  const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+  const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
+  const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
   const colorIndex = index % 3;
   
   const stars = repo.stars || 0;
@@ -351,7 +351,7 @@ function generateCollaborativeCard(repo, index) {
             <a href="${repo.url}" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>

@@ -15,18 +15,27 @@ export function trimExcerpt(excerpt: string): string {
 }
 
 /**
- * Get a solid color class for text based on index
- * Used for text elements to ensure readability
- * Professional hacker/cyberpunk color scheme - NO purple/violet
+ * Semantic text colours.
+ *
+ * These replace the old `getTextColorClass(index)`, which picked a hue from
+ * its position in an array — so colour was decoration, not information. Here
+ * each role means something, and every value resolves through the DaisyUI
+ * theme (see tailwind.config.mjs) so the palette lives in exactly one place.
+ *
+ *   heading  structure   — section titles, near-white, deliberately uncoloured
+ *   accent   interact    — links, active state, the figures that matter (amber)
+ *   dim      secondary   — dates, venues, captions
+ *   ok       live        — terminal / success only (green)
+ *   warn     caution     — reserved, never decorative
+ *   error    failure     — reserved, never decorative
  */
-export function getTextColorClass(index: number): string {
-	const colors = [
-		'text-cyan-600 dark:text-cyan-400',           // Cyber cyan
-		'text-emerald-600 dark:text-emerald-400',     // Matrix green
-		'text-blue-600 dark:text-blue-400',           // Deep blue
-		'text-slate-700 dark:text-slate-300',         // Professional gray
-		'text-teal-600 dark:text-teal-400',           // Tech teal
-		'text-green-600 dark:text-green-400'          // Terminal green
-	]
-	return colors[index % colors.length]
-}
+export const text = {
+	heading: 'text-base-content',
+	accent: 'text-primary',
+	dim: 'text-base-content/60',
+	ok: 'text-success',
+	warn: 'text-warning',
+	error: 'text-error',
+} as const
+
+export type TextRole = keyof typeof text

@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getTextColorClass } from '../lib/utils'
+import { text } from '../lib/utils'
 ---
 
 <Layout
@@ -11,7 +11,7 @@ import { getTextColorClass } from '../lib/utils'
 		<!-- Header Section -->
 		<section class='text-center mb-16'>
 			<div class='relative mb-8'>
-				<h1 class={`text-4xl md:text-6xl font-bold ${getTextColorClass(0)} mb-6`}>
+				<h1 class={`text-4xl md:text-6xl font-bold ${text.heading} mb-6`}>
 					Research Projects
 				</h1>
 				<p class='text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed'>
@@ -22,22 +22,22 @@ import { getTextColorClass } from '../lib/utils'
 		<!-- Statistics Section -->
 		<div class='grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mb-12'>
 			<div class='bg-base-200 rounded-2xl p-4 md:p-6 text-center'>
-				<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(1)}`} data-stat='projects'>41</div>
+				<div class={`text-2xl md:text-3xl font-bold ${text.accent}`} data-stat='projects'>41</div>
 				<div class='text-sm md:text-base text-base-content/70'>Projects</div>
 			</div>
 			<div class='bg-base-200 rounded-2xl p-4 md:p-6 text-center'>
-				<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(2)}`} data-stat='stars'>649</div>
+				<div class={`text-2xl md:text-3xl font-bold ${text.accent}`} data-stat='stars'>649</div>
 				<div class='text-sm md:text-base text-base-content/70'>GitHub Stars</div>
 			</div>
 			<div class='bg-base-200 rounded-2xl p-4 md:p-6 text-center'>
-				<div class={`text-2xl md:text-3xl font-bold ${getTextColorClass(3)}`} data-stat='languages'>9</div>
+				<div class={`text-2xl md:text-3xl font-bold ${text.accent}`} data-stat='languages'>9</div>
 				<div class='text-sm md:text-base text-base-content/70'>Languages</div>
 			</div>
 		</div>
 	</section>		<!-- Featured Projects Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(4)}`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${text.heading}`}>
 					Featured Projects
 				</h2>
 				<p class='text-base-content/70 text-lg'>
@@ -47,7 +47,7 @@ import { getTextColorClass } from '../lib/utils'
 			
 			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16'>
 				<!-- FEATURED_PROJECTS_START -->
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -81,13 +81,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/course-cryptanalysis" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -121,13 +121,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/KeeLoq" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -161,13 +161,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/AES-VHDL" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -201,13 +201,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/sboxanalyzer" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -241,13 +241,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/autoguess" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -281,13 +281,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/CryptoHDL" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -321,13 +321,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/espresso" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -361,13 +361,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/zeroplus" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-6 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-4">
             <div class="flex-1">
@@ -401,7 +401,7 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/ctiming" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium transition-colors duration-300">
               View →
             </a>
           </div>
@@ -414,7 +414,7 @@ import { getTextColorClass } from '../lib/utils'
 		<!-- Main Projects Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(5)}`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${text.heading}`}>
 					Complete Project Archive
 				</h2>
 				<p class='text-base-content/70 text-lg'>
@@ -424,7 +424,7 @@ import { getTextColorClass } from '../lib/utils'
 
 			<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 				<!-- MAIN_PROJECTS_START -->
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -460,13 +460,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/course-cryptanalysis" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -502,13 +502,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/KeeLoq" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -544,13 +544,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/AES-VHDL" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -586,13 +586,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/sboxanalyzer" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -628,13 +628,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/autoguess" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -670,13 +670,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/CryptoHDL" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -712,13 +712,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/espresso" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -754,13 +754,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/zeroplus" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -796,13 +796,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/ctiming" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -838,13 +838,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/DL" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -880,13 +880,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/zero" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -922,13 +922,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/fwht" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -964,13 +964,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/Boomerang" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1006,13 +1006,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/verifyref" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1048,13 +1048,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/twinkle" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1090,13 +1090,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/talks" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1132,13 +1132,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/logic-minimization" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1174,13 +1174,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/universalattacks" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1216,13 +1216,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/craftanalysis" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1258,13 +1258,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/CTC2-Fast-Algebraic-Attack" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1300,13 +1300,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/MIBS-Integral-Cryptanalysis-Basd-on-Division-Property" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1342,13 +1342,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/comeback" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1384,13 +1384,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/CRAFT-Integral-Distinguisher" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1426,13 +1426,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/fnv2" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1468,13 +1468,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/mpt" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1510,13 +1510,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/artifacts" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1552,13 +1552,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/QARMAnalysis" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1594,13 +1594,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/faultyaes" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1636,13 +1636,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/pythonexample" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1678,13 +1678,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/Syncing-Your-Github-Fork" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1720,13 +1720,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/minizinc-installer-linux" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1762,13 +1762,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/grabgurobi" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1804,13 +1804,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/mscthesis" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1846,13 +1846,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/mqchallenge" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1888,13 +1888,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/skinny" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1930,13 +1930,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/CythonSage" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -1972,13 +1972,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/splitandcancel" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -2014,13 +2014,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/hadipourh.github.io" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -2056,13 +2056,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/sha3collision" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -2098,13 +2098,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/DegreeDropper" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <h3 class="text-lg font-semibold transition-all duration-300">
@@ -2140,7 +2140,7 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/hadipourh/Algebraic-Attack-on-BiviumA" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
@@ -2153,7 +2153,7 @@ import { getTextColorClass } from '../lib/utils'
 		<!-- Collaborative Projects Section -->
 		<section class='mb-16'>
 			<div class='text-center mb-12'>
-				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${getTextColorClass(3)}`}>
+				<h2 class={`text-3xl md:text-4xl font-bold mb-4 ${text.heading}`}>
 					Collaborative Projects
 				</h2>
 				<p class='text-base-content/70 text-lg'>
@@ -2163,7 +2163,7 @@ import { getTextColorClass } from '../lib/utils'
 
 			<div class='grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto'>
 				<!-- COLLABORATIVE_PROJECTS_START -->
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2211,13 +2211,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/kste/cryptosmt" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2265,13 +2265,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/sec-deadlines/sec-deadlines.github.io" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2319,13 +2319,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/Debasmita-isi/zeroplusplus" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2373,13 +2373,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/sagemath/sage" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2427,13 +2427,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/Deadlyelder/Tools-for-Cryptanalysis" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2481,13 +2481,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/skydiscover-ai/skydiscover" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2535,13 +2535,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/pysathq/pysat" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-cyan-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-cyan-600/20 hover:border-cyan-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2589,13 +2589,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/Cryptosaurus/iacrtrans" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-emerald-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-emerald-600/20 hover:border-emerald-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2643,13 +2643,13 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/cbouilla/AES-attacks-finder" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>
         </div>
       </div>
-      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-teal-600/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-teal-600/20 hover:border-teal-600/40">
+      <div class="group relative overflow-hidden p-5 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border border-primary/20 hover:border-primary/40">
         <div class="h-full">
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -2697,7 +2697,7 @@ import { getTextColorClass } from '../lib/utils'
             <a href="https://github.com/Sichao-Yang/boolector" 
                target="_blank" 
                rel="noopener noreferrer"
-               class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-300">
+               class="text-primary hover:text-primary/80 font-medium text-sm transition-colors duration-300">
               View →
             </a>
           </div>

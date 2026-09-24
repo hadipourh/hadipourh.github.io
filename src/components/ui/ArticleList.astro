@@ -12,19 +12,19 @@ interface Props {
 }
 const {listTitle, listItems} = Astro.props
 
-import { getTextColorClass } from '../../lib/utils';
+import { text } from '../../lib/utils';
 
 // Take only the first few publications for the home page
 const displayItems = listItems ? listItems.slice(0, 3) : []
 
 // Grid-style design with rotating colors
-const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10']
-const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40']
+const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10']
+const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40']
 ---
 
 <div class="mb-12">
-	<h2 class={`text-3xl md:text-4xl font-bold mb-8 ${getTextColorClass(0)}`}>
-		<a href="/papers" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-300">
+	<h2 class={`text-3xl md:text-4xl font-bold mb-8 ${text.heading}`}>
+		<a href="/papers" class="hover:text-primary transition-colors duration-300">
 			{listTitle}
 		</a>
 	</h2>
@@ -44,7 +44,7 @@ const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cya
 							<p class='text-sm text-base-content/70 mb-4 leading-relaxed'>{item.abstract}</p>
 						)}
                         {item.link && (
-                            <a href={item.link} target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 hover:scale-105 transition-all duration-300 font-semibold">
+                            <a href={item.link} target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-primary hover:text-primary hover:scale-105 transition-all duration-300 font-semibold">
 								<span>View Publication</span>
 								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>

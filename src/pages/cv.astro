@@ -121,17 +121,17 @@ if (publications.length > 0) {
 						}
 						return acc;
 					}, []).map((categoryGroup, index) => {
-						const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
-						const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+						const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
+						const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
 						const colorIndex = index % 3;
 						return (
 						<div class={`relative overflow-hidden p-5 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}`}>
 							<div class='h-full'>
-								<h3 class='font-bold text-lg mb-4 text-transparent bg-clip-text bg-clip-text text-teal-600 dark:text-cyan-400'>{categoryGroup.category}</h3>
+								<h3 class='font-bold text-lg mb-4 text-base-content'>{categoryGroup.category}</h3>
 								<div class='grid grid-cols-1 md:grid-cols-2 gap-3'>
 									{categoryGroup.items.map((skill: any) => (
 										<div class='bg-base-200/50 rounded p-3 hover:bg-base-200 transition-colors'>
-											<h4 class='font-semibold text-sm mb-1 text-emerald-600 dark:text-emerald-400'>{skill.level}</h4>
+											<h4 class='font-semibold text-sm mb-1 text-primary'>{skill.level}</h4>
 											<p class='text-xs text-base-content/70'>{skill.skills}</p>
 										</div>
 									))}
@@ -172,15 +172,15 @@ if (publications.length > 0) {
 				</h2>
 				<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
 					{presentations.map((item, index) => {
-						const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
-						const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+						const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
+						const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
 						const colorIndex = index % 3;
 						return (
 						<div class={`relative overflow-hidden p-4 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}`}>
 							<div class='h-full'>
 								<div class='flex justify-between items-start mb-2'>
 									{item.link ? (
-										<a href={item.link} target='_blank' class='font-semibold hover:underline text-sm leading-tight text-emerald-600 dark:text-emerald-400'>
+										<a href={item.link} target='_blank' class='font-semibold hover:underline text-sm leading-tight text-primary'>
 											{item.title}
 										</a>
 									) : (
@@ -189,9 +189,9 @@ if (publications.length > 0) {
 									<span class='text-xs text-base-content/60 ml-2 flex-shrink-0'>{item.time}</span>
 								</div>
 								<p class='text-xs text-base-content/70 mb-1'>{item.location}</p>
-								<p class='text-xs text-cyan-600 dark:text-cyan-400 mb-2'>{item.type}</p>
+								<p class='text-xs text-primary mb-2'>{item.type}</p>
 								{item.detailsLink && (
-									<a href={item.detailsLink} target='_blank' class='text-xs text-blue-500 hover:underline inline-flex items-center gap-1'>
+									<a href={item.detailsLink} target='_blank' class='text-xs text-primary hover:underline inline-flex items-center gap-1'>
 										📊 Details
 									</a>
 								)}
@@ -211,19 +211,19 @@ if (publications.length > 0) {
 				</h2>
 				<div class='grid grid-cols-1 md:grid-cols-2 gap-3'>
 					{reviews.map((item, index) => {
-						const hoverTints = ['hover:bg-teal-600/10', 'hover:bg-cyan-600/10', 'hover:bg-emerald-600/10'];
-						const borderColors = ['border-teal-600/20 hover:border-teal-600/40', 'border-cyan-600/20 hover:border-cyan-600/40', 'border-emerald-600/20 hover:border-emerald-600/40'];
+						const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
+						const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
 						const colorIndex = index % 3;
 						return (
 						<div class={`flex justify-between items-center p-4 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}`}>
 								<span class='font-medium text-base-content'>{item.title}</span>
 								<div class='text-right'>
 									{item.link ? (
-										<a href={item.link} target='_blank' class='text-sm text-emerald-600 dark:text-emerald-400 hover:underline'>
+										<a href={item.link} target='_blank' class='text-sm text-primary hover:underline'>
 											{item.venue}
 										</a>
 									) : (
-										<p class='text-sm text-emerald-600 dark:text-emerald-400'>{item.venue}</p>
+										<p class='text-sm text-primary'>{item.venue}</p>
 									)}
 									<p class='text-xs text-base-content/60'>{item.time}</p>
 								</div>
@@ -294,9 +294,9 @@ if (publications.length > 0) {
 				</h2>
 				<div class='space-y-4'>
 					{memberships.map((item) => (
-						<div class='border-l-2 border-accent pl-4'>
+						<div class='border-l-2 border-primary/30 pl-4'>
 							<h3 class='text-lg font-semibold'>{item.title}</h3>
-							<p class='text-sm text-accent font-medium'>{item.time}</p>
+							<p class='text-sm text-base-content/60 font-medium'>{item.time}</p>
 							<p class='text-sm text-base-content/70 mt-1'>{item.description}</p>
 						</div>
 					))}
@@ -318,7 +318,7 @@ if (publications.length > 0) {
 								<div class='text-primary'>
 									<IconRenderer name={item.icon} size="md" />
 								</div>
-								<h3 class='font-semibold text-primary'>{item.title}</h3>
+								<h3 class='font-semibold text-base-content'>{item.title}</h3>
 							</div>
 							<p class='text-sm text-base-content/70'>{item.description}</p>
 						</div>
@@ -341,11 +341,11 @@ if (publications.length > 0) {
 								<IconRenderer name={lang.icon} size="md" />
 							</div>
 							<div class='flex-1'>
-								<h3 class='font-semibold text-primary'>{lang.language}</h3>
+								<h3 class='font-semibold text-base-content'>{lang.language}</h3>
 								<p class='text-sm text-base-content/70'>{lang.level}</p>
 								<div class='flex items-center mt-1 space-x-1'>
 									<div class={`w-4 h-2 rounded ${lang.proficiency >= 1 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-									<div class={`w-4 h-2 rounded ${lang.proficiency >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
+									<div class={`w-4 h-2 rounded ${lang.proficiency >= 2 ? 'bg-primary' : 'bg-gray-300'}`}></div>
 									<div class={`w-4 h-2 rounded ${lang.proficiency >= 3 ? 'bg-yellow-500' : 'bg-gray-300'}`}></div>
 									<div class={`w-4 h-2 rounded ${lang.proficiency >= 4 ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
 									<div class={`w-4 h-2 rounded ${lang.proficiency >= 5 ? 'bg-red-500' : 'bg-gray-300'}`}></div>

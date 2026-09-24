@@ -16,7 +16,7 @@ function linkifyText(text: string) {
 	// Regular expression to match URLs
 	const urlRegex = /(https?:\/\/[^\s]+)/g;
 	
-	return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>');
+	return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">$1</a>');
 }
 ---
 
@@ -31,7 +31,7 @@ function linkifyText(text: string) {
 						xmlns='http://www.w3.org/2000/svg'
 						viewBox='0 0 20 20'
 						fill='currentColor'
-            class:list={[{ 'text-accent': colored }, 'h-5 w-5']}
+            class:list={[{ 'text-primary': colored }, 'h-5 w-5']}
 					>
 						<path
 							fill-rule='evenodd'
@@ -49,7 +49,7 @@ function linkifyText(text: string) {
 					<div>{isExperience(element) ? element.company : element.school}</div>
 					<div>{element.location}</div>
 				</div>
-        <hr class:list={[{ 'bg-accent': colored }]} />
+        <hr class:list={[{ 'bg-primary/30': colored }]} />
 			</li>
 		))
 	}

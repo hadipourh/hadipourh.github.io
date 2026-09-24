@@ -23,6 +23,16 @@ export default defineConfig({
     ],
     site: 'https://hadipourh.github.io',
     base: '/',
+    vite: {
+        optimizeDeps: {
+            // `age-encryption` is only reached through a dynamic import inside
+            // the terminal (`/encrypt`), so Vite's dependency scanner never
+            // finds it at dev-server startup and the import fails at runtime
+            // with "Importing a module script failed". Pre-bundle it eagerly.
+            // Production builds are unaffected — Rollup bundles it statically.
+            include: ['age-encryption'],
+        },
+    },
     markdown: {
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],

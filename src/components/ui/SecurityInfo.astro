@@ -3,37 +3,37 @@
 
 <div class="mt-8">
   <!-- Main content container with simple border -->
-  <div class="bg-base-100 border-2 border-teal-600/30 dark:border-cyan-500/30 rounded-lg p-5 hover:border-teal-600/50 dark:hover:border-cyan-500/50 transition-colors duration-300">
+  <div class="bg-base-100 border-2 border-primary/30 rounded-lg p-5 hover:border-primary/50 transition-colors duration-300">
     <!-- Title -->
     <h3 class="text-lg font-semibold flex items-center mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-600 dark:text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
-      <span class="font-mono tracking-tight text-teal-600 dark:text-cyan-400">Security Analysis: How This Message System Works</span>
+      <span class="font-mono tracking-tight text-primary">Security Analysis: How This Message System Works</span>
     </h3>
   
     <div class="space-y-3 text-sm">
       <div>
-        <p class="border-l-2 border-green-500 pl-3 py-1.5 hover:bg-green-500/5 transition-colors">
-          <span class="font-semibold text-green-500 font-mono">[✓]</span> 
-          <span class="font-medium text-green-500">Static Website Protection:</span> 
+        <p class="border-l-2 border-success pl-3 py-1.5 hover:bg-success/5 transition-colors">
+          <span class="font-semibold text-success font-mono">[✓]</span> 
+          <span class="font-medium text-success">Static Website Protection:</span> 
           <span class="text-base-content/80">This website is served by GitHub Pages over HTTPS. The website files themselves are protected in transit, but GitHub Pages only serves static content.</span>
         </p>
       </div>
       
       <div>
-        <p class="border-l-2 border-amber-500 pl-3 py-1.5 hover:bg-amber-500/5 transition-colors">
-          <span class="font-semibold text-amber-500 font-mono">[!]</span> 
-          <span class="font-medium text-amber-500">Message Transmission:</span>
-          <span class="text-base-content/80">Your messages are sent directly from your browser to the n8n server over HTTPS (encrypted in transit) but are accessible in unencrypted form within the n8n server itself.</span>
+        <p class="border-l-2 border-warning pl-3 py-1.5 hover:bg-warning/5 transition-colors">
+          <span class="font-semibold text-warning font-mono">[!]</span> 
+          <span class="font-medium text-warning">Message Transmission:</span>
+          <span class="text-base-content/80">Your messages are sent directly from your browser to a Cloudflare Worker over HTTPS (encrypted in transit) but are readable in plaintext inside that Worker.</span>
         </p>
       </div>
       
       <div>
-        <p class="border-l-2 border-red-500 pl-3 py-1.5 hover:bg-red-500/5 transition-colors">
-          <span class="font-semibold text-red-500 font-mono">[×]</span> 
-          <span class="font-medium text-red-500">Third-Party Processing:</span>
-          <span class="text-base-content/80">After processing, messages are sent to Telegram through their API. Both n8n and Telegram servers can technically access the message content.</span>
+        <p class="border-l-2 border-error pl-3 py-1.5 hover:bg-error/5 transition-colors">
+          <span class="font-semibold text-error font-mono">[×]</span> 
+          <span class="font-medium text-error">Third-Party Processing:</span>
+          <span class="text-base-content/80">The Worker then forwards the message to Telegram through their API. Both Cloudflare and Telegram can technically access the message content.</span>
         </p>
       </div>
     </div>
@@ -41,16 +41,19 @@
     <!-- Simple divider -->
     <div class="mt-4 pt-4 border-t border-base-300">
       <p class="text-sm text-base-content/80 mb-3">
-        This system shows why <strong class="text-teal-600 dark:text-cyan-400">end-to-end encryption</strong> matters: your browser connects to this website over HTTPS, but when you send a message, intermediaries (n8n server, Telegram) can still read the content. 
-        The solution? <strong class="text-teal-600 dark:text-cyan-400">Encrypt messages in your browser before sending them.</strong> Try it yourself with <code class="bg-base-200 px-2 py-0.5 rounded text-cyan-600 dark:text-cyan-400 text-xs font-mono border border-teal-600/20 dark:border-cyan-500/20">/encrypt &lt;your message&gt;</code> in the terminal above.
+        This system shows why <strong class="text-primary">end-to-end encryption</strong> matters: your browser connects to this website over HTTPS, but when you send a message, intermediaries (the Cloudflare Worker, Telegram) can still read the content. 
+        The solution? <strong class="text-primary">Encrypt messages in your browser before sending them.</strong> Try it yourself with <code class="bg-base-200 px-2 py-0.5 rounded text-primary text-xs font-mono border border-primary/20">/encrypt &lt;your message&gt;</code> in the terminal above.
+      </p>
+      <p class="text-sm text-base-content/70 mb-3">
+        The relay endpoint is public, as it must be on a static site, so abuse is limited at the server rather than in your browser: the Worker enforces its own per-IP rate limit and message-size checks, which a client-side limit alone could never guarantee.
       </p>
       
       <!-- Research focus -->
-      <div class="mt-3 p-3 bg-teal-600/5 dark:bg-cyan-600/5 border border-teal-600/20 dark:border-cyan-500/20 rounded hover:border-teal-600/40 dark:hover:border-cyan-500/40 transition-colors">
+      <div class="mt-3 p-3 bg-primary/5 border border-primary/20 rounded hover:border-primary/40 transition-colors">
         <p class="text-sm font-medium text-base-content/90 leading-relaxed">
-          <span class="text-teal-600 dark:text-cyan-400 font-mono text-xs mr-1">//</span>
-          My research focuses on <span class="text-teal-600 dark:text-cyan-400 font-semibold">building the mathematical foundations</span> that make secure encryption possible: 
-          designing and analyzing <span class="text-emerald-600 dark:text-green-400 font-medium">block ciphers</span>, <span class="text-emerald-600 dark:text-green-400 font-medium">hash functions</span>, and <span class="text-emerald-600 dark:text-green-400 font-medium">cryptographic primitives</span>.
+          <span class="text-primary font-mono text-xs mr-1">//</span>
+          My research focuses on <span class="text-primary font-semibold">building the mathematical foundations</span> that make secure encryption possible: 
+          designing and analyzing <span class="text-primary font-medium">block ciphers</span>, <span class="text-primary font-medium">hash functions</span>, and <span class="text-primary font-medium">cryptographic primitives</span>.
         </p>
       </div>
     </div>

@@ -2,7 +2,7 @@
 .keeloq-article {
   --article-accent: oklch(var(--p));
   --article-line: oklch(var(--bc) / .18);
-  --article-link: oklch(var(--a));
+  --article-link: oklch(var(--p));
   font-size: 1.0625rem !important;
   line-height: 1.85 !important;
 }
@@ -79,5 +79,4 @@
   .keeloq-article { color: #111; }
 }
 
-[data-theme="corporate"] .keeloq-article { --article-link: #2455b8; }
 .keeloq-article .badge { color: oklch(var(--bc) / .8); border-color: var(--article-line); }
