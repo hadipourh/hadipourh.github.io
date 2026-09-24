@@ -47,7 +47,7 @@ export const DEFAULT_WELCOME_MESSAGES = [
   { text: '2. Messages relayed browser -> Cloudflare Worker over HTTPS', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '3. Messages forwarded to Telegram via API (readable by intermediaries)', className: 'text-amber-400', withTyping: true, delay: 12 },
   { text: '4. Command and message history saved locally in your browser', className: 'text-gray-400', withTyping: true, delay: 12 },
-  { text: '5. /encrypt seals the message AND your browser details from the relay', className: 'text-yellow-400', withTyping: true, delay: 12 },
+  { text: '5. /encrypt seals the message + browser details (but not your IP)', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false },
   { text: 'Type /help for commands | /encrypt encrypts & sends | /history shows past commands', className: 'text-blue-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false }
@@ -799,10 +799,11 @@ function loadCommandHistory() {
           queueMessage('• Messages are relayed to Telegram by a Cloudflare Worker (it can read them)', 'text-gray-400', true, 8);
           queueMessage('• A PLAIN message carries your IP, approximate city/country, network', 'text-gray-400', true, 8);
           queueMessage('  provider, browser user-agent, language and referring page', 'text-gray-400', true, 8);
-          queueMessage('• /encrypt seals the message AND those browser details together, so the', 'text-gray-400', true, 8);
-          queueMessage('  relay and Telegram see only ciphertext', 'text-gray-400', true, 8);
-          queueMessage('• Your IP still reaches Cloudflare either way - it is needed to route the', 'text-gray-400', true, 8);
-          queueMessage('  connection. Use Tor or a VPN if that matters to you', 'text-gray-400', true, 8);
+          queueMessage('• /encrypt seals the message body AND your browser details - the relay', 'text-gray-400', true, 8);
+          queueMessage('  and Telegram see only ciphertext for those', 'text-gray-400', true, 8);
+          queueMessage('• Your IP and approximate location are attached IN THE CLEAR even when', 'text-gray-400', true, 8);
+          queueMessage('  you encrypt. The relay must see your IP to route the request, and it', 'text-gray-400', true, 8);
+          queueMessage('  cannot encrypt it to my key. Use Tor or a VPN if that matters to you', 'text-gray-400', true, 8);
           queueMessage('• The terminal sends no analytics events (the site itself uses Google Analytics)', 'text-gray-400', true, 8);
           queueMessage('• Use /history to view your command history', 'text-gray-400', true, 8);
           queueMessage('• Use /nosave to disable all local storage features', 'text-gray-400', true, 8);

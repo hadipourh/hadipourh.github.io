@@ -25,7 +25,7 @@
         <p class="border-l-2 border-warning pl-3 py-1.5 hover:bg-warning/5 transition-colors">
           <span class="font-semibold text-warning font-mono">[!]</span> 
           <span class="font-medium text-warning">Message Transmission:</span>
-          <span class="text-base-content/80">Your messages are sent directly from your browser to a Cloudflare Worker over HTTPS (encrypted in transit) but are readable in plaintext inside that Worker. A plain message is delivered together with your IP address, approximate location, network provider and browser details. <code class="text-primary">/encrypt</code> seals the message and those details together, so the Worker and Telegram receive only ciphertext &mdash; though your IP still reaches Cloudflare, since it is needed to route the connection at all.</span>
+          <span class="text-base-content/80">Your messages are sent directly from your browser to a Cloudflare Worker over HTTPS (encrypted in transit) but are readable in plaintext inside that Worker. A plain message is delivered together with your IP address, approximate location, network provider and browser details. <code class="text-primary">/encrypt</code> seals the message body and your browser details, so the Worker and Telegram see only ciphertext for those. Your IP and approximate location are still attached in the clear, because the Worker must see your IP to route the request and cannot encrypt it to my key.</span>
         </p>
       </div>
       
@@ -43,9 +43,6 @@
       <p class="text-sm text-base-content/80 mb-3">
         This system shows why <strong class="text-primary">end-to-end encryption</strong> matters: your browser connects to this website over HTTPS, but when you send a message, intermediaries (the Cloudflare Worker, Telegram) can still read the content. 
         The solution? <strong class="text-primary">Encrypt messages in your browser before sending them.</strong> Try it yourself with <code class="bg-base-200 px-2 py-0.5 rounded text-primary text-xs font-mono border border-primary/20">/encrypt &lt;your message&gt;</code> in the terminal above.
-      </p>
-      <p class="text-sm text-base-content/70 mb-3">
-        The relay endpoint is public, as it must be on a static site, so abuse is limited at the server rather than in your browser: the Worker enforces its own per-IP rate limit and message-size checks, which a client-side limit alone could never guarantee.
       </p>
       
       <!-- Research focus -->
