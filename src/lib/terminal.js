@@ -49,6 +49,9 @@ export const DEFAULT_WELCOME_MESSAGES = [
   { text: '4. Command and message history saved locally in your browser', className: 'text-gray-400', withTyping: true, delay: 12 },
   { text: '5. /encrypt seals the message + browser details (but not your IP)', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false },
+  { text: 'Want a reply? Include your email in the message.', className: 'text-primary', withTyping: true, delay: 12 },
+  { text: 'With /encrypt it stays sealed too, so only I can read it.', className: 'text-primary', withTyping: true, delay: 12 },
+  { text: '', className: '', withTyping: false },
   { text: 'Type /help for commands | /encrypt encrypts & sends | /history shows past commands', className: 'text-blue-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false }
 ];
@@ -729,6 +732,11 @@ function loadCommandHistory() {
           if (response.ok) {
             queueMessage('Message accepted by relay', 'text-green-400', true, 10);
             queueMessage('Forwarding to Hosein\'s Telegram now...', 'text-cyan-400', true, 10);
+            // No contact address means the message is a dead end; say so rather
+            // than letting the sender assume a reply is coming.
+            if (!/@/.test(messageText)) {
+              queueMessage('Note: no email found in your message, so I have no way to reply.', 'text-yellow-400', true, 10);
+            }
           } else {
             // Handle HTTP error responses
             const status = response.status;
@@ -926,7 +934,11 @@ function loadCommandHistory() {
                 
                 if (response.ok) {
                   queueMessage('Encrypted message sent successfully!', 'text-green-400', true, 8);
-                  queueMessage('Decrypt with: echo "BASE64_TEXT" | base64 -d | age -d -i your_private_key.txt', 'text-yellow-400', true, 8);
+                  // `message` is the plaintext, so this checks what was sealed,
+                  // not the ciphertext. An address in here stays encrypted.
+                  if (!/@/.test(message)) {
+                    queueMessage('Note: no email inside the sealed message, so I have no way to reply.', 'text-yellow-400', true, 8);
+                  }
                 } else {
                   queueMessage('Failed to send encrypted message', 'text-red-400', true, 8);
                   queueMessage('But your encryption worked! You can copy the encrypted text above.', 'text-gray-400', true, 8);
