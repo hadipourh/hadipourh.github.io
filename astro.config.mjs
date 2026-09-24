@@ -21,7 +21,7 @@ export default defineConfig({
             },
         })
     ],
-    site: 'https://hadipourh.github.io',
+    site: 'https://hoseinhadipour.com',
     base: '/',
     vite: {
         optimizeDeps: {

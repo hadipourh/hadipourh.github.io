@@ -36,7 +36,7 @@ export const social = {
 }
 
 export const template = {
-	website_url: 'https://hadipourh.github.io', // Production URL for sitemap generation
+	website_url: 'https://hoseinhadipour.com', // Canonical production URL (github.io 301-redirects here)
 	menu_left: false,
 	transitions: true,
 	lightTheme: 'corporate', // Select one of the Daisy UI Themes or create your own
