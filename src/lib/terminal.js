@@ -47,7 +47,7 @@ export const DEFAULT_WELCOME_MESSAGES = [
   { text: '2. Messages relayed browser -> Cloudflare Worker over HTTPS', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '3. Messages forwarded to Telegram via API (readable by intermediaries)', className: 'text-amber-400', withTyping: true, delay: 12 },
   { text: '4. Command and message history saved locally in your browser', className: 'text-gray-400', withTyping: true, delay: 12 },
-  { text: '5. Use /encrypt to encrypt with my public key before sending!', className: 'text-yellow-400', withTyping: true, delay: 12 },
+  { text: '5. /encrypt seals the message AND your browser details from the relay', className: 'text-yellow-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false },
   { text: 'Type /help for commands | /encrypt encrypts & sends | /history shows past commands', className: 'text-blue-400', withTyping: true, delay: 12 },
   { text: '', className: '', withTyping: false }
@@ -102,6 +102,30 @@ async function encryptWithAge(message, agePublicKey) {
   } catch (error) {
     throw new Error('Failed to encrypt message: ' + error.message);
   }
+}
+
+/**
+ * Build the cleartext envelope for /encrypt.
+ *
+ * Everything the recipient might want to know travels INSIDE the age
+ * ciphertext, so the relay has nothing to read and nothing to enrich. The one
+ * thing that cannot be sealed is the source IP: Cloudflare observes it at the
+ * network layer to route the connection, exactly as any server would. Hiding
+ * that is the visitor's job (Tor, VPN), not something this page can do.
+ */
+function buildEnvelope(message, source) {
+  return JSON.stringify({
+    message,
+    source,
+    sentAt: new Date().toISOString(),
+    userAgent: navigator.userAgent,
+    language: navigator.language,
+    languages: Array.isArray(navigator.languages) ? navigator.languages.slice(0, 4) : undefined,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    screen: `${screen.width}x${screen.height}`,
+    referer: document.referrer || null,
+    page: location.href,
+  }, null, 2);
 }
 
 /**
@@ -773,9 +797,12 @@ function loadCommandHistory() {
           queueMessage('• Command and message history are stored using localStorage', 'text-gray-400', true, 8);
           queueMessage('• Terminal interactions are saved for 24 hours for convenience', 'text-gray-400', true, 8);
           queueMessage('• Messages are relayed to Telegram by a Cloudflare Worker (it can read them)', 'text-gray-400', true, 8);
-          queueMessage('• Each message is recorded with your IP address, approximate city/country,', 'text-gray-400', true, 8);
-          queueMessage('  network provider, browser user-agent, language and referring page', 'text-gray-400', true, 8);
-          queueMessage('• Use /encrypt to keep the message body unreadable to those intermediaries', 'text-gray-400', true, 8);
+          queueMessage('• A PLAIN message carries your IP, approximate city/country, network', 'text-gray-400', true, 8);
+          queueMessage('  provider, browser user-agent, language and referring page', 'text-gray-400', true, 8);
+          queueMessage('• /encrypt seals the message AND those browser details together, so the', 'text-gray-400', true, 8);
+          queueMessage('  relay and Telegram see only ciphertext', 'text-gray-400', true, 8);
+          queueMessage('• Your IP still reaches Cloudflare either way - it is needed to route the', 'text-gray-400', true, 8);
+          queueMessage('  connection. Use Tor or a VPN if that matters to you', 'text-gray-400', true, 8);
           queueMessage('• The terminal sends no analytics events (the site itself uses Google Analytics)', 'text-gray-400', true, 8);
           queueMessage('• Use /history to view your command history', 'text-gray-400', true, 8);
           queueMessage('• Use /nosave to disable all local storage features', 'text-gray-400', true, 8);
@@ -852,7 +879,7 @@ function loadCommandHistory() {
           if (!message) {
             queueMessage('Usage: /encrypt <message>', 'text-yellow-400', true, 8);
             queueMessage('Example: /encrypt Hello, this is a secret message!', 'text-gray-400', true, 8);
-            queueMessage('This will demo-encrypt your message (NOT real age)', 'text-gray-400', true, 8);
+            queueMessage('Seals the message AND your browser details from the relay.', 'text-gray-400', true, 8);
             return;
           }
           
@@ -863,9 +890,10 @@ function loadCommandHistory() {
             const agePublicKey = 'age17x6fu4na8hvxuh7hgs7ec62g7ddhsdlasqrqe6u7pzx0z86fpsxsgfpwdp';
             
             // Age encryption using age-encryption library
-            encryptWithAge(message, agePublicKey).then(async encrypted => {
+            encryptWithAge(buildEnvelope(message, source), agePublicKey).then(async encrypted => {
               queueMessage('Message encrypted successfully with age!', 'text-green-400', true, 8);
-              queueMessage('Compatible with age command-line tool', 'text-green-400', true, 8);
+              queueMessage('Sealed: message + browser details. The relay sees only ciphertext.', 'text-green-400', true, 8);
+              queueMessage('Not sealed: your IP, which Cloudflare must see to route the request.', 'text-yellow-400', true, 8);
               queueMessage('', '');
               queueMessage('Age-Encrypted Message (Base64):', 'text-cyan-400', true, 5);
               queueMessage('-----BEGIN BASE64 ENCODED AGE FILE-----', 'text-cyan-400', true, 5);
@@ -888,11 +916,10 @@ function loadCommandHistory() {
                     'Content-Type': 'application/json',
                   },
                   body: JSON.stringify({
-                    message: `🔐 Age-encrypted message:\n\n${encrypted}`,
-                    source: source,
-                    timestamp: new Date().toISOString(),
+                    // Opaque to the relay: no message, no source, no timestamp.
                     encrypted: true,
-                    encryption_type: 'age'
+                    encryption_type: 'age',
+                    payload: encrypted
                   })
                 });
                 
