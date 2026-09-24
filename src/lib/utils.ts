@@ -15,23 +15,6 @@ export function trimExcerpt(excerpt: string): string {
 }
 
 /**
- * Get a gradient class based on index
- * Used for decorative backgrounds and borders only
- * Professional hacker/cyberpunk color scheme - NO purple/violet
- */
-export function getGradientClass(index: number): string {
-	const gradients = [
-		'from-cyan-500 via-blue-600 to-teal-700',          // Cyber blue to teal
-		'from-emerald-500 via-teal-600 to-cyan-700',       // Matrix green to cyan
-		'from-green-500 via-emerald-600 to-teal-700',      // Matrix green gradient
-		'from-slate-500 via-gray-600 to-zinc-700',         // Professional gray scale
-		'from-blue-600 via-cyan-600 to-sky-700',           // Deep blue spectrum
-		'from-lime-500 via-green-600 to-emerald-700'       // Electric green (hacker)
-	]
-	return gradients[index % gradients.length]
-}
-
-/**
  * Get a solid color class for text based on index
  * Used for text elements to ensure readability
  * Professional hacker/cyberpunk color scheme - NO purple/violet

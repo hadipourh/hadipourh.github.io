@@ -11,33 +11,22 @@
     "update:talks": "node scripts/update-talks.js",
     "update:projects": "node scripts/update-projects.js",
     "update:cv": "node scripts/update-cv-from-latex.js",
-    "encrypt:cv": "node scripts/encrypt-cv.js",
     "update:all": "npm run update:publications && npm run update:talks && npm run update:projects && npm run update:cv"
   },
   "dependencies": {
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/react": "^4.1.4",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.4",
-    "@types/react": "^19.0.7",
-    "@types/react-dom": "^19.0.3",
     "age-encryption": "^0.2.4",
     "astro": "^5.7.1",
-    "crypto-js": "^4.2.0",
     "katex": "^0.16.47",
-    "natural": "^8.1.0",
-    "pdf-parse": "^1.1.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
-    "tailwindcss": "^3.4.17",
-    "theme-change": "^2.5.0"
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "daisyui": "^4.12.23",
-    "read": "^4.1.0"
+    "daisyui": "^4.12.23"
   }
 }
