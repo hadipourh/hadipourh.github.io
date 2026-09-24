@@ -773,6 +773,9 @@ function loadCommandHistory() {
           queueMessage('• Command and message history are stored using localStorage', 'text-gray-400', true, 8);
           queueMessage('• Terminal interactions are saved for 24 hours for convenience', 'text-gray-400', true, 8);
           queueMessage('• Messages are relayed to Telegram by a Cloudflare Worker (it can read them)', 'text-gray-400', true, 8);
+          queueMessage('• Each message is recorded with your IP address, approximate city/country,', 'text-gray-400', true, 8);
+          queueMessage('  network provider, browser user-agent, language and referring page', 'text-gray-400', true, 8);
+          queueMessage('• Use /encrypt to keep the message body unreadable to those intermediaries', 'text-gray-400', true, 8);
           queueMessage('• The terminal sends no analytics events (the site itself uses Google Analytics)', 'text-gray-400', true, 8);
           queueMessage('• Use /history to view your command history', 'text-gray-400', true, 8);
           queueMessage('• Use /nosave to disable all local storage features', 'text-gray-400', true, 8);
