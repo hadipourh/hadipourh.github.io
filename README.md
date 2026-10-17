@@ -59,7 +59,9 @@ export const profile = {
 ```
 
 ### CV Data (src/data/cv.ts)
-Core CV sections (experience, education, skills, honors, etc.) are stored in `src/data/cv.ts` and can be automatically updated from your LaTeX CV using the CV parser script. Publications are no longer hard-coded here—they're auto-generated from DBLP (see below).
+`src/data/cv.ts` is generated from `public/cv/CV.tex` by `npm run update:cv` and should not be edited by hand. CV.tex is the source of truth: the CV page shows its sections in CV.tex order, under CV.tex titles, with the Research Appointments and Education timelines on top. Publications are the exception; the CV page lists them from `src/data/publications.json` (see below). The References section is never published, and `\unless\ifpublic` blocks are dropped.
+
+The updater stops without touching `cv.ts` when CV.tex contains something it does not understand: an unknown `\section`, an unsupported LaTeX command, or text a section parser cannot read. The error names the section and what to change in `scripts/update-cv-from-latex.js`.
 
 ### Auto-Generated Publications (src/data/publications.json)
 Publications are automatically synchronized from DBLP via `scripts/update-publications.js` and stored in `src/data/publications.json`. Pages (home, CV, papers) consume this JSON directly. The update script runs automatically every 6 days or can be triggered manually.

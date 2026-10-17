@@ -1,322 +1,261 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { experiences, education, skills, teaching, presentations, reviews, honors, conferences, memberships, interests, languages } from '../data/cv'
 import CvTimeline from '@/components/ui/CvTimeline.astro'
+import CvEventList from '@/components/ui/CvEventList.astro'
 import IconRenderer from '@/components/ui/IconRenderer.astro'
+import { highlightAuthor, richText } from '@/lib/utils'
+import type { CvSection, Publication } from '@/types/cv'
 
-import type { Experience, Education, Publication } from '../types/cv'
-import List from '@/components/ui/List.astro'
-import PublicationsList from '@/components/ui/PublicationsList.astro'
+// Generated from public/cv/CV.tex by `npm run update:cv`.
+import {
+	cvSections,
+	researchProfile,
+	appointments,
+	education,
+	teaching,
+	supervision,
+	service,
+	visits,
+	honors,
+	skills,
+	researchInterests,
+	talks,
+	languages,
+	memberships,
+	interests,
+} from '@/data/cv'
 
-// Import publications from the auto-generated JSON file
-import publicationsData from '../data/publications.json'
+// Publications are not taken from CV.tex: they come from the same DBLP data
+// as the Publications page.
+import publicationsData from '@/data/publications.json'
 
-let orderdExperiences: Experience[] = []
-let orderdEducations: Education[] = []
-let orderedPublications: Publication[] = []
+// The journey timelines always open the page; every other section follows
+// the order of CV.tex.
+const timelines = { appointments, education }
+const isTimeline = (section: CvSection): section is CvSection & { key: keyof typeof timelines } =>
+	section.key in timelines
+const timelineSections = cvSections.filter(isTimeline)
+const otherSections = cvSections.filter((section) => !isTimeline(section))
 
-const orderElement = <T extends { time: string }>(a: T, b: T) => {
-  const presentValues = ['present', 'now', 'current', 'today']
-  if (
-			presentValues.includes(
-				(a['time'] as string)?.split(' - ')[1]?.toLowerCase()
-			)
-		) {
-			// If the date is 'present', it should be the first element
-			return -1
+// DBLP lists most papers twice, as the venue version and as its ePrint. Show
+// each paper once: the published version, with a link to its ePrint.
+const normalizeTitle = (title: string) => title.toLowerCase().replace(/[^a-z0-9]/g, '')
+const versionsByTitle = new Map<string, Publication[]>()
+for (const publication of publicationsData.publications as Publication[]) {
+	const key = normalizeTitle(publication.title)
+	versionsByTitle.set(key, [...(versionsByTitle.get(key) ?? []), publication])
+}
+const publications = [...versionsByTitle.values()]
+	.map((versions) => {
+		const published = versions.find((version) => version.type !== 'preprint')
+		const eprint = versions.find((version) => version.type === 'preprint')
+		const paper = published ?? eprint!
+		return {
+			...paper,
+			title: paper.title.replace(/\.$/, ''),
+			// Drop DBLP's homonym numbers, e.g. "Kai Hu 0001".
+			authors: paper.authors.replace(/ \d{4}(?=,|$)/g, ''),
+			eprintUrl: published && eprint ? eprint.url : '',
 		}
-		const dateA = new Date((a['time'] as string)?.split(' - ')[1])
-		const dateB = new Date((b['time'] as string)?.split(' - ')[1])
-		return dateB.getTime() - dateA.getTime()
-}
-
-if (experiences.length > 0) {
-	orderdExperiences = experiences.sort((a, b) => {
-		return orderElement(a, b)
 	})
-}
-
-if (education.length > 0) {
-	orderdEducations = education.sort((a, b) => {
-		return orderElement(a, b)
-	})
-}
-
-// Convert publications from JSON data to expected format with backward compatibility
-const publications: Publication[] = (publicationsData.publications as any[]).map((pub: any) => ({
-	...pub,
-	journal: pub.venue,  // Alias for backward compatibility
-	time: pub.year.toString(),  // Convert year to string for backward compatibility
-	link: pub.url  // Alias for backward compatibility
-}))
-
-if (publications.length > 0) {
-	orderedPublications = publications.sort((a: Publication, b: Publication) => {
-		// Ensure time field exists for sorting
-		const timeA = a.time || a.year?.toString() || '2024'
-		const timeB = b.time || b.year?.toString() || '2024'
-		return orderElement({ ...a, time: timeA }, { ...b, time: timeB })
-	})
-}
+	.sort((a, b) => b.year - a.year || Number(a.type === 'preprint') - Number(b.type === 'preprint'))
 ---
 
-<Layout>
+<Layout title='Curriculum Vitae - Hosein Hadipour'>
 <div style="font-family: 'Quantico', sans-serif;">
 	<!-- CV Header with Download Link -->
 	<section class='mb-12'>
-		<div class='flex justify-between items-center mb-8'>
+		<div class='flex flex-wrap justify-between items-center gap-4 mb-8'>
 			<h1 class='text-4xl font-bold'>Curriculum Vitae</h1>
-			<a 
-				href='/cv/CV.pdf' 
+			<a
+				href='/cv/CV.pdf'
 				download='Hosein_Hadipour_CV.pdf'
 				class='btn btn-primary gap-2 whitespace-nowrap'
 				target='_blank'
 			>
-				<svg class='w-4 h-4' fill='currentColor' viewBox='0 0 20 20'>
+				<svg class='w-4 h-4' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
 					<path fill-rule='evenodd' d='M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z' clip-rule='evenodd'></path>
 				</svg>
 				Download PDF
 			</a>
 		</div>
-		<p class='text-lg text-base-content/70'>
-			Postdoctoral Researcher specializing in cryptanalysis of symmetric-key primitives and automated security analysis at Ruhr University Bochum.
-		</p>
+		{researchProfile.map((paragraph) => (
+			<p class={`text-lg text-base-content/70 mb-4 ${richText}`} set:html={paragraph} />
+		))}
 	</section>
 
-	{
-		orderdEducations.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Education
-				</h2>
-				<CvTimeline elements={orderdEducations} colored={true} />
-			</section>
-		)
-	}
+	<!-- Journey timelines -->
+	{timelineSections.map((section) => (
+		<section id={section.key} class='mb-12 scroll-mt-8'>
+			<h2 class='text-2xl font-bold mb-6 border-b pb-2'>{section.title}</h2>
+			<CvTimeline entries={timelines[section.key]} colored={true} />
+		</section>
+	))}
 
-	{
-		orderdExperiences.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Experiences
-				</h2>
-				<CvTimeline elements={orderdExperiences} colored={true} />
-			</section>
-		)
-	}
+	{otherSections.map((section) => (
+		<section id={section.key} class='mb-12 scroll-mt-8'>
+			<h2 class='text-2xl font-bold mb-6 border-b pb-2'>{section.title}</h2>
 
-	{
-		skills.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Skills
-				</h2>
-				<div class='space-y-6'>
-					{skills.reduce((acc: any[], skill) => {
-						const existingCategory = acc.find(cat => cat.category === skill.category);
-						if (existingCategory) {
-							existingCategory.items.push(skill);
-						} else {
-							acc.push({ category: skill.category, items: [skill] });
-						}
-						return acc;
-					}, []).map((categoryGroup, index) => {
-						const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
-						const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
-						const colorIndex = index % 3;
-						return (
-						<div class={`relative overflow-hidden p-5 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}`}>
-							<div class='h-full'>
-								<h3 class='font-bold text-lg mb-4 text-base-content'>{categoryGroup.category}</h3>
-								<div class='grid grid-cols-1 md:grid-cols-2 gap-3'>
-									{categoryGroup.items.map((skill: any) => (
-										<div class='bg-base-200/50 rounded p-3 hover:bg-base-200 transition-colors'>
-											<h4 class='font-semibold text-sm mb-1 text-primary'>{skill.level}</h4>
-											<p class='text-xs text-base-content/70'>{skill.skills}</p>
-										</div>
+			{section.key === 'publications' && (
+				<>
+					<p class='text-sm text-base-content/60 mb-6'>
+						{publications.length} papers, newest first. Search and filter them on the
+						<a href='/papers' class='text-primary hover:underline'>Publications</a> page.
+					</p>
+					<ol class='space-y-5'>
+						{publications.map((publication) => (
+							<li class='border-l-2 border-primary/30 pl-4'>
+								<a href={publication.url} target='_blank' rel='noopener noreferrer' class='font-semibold hover:text-primary transition-colors'>
+									{publication.title}
+								</a>
+								<p class='text-sm text-base-content/70 mt-1' set:html={highlightAuthor(publication.authors)} />
+								<p class='text-sm mt-1'>
+									<span class='italic'>{publication.venue}</span> · {publication.year}
+									{publication.type === 'preprint' && <span class='badge badge-ghost badge-sm ml-2'>Preprint</span>}
+									{publication.eprintUrl && (
+										<a href={publication.eprintUrl} target='_blank' rel='noopener noreferrer' class='text-primary hover:underline ml-3'>ePrint</a>
+									)}
+								</p>
+							</li>
+						))}
+					</ol>
+				</>
+			)}
+
+			{section.key === 'teaching' && (
+				<>
+					{supervision.length > 0 && (
+						<dl class='grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-x-6 gap-y-2 mb-8'>
+							{supervision.map((item) => (
+								<>
+									<dt class='font-semibold text-primary'>{item.label}</dt>
+									<dd class={`mb-2 sm:mb-0 ${richText}`} set:html={item.descriptionHtml} />
+								</>
+							))}
+						</dl>
+					)}
+					<div class='space-y-4'>
+						{teaching.map((item) => (
+							<div class='border-l-2 border-primary pl-4'>
+								<div class='flex flex-wrap justify-between items-baseline gap-x-4'>
+									<h3 class='text-lg font-semibold'>{item.role}</h3>
+									<span class='font-mono text-sm text-base-content/60'>{item.time}</span>
+								</div>
+								<p class='text-primary font-medium'>
+									{item.institution}{item.location && <span class='text-base-content/60 font-normal'>, {item.location}</span>}
+								</p>
+								{item.course && <p class='text-sm mt-1'>Course: {item.course}</p>}
+								{item.descriptionHtml && <p class={`text-sm mt-1 text-base-content/80 ${richText}`} set:html={item.descriptionHtml} />}
+							</div>
+						))}
+					</div>
+				</>
+			)}
+
+			{section.key === 'service' && (
+				<ul class='grid grid-cols-1 md:grid-cols-2 gap-3'>
+					{service.map((item) => (
+						<li class='flex justify-between items-baseline gap-4 p-3 rounded-lg bg-base-200 border border-primary/20'>
+							{item.url ? (
+								<a href={item.url} target='_blank' rel='noopener noreferrer' class='font-medium hover:text-primary transition-colors'>{item.venue}</a>
+							) : (
+								<span class='font-medium'>{item.venue}</span>
+							)}
+							<span class={`text-xs text-right shrink-0 ${item.highlight ? 'text-primary font-semibold' : 'text-base-content/60'}`}>
+								{item.role}
+							</span>
+						</li>
+					))}
+				</ul>
+			)}
+
+			{section.key === 'visits' && <CvEventList events={visits} />}
+
+			{section.key === 'honors' && (
+				<div class='space-y-4'>
+					{honors.map((item) => (
+						<div class='border-l-2 border-primary/40 pl-4 flex items-start gap-3'>
+							<IconRenderer name='trophy' className='text-primary mt-1 shrink-0' />
+							<div class='flex-1'>
+								<div class='flex flex-wrap justify-between items-baseline gap-x-4'>
+									<h3 class='text-lg font-semibold'>
+										<span class='text-primary'>{item.distinction}</span> · {item.event}
+									</h3>
+									<span class='font-mono text-sm text-base-content/60'>{item.time}</span>
+								</div>
+								<p class='text-sm text-base-content/70'>{[item.location, item.date].filter(Boolean).join(' · ')}</p>
+								{item.detailsHtml && <p class={`text-sm ${richText}`} set:html={item.detailsHtml} />}
+							</div>
+						</div>
+					))}
+				</div>
+			)}
+
+			{section.key === 'skills' && (
+				<dl class='grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-x-6 gap-y-3'>
+					{skills.map((group) => (
+						<>
+							<dt class='font-semibold text-primary sm:pt-0.5'>{group.category}</dt>
+							<dd class='flex flex-wrap gap-2 mb-3 sm:mb-0'>
+								{group.items.map((skill) => <span class='badge badge-outline'>{skill}</span>)}
+							</dd>
+						</>
+					))}
+				</dl>
+			)}
+
+			{section.key === 'researchInterests' && (
+				<ul class='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2'>
+					{researchInterests.map((interest) => (
+						<li class='flex gap-2'>
+							<span class='text-primary' aria-hidden='true'>›</span>
+							<span class={richText} set:html={interest} />
+						</li>
+					))}
+				</ul>
+			)}
+
+			{section.key === 'talks' && <CvEventList events={talks} />}
+
+			{section.key === 'languages' && (
+				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+					{languages.map((lang) => (
+						<div class='p-4 bg-base-200 rounded-lg flex items-center space-x-3'>
+							<div class='text-primary'>
+								<IconRenderer name='globe' size='md' />
+							</div>
+							<div class='flex-1'>
+								<h3 class='font-semibold text-base-content'>{lang.language}</h3>
+								<p class='text-sm text-base-content/70'>{lang.level}</p>
+								<div class='flex items-center mt-1 space-x-1' role='img' aria-label={`Proficiency ${lang.proficiency} of 5`}>
+									{[1, 2, 3, 4, 5].map((step) => (
+										<div class={`w-4 h-2 rounded ${lang.proficiency >= step ? 'bg-primary' : 'bg-base-300'}`}></div>
 									))}
 								</div>
 							</div>
 						</div>
-					)})}
-				</div>
-			</section>
-		)
-	}
-
-	{
-		teaching.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Teaching Experience
-				</h2>
-				<div class='space-y-4'>
-					{teaching.map((item) => (
-						<div class='border-l-2 border-primary pl-4'>
-							<h3 class='text-lg font-semibold'>{item.course}</h3>
-							<p class='text-primary font-medium'>{item.role} at {item.institution}</p>
-							<p class='text-sm text-base-content/70'>{item.time}</p>
-							{item.description && <p class='text-sm mt-2'>{item.description}</p>}
-						</div>
 					))}
 				</div>
-			</section>
-		)
-	}
+			)}
 
-	{
-		presentations.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Presentations & Visits
-				</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
-					{presentations.map((item, index) => {
-						const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
-						const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
-						const colorIndex = index % 3;
-						return (
-						<div class={`relative overflow-hidden p-4 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}`}>
-							<div class='h-full'>
-								<div class='flex justify-between items-start mb-2'>
-									{item.link ? (
-										<a href={item.link} target='_blank' class='font-semibold hover:underline text-sm leading-tight text-primary'>
-											{item.title}
-										</a>
-									) : (
-										<h3 class='font-semibold text-sm leading-tight text-base-content'>{item.title}</h3>
-									)}
-									<span class='text-xs text-base-content/60 ml-2 flex-shrink-0'>{item.time}</span>
-								</div>
-								<p class='text-xs text-base-content/70 mb-1'>{item.location}</p>
-								<p class='text-xs text-primary mb-2'>{item.type}</p>
-								{item.detailsLink && (
-									<a href={item.detailsLink} target='_blank' class='text-xs text-primary hover:underline inline-flex items-center gap-1'>
-										📊 Details
-									</a>
-								)}
-							</div>
-						</div>
-					)})}
-				</div>
-			</section>
-		)
-	}
-
-	{
-		reviews.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Academic Reviews
-				</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 gap-3'>
-					{reviews.map((item, index) => {
-						const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-primary/10'];
-						const borderColors = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40'];
-						const colorIndex = index % 3;
-						return (
-						<div class={`flex justify-between items-center p-4 rounded-lg bg-base-200 ${hoverTints[colorIndex]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderColors[colorIndex]}`}>
-								<span class='font-medium text-base-content'>{item.title}</span>
-								<div class='text-right'>
-									{item.link ? (
-										<a href={item.link} target='_blank' class='text-sm text-primary hover:underline'>
-											{item.venue}
-										</a>
-									) : (
-										<p class='text-sm text-primary'>{item.venue}</p>
-									)}
-									<p class='text-xs text-base-content/60'>{item.time}</p>
-								</div>
-							</div>
-					)})}
-				</div>
-			</section>
-		)
-	}
-
-	{
-		honors.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Honors & Awards
-				</h2>
-				<div class='space-y-4'>
-					{honors.map((item) => (
-						<div class='border-l-2 border-secondary pl-4 flex items-start space-x-3'>
-							<span class='text-2xl mt-1'>{item.icon}</span>
-							<div class='flex-1'>
-								{item.link ? (
-									<a href={item.link} target='_blank' class='text-lg font-semibold text-secondary hover:underline'>
-										{item.title}
-									</a>
-								) : (
-									<h3 class='text-lg font-semibold text-secondary'>{item.title}</h3>
-								)}
-								<p class='text-sm text-base-content/70'>{item.description}</p>
-								<p class='text-xs text-base-content/60'>{item.time}</p>
-							</div>
-						</div>
-					))}
-				</div>
-			</section>
-		)
-	}
-
-	{
-		conferences.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Conference & Workshop Attendance
-				</h2>
-				<div class='space-y-3'>
-					{conferences.map((item) => (
-						<div class='flex justify-between items-start p-3 bg-base-100 border rounded'>
-							<div>
-								<h3 class='font-medium'>{item.title}</h3>
-								<p class='text-sm text-base-content/70'>{item.location}</p>
-							</div>
-							<div class='text-right'>
-								<p class='text-sm text-primary font-medium'>{item.role}</p>
-								<p class='text-sm text-base-content/60'>{item.time}</p>
-							</div>
-						</div>
-					))}
-				</div>
-			</section>
-		)
-	}
-
-	{
-		memberships.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Professional Memberships
-				</h2>
+			{section.key === 'memberships' && (
 				<div class='space-y-4'>
 					{memberships.map((item) => (
 						<div class='border-l-2 border-primary/30 pl-4'>
-							<h3 class='text-lg font-semibold'>{item.title}</h3>
+							<h3 class='text-lg font-semibold'>{item.organization}</h3>
 							<p class='text-sm text-base-content/60 font-medium'>{item.time}</p>
-							<p class='text-sm text-base-content/70 mt-1'>{item.description}</p>
 						</div>
 					))}
 				</div>
-			</section>
-		)
-	}
+			)}
 
-	{
-		interests.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Personal Interests
-				</h2>
+			{section.key === 'interests' && (
 				<div class='grid grid-cols-1 md:grid-cols-2 gap-4'>
 					{interests.map((item) => (
 						<div class='p-4 bg-base-200 rounded-lg'>
 							<div class='flex items-center gap-2 mb-2'>
 								<div class='text-primary'>
-									<IconRenderer name={item.icon} size="md" />
+									<IconRenderer name={item.icon} size='md' />
 								</div>
 								<h3 class='font-semibold text-base-content'>{item.title}</h3>
 							</div>
@@ -324,51 +263,8 @@ if (publications.length > 0) {
 						</div>
 					))}
 				</div>
-			</section>
-		)
-	}
-
-	{
-		languages.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Languages
-				</h2>
-				<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-					{languages.map((lang) => (
-						<div class='p-4 bg-base-200 rounded-lg flex items-center space-x-3'>
-							<div class='text-primary'>
-								<IconRenderer name={lang.icon} size="md" />
-							</div>
-							<div class='flex-1'>
-								<h3 class='font-semibold text-base-content'>{lang.language}</h3>
-								<p class='text-sm text-base-content/70'>{lang.level}</p>
-								<div class='flex items-center mt-1 space-x-1'>
-									<div class={`w-4 h-2 rounded ${lang.proficiency >= 1 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-									<div class={`w-4 h-2 rounded ${lang.proficiency >= 2 ? 'bg-primary' : 'bg-gray-300'}`}></div>
-									<div class={`w-4 h-2 rounded ${lang.proficiency >= 3 ? 'bg-yellow-500' : 'bg-gray-300'}`}></div>
-									<div class={`w-4 h-2 rounded ${lang.proficiency >= 4 ? 'bg-orange-500' : 'bg-gray-300'}`}></div>
-									<div class={`w-4 h-2 rounded ${lang.proficiency >= 5 ? 'bg-red-500' : 'bg-gray-300'}`}></div>
-								</div>
-							</div>
-						</div>
-					))}
-				</div>
-			</section>
-		)
-	}
-
-	</section>
-
-	{
-		orderedPublications.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Publications
-				</h2>
-				<PublicationsList elements={orderedPublications}/>
-			</section>
-		)
-	}
+			)}
+		</section>
+	))}
 </div>
 </Layout>

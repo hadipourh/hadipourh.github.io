@@ -1,30 +1,20 @@
 ---
-import { isExperience } from '@/types/cv';
-import type { Experience, Education } from '@/types/cv';
+import type { TimelineEntry } from '@/types/cv';
+import { richText } from '@/lib/utils';
 
 interface Props {
-	elements: (Experience | Education)[]
+	entries: TimelineEntry[]
 	colored: boolean
 }
 
-const { elements, colored } = Astro.props
-
-// Helper function to convert URLs in text to clickable links
-function linkifyText(text: string) {
-	if (!text) return text;
-	
-	// Regular expression to match URLs
-	const urlRegex = /(https?:\/\/[^\s]+)/g;
-	
-	return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">$1</a>');
-}
+const { entries, colored } = Astro.props
 ---
 
 <ul
 	class='timeline timeline-snap-icon max-md:timeline-compact timeline-vertical'
 >
 	{
-		elements.map((element, index) => (
+		entries.map((entry, index) => (
 			<li>
 				<div class='timeline-middle'>
 					<svg
@@ -43,11 +33,14 @@ function linkifyText(text: string) {
 				<div
 					class={`${index % 2 === 0 ? 'timeline-start' : 'timeline-end'} mb-10 md:text-end`}
 				>
-					<time class='font-mono italic'>{element.time}</time>
-					<div class='text-lg font-black'>{isExperience(element) ? element.title : element.degree}</div>
-					<div set:html={linkifyText(element.description || '')} />
-					<div>{isExperience(element) ? element.company : element.school}</div>
-					<div>{element.location}</div>
+					<time class='font-mono italic'>{entry.time}</time>
+					<div class='text-lg font-black'>{entry.title}</div>
+					<div>{entry.organization}</div>
+					<div>{entry.location}</div>
+					{entry.descriptionHtml && <div class={`mt-2 ${richText}`} set:html={entry.descriptionHtml} />}
+					{entry.detailsHtml.map((detail) => (
+						<div class={`text-sm text-base-content/70 ${richText}`} set:html={detail} />
+					))}
 				</div>
         <hr class:list={[{ 'bg-primary/30': colored }]} />
 			</li>

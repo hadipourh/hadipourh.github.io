@@ -39,3 +39,9 @@ export const text = {
 } as const
 
 export type TextRole = keyof typeof text
+
+/**
+ * Link styling for HTML rendered from LaTeX (the `...Html` fields of
+ * src/data/cv.ts), whose anchors carry no classes of their own.
+ */
+export const richText = '[&_a]:text-primary [&_a:hover]:underline'

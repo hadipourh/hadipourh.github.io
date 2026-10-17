@@ -1,0 +1,32 @@
+---
+/**
+ * Dated list for the CV's Visits and Talks sections.
+ */
+import type { EventEntry } from '@/types/cv'
+import { richText } from '@/lib/utils'
+
+interface Props {
+	events: EventEntry[]
+}
+
+const { events } = Astro.props
+---
+
+<ul class='space-y-4'>
+	{events.map((event) => (
+		<li class='grid grid-cols-1 sm:grid-cols-[6.5rem_1fr] gap-x-4'>
+			<span class='font-mono text-sm text-base-content/60 sm:pt-0.5'>{event.time}</span>
+			<div>
+				{event.url ? (
+					<a href={event.url} target='_blank' rel='noopener noreferrer' class='font-semibold hover:text-primary transition-colors'>
+						{event.title}
+					</a>
+				) : (
+					<span class='font-semibold'>{event.title}</span>
+				)}
+				{event.detailsHtml && <p class={`text-sm text-base-content/80 ${richText}`} set:html={event.detailsHtml} />}
+				{event.noteHtml && <p class={`text-sm text-base-content/60 ${richText}`} set:html={event.noteHtml} />}
+			</div>
+		</li>
+	))}
+</ul>
