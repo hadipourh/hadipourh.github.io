@@ -9,12 +9,12 @@ export const profile = {
 	institute: 'Ruhr University Bochum',
 	author_name: 'Hosein Hadipour', // Author name to be highlighted in the papers section
 	research_areas: [
-		{ title: 'Cryptanalysis', description: 'Cryptanalysis of symmetric-key primitives through unified attack frameworks and creative techniques, including differential, linear, differential-linear, boomerang, integral, impossible-differential, and zero-correlation attacks.', field: 'cryptography' },
-		{ title: 'Automated Cryptanalysis', description: 'Interested in the automation of cryptanalysis, with emphasis on designing tools and algorithms for systematic security evaluation of ciphers, such as SAT/SMT-based approaches and dedicated frameworks.', field: 'automation' },
-		{ title: 'Logic and Constraint Programming', description: 'Applying formal logic and constraint programming to applied problems, including satisfiability, automated reasoning, and combinatorial optimization.', field: 'logic' },
-		{ title: 'Side-Channel Analysis', description: 'Exploring physical attack vectors against cryptographic implementations, such as fault injection, power analysis, and electromagnetic analysis techniques.', field: 'hardware-security' },
-		{ title: 'Applied Mathematics', description: 'Exploring connections between mathematics, logic, and computer science, and applying advances from one area to solve challenges in another, particularly in cryptography and security.', field: 'applied-mathematics' },
-		{ title: 'Information Security', description: 'General interest in securing information systems, with focus on principles and practices such as threat modeling, risk management, and security evaluation.', field: 'information-security' },
+		{ title: 'Symmetric-Key Cryptanalysis and Design', description: 'Security analysis and design of block ciphers, hash functions, and permutations, using differential, linear, differential-linear, boomerang, integral, impossible-differential, and zero-correlation attacks.', field: 'cryptography' },
+		{ title: 'Automated Cryptanalysis', description: 'Turning cryptanalytic problems into SAT, SMT, MILP, and constraint-programming models, and building tools that search for attacks systematically. Recently, using LLMs to help build these models, write and check attack code, and drive the search, with solvers and experiments verifying every result.', field: 'automation' },
+		{ title: 'Mathematical Foundations', description: 'Logic and Boolean algebra, algebra and graph theory, and probability and statistics as the toolkit behind cryptanalysis.', field: 'applied-mathematics' },
+		{ title: 'Security and Reliability of AI Agents', description: 'How AI agents that use tools and act on real systems can be attacked or fail, and how to make them secure and reliable.', field: 'ai-agents' },
+		{ title: 'Side-Channel and Fault Analysis', description: 'Physical attacks on cryptographic implementations, especially fault attacks and side-channel leakage.', field: 'hardware-security' },
+		{ title: 'High-Performance and Secure Implementations', description: 'Fast, reliable implementations of attacks and primitives, including GPU (CUDA) key recovery and experimental verification of attack complexities.', field: 'implementation' },
 	],
 
 }
