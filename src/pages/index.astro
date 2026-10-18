@@ -9,7 +9,7 @@ import SecurityInfo from '@/components/ui/SecurityInfo.astro'
 // Import publications from the auto-generated JSON file (same source as CV page)
 import publicationsData from '../data/publications.json'
 
-const { fullName, title, institute, research_areas } = profile
+const { fullName, title, institute, research_intro, research_areas } = profile
 
 // Convert publications from JSON data to expected format for ArticleList
 // Sort by year (most recent first) for "Recent Publications"
@@ -119,7 +119,7 @@ const jsonLd = {
 
 	<!-- Research Areas -->
 	<section class='py-12 border-b relative'>
-		<Grid gridTitle='Research Areas' gridItems={research_areas} />
+		<Grid gridTitle='Research Areas' gridIntro={research_intro} gridItems={research_areas} />
 	</section>
 
 	<!-- Recent Publications -->

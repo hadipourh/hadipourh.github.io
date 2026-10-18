@@ -8,8 +8,10 @@ export const profile = {
 	title: 'Postdoctoral Researcher',
 	institute: 'Ruhr University Bochum',
 	author_name: 'Hosein Hadipour', // Author name to be highlighted in the papers section
+	// Shown above the Research Areas boxes on the home page.
+	research_intro: "I am interested in mathematics, logic, and computer science. I love finding connections between different types of mathematical problems and applying advances from one area to solve challenges in another. Because I enjoy both theoretical and applied science, I chose cryptography as the focus of my master's and Ph.D. research, where I can use my mathematical background and computing skills to tackle cryptographic problems.",
 	research_areas: [
-		{ title: 'Symmetric-Key Cryptanalysis and Design', description: 'Security analysis and design of block ciphers, hash functions, and permutations, using differential, linear, differential-linear, boomerang, integral, impossible-differential, and zero-correlation attacks.', field: 'cryptography' },
+		{ title: 'Cryptanalysis and Design', description: 'Cryptanalysis in general and symmetric-key cryptanalysis in particular, from structural attacks such as differential, linear, differential-linear, boomerang, integral, impossible-differential, and zero-correlation attacks to entirely new ones. Also designing symmetric-key primitives that resist them.', field: 'cryptography' },
 		{ title: 'Automated Cryptanalysis', description: 'Automating the search for attacks with methods ranging from SAT, SMT, MILP, and constraint-programming models to ad hoc search algorithms and greedy heuristics. More recently, exploring how we can use LLMs to find structural properties and even new attacks, and to automate the remaining manual steps, from modeling a cipher to writing and testing attack code.', field: 'automation' },
 		{ title: 'Mathematical Foundations', description: 'Logic and Boolean algebra, algebra and graph theory, and probability and statistics as the toolkit behind cryptanalysis.', field: 'applied-mathematics' },
 		{ title: 'Security and Reliability of AI Agents', description: 'How AI agents that use tools and act on real systems can be attacked or fail, and how to make them secure and reliable.', field: 'ai-agents' },

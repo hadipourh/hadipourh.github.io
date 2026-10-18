@@ -1,13 +1,14 @@
 ---
 interface Props {
   gridTitle: string;
+  gridIntro?: string;
   gridItems: {
     title: string;
     description: string;
   }[];
 }
 
-const {gridTitle, gridItems} = Astro.props;
+const {gridTitle, gridIntro, gridItems} = Astro.props;
 
 import { text } from '../../lib/utils';
 
@@ -16,6 +17,7 @@ const hoverTints = ['hover:bg-primary/10', 'hover:bg-primary/10', 'hover:bg-prim
 const borderTints = ['border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40', 'border-primary/20 hover:border-primary/40']
 ---
 <h2 class={`text-3xl md:text-4xl font-bold mb-8 ${text.heading}`}>{gridTitle}</h2>
+{gridIntro && <p class='text-base lg:text-lg leading-relaxed text-base-content/80 mb-8'>{gridIntro}</p>}
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {gridItems.map((item, index) => (
     <div class={`group relative overflow-hidden p-6 rounded-lg bg-base-200 ${hoverTints[index % 3]} transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 border ${borderTints[index % 3]}`}>
