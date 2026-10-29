@@ -1,0 +1,85 @@
+/* Scoped to the Lean tutorial. Existing blog posts keep their own styles. */
+.lean-article {
+  --lean-line: oklch(var(--bc) / .18);
+  font-size: 1.0625rem !important;
+  line-height: 1.8 !important;
+}
+.lean-article .post-content { font-size: inherit !important; line-height: inherit !important; }
+.lean-article .article-title { font-size: clamp(2rem, 4.2vw, 3.1rem) !important; line-height: 1.17; letter-spacing: -.025em; }
+.lean-article .article-header { border-color: var(--lean-line); }
+.lean-article h2 { font-size: 1.65rem !important; line-height: 1.35; margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lean-line); scroll-margin-top: 2rem; }
+.lean-article a { overflow-wrap: anywhere; text-underline-offset: .2em; }
+.lean-article kbd { font: inherit; font-size: .85em; padding: .1em .4em; border: 1px solid var(--lean-line); border-bottom-width: 2px; border-radius: .3rem; background: oklch(var(--b2) / .6); color: oklch(var(--bc)); box-shadow: none; }
+.lean-article .lean-name { font-variant-caps: small-caps; letter-spacing: .04em; }
+.lean-article .lean-download { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; padding: 1rem 0; margin: 1.8rem 0; border-block: 1px solid var(--lean-line); font-size: .9rem; }
+.lean-article .lean-download a { font-weight: 650; }
+.lean-article .lean-download span { color: oklch(var(--bc) / .7); }
+.lean-article .lean-contents { border: 1px solid var(--lean-line); border-radius: .75rem; padding: 1.2rem 1.5rem; background: oklch(var(--b2) / .5); font-size: .94rem; }
+.lean-article .lean-contents ol { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.7rem; margin: .8rem 0 0; padding-left: 1.2rem; }
+.lean-article .lean-contents li { margin: 0; }
+.lean-article .lean-workflow { display: flex; align-items: center; gap: .65rem; margin: 1.8rem 0; }
+.lean-article .lean-workflow > span:not([aria-hidden]) { flex: 1; min-height: 6.6rem; padding: 1rem; border: 1px solid var(--lean-line); border-radius: .6rem; font-size: .85rem; line-height: 1.5; }
+.lean-article .lean-workflow strong { display: block; color: oklch(var(--p)); font-size: 1rem; margin-bottom: .3rem; }
+.lean-article .lean-workflow > [aria-hidden] { color: oklch(var(--bc) / .6); }
+.lean-article .lean-explorer { padding: clamp(1rem, 3vw, 1.6rem); border: 1px solid var(--lean-line); border-radius: .75rem; background: oklch(var(--b2) / .4); margin: 2rem 0; }
+.lean-article .lean-explorer-heading strong { display: block; font-size: 1.1rem; }
+.lean-article .lean-explorer-heading > span { display: block; font-size: .83rem; color: oklch(var(--bc) / .7); }
+.lean-article .lean-controls { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0; }
+.lean-article .lean-controls button { border: 1px solid var(--lean-line); border-radius: .4rem; min-height: 44px; font: inherit; font-size: .85rem; padding: .5rem .75rem; background: oklch(var(--b1)); color: oklch(var(--bc)); cursor: pointer; }
+.lean-article .lean-controls button[aria-pressed="true"] { background: oklch(var(--p)); color: oklch(var(--pc)); border-color: oklch(var(--p)); }
+.lean-article :is(button, summary, a):focus-visible { outline: 2px solid oklch(var(--p)); outline-offset: 4px; }
+.lean-article .lean-halves { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.lean-article .lean-halves section { padding: 1rem; border: 1px solid var(--lean-line); border-radius: .5rem; background: oklch(var(--b1)); }
+.lean-article .lean-halves h4 { margin: 0 0 .7rem; font-size: .95rem; }
+.lean-article .lean-halves ul { margin: 0; padding: 0; list-style: none; }
+.lean-article .lean-halves li { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin: 0; padding: .35rem 0; }
+.lean-article .lean-halves li code { font-size: .94rem !important; white-space: nowrap; background: transparent !important; padding: 0 !important; }
+.lean-article .lean-halves li span { font-size: .9rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.lean-article .lean-halves p { border-top: 1px solid var(--lean-line); margin: .6rem 0 0; padding-top: .65rem; font-size: 1rem; }
+.lean-article .sign-plus { color: #007b72; }
+.lean-article .sign-minus { color: #ad4b10; }
+[data-theme="night"] .lean-article .sign-plus { color: #5eead4; }
+[data-theme="night"] .lean-article .sign-minus { color: #fdba74; }
+.lean-article .lean-result { border-left: 3px solid oklch(var(--p)); padding: .15rem 0 .15rem 1rem; margin-top: 1.2rem; }
+.lean-article .lean-result p { margin: .45rem 0; font-size: .9rem; line-height: 1.65; }
+.lean-article [data-relation] { font-weight: 650; font-variant-numeric: tabular-nums; }
+.lean-article figcaption { font-size: .8rem; line-height: 1.6; margin: 1.2rem 0 0; color: oklch(var(--bc) / .7); }
+.lean-article .lean-editor { margin: 2rem 0; --lean-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+.lean-article .lean-editor [hidden] { display: none !important; }
+.lean-article .lean-editor-window { display: grid; gap: 1px; background: var(--lean-line); border: 1px solid var(--lean-line); border-radius: .75rem; overflow: hidden; }
+.lean-article .lean-editor-pane { min-width: 0; background: var(--astro-code-background); color: var(--astro-code-foreground); }
+.lean-article .lean-infoview { background: oklch(var(--b1)); color: oklch(var(--bc)); }
+.lean-article .lean-pane-title { padding: .45rem 1rem; border-bottom: 1px solid var(--lean-line); font-size: .75rem; color: oklch(var(--bc) / .7); }
+.lean-article .lean-editor-code { list-style: none; margin: 0; padding: .8rem 1rem .8rem 0; overflow-x: auto; font-family: var(--lean-mono); font-size: .8rem; line-height: 1.75; }
+.lean-article .lean-editor-code > li { margin: 0; padding: 0 .5rem 0 0; white-space: pre; counter-increment: line; }
+.lean-article .lean-editor-code > li::before { content: counter(line); display: inline-block; width: 3.2rem; padding-right: 1.1rem; text-align: right; color: oklch(var(--bc) / .4); user-select: none; }
+.lean-article .lean-editor-code > li.is-marked { background: oklch(var(--p) / .1); }
+.lean-article .lean-caret { display: inline-block; width: 2px; height: 1.2em; margin: 0 -1px; vertical-align: text-bottom; background: oklch(var(--p)); }
+.lean-article .lean-error-token.is-marked { text-decoration: underline wavy oklch(var(--er)); text-decoration-thickness: 1.5px; text-underline-offset: .25em; }
+.lean-article .lean-infoview-body { padding: .8rem 1rem 1rem; }
+.lean-article .lean-infoview-label { margin: 0 0 .35rem !important; font-size: .75rem !important; font-weight: 650; color: oklch(var(--bc) / .7) !important; }
+.lean-article .lean-goal { white-space: pre; overflow-x: auto; font-family: var(--lean-mono); font-size: .8rem; line-height: 1.7; }
+.lean-article .lean-goal + .lean-infoview-label { margin-top: 1rem !important; }
+.lean-article .lean-message-error { color: oklch(var(--er)); border-left: 2px solid oklch(var(--er)); padding-left: .75rem; }
+.lean-article .lean-new { background: oklch(var(--p) / .14); border-radius: .2rem; }
+.lean-article .lean-detail { border: 1px solid var(--lean-line); border-radius: .5rem; padding: .85rem 1rem; margin: 1rem 0; }
+.lean-article .lean-detail summary { font-size: .94rem; font-weight: 650; cursor: pointer; }
+.lean-article .lean-detail > p { font-size: .94rem; }
+.lean-article pre, .lean-article pre code { font-size: .82rem !important; line-height: 1.65 !important; white-space: pre !important; word-break: normal !important; }
+.lean-article .katex, .lean-article .katex * { max-width: none !important; overflow-wrap: normal !important; word-wrap: normal !important; word-break: normal !important; box-sizing: content-box !important; }
+.lean-article .katex { font-size: 1.06em; }
+.lean-article .katex-display { overflow-x: auto; overflow-y: hidden; padding: .65rem .1rem; margin: 1.4rem 0; max-width: 100% !important; }
+.lean-article .katex-mathml { position: absolute !important; }
+@media (max-width: 640px) {
+  .lean-article { font-size: 1rem !important; }
+  .lean-article h2 { font-size: 1.4rem !important; }
+  .lean-article .lean-contents ol { grid-template-columns: 1fr; }
+  .lean-article .lean-halves { grid-template-columns: 1fr; }
+  .lean-article .lean-workflow { flex-direction: column; align-items: stretch; }
+  .lean-article .lean-workflow > span:not([aria-hidden]) { min-height: auto; }
+  .lean-article .lean-workflow > [aria-hidden] { text-align: center; transform: rotate(90deg); }
+}
+@media print {
+  .lean-article .lean-controls { display: none; }
+  .lean-article .lean-halves { grid-template-columns: 1fr 1fr; }
+}

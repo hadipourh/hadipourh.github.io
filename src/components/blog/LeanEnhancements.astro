@@ -1,0 +1,86 @@
+---
+import '../../styles/lean-article.css';
+---
+<script>
+  function initializeLeanExample() {
+    const figure = document.querySelector<HTMLElement>('[data-halfspace-explorer]');
+    if (!figure || figure.dataset.ready === 'true') return;
+    figure.dataset.ready = 'true';
+
+    const bits = (value: number) => value.toString(2).padStart(3, '0');
+    const number = (value: number) => String(value).replace('-', '−');
+    const maps: Record<string, (x: number) => number> = {
+      toy: x => x ^ ((x & 3) === 3 ? 4 : 0),
+      identity: x => x,
+      constant: () => 0,
+    };
+
+    const draw = (selected: string) => {
+      const map = maps[selected];
+      if (!map) return;
+      const sums = [0, 0];
+      for (let b = 0; b < 2; b++) {
+        const list = figure.querySelector<HTMLUListElement>(`[data-half="${b}"]`)!;
+        list.replaceChildren();
+        for (let z = 0; z < 4; z++) {
+          const input = b * 4 + z;
+          const output = map(input);
+          const sign = output < 4 ? 1 : -1;
+          sums[b] += sign;
+          const row = document.createElement('li');
+          const mapping = document.createElement('code');
+          mapping.textContent = `${bits(input)} → ${bits(output)}`;
+          const contribution = document.createElement('span');
+          contribution.className = sign > 0 ? 'sign-plus' : 'sign-minus';
+          contribution.textContent = sign > 0 ? '+1' : '−1';
+          row.append(mapping, contribution);
+          list.append(row);
+        }
+      }
+      const [i0, i1] = sums;
+      figure.querySelector('[data-i0]')!.textContent = number(i0);
+      figure.querySelector('[data-i1]')!.textContent = number(i1);
+      figure.querySelector('[data-relation]')!.textContent =
+        `I₀ + I₁ = ${number(i0 + i1)} · L = I₀ − I₁ = ${number(i0 - i1)} · 2I₀ = ${number(2 * i0)}`;
+      figure.querySelector('[data-explanation]')!.textContent = selected === 'constant'
+        ? 'Every input maps to 000. This function is not bijective: L = 0, but 2I₀ = 8. The permutation assumption matters.'
+        : 'All eight outputs are distinct. The two halves have opposite sums, and L = 2I₀.';
+      figure.querySelectorAll<HTMLButtonElement>('[data-map]').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.map === selected));
+      });
+    };
+
+    figure.querySelectorAll<HTMLButtonElement>('[data-map]').forEach(button => {
+      button.addEventListener('click', () => draw(button.dataset.map!));
+    });
+  }
+
+  function initializeLeanSteppers() {
+    document.querySelectorAll<HTMLElement>('[data-lean-stepper]').forEach(figure => {
+      if (figure.dataset.ready === 'true') return;
+      figure.dataset.ready = 'true';
+
+      const show = (view: string) => {
+        const inView = (list: string) => list.split(' ').includes(view);
+        figure.querySelectorAll<HTMLElement>('[data-show]').forEach(element => {
+          element.hidden = !inView(element.dataset.show!);
+        });
+        figure.querySelectorAll<HTMLElement>('[data-mark]').forEach(element => {
+          element.classList.toggle('is-marked', inView(element.dataset.mark!));
+        });
+        figure.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(button => {
+          button.setAttribute('aria-pressed', String(button.dataset.view === view));
+        });
+      };
+
+      figure.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(button => {
+        button.addEventListener('click', () => show(button.dataset.view!));
+      });
+    });
+  }
+
+  initializeLeanExample();
+  initializeLeanSteppers();
+  document.addEventListener('astro:page-load', initializeLeanExample);
+  document.addEventListener('astro:page-load', initializeLeanSteppers);
+</script>

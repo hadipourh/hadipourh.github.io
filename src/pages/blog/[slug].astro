@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import 'katex/dist/katex.min.css'
 import KeeLoqEnhancements from '@/components/blog/KeeLoqEnhancements.astro'
+import LeanEnhancements from '@/components/blog/LeanEnhancements.astro'
 import {getCollection, render} from 'astro:content'
 
 export async function getStaticPaths(): Promise<Array<{ params: { slug: string }, props: { post: any } }>> {
@@ -20,14 +21,16 @@ export async function getStaticPaths(): Promise<Array<{ params: { slug: string }
 const {post} = Astro.props;
 const { title, date, tags, excerpt } = post.data;
 const isKeeLoq = post.id === "keeloq-attacks";
+const isLean = post.id === "lean-for-cryptanalysts";
 const { Content } = await render(post);
 ---
 
 <Layout title={title} description={excerpt}>
     {isKeeLoq && <KeeLoqEnhancements />}
+    {isLean && <LeanEnhancements />}
 	<div class='w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
 		<article
-			class:list={[isKeeLoq && 'keeloq-article']}
+			class:list={[isKeeLoq && 'keeloq-article', isLean && 'lean-article']}
 			class='prose w-full max-w-full prose-headings:text-base-content prose-p:text-base-content/80 prose-sm sm:prose-base lg:prose-lg overflow-hidden'
 		>
 			<!-- Header section -->
