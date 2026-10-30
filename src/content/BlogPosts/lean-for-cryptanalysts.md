@@ -5,7 +5,7 @@ excerpt: "Learn how to turn a cryptanalytic argument into a machine-checked proo
 tags: ["symmetric-key cryptanalysis", "Lean", "formal verification", "tutorial"]
 ---
 
-Many results in symmetric-key cryptanalysis rest on short mathematical arguments, such as an identity that connects two distinguishers or a property of an S-box that justifies a constraint in a search model. We usually check these arguments by hand, and a slip in a normalization or a missing hypothesis can go unnoticed by authors and reviewers alike.
+Many results in cryptanalysis rest on mathematical arguments, such as an identity that connects two distinguishers or a property of an S-box that justifies a constraint in a search model. We usually check them by hand, so small mistakes can go unnoticed.
 
 This post shows how to let a computer check such arguments using <span class="lean-name">Lean</span>, a language for writing mathematical proofs. We begin with a warm-up, the invertibility of a Feistel round, and then formalize an identity [connecting linear and integral sums](https://ia.cr/2026/2471). By the end, you will be able to read these proofs, run them in your editor, and adapt them to claims from your own research.
 
@@ -52,13 +52,40 @@ Each tactic either proves the goal or replaces it with simpler goals. We will us
 
 Some tactics are large programs, and large programs can have bugs. <span class="lean-name">Lean</span> therefore does not simply trust them. Each tactic produces a complete, detailed proof, and a small separate part of <span class="lean-name">Lean</span>, its **kernel**, checks that proof. We need to trust the kernel, not every tactic. The [Lean reference explains this proof-checking process](https://lean-lang.org/doc/reference/4.35.0/Tactic-Proofs/).
 
-<div class="lean-workflow" role="img" aria-label="Definitions and a theorem statement, followed by a proof built with tactics, are checked by the Lean kernel to obtain a checked theorem.">
-<span><strong>State</strong>Definitions and theorem statement</span><span aria-hidden="true">→</span><span><strong>Prove</strong>Proof steps written with tactics</span><span aria-hidden="true">→</span><span><strong>Check</strong>Lean's kernel</span>
-</div>
-
 For a cryptanalyst, this catches familiar mistakes. A factor of two cannot disappear between two lines. A sum over half the inputs cannot quietly become a sum over all of them. A theorem about permutations cannot be applied to an arbitrary function until we prove that the function is a permutation.
 
 <span class="lean-name">Lean</span> does not check whether our definitions describe what we intend. If we define an S-box with a wrong table entry, <span class="lean-name">Lean</span> will correctly prove facts about the wrong S-box. Choosing the definitions is our job. <span class="lean-name">Lean</span> checks the reasoning built on them, and anyone can rerun that check.
+
+<figure class="lean-trust">
+<div class="lean-trust-flow">
+<section class="lean-trust-group lean-trust-human">
+<p class="lean-trust-label">Checked by you</p>
+<div class="lean-trust-step">
+<strong>1. Definitions and statement</strong>
+<p>The objects and the claim, for example: if <i>x</i> is even, then <i>x</i><sup>2</sup> is even.</p>
+<p><span class="lean-name">Lean</span> cannot tell whether they describe what you intend.</p>
+</div>
+</section>
+<span class="lean-trust-arrow" aria-hidden="true">→</span>
+<section class="lean-trust-group lean-trust-machine">
+<p class="lean-trust-label">Checked by <span class="lean-name">Lean</span></p>
+<div class="lean-trust-steps">
+<div class="lean-trust-step">
+<strong>2. Proof written with tactics <span class="lean-trust-tag">not trusted</span></strong>
+<p>You apply tactics such as <code>simp</code> or <code>ring</code>, one at a time. After each one, the Infoview shows the goal that remains.</p>
+<p>Tactics are large programs and may have bugs. Each produces a complete, detailed proof.</p>
+</div>
+<span class="lean-trust-arrow" aria-hidden="true">→</span>
+<div class="lean-trust-step">
+<strong>3. Kernel <span class="lean-trust-tag is-trusted">trusted</span></strong>
+<p>A small part of <span class="lean-name">Lean</span> checks every step of the detailed proof.</p>
+<p class="lean-trust-result">If every step is valid, the theorem is proved, and anyone can rerun the check.</p>
+</div>
+</div>
+</section>
+</div>
+<figcaption>To trust a result checked by <span class="lean-name">Lean</span>, read its definitions and statement carefully. The kernel checks the proof.</figcaption>
+</figure>
 
 ## A warm-up: one Feistel round
 
