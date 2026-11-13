@@ -2,20 +2,20 @@
 
 /**
  * Publications Updater - Comprehensive DBLP Integration
- * Fetches publications from DBLP and ranks them by venue prestige
+ * Fetches publications from DBLP's official SPARQL API and ranks them by venue prestige
  * Updates the publications page with real statistics and content
  */
 
 import fs from 'fs/promises';
 import path from 'path';
+import { fetchDblpRecords } from './lib/dblp.js';
 
-const DBLP_API = 'https://dblp.org/search/publ/api';
 const SEMANTIC_SCHOLAR_API = 'https://api.semanticscholar.org/graph/v1';
-const AUTHOR_NAME = 'Hosein Hadipour';
 
 // Rate limiting for Semantic Scholar (100 requests per 5 minutes)
 const SS_RATE_LIMIT_DELAY = 3500; // 3.5 seconds between requests to be safe
 let lastSSRequest = 0;
+let citationRequestsBlocked = false;
 
 async function rateLimitedFetch(url, options = {}) {
   const now = Date.now();
@@ -26,7 +26,12 @@ async function rateLimitedFetch(url, options = {}) {
   }
   
   lastSSRequest = Date.now();
-  return fetch(url, options);
+  const response = await fetch(url, { ...options, signal: AbortSignal.timeout(15000) });
+  if (response.status === 429 || response.status === 403) {
+    citationRequestsBlocked = true;
+    throw new Error(`Semantic Scholar returned HTTP ${response.status}; keeping cached citation counts for this run`);
+  }
+  return response;
 }
 
 // Venue prestige ranking (higher score = more prestigious)
@@ -167,6 +172,7 @@ function highlightAuthorName(authors) {
  * Tries DOI first, then falls back to title search
  */
 async function fetchCitationCount(publication) {
+  if (citationRequestsBlocked) return null;
   try {
     // Try by DOI first (most reliable)
     if (publication.doi) {
@@ -178,7 +184,7 @@ async function fetchCitationCount(publication) {
       
       if (response.ok) {
         const data = await response.json();
-        if (data.citationCount !== undefined) {
+        if (Number.isInteger(data.citationCount) && data.citationCount >= 0) {
           return data.citationCount;
         }
       }
@@ -193,30 +199,55 @@ async function fetchCitationCount(publication) {
     if (searchResponse.ok) {
       const searchData = await searchResponse.json();
       if (searchData.data && searchData.data.length > 0) {
-        return searchData.data[0].citationCount || 0;
+        const count = searchData.data[0].citationCount;
+        if (Number.isInteger(count) && count >= 0) return count;
       }
     }
     
-    return 0;
+    return null;
   } catch (error) {
     console.warn(`  Warning: Could not fetch citations for "${publication.title.substring(0, 50)}...": ${error.message}`);
-    return 0;
+    return null;
   }
+}
+
+function citationKey(publication) {
+  if (publication.doi) return `doi:${publication.doi.replace(/^https?:\/\/(?:dx\.)?doi\.org\//i, '').toLowerCase()}`;
+  return publication.url || JSON.stringify([publication.title, publication.venue, publication.year]);
+}
+
+// Match publication versions separately; never replace a saved count with an API failure.
+export function resolveCitationCount(publication, fetchedCount, previousPublications) {
+  if (Number.isInteger(fetchedCount) && fetchedCount >= 0) return fetchedCount;
+  const previous = previousPublications.find(item =>
+    (publication.dblpUrl && item.dblpUrl === publication.dblpUrl) || citationKey(item) === citationKey(publication)
+  );
+  return Number.isInteger(previous?.citations) && previous.citations >= 0 ? previous.citations : 0;
 }
 
 /**
  * Fetch citations for all publications with progress logging
  */
 async function fetchAllCitations(publications) {
+  let previousPublications = [];
+  try {
+    previousPublications = JSON.parse(await fs.readFile(path.join(process.cwd(), 'src/data/publications.json'), 'utf8')).publications;
+    if (!Array.isArray(previousPublications)) throw new Error('Invalid publication cache');
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
   console.log('\nFetching citation counts from Semantic Scholar...');
   console.log(`(This may take ${Math.ceil(publications.length * SS_RATE_LIMIT_DELAY / 1000 / 60)} minutes due to rate limiting)\n`);
   
   const results = [];
   let totalCitations = 0;
+  let unavailable = 0;
   
   for (let i = 0; i < publications.length; i++) {
     const pub = publications[i];
-    const citations = await fetchCitationCount(pub);
+    const fetchedCount = await fetchCitationCount(pub);
+    if (fetchedCount === null) unavailable++;
+    const citations = resolveCitationCount(pub, fetchedCount, previousPublications);
     totalCitations += citations;
     
     results.push({
@@ -230,70 +261,26 @@ async function fetchAllCitations(publications) {
   }
   
   console.log('\n');
+  if (unavailable > 0) console.log(`Citation lookups unavailable for ${unavailable} records; retained saved counts where available.`);
   return results;
 }
 
 /**
- * Fetch publications from DBLP
+ * Fetch publications by persistent DBLP author ID using the supported SPARQL API.
  */
 async function fetchDBLPPublications() {
   try {
-    console.log('Fetching publications from DBLP...');
-    
-    const response = await fetch(`${DBLP_API}?q=author%3A${encodeURIComponent(AUTHOR_NAME)}&format=json&h=100`, {
-      headers: {
-        'User-Agent': 'Academic-Website-Bot'
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`DBLP API request failed: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    const publications = data.result?.hits?.hit || [];
-    
-    console.log(`Found ${publications.length} publications from DBLP`);
-    
-    return publications.map(hit => {
-      const info = hit.info;
-      const venue = info.venue || 'Unknown Venue';
-      const year = parseInt(info.year) || 2024;
-      const type = getPublicationType(venue, info.type);
-      const prestigeScore = getVenueScore(venue);
-      
-      // Process authors
-      let authors = 'Unknown Author';
-      if (info.authors?.author) {
-        if (Array.isArray(info.authors.author)) {
-          authors = info.authors.author
-            .map(a => typeof a === 'string' ? a : a.text)
-            .join(', ');
-        } else {
-          authors = typeof info.authors.author === 'string' 
-            ? info.authors.author 
-            : info.authors.author.text;
-        }
-      }
-      
-      return {
-        title: info.title || 'Untitled',
-        authors: authors,
-        venue: venue,
-        year: year,
-        url: info.ee || info.url || '',
-        doi: info.doi || '',
-        type: type,
-        prestigeScore: prestigeScore,
-        pages: info.pages || '',
-        volume: info.volume || '',
-        number: info.number || ''
-      };
-    });
+    console.log('Fetching publications from DBLP SPARQL...');
+    const records = await fetchDblpRecords();
+    console.log(`Found ${records.length} publication records from DBLP`);
+    return records.map(({ publicationType, ...record }) => ({
+      ...record,
+      type: getPublicationType(record.venue, publicationType),
+      prestigeScore: getVenueScore(record.venue),
+    }));
     
   } catch (error) {
-    console.error('Error fetching DBLP publications:', error.message);
-    return [];
+    throw new Error(`Could not refresh publications: ${error.message}. Existing publication files were not changed.`);
   }
 }
 
@@ -589,6 +576,7 @@ async function updatePublicationsPage(publications) {
       lastUpdated: new Date().toISOString(),
       statistics: stats,
       publications: publications.map(pub => ({
+        dblpUrl: pub.dblpUrl,
         title: pub.title,
         authors: pub.authors,
         venue: pub.venue,
@@ -626,8 +614,7 @@ async function main() {
     let publications = await fetchDBLPPublications();
     
     if (publications.length === 0) {
-      console.log('No publications found');
-      return;
+      throw new Error('DBLP returned no publications. Existing publication files were not changed.');
     }
     
     // Fetch citation counts from Semantic Scholar
@@ -661,7 +648,7 @@ async function main() {
     console.log('- IACR Transactions counted as hybrid (both journal and conference)');
     console.log('- Prestige scores removed from public display');
     console.log('- Author name highlighting: Your name appears bold and underlined');
-    console.log('- Citation counts fetched from Semantic Scholar API');
+    console.log('- Citation counts from Semantic Scholar, with saved counts retained when unavailable');
     
     console.log('\nPublications update completed!');
     

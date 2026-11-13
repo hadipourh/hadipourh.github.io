@@ -59,12 +59,12 @@ export const profile = {
 ```
 
 ### CV Data (src/data/cv.ts)
-`src/data/cv.ts` is generated from `public/cv/CV.tex` by `npm run update:cv` and should not be edited by hand. CV.tex is the source of truth: the CV page shows its sections in CV.tex order, under CV.tex titles, with the Research Appointments and Education timelines on top. Publications are the exception; the CV page lists them from `src/data/publications.json` (see below). The References section is never published, and `\unless\ifpublic` blocks are dropped.
+`src/data/cv.ts` is generated from `public/cv/CV.tex` by `npm run update:cv` and should not be edited by hand. CV.tex supplies the content, including the Research Profile, and the generated sections retain its order and titles. `src/pages/cv.astro` controls the website layout: Research Appointments and Education timelines first, Research and Publications last, and the remaining sections in CV.tex order. Publications come from `src/data/publications.json` (see below). Rerunning the updater preserves this website layout without changing CV.tex or its section order. The References section is never published, and `\unless\ifpublic` blocks are dropped.
 
 The updater stops without touching `cv.ts` when CV.tex contains something it does not understand: an unknown `\section`, an unsupported LaTeX command, or text a section parser cannot read. The error names the section and what to change in `scripts/update-cv-from-latex.js`.
 
 ### Auto-Generated Publications (src/data/publications.json)
-Publications are automatically synchronized from DBLP via `scripts/update-publications.js` and stored in `src/data/publications.json`. Pages (home, CV, papers) consume this JSON directly. The update script runs automatically every 6 days or can be triggered manually.
+Publications are automatically synchronized from DBLP via `scripts/update-publications.js` and stored in `src/data/publications.json`. The updater uses the [official DBLP SPARQL API](https://sparql.dblp.org/) with the persistent author ID `244/8979`, preserving author order and publication metadata. Empty, incomplete, or failed responses leave the saved publications untouched. Citation counts come from Semantic Scholar; unavailable lookups retain saved counts. The home and CV pages consume the JSON, and the updater also regenerates the publication cards on the papers page. The existing GitHub Actions schedule and triggers remain unchanged; updates can also be run manually.
 
 ### Professional Icon Mapping (src/data/researchIcons.ts)
 CV sections and research areas reference semantic icon keys. The icon system uses SVG assets from `src/assets/social-icons/` for a consistent, professional look.
@@ -119,6 +119,7 @@ npm run update:projects  # Fetches from GitHub API
 ```bash
 npm run update:cv  # Parses CV.tex and refreshes src/data/cv.ts
 ```
+Run this locally after editing `public/cv/CV.tex`; it is not triggered automatically by editing the file or building the website. It refreshes the Research Profile and other CV data while preserving the website's publications-last layout. It does not modify `CV.tex`, regenerate the PDF, or upload anything to GitHub.
 
 ### All Updates
 ```bash

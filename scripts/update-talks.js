@@ -56,18 +56,18 @@ function parseTalksFromReadme(readmeContent, talkDirs) {
       return;
     }
     
-    // Extract date from title or content
-    const dateMatch = title.match(/(\d{4})/);
-    if (!dateMatch) return;
-    
-    // Find the corresponding directory
-    const matchingDir = talkDirs.find(dir => {
-      const dirYear = dir.substring(0, 4);
-      return dirYear === dateMatch[1];
-    });
+    // Match the linked slides folder: several talks can occur in the same year,
+    // and titles such as the Ph.D. defense do not necessarily contain a year.
+    const slidesPath = section.match(/-\s+\[Slides\]\(([^)]+)\)/)?.[1];
+    const linkedDir = slidesPath?.match(/(?:^|\/)(\d{8}-[^/?#]+)/)?.[1];
+    const titleYear = title.match(/\b\d{4}\b/)?.[0];
+    const yearDirs = talkDirs.filter(dir => dir.substring(0, 4) === titleYear);
+    const matchingDir = linkedDir
+      ? talkDirs.find(dir => dir === linkedDir)
+      : yearDirs.length === 1 ? yearDirs[0] : undefined;
     
     if (!matchingDir) {
-      console.log(`Skipped incomplete talk: ${title.substring(0, 40)}...`);
+      console.warn(`Skipped talk with no unambiguous slides folder: ${title.substring(0, 40)}...`);
       return;
     }
     
@@ -118,9 +118,7 @@ function parseTalksFromReadme(readmeContent, talkDirs) {
     }
     
     // Slides
-    const slidesMatches = [...fullContent.matchAll(/- \[Slides\]\(([^)]+)\)/g)];
-    if (slidesMatches && slidesMatches.length > 0) {
-      const slidesPath = slidesMatches[0][1];
+    if (slidesPath) {
       // Check if it's a full URL or relative path
       if (slidesPath.startsWith('http') || slidesPath.startsWith('https')) {
         links.slides = slidesPath;
@@ -157,9 +155,9 @@ function parseTalksFromReadme(readmeContent, talkDirs) {
     
     // Find date from directory name (more precise)
     const dateParts = matchingDir.substring(0, 8).match(/(\d{4})(\d{2})(\d{2})/);
-    const date = dateParts ? `${dateParts[1]}-${dateParts[2]}-${dateParts[3]}` : `${dateMatch[1]}-01-01`;
+    const date = `${dateParts[1]}-${dateParts[2]}-${dateParts[3]}`;
     
-    console.log(`Added talk: ${title.substring(0, 45)}${title.length > 45 ? '...' : ''} (${dateMatch[1]}, ${type})${location ? ' - Location: ' + location : ''}`);
+    console.log(`Added talk: ${title.substring(0, 45)}${title.length > 45 ? '...' : ''} (${date}, ${type})${location ? ' - Location: ' + location : ''}`);
     
     talks.push({
       title,

@@ -19,7 +19,7 @@ export type CvSectionKey =
   | 'memberships'
   | 'interests';
 
-/** A CV section in CV.tex order, titled as in CV.tex. */
+/** A CV section in source order; the page displays timelines first and publications last. */
 export interface CvSection {
   key: CvSectionKey;
   title: string;

@@ -29,13 +29,16 @@ import {
 // as the Publications page.
 import publicationsData from '@/data/publications.json'
 
-// The journey timelines always open the page; every other section follows
-// the order of CV.tex.
+// The journey timelines open the page and publications close it.
+// The remaining sections follow the order of CV.tex.
 const timelines = { appointments, education }
 const isTimeline = (section: CvSection): section is CvSection & { key: keyof typeof timelines } =>
 	section.key in timelines
 const timelineSections = cvSections.filter(isTimeline)
-const otherSections = cvSections.filter((section) => !isTimeline(section))
+const otherSections = [
+	...cvSections.filter((section) => !isTimeline(section) && section.key !== 'publications'),
+	...cvSections.filter((section) => section.key === 'publications'),
+]
 
 // DBLP lists most papers twice, as the venue version and as its ePrint. Show
 // each paper once: the published version, with a link to its ePrint.
