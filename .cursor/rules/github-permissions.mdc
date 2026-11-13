@@ -1,6 +1,0 @@
----
-description: Require explicit permission for GitHub uploads and keep the CV source private
-alwaysApply: true
----
-
-Follow the GitHub publishing permissions in the repository's root `AGENTS.md`, including the requirement for explicit permission before any GitHub upload and the exclusion of `public/cv/CV.tex` from Git.
